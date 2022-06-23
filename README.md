@@ -21,9 +21,9 @@ Translated by : *Muhammad John Trust.*
 ## *Screenshots of 'Tamil Quran'.*
 
 <p float="left">
-  <img src="screenshots/Screenshot_2020-05-27-20-23-36-351_com.yunus.quran_app.png" width="200" />
-  <img src="screenshots/Screenshot_2020-05-27-20-23-43-527_com.yunus.quran_app.png" width="200" /> 
-  <img src="screenshots/Screenshot_2020-05-27-20-23-54-591_com.yunus.quran_app.png" width="200" />
-  <img src="screenshots/Screenshot_2020-05-27-20-24-01-308_com.yunus.quran_app.png" width="200" />
-  <img src="screenshots/Screenshot_2020-05-27-20-24-09-414_com.yunus.quran_app.png" width="200" />
+  <img src="screenshots/Screenshot_20220622_191021.png" width="200" />
+  <img src="screenshots/Screenshot_20220622_191051.png" width="200" /> 
+  <img src="screenshots/Screenshot_20220622_191126.png" width="200" />
+  <img src="screenshots/Screenshot_20220622_191204.png" width="200" />
+  <img src="screenshots/Screenshot_20220622_191233.png" width="200" />
 </p>
