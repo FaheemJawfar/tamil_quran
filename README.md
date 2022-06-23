@@ -26,5 +26,5 @@ Translated by : *Muhammad John Trust.*
   <img src="screenshots/Screenshot_20220622_191126.png" width="400" />
   <img src="screenshots/Screenshot_20220622_191204.png" width="400" />
   <img src="screenshots/Screenshot_20220622_191233.png" width="400" />
-  <img src="screenshots/Screenshot_20220623_193312.png" width="400" />
+  <img src="screenshots/Screenshot_20220623_193922.png" width="400" />
 </p>
