@@ -2,7 +2,7 @@
 
 **'Tamil Quran'** is an Android app made with Flutter.
 This app is a spin off from my previous app 'Sri Lankan prayer times'.
-Now it comes as a seperate app.
+Now it comes as a separate app.
 
 Read Holy Quran in Arabic and read the translation in Tamil.
 
