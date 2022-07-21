@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:share/share.dart';
 
 class GoToVerse extends StatefulWidget {
   final int SuraNumber;
@@ -82,23 +83,10 @@ class _GoToVerseState extends State<GoToVerse> {
                               ),
                               onTap: () {},
                               onLongPress: () {
-                                Clipboard.setData(ClipboardData(
-                                  text:
-                                      '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber + 1}:${VerseNumber})',
-                                ));
 
-                                CopiedVerse =
-                                    '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber + 1}:${VerseNumber})';
+                                Share.share('${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber + 1}:${VerseNumber})'
+                                    '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
 
-                                final snackBar = SnackBar(
-                                  content: Text(
-                                    'வசனம் பிரதியெடுக்கப்பட்டது\n\n$CopiedVerse',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  backgroundColor: Colors.red[900],
-                                );
-
-                                Scaffold.of(context).showSnackBar(snackBar);
                               },
                             ),
                           );

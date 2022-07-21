@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:share/share.dart';
 
 class SuraPage extends StatefulWidget {
   final int SuraNumber;
@@ -15,7 +16,6 @@ class SuraPage extends StatefulWidget {
   State<SuraPage> createState() => _SuraPageState();
 }
 
-String copyableText = '';
 List _quranDb = [];
 List _QuranArabic = [];
 int VerseNumber = 0;
@@ -26,7 +26,7 @@ class _SuraPageState extends State<SuraPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green[400],
+          backgroundColor: Colors.green[900],
           centerTitle: true,
           title: Text(
             widget.SuraName,
@@ -72,23 +72,10 @@ class _SuraPageState extends State<SuraPage> {
                                 ),
                                 onTap: () {},
                                 onLongPress: () {
-                                  Clipboard.setData(ClipboardData(
-                                    text:
-                                        '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber + 1}:${VerseNumber})',
-                                  ));
 
-                                  CopiedVerse =
-                                      '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber + 1}:${VerseNumber})';
+                                  Share.share('${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber + 1}:${VerseNumber})'
+                                      '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
 
-                                  final snackBar = SnackBar(
-                                    content: Text(
-                                      'வசனம் பிரதியெடுக்கப்பட்டது\n\n$CopiedVerse',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    backgroundColor: Colors.red[900],
-                                  );
-
-                                  Scaffold.of(context).showSnackBar(snackBar);
                                 },
                               ),
                             );

@@ -8,13 +8,13 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('About Us.'),
-        backgroundColor: Colors.green[400],
+        backgroundColor: Colors.green[900],
         centerTitle: true,
       ),
       body: Container(
         padding: EdgeInsets.all(15),
         height: double.infinity,
-        color: Colors.grey[200],
+        color: Colors.grey[300],
         child: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -27,7 +27,8 @@ class AboutUs extends StatelessWidget {
                   radius: 40,
                   backgroundColor: Colors.green[600],
                 ),
-                Text(
+                SizedBox(height: 5,),
+                const Text(
                   'திருக்குர்ஆன்',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -37,7 +38,7 @@ class AboutUs extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   '( அரபி மூலமும் தமிழாக்கமும் )',
                   style: TextStyle(
                       fontWeight: FontWeight.normal,
@@ -47,7 +48,7 @@ class AboutUs extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'மொழிபெயர்ப்பு : \nமுஹம்மது ஜான் டிரஸ்ட்',
                   style: TextStyle(
                       fontWeight: FontWeight.normal,
@@ -55,11 +56,12 @@ class AboutUs extends StatelessWidget {
                       fontFamily: 'MeeraInimai'),
                   textAlign: TextAlign.center,
                 ),
+                Divider(),
                 SizedBox(
-                  height: 80,
+                  height: 40,
                 ),
-                Text(
-                  'App Developed by:',
+                const Text(
+                  'Tamil Quran App Developed by:',
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
@@ -68,17 +70,18 @@ class AboutUs extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Text(
+       const          Text(
                   'Faheem J.',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 ),
+                Divider(),
                 SizedBox(
-                  height: 100,
+                  height: 60,
                 ),
-                Text(
+                const Text(
                   '"உங்களில் சிறந்தவர் திருக்குர்ஆனைத் \nதானும் கற்று அதை பிறருக்கு கற்றுக் கொடுத்தவராவார்." \n\n- முஹம்மது நபி(ஸல்)\n(ஆதாரம்: புகாரி - 5028)',
                   style: TextStyle(fontFamily: 'AnekTamil', fontSize: 15),
                   textAlign: TextAlign.center,
