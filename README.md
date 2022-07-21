@@ -14,7 +14,7 @@ Translated by : *Muhammad John Trust.*
 - Read Quran in Arabic.
 - Read translation in Tamil.
 - Go to verse (go to a particular verse by just entering the chapter and verse numbers).
-- Copy verse. (copy the text of a selected verse in Arabic and Tamil and share it anywhere by pasting it).
+- Share Verse with Tamil meaning.
 
 
 
