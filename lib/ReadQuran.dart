@@ -82,7 +82,6 @@ class _ReadQuranState extends State<ReadQuran> {
         await rootBundle.loadString('assets/quran_tamil.json');
     final data = await json.decode(response);
     setState(() {
-      //_prayerTimes = data["prayer_times"];
       _quranDb = data['sura'];
     });
   }
