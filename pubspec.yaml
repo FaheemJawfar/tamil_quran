@@ -84,10 +84,6 @@ flutter:
   # example:
 
   fonts:
-    - family: AnekTamil
-      fonts:
-      - asset: assets/fonts/AnekTamil-Regular.ttf
-
     - family: MeeraInimai
       fonts:
       - asset: assets/fonts/MeeraInimai-Regular.ttf

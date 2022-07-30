@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './ReadQuran.dart';
+import './sura_namelist.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
-      home: ReadQuran(),
+      home: SuraNames(),
     );
   }
 }
