@@ -8,8 +8,9 @@ import 'package:share/share.dart';
 class ReadSura extends StatefulWidget {
   final int SuraNumber;
   final String SuraName;
+  final int VerseCount;
 
-  const ReadSura({Key? key, required this.SuraNumber, required this.SuraName})
+  const ReadSura({Key? key, required this.SuraNumber, required this.SuraName, required this.VerseCount})
       : super(key: key);
 
   @override
@@ -17,7 +18,6 @@ class ReadSura extends StatefulWidget {
 }
 
 List _quranDb = [];
-List _QuranArabic = [];
 int VerseNumber = 0;
 String CopiedVerse = '';
 
@@ -39,16 +39,17 @@ class _ReadSuraState extends State<ReadSura> {
           padding: EdgeInsets.all(5),
           child: Column(
             children: [
-              _quranDb.isNotEmpty && _QuranArabic.isNotEmpty
+              _quranDb.isNotEmpty
                   ? Expanded(
                       child: ListView.builder(
                           itemCount:
-                              widget.SuraNumber == 0 || widget.SuraNumber == 8
-                                  ? int.parse(
-                                      _quranDb[widget.SuraNumber]["versecount"])
-                                  : int.parse(_quranDb[widget.SuraNumber]
-                                          ["versecount"]) +
-                                      1,
+                             widget.VerseCount,
+                              // widget.SuraNumber == 0 || widget.SuraNumber == 8
+                              //     ? int.parse(
+                              //         _quranDb[widget.SuraNumber]["versecount"])
+                              //     : int.parse(_quranDb[widget.SuraNumber]
+                              //             ["versecount"]) +
+                              //         1,
                           itemBuilder: (context, index) {
                             return Card(
                               margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -73,8 +74,8 @@ class _ReadSuraState extends State<ReadSura> {
                                 onTap: () {},
                                 onLongPress: () {
 
-                                  Share.share('${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber + 1}:${VerseNumber})'
-                                      '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
+                                  // Share.share('${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber + 1}:${VerseNumber})'
+                                  //     '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
 
                                 },
                               ),
@@ -87,27 +88,27 @@ class _ReadSuraState extends State<ReadSura> {
         ));
   }
 
-  Future<void> readTamilSura() async {
+  Future<void> readQuranDb() async {
     final String response =
-        await rootBundle.loadString('assets/quran_tamil.json');
+        await rootBundle.loadString('assets/alquran-db.json');
     final data = await json.decode(response);
     setState(
       () {
-        _quranDb = data["sura"];
+        _quranDb = data["data"];
       },
     );
   }
 
-  Future<void> readArabicSura() async {
-    final String response =
-        await rootBundle.loadString('assets/quran_arabic.json');
-    final data = await json.decode(response);
-    setState(
-      () {
-        _QuranArabic = data["sura"];
-      },
-    );
-  }
+  // Future<void> readArabicSura() async {
+  //   final String response =
+  //       await rootBundle.loadString('assets/quran_arabic.json');
+  //   final data = await json.decode(response);
+  //   setState(
+  //     () {
+  //       _QuranArabic = data["sura"];
+  //     },
+  //   );
+  // }
 
   String replaceArabicNumber(String input) {
     const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -121,31 +122,36 @@ class _ReadSuraState extends State<ReadSura> {
   }
 
   String setArabicVerse(index) {
-    if (widget.SuraNumber == 0 || widget.SuraNumber == 8) {
-      VerseNumber = index + 1;
-      return '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}';
-    }
-    VerseNumber = index;
-    return index == 0
-        ? '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}'
-        : '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}';
+
+    //return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["arabic"]}';
+    return '${_quranDb[0]["sura${widget.SuraNumber+1}"][index]["arabic"]}';
+
+    // if (widget.SuraNumber == 0 || widget.SuraNumber == 8) {
+    //   VerseNumber = index + 1;
+    //   return '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}';
+    // }
+    // VerseNumber = index;
+    // return index == 0
+    //     ? '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}'
+    //     : '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}';
   }
 
   String setTamilVerse(index) {
-    if (widget.SuraNumber == 0 || widget.SuraNumber == 8) {
-      VerseNumber = index + 1;
-      return '${index + 1}. ${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}';
-    }
-    VerseNumber = index;
-    return index == 0
-        ? '${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}'
-        : '${index}. ${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}';
+    return '${_quranDb[0]["sura${widget.SuraNumber+1}"][index]["ayah"]}. ${_quranDb[0]["sura${widget.SuraNumber+1}"][index]["mJohn"]}';
+    //
+    // if (widget.SuraNumber == 0 || widget.SuraNumber == 8) {
+    //   VerseNumber = index + 1;
+    //   return '${index + 1}. ${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}';
+    // }
+    // VerseNumber = index;
+    // return index == 0
+    //     ? '${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}'
+    //     : '${index}. ${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}';
   }
 
   @override
   void initState() {
     super.initState();
-    readTamilSura();
-    readArabicSura();
+    readQuranDb();
   }
 }
