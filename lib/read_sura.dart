@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReadSura extends StatefulWidget {
   final int SuraNumber;
@@ -20,6 +21,7 @@ class ReadSura extends StatefulWidget {
 List _quranDb = [];
 int VerseNumber = 0;
 String CopiedVerse = '';
+String? _selectedTranslation;
 
 class _ReadSuraState extends State<ReadSura> {
   @override
@@ -43,13 +45,11 @@ class _ReadSuraState extends State<ReadSura> {
                   ? Expanded(
                       child: ListView.builder(
                           itemCount:
-                             widget.VerseCount,
-                              // widget.SuraNumber == 0 || widget.SuraNumber == 8
-                              //     ? int.parse(
-                              //         _quranDb[widget.SuraNumber]["versecount"])
-                              //     : int.parse(_quranDb[widget.SuraNumber]
-                              //             ["versecount"]) +
-                              //         1,
+                              widget.SuraNumber == 1 || widget.SuraNumber == 9 ?
+                             widget.VerseCount:
+                              widget.VerseCount + 1,
+
+
                           itemBuilder: (context, index) {
                             return Card(
                               margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -99,16 +99,6 @@ class _ReadSuraState extends State<ReadSura> {
     );
   }
 
-  // Future<void> readArabicSura() async {
-  //   final String response =
-  //       await rootBundle.loadString('assets/quran_arabic.json');
-  //   final data = await json.decode(response);
-  //   setState(
-  //     () {
-  //       _QuranArabic = data["sura"];
-  //     },
-  //   );
-  // }
 
   String replaceArabicNumber(String input) {
     const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -123,35 +113,38 @@ class _ReadSuraState extends State<ReadSura> {
 
   String setArabicVerse(index) {
 
-    //return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["arabic"]}';
-    return '${_quranDb[0]["sura${widget.SuraNumber+1}"][index]["arabic"]}';
-
-    // if (widget.SuraNumber == 0 || widget.SuraNumber == 8) {
-    //   VerseNumber = index + 1;
-    //   return '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}';
-    // }
-    // VerseNumber = index;
-    // return index == 0
-    //     ? '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}'
-    //     : '${_QuranArabic[widget.SuraNumber]["aya"][index]["-text"]}';
+    return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["arabic"]}';
   }
 
   String setTamilVerse(index) {
-    return '${_quranDb[0]["sura${widget.SuraNumber+1}"][index]["ayah"]}. ${_quranDb[0]["sura${widget.SuraNumber+1}"][index]["mJohn"]}';
-    //
-    // if (widget.SuraNumber == 0 || widget.SuraNumber == 8) {
-    //   VerseNumber = index + 1;
-    //   return '${index + 1}. ${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}';
-    // }
-    // VerseNumber = index;
-    // return index == 0
-    //     ? '${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}'
-    //     : '${index}. ${_quranDb[widget.SuraNumber]["aya"][index]["-text"]}';
+
+    if(widget.SuraNumber == 1 || widget.SuraNumber == 9){
+      return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]}. ${_quranDb[0]["sura${widget.SuraNumber}"][index][_selectedTranslation]}';
+    }
+    else {
+      if(index == 0){
+        return '${_quranDb[0]["sura${widget.SuraNumber}"][index][_selectedTranslation]}';
+      }
+      else {
+        return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]}. ${_quranDb[0]["sura${widget.SuraNumber}"][index][_selectedTranslation]}';
+      }
+
+    }
+
+
+  }
+
+  void loadCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedTranslation = (prefs.getString('selectedTranslation')?? 'mJohn');
+    });
   }
 
   @override
   void initState() {
     super.initState();
     readQuranDb();
+    loadCounter();
   }
 }

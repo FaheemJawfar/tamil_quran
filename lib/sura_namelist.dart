@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:share/share.dart';
+import 'package:tamil_quran/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'AboutUs.dart';
 import 'GoToVerse.dart';
+import 'navigation.dart';
 import 'read_sura.dart';
 
 class SuraNames extends StatefulWidget {
@@ -40,13 +41,13 @@ class _SuraNamesState extends State<SuraNames> {
                               child: ListTile(
                                 title: Text(
                                   '${index + 1}. ${_SuraList[index]["name"]}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontFamily: 'MeeraInimai',
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
                                   '${_SuraList[index]["name_arabic"]}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -56,7 +57,7 @@ class _SuraNamesState extends State<SuraNames> {
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuraPage(selectedSura : index)));
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => ReadSura(
-                                          SuraNumber: index,
+                                          SuraNumber: _SuraList[index]["surano"],
                                           SuraName:
                                               '${_SuraList[index]["name"]}',
                                           VerseCount: _SuraList[index]
@@ -97,9 +98,14 @@ class _SuraNamesState extends State<SuraNames> {
   _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.green[900],
-      centerTitle: true,
+      //centerTitle: true,
       title: Text('அத்தியாயங்கள்'),
+
       actions: [
+
+        IconButton(icon: Icon(Icons.settings),onPressed: () {
+          NavigationService().navigateToScreen( Settings());
+        },),
         PopupMenuButton<int>(
           itemBuilder: (context) => [
             PopupMenuItem(
