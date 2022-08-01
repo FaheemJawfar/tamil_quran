@@ -12,82 +12,79 @@ class AboutUs extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(10),
         height: double.infinity,
-        color: Colors.grey[300],
+        color: Colors.green[100],
         child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/quran_icon.png'),
-                  radius: 40,
-                  backgroundColor: Colors.green[600],
-                ),
-                SizedBox(height: 5,),
-                const Text(
-                  'திருக்குர்ஆன்',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      fontFamily: 'MeeraInimai'),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  '( அரபி மூலமும் தமிழாக்கமும் )',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      fontFamily: 'MeeraInimai'),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'மொழிபெயர்ப்பு : \nமுஹம்மது ஜான் டிரஸ்ட்',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      fontFamily: 'MeeraInimai'),
-                  textAlign: TextAlign.center,
-                ),
-                Divider(),
-                SizedBox(
-                  height: 40,
-                ),
-                const Text(
-                  'Tamil Quran App Developed by:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16,
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-       const          Text(
-                  'Faheem J.',
-                  style: TextStyle(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'திருக்குர்ஆன்',
+                style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                  ),
+                    fontFamily: 'MeeraInimai'),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              const Text(
+                '( அரபி மூலமும் தமிழாக்கமும் )',
+                style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15,
+                    fontFamily: 'MeeraInimai'),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'மொழிபெயர்ப்புகள் : '
+                    '\n1. ஜான் டிரஸ்ட் (John Trust)'
+                    '\n2. மன்னர் பஹத் குர்ஆன் வளாகம் (சவூதி)'
+                    '\n3. பீ. ஜைனுலாப்தீன் (PJ)'
+                    '\n4. இஸ்லாமிய நிறுவனம் அறக்கட்டளை (IFT)'
+                    '\n5. அப்துல் ஹமீது பாகவி',
+                style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    fontFamily: 'MuktaMalar'),
+                textAlign: TextAlign.start,
+              ),
+              Divider(),
+              SizedBox(
+                height: 40,
+              ),
+              const Text(
+                'Tamil Quran App Developed by:',
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
                 ),
-                Divider(),
-                SizedBox(
-                  height: 60,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+       const          Text(
+                'Faheem J.',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
-                const Text(
-                  '"உங்களில் சிறந்தவர் திருக்குர்ஆனைத் \nதானும் கற்று அதை பிறருக்கு கற்றுக் கொடுத்தவராவார்." \n\n- முஹம்மது நபி(ஸல்)\n(ஆதாரம்: புகாரி - 5028)',
-                  style: TextStyle(fontFamily: 'AnekTamil', fontSize: 15),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
+              ),
+              Divider(),
+              SizedBox(
+                height: 60,
+              ),
+              const Text(
+                '"உங்களில் சிறந்தவர் திருக்குர்ஆனைத் \nதானும் கற்று அதை பிறருக்கு கற்றுக் கொடுத்தவராவார்." \n\n- முஹம்மது நபி(ஸல்)\n(ஆதாரம்: புகாரி - 5028)',
+                style: TextStyle(fontFamily: 'AnekTamil', fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         ),
       ),

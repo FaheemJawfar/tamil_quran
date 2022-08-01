@@ -3,20 +3,21 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReadSura extends StatefulWidget {
   final int SuraNumber;
   final String SuraName;
-  final int VerseCount;
+  final int VerseNumber;
 
-  const ReadSura(
-      {Key? key,
-      required this.SuraNumber,
-      required this.SuraName,
-      required this.VerseCount})
-      : super(key: key);
+  const ReadSura({
+    Key? key,
+    required this.SuraNumber,
+    required this.SuraName,
+    required this.VerseNumber,
+  }) : super(key: key);
 
   @override
   State<ReadSura> createState() => _ReadSuraState();
@@ -24,7 +25,6 @@ class ReadSura extends StatefulWidget {
 
 List _quranDb = [];
 List _pjQuranDb = [];
-int VerseNumber = 0;
 String ShareVerse = '';
 String _selectedTranslation = 'mJohn';
 double _currentArabicFontSize = 20;
@@ -33,7 +33,7 @@ String _selectedTamilFont = 'MeeraInimai';
 String _selectedArabicFont = 'AlQalam';
 
 class _ReadSuraState extends State<ReadSura> {
-
+  final ItemScrollController _itemScrollController = ItemScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +54,12 @@ class _ReadSuraState extends State<ReadSura> {
           children: [
             _quranDb.isNotEmpty && _pjQuranDb.isNotEmpty
                 ? Expanded(
-                    child: ListView.builder(
+                    child: ScrollablePositionedList.builder(
+                        initialScrollIndex: widget.VerseNumber,
+                        itemScrollController: _itemScrollController,
                         itemCount: _selectedTranslation == 'pj'
                             ? _pjQuranDb[0]["sura${widget.SuraNumber}"].length
-                            : widget.SuraNumber == 1 || widget.SuraNumber == 9
-                                ? widget.VerseCount
-                                : widget.VerseCount + 1,
+                            : _quranDb[0]["sura${widget.SuraNumber}"].length,
                         itemBuilder: (context, index) {
                           return Card(
                             margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -88,13 +88,12 @@ class _ReadSuraState extends State<ReadSura> {
                               onTap: () {},
                               onLongPress: () {
                                 _selectedTranslation == 'pj'
-                                    ?
-                                Share.share('${setPJArabicVerse(index)}\n\n${setPJTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_pjQuranDb[0]["sura${widget.SuraNumber}"][index]["verse_id"]})'
-                                    '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )'):
-
-                                Share.share('${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]})'
-                                    '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
-
+                                    ? Share.share(
+                                        '${setPJArabicVerse(index)}\n\n${setPJTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_pjQuranDb[0]["sura${widget.SuraNumber}"][index]["verse_id"]})'
+                                        '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )')
+                                    : Share.share(
+                                        '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]})'
+                                        '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
                               },
                             ),
                           );
@@ -161,9 +160,7 @@ class _ReadSuraState extends State<ReadSura> {
 
   String setPJTamilVerse(index) {
     return '${_pjQuranDb[0]["sura${widget.SuraNumber}"][index]["tamil"]}';
-
   }
-
 
   void loadSelections() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -174,7 +171,8 @@ class _ReadSuraState extends State<ReadSura> {
       _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 24);
       _selectedTamilFont =
           (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
-      _selectedArabicFont  = (prefs.getString('selectedArabicFont') ?? 'AlQalam');
+      _selectedArabicFont =
+          (prefs.getString('selectedArabicFont') ?? 'AlQalam');
     });
   }
 

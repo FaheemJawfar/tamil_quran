@@ -7,8 +7,7 @@ import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamil_quran/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'AboutUs.dart';
-import 'GoToVerse.dart';
+import 'about_us.dart';
 import 'navigation.dart';
 import 'read_sura.dart';
 
@@ -23,7 +22,6 @@ class _SuraNamesState extends State<SuraNames> {
   List _SuraList = [];
   int InputSura = 0;
   int InputVerse = 0;
-
 
   double _currentArabicFontSize = 22;
   double _currentTamilFontSize = 18;
@@ -49,28 +47,28 @@ class _SuraNamesState extends State<SuraNames> {
                                 title: Text(
                                   '${index + 1}. ${_SuraList[index]["name"]}',
                                   style: TextStyle(
-                                    fontSize: _currentTamilFontSize,
+                                      fontSize: _currentTamilFontSize,
                                       fontFamily: _selectedTamilFont,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
                                   '${_SuraList[index]["name_arabic"]}',
                                   style: TextStyle(
-                                    fontSize: _currentArabicFontSize,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: _selectedArabicFont
-                                  ),
+                                      fontSize: _currentArabicFontSize,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: _selectedArabicFont),
                                   textDirection: TextDirection.rtl,
                                 ),
                                 onTap: () {
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuraPage(selectedSura : index)));
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => ReadSura(
-                                          SuraNumber: _SuraList[index]["surano"],
-                                          SuraName:
-                                              '${_SuraList[index]["name"]}',
-                                          VerseCount: _SuraList[index]
-                                              ["versecnt"])));
+                                            SuraNumber: _SuraList[index]
+                                                ["surano"],
+                                            SuraName:
+                                                '${_SuraList[index]["name"]}',
+                                            VerseNumber: 0,
+                                          )));
                                 },
                               ),
                             );
@@ -98,7 +96,6 @@ class _SuraNamesState extends State<SuraNames> {
     });
   }
 
-
   _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.green[900],
@@ -107,10 +104,12 @@ class _SuraNamesState extends State<SuraNames> {
       automaticallyImplyLeading: false,
 
       actions: [
-
-        IconButton(icon: Icon(Icons.settings),onPressed: () {
-          NavigationService().navigateToScreen( Settings());
-        },),
+        IconButton(
+          icon: Icon(Icons.settings),
+          onPressed: () {
+            NavigationService().navigateToScreen(Settings());
+          },
+        ),
         PopupMenuButton<int>(
           itemBuilder: (context) => [
             PopupMenuItem(
@@ -226,11 +225,13 @@ class _SuraNamesState extends State<SuraNames> {
                       child: const Text('Cancel'),
                     ),
                     OutlinedButton(
-                      onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => GoToVerse(
-                                  SuraNumber: InputSura,
-                                  VerseNumber: InputVerse))),
+                      onPressed: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ReadSura(
+                                    SuraNumber: InputSura + 1,
+                                    VerseNumber: InputVerse,
+                                    SuraName: '${_SuraList[InputSura]["name"]}',
+                                  ))),
                       child: const Text('OK'),
                     ),
                   ],
@@ -265,9 +266,10 @@ class _SuraNamesState extends State<SuraNames> {
     setState(() {
       _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 18);
       _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 22);
-      _selectedTamilFont  = (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
-      _selectedArabicFont  = (prefs.getString('selectedArabicFont') ?? 'AlQalam');
-
+      _selectedTamilFont =
+          (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
+      _selectedArabicFont =
+          (prefs.getString('selectedArabicFont') ?? 'AlQalam');
     });
   }
 
@@ -277,5 +279,4 @@ class _SuraNamesState extends State<SuraNames> {
     this.readJson();
     loadSelections();
   }
-
 }
