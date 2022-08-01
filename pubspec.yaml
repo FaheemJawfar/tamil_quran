@@ -89,6 +89,13 @@ flutter:
       fonts:
       - asset: assets/fonts/MeeraInimai-Regular.ttf
 
+    - family: HindMadurai
+      fonts:
+        - asset: assets/fonts/HindMadurai-Regular.ttf
+
+    - family: MuktaMalar
+      fonts:
+        - asset: assets/fonts/MuktaMalar-Regular.ttf
 
     - family: AlQalam
       fonts:
@@ -97,9 +104,11 @@ flutter:
 
     - family: PDMS_Saleem
       fonts:
-      - asset: assets/fonts/_PDMS_Saleem_QuranFont.ttf
+      - asset: assets/fonts/PDMS_Saleem_QuranFont.ttf
 
-
+    - family: AlMajeed
+      fonts:
+        - asset: assets/fonts/Al Majeed.ttf
 
 
   #       - asset: fonts/Schyler-Italic.ttf

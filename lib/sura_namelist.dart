@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:async' show Future;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamil_quran/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'AboutUs.dart';
@@ -23,6 +24,12 @@ class _SuraNamesState extends State<SuraNames> {
   int InputSura = 0;
   int InputVerse = 0;
 
+
+  double _currentArabicFontSize = 22;
+  double _currentTamilFontSize = 18;
+  String _selectedTamilFont = 'MeeraInimai';
+  String _selectedArabicFont = 'AlQalam';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,15 +48,17 @@ class _SuraNamesState extends State<SuraNames> {
                               child: ListTile(
                                 title: Text(
                                   '${index + 1}. ${_SuraList[index]["name"]}',
-                                  style: const TextStyle(
-                                      fontFamily: 'MeeraInimai',
+                                  style: TextStyle(
+                                    fontSize: _currentTamilFontSize,
+                                      fontFamily: _selectedTamilFont,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
                                   '${_SuraList[index]["name_arabic"]}',
-                                  style: const TextStyle(
-                                    fontSize: 20,
+                                  style: TextStyle(
+                                    fontSize: _currentArabicFontSize,
                                     fontWeight: FontWeight.bold,
+                                    fontFamily: _selectedArabicFont
                                   ),
                                   textDirection: TextDirection.rtl,
                                 ),
@@ -89,17 +98,13 @@ class _SuraNamesState extends State<SuraNames> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    this.readJson();
-  }
 
   _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.green[900],
       //centerTitle: true,
       title: Text('அத்தியாயங்கள்'),
+      automaticallyImplyLeading: false,
 
       actions: [
 
@@ -254,4 +259,23 @@ class _SuraNamesState extends State<SuraNames> {
       throw 'Could not launch $url';
     }
   }
+
+  void loadSelections() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 18);
+      _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 22);
+      _selectedTamilFont  = (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
+      _selectedArabicFont  = (prefs.getString('selectedArabicFont') ?? 'AlQalam');
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.readJson();
+    loadSelections();
+  }
+
 }
