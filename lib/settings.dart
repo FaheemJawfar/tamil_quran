@@ -11,41 +11,70 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  String _selectedTranslation = '';
+  String _selectedTranslation = 'mJohn';
   double _currentArabicFontSize = 22;
   double _currentTamilFontSize = 18;
   String _selectedTamilFont = 'MeeraInimai';
   String _selectedArabicFont = 'AlQalam';
+  bool NightMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      backgroundColor: NightMode ? Colors.grey[900] : Colors.green[100],
       appBar: AppBar(
           title: Text('அமைப்புகள்',
               style: TextStyle(fontFamily: _selectedTamilFont)),
           centerTitle: true,
-          backgroundColor: Colors.green[900],
+          backgroundColor: NightMode ? Colors.black : Colors.green[900],
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () {
-              NavigationService().navigateToScreen(SuraNames());
+              Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back_ios_new_outlined),
           )),
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          margin: EdgeInsets.all(12),
+          margin: EdgeInsets.fromLTRB(12, 5, 12, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Dark Mode',
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  Switch(
+                    value: NightMode,
+                    onChanged: (value) async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      setState(() {
+                        NightMode = value;
+                        prefs.setBool('NightMode', value);
+                      });
+                    },
+                  ),
+                ],
+              ),
+              Divider(
+                thickness: 2,
+              ),
               Text(
                 'மொழிபெயர்ப்பைத் தெரிவு செய்யுங்கள்:',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: _selectedTamilFont,
+                  color: NightMode ? Colors.white : Colors.black,
                 ),
               ),
               ListTile(
@@ -69,6 +98,7 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
+                    color: NightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -93,6 +123,7 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
+                    color: NightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -117,6 +148,7 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
+                    color: NightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -141,6 +173,7 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
+                    color: NightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -165,6 +198,7 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
+                    color: NightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -177,6 +211,7 @@ class _SettingsState extends State<Settings> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: _selectedTamilFont,
+                  color: NightMode ? Colors.white : Colors.black,
                 ),
               ),
               Slider(
@@ -200,6 +235,7 @@ class _SettingsState extends State<Settings> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: _selectedTamilFont,
+                  color: NightMode ? Colors.white : Colors.black,
                 ),
               ),
               Slider(
@@ -226,6 +262,7 @@ class _SettingsState extends State<Settings> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: _selectedTamilFont,
+                  color: NightMode ? Colors.white : Colors.black,
                 ),
               ),
               Row(
@@ -244,7 +281,11 @@ class _SettingsState extends State<Settings> {
                   ),
                   Text(
                     'தமிழ் 1',
-                    style: TextStyle(fontSize: 16.0, fontFamily: 'MeeraInimai'),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'MeeraInimai',
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
                   ),
                   Radio(
                     value: 'HindMadurai',
@@ -260,7 +301,11 @@ class _SettingsState extends State<Settings> {
                   ),
                   Text(
                     'தமிழ் 2',
-                    style: TextStyle(fontSize: 16.0, fontFamily: 'HindMadurai'),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'HindMadurai',
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
                   ),
                   Radio(
                     value: 'MuktaMalar',
@@ -276,7 +321,11 @@ class _SettingsState extends State<Settings> {
                   ),
                   Text(
                     'தமிழ் 3',
-                    style: TextStyle(fontSize: 16.0, fontFamily: 'MuktaMalar'),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'MuktaMalar',
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
                   ),
                 ],
               ),
@@ -289,6 +338,7 @@ class _SettingsState extends State<Settings> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: _selectedTamilFont,
+                  color: NightMode ? Colors.white : Colors.black,
                 ),
               ),
               Row(
@@ -307,7 +357,11 @@ class _SettingsState extends State<Settings> {
                   ),
                   Text(
                     'اَلْعَرَبِيَّةُ ١',
-                    style: TextStyle(fontSize: 18.0, fontFamily: 'AlQalam'),
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'AlQalam',
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
                   ),
                   Radio(
                     value: 'PDMS_Saleem',
@@ -323,7 +377,11 @@ class _SettingsState extends State<Settings> {
                   ),
                   Text(
                     'اَلْعَرَبِيَّةُ ٢',
-                    style: TextStyle(fontSize: 18.0, fontFamily: 'PDMS_Saleem'),
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'PDMS_Saleem',
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
                   ),
                   Radio(
                     value: 'AlMajeed',
@@ -339,9 +397,49 @@ class _SettingsState extends State<Settings> {
                   ),
                   Text(
                     'اَلْعَرَبِيَّةُ ٣',
-                    style: TextStyle(fontSize: 18.0, fontFamily: 'AlMajeed'),
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'AlMajeed',
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
                   ),
                 ],
+              ),
+              Divider(
+                thickness: 2,
+              ),
+              Text(
+                'அமைப்புக்களை மீளமையுங்கள்:',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: _selectedTamilFont,
+                  color: NightMode ? Colors.white : Colors.black,
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    setState(() {
+                      _selectedTranslation = 'mJohn';
+                      _currentArabicFontSize = 22;
+                      _currentTamilFontSize = 18;
+                      _selectedTamilFont = 'MeeraInimai';
+                      _selectedArabicFont = 'AlQalam';
+                      NightMode = false;
+
+                      prefs.setString('selectedTranslation', 'mJohn');
+                      prefs.setDouble('tamilFontSize', 18);
+                      prefs.setDouble('arabicFontSize', 22);
+                      prefs.setString('selectedTamilFont', 'MeeraInimai');
+                      prefs.setString('selectedArabicFont', 'AlQalam');
+                      prefs.setBool('NightMode', false);
+                    });
+                  },
+                  child: Text('Reset Settings')),
+              Divider(
+                thickness: 2,
               ),
             ],
           ),
@@ -361,6 +459,7 @@ class _SettingsState extends State<Settings> {
           (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
+      NightMode = (prefs.getBool('NightMode') ?? false);
     });
   }
 

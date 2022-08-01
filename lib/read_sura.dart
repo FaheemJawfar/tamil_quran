@@ -6,6 +6,9 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamil_quran/settings.dart';
+
+import 'navigation.dart';
 
 class ReadSura extends StatefulWidget {
   final int SuraNumber;
@@ -31,6 +34,8 @@ double _currentArabicFontSize = 20;
 double _currentTamilFontSize = 20;
 String _selectedTamilFont = 'MeeraInimai';
 String _selectedArabicFont = 'AlQalam';
+bool NightMode = false;
+int InputVerse = 0;
 
 class _ReadSuraState extends State<ReadSura> {
   final ItemScrollController _itemScrollController = ItemScrollController();
@@ -38,16 +43,8 @@ class _ReadSuraState extends State<ReadSura> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green[900],
-        centerTitle: true,
-        title: Text(
-          widget.SuraName,
-          style: const TextStyle(
-            fontSize: 15,
-          ),
-        ),
-      ),
+      backgroundColor: NightMode ? Colors.grey[900] : Colors.white,
+      appBar: _buildAppBar(),
       body: Padding(
         padding: EdgeInsets.all(5),
         child: Column(
@@ -62,6 +59,7 @@ class _ReadSuraState extends State<ReadSura> {
                             : _quranDb[0]["sura${widget.SuraNumber}"].length,
                         itemBuilder: (context, index) {
                           return Card(
+                            color: NightMode ? Colors.grey[900] : Colors.white,
                             margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                             child: ListTile(
                               title: Text(
@@ -69,6 +67,8 @@ class _ReadSuraState extends State<ReadSura> {
                                     ? setPJArabicVerse(index)
                                     : setArabicVerse(index),
                                 style: TextStyle(
+                                  color:
+                                      NightMode ? Colors.white : Colors.black,
                                   fontSize: _currentArabicFontSize,
                                   fontFamily: _selectedArabicFont,
                                   fontWeight: FontWeight.normal,
@@ -80,9 +80,10 @@ class _ReadSuraState extends State<ReadSura> {
                                     ? setPJTamilVerse(index)
                                     : setTamilVerse(index),
                                 style: TextStyle(
+                                  color:
+                                      NightMode ? Colors.white : Colors.black,
                                   fontFamily: _selectedTamilFont,
                                   fontSize: _currentTamilFontSize,
-                                  color: Colors.black,
                                 ),
                               ),
                               onTap: () {},
@@ -173,7 +174,121 @@ class _ReadSuraState extends State<ReadSura> {
           (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
+      NightMode = (prefs.getBool('NightMode') ?? false);
     });
+  }
+
+  _buildAppBar() {
+    return AppBar(
+      backgroundColor: NightMode ? Colors.black : Colors.green[900],
+      centerTitle: true,
+      title: Text(
+        widget.SuraName,
+        style: const TextStyle(
+          fontSize: 15,
+        ),
+      ),
+      automaticallyImplyLeading: false,
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back_ios_new_outlined,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      actions: [
+        PopupMenuButton<int>(
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 1,
+              // row with 2 children
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.settings_outlined,
+                    color: Colors.black,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("அமைப்புகள்")
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: 2,
+              // row with 2 children
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.exit_to_app,
+                    color: Colors.black,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("வசனத்திற்கு செல்க")
+                ],
+              ),
+            ),
+          ],
+          offset: Offset(0, 20),
+          color: Colors.white,
+          elevation: 2,
+          // on selected we show the dialog box
+          onSelected: (value) {
+            if (value == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Settings()),
+              ).then((value) => setState(() {
+                    loadSelections();
+                  }));
+            } else if (value == 2) {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('வசனத்திற்குச் செல்க'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        onChanged: (value) {
+                          InputVerse = int.parse(value);
+                        },
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration: const InputDecoration(
+                            hintText: "வசனத்தை உள்ளிடுக", label: Text("வசனம்")),
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    OutlinedButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text('Cancel'),
+                    ),
+                    OutlinedButton(
+                      onPressed: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ReadSura(
+                                    SuraNumber: widget.SuraNumber,
+                                    VerseNumber: InputVerse,
+                                    SuraName: widget.SuraName,
+                                  ))),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
+      ],
+    );
   }
 
   @override

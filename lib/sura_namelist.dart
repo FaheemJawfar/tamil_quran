@@ -5,6 +5,7 @@ import 'dart:async' show Future;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamil_quran/search_quran.dart';
 import 'package:tamil_quran/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'about_us.dart';
@@ -27,10 +28,12 @@ class _SuraNamesState extends State<SuraNames> {
   double _currentTamilFontSize = 18;
   String _selectedTamilFont = 'MeeraInimai';
   String _selectedArabicFont = 'AlQalam';
+  bool NightMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: NightMode ? Colors.grey[900] : Colors.white,
         appBar: _buildAppBar(),
         body: Padding(
           padding: EdgeInsets.all(10),
@@ -42,18 +45,44 @@ class _SuraNamesState extends State<SuraNames> {
                           itemCount: _SuraList.length,
                           itemBuilder: (context, index) {
                             return Card(
+                              color:
+                                  NightMode ? Colors.grey[900] : Colors.white,
                               margin: EdgeInsets.fromLTRB(0, 2, 0, 2),
                               child: ListTile(
-                                title: Text(
-                                  '${index + 1}. ${_SuraList[index]["name"]}',
-                                  style: TextStyle(
-                                      fontSize: _currentTamilFontSize,
-                                      fontFamily: _selectedTamilFont,
-                                      fontWeight: FontWeight.bold),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${index + 1}. ${_SuraList[index]["name"]}',
+                                      style: TextStyle(
+                                          color: NightMode
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: _currentTamilFontSize,
+                                          fontFamily: _selectedTamilFont,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'வசனங்கள் : ${_SuraList[index]["versecnt"]}',
+                                      style: TextStyle(
+                                          color: NightMode
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 15,
+                                          fontFamily: _selectedTamilFont,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
                                 ),
                                 subtitle: Text(
                                   '${_SuraList[index]["name_arabic"]}',
                                   style: TextStyle(
+                                      color: NightMode
+                                          ? Colors.white
+                                          : Colors.black,
                                       fontSize: _currentArabicFontSize,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: _selectedArabicFont),
@@ -87,7 +116,7 @@ class _SuraNamesState extends State<SuraNames> {
         ));
   }
 
-  Future<void> readJson() async {
+  Future<void> getSuraList() async {
     final String response =
         await rootBundle.loadString('assets/sura_names.json');
     final data = await json.decode(response);
@@ -98,7 +127,7 @@ class _SuraNamesState extends State<SuraNames> {
 
   _buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.green[900],
+      backgroundColor: NightMode ? Colors.black : Colors.green[900],
       //centerTitle: true,
       title: Text('அத்தியாயங்கள்'),
       automaticallyImplyLeading: false,
@@ -107,7 +136,12 @@ class _SuraNamesState extends State<SuraNames> {
         IconButton(
           icon: Icon(Icons.settings),
           onPressed: () {
-            NavigationService().navigateToScreen(Settings());
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Settings()),
+            ).then((value) => setState(() {
+                  loadSelections();
+                }));
           },
         ),
         PopupMenuButton<int>(
@@ -196,7 +230,7 @@ class _SuraNamesState extends State<SuraNames> {
                     children: [
                       TextField(
                         onChanged: (value) {
-                          InputSura = int.parse(value) - 1;
+                          InputSura = int.parse(value);
                         },
                         keyboardType: TextInputType.number,
                         inputFormatters: [
@@ -228,9 +262,10 @@ class _SuraNamesState extends State<SuraNames> {
                       onPressed: () =>
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ReadSura(
-                                    SuraNumber: InputSura + 1,
+                                    SuraNumber: InputSura,
                                     VerseNumber: InputVerse,
-                                    SuraName: '${_SuraList[InputSura]["name"]}',
+                                    SuraName:
+                                        '${_SuraList[InputSura - 1]["name"]}',
                                   ))),
                       child: const Text('OK'),
                     ),
@@ -253,6 +288,8 @@ class _SuraNamesState extends State<SuraNames> {
     );
   }
 
+  void searchQuran() {}
+
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -270,13 +307,14 @@ class _SuraNamesState extends State<SuraNames> {
           (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
+      NightMode = (prefs.getBool('NightMode') ?? false);
     });
   }
 
   @override
   void initState() {
     super.initState();
-    this.readJson();
+    getSuraList();
     loadSelections();
   }
 }
