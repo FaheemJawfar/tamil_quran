@@ -6,11 +6,11 @@ Read Holy Quran in Arabic and read the translation in Tamil.
 ## Credits:
 
 Availabe Translations : 
-*Muhammad John Trust.*
-*King Fahd Quran Complex (Saudi)*
-*P. Jainulabdeen (PJ)*
-*Islamic Foundation Trust*
-*Abdul Hameed Baqavi*
+- *Muhammad John Trust.*
+- *King Fahd Quran Complex (Saudi)*
+- *P. Jainulabdeen (PJ)*
+- *Islamic Foundation Trust*
+- *Abdul Hameed Baqavi*
 
 ## Features
 - Read Quran in Arabic.
