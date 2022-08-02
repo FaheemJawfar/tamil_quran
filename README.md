@@ -27,11 +27,12 @@ Availabe Translations :
 ## *Screenshots of 'Tamil Quran'.*
 
 <p float="left">
-  <img src="screenshots/Screenshot_20220801_234621.png" width="400" />
-  <img src="screenshots/Screenshot_20220801_234657.png" width="400" /> 
-  <img src="screenshots/Screenshot_20220801_234728.png" width="400" />
-  <img src="screenshots/Screenshot_20220801_234755.png" width="400" />
-  <img src="screenshots/Screenshot_20220801_234812.png" width="400" />
-  <img src="screenshots/Screenshot_20220801_234915.png" width="400" />
-  <img src="screenshots/Screenshot_20220801_234955.png" width="400" />
+  <img src="screenshots/Screenshot_20220802_115702.png" width="300" />
+  <img src="screenshots/Screenshot_20220802_115716.png" width="300" /> 
+  <img src="screenshots/Screenshot_20220802_115735.png" width="300" />
+  <img src="screenshots/Screenshot_20220802_115759.png" width="300" />
+  <img src="screenshots/Screenshot_20220802_115814.png" width="300" />
+  <img src="screenshots/Screenshot_20220802_115844.png" width="300" />
+  <img src="screenshots/Screenshot_20220802_120111.png" width="300" />
+  <img src="screenshots/Screenshot_20220802_120549.png" width="300" />
 </p>

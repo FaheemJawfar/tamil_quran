@@ -107,10 +107,6 @@ flutter:
       fonts:
       - asset: assets/fonts/PDMS_Saleem_QuranFont.ttf
 
-    - family: AlMajeed
-      fonts:
-        - asset: assets/fonts/Al Majeed.ttf
-
 
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

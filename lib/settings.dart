@@ -381,26 +381,8 @@ class _SettingsState extends State<Settings> {
                       color: NightMode ? Colors.white : Colors.black,
                     ),
                   ),
-                  Radio(
-                    value: 'AlMajeed',
-                    groupValue: _selectedArabicFont,
-                    onChanged: (val) async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        _selectedArabicFont = 'AlMajeed';
-                        prefs.setString('selectedArabicFont', 'AlMajeed');
-                      });
-                    },
-                  ),
-                  Text(
-                    'اَلْعَرَبِيَّةُ ٣',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'AlMajeed',
-                      color: NightMode ? Colors.white : Colors.black,
-                    ),
-                  ),
+
+
                 ],
               ),
               Divider(
