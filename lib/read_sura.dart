@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamil_quran/settings.dart';
-
-import 'navigation.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class ReadSura extends StatefulWidget {
   final int SuraNumber;
@@ -32,7 +30,7 @@ String ShareVerse = '';
 String _selectedTranslation = 'mJohn';
 double _currentArabicFontSize = 20;
 double _currentTamilFontSize = 20;
-String _selectedTamilFont = 'MeeraInimai';
+String _selectedTamilFont = 'MuktaMalar';
 String _selectedArabicFont = 'AlQalam';
 bool NightMode = false;
 int InputVerse = 0;
@@ -58,44 +56,55 @@ class _ReadSuraState extends State<ReadSura> {
                             ? _pjQuranDb[0]["sura${widget.SuraNumber}"].length
                             : _quranDb[0]["sura${widget.SuraNumber}"].length,
                         itemBuilder: (context, index) {
-                          return Card(
-                            color: NightMode ? Colors.grey[900] : Colors.white,
-                            margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            child: ListTile(
-                              title: Text(
-                                _selectedTranslation == 'pj'
-                                    ? setPJArabicVerse(index)
-                                    : setArabicVerse(index),
-                                style: TextStyle(
-                                  color:
-                                      NightMode ? Colors.white : Colors.black,
-                                  fontSize: _currentArabicFontSize,
-                                  fontFamily: _selectedArabicFont,
-                                  fontWeight: FontWeight.normal,
+                          return VisibilityDetector(
+                            key: Key(index.toString()),
+                            onVisibilityChanged: (info) async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+
+                              prefs.setInt('lastVerse', index);
+                              prefs.setInt('lastSura', widget.SuraNumber);
+                            },
+                            child: Card(
+                              color:
+                                  NightMode ? Colors.grey[900] : Colors.white,
+                              margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                              child: ListTile(
+                                title: Text(
+                                  _selectedTranslation == 'pj'
+                                      ? setPJArabicVerse(index)
+                                      : setArabicVerse(index),
+                                  style: TextStyle(
+                                    color:
+                                        NightMode ? Colors.white : Colors.black,
+                                    fontSize: _currentArabicFontSize,
+                                    fontFamily: _selectedArabicFont,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  textDirection: TextDirection.rtl,
                                 ),
-                                textDirection: TextDirection.rtl,
-                              ),
-                              subtitle: Text(
-                                _selectedTranslation == 'pj'
-                                    ? setPJTamilVerse(index)
-                                    : setTamilVerse(index),
-                                style: TextStyle(
-                                  color:
-                                      NightMode ? Colors.white : Colors.black,
-                                  fontFamily: _selectedTamilFont,
-                                  fontSize: _currentTamilFontSize,
+                                subtitle: Text(
+                                  _selectedTranslation == 'pj'
+                                      ? setPJTamilVerse(index)
+                                      : setTamilVerse(index),
+                                  style: TextStyle(
+                                    color:
+                                        NightMode ? Colors.white : Colors.black,
+                                    fontFamily: _selectedTamilFont,
+                                    fontSize: _currentTamilFontSize,
+                                  ),
                                 ),
+                                onTap: () {},
+                                onLongPress: () {
+                                  _selectedTranslation == 'pj'
+                                      ? Share.share(
+                                          '${setPJArabicVerse(index)}\n\n${setPJTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_pjQuranDb[0]["sura${widget.SuraNumber}"][index]["verse_id"]})'
+                                          '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )')
+                                      : Share.share(
+                                          '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]})'
+                                          '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
+                                },
                               ),
-                              onTap: () {},
-                              onLongPress: () {
-                                _selectedTranslation == 'pj'
-                                    ? Share.share(
-                                        '${setPJArabicVerse(index)}\n\n${setPJTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_pjQuranDb[0]["sura${widget.SuraNumber}"][index]["verse_id"]})'
-                                        '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )')
-                                    : Share.share(
-                                        '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]})'
-                                        '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
-                              },
                             ),
                           );
                         }),
@@ -171,7 +180,7 @@ class _ReadSuraState extends State<ReadSura> {
       _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 20);
       _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 24);
       _selectedTamilFont =
-          (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
+          (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
       NightMode = (prefs.getBool('NightMode') ?? false);
@@ -248,40 +257,44 @@ class _ReadSuraState extends State<ReadSura> {
             } else if (value == 2) {
               showDialog<String>(
                 context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('வசனத்திற்குச் செல்க'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextField(
-                        onChanged: (value) {
-                          InputVerse = int.parse(value);
-                        },
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
+                builder: (BuildContext context) => Center(
+                  child: SingleChildScrollView(
+                    child: AlertDialog(
+                      title: const Text('வசனத்திற்குச் செல்க'),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            onChanged: (value) {
+                              InputVerse = int.parse(value);
+                            },
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            decoration: const InputDecoration(
+                                hintText: "வசனத்தை உள்ளிடுக", label: Text("வசனம்")),
+                          ),
                         ],
-                        decoration: const InputDecoration(
-                            hintText: "வசனத்தை உள்ளிடுக", label: Text("வசனம்")),
                       ),
-                    ],
+                      actions: <Widget>[
+                        OutlinedButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        OutlinedButton(
+                          onPressed: () =>
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ReadSura(
+                                        SuraNumber: widget.SuraNumber,
+                                        VerseNumber: InputVerse,
+                                        SuraName: widget.SuraName,
+                                      ))),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
                   ),
-                  actions: <Widget>[
-                    OutlinedButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
-                    ),
-                    OutlinedButton(
-                      onPressed: () =>
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReadSura(
-                                    SuraNumber: widget.SuraNumber,
-                                    VerseNumber: InputVerse,
-                                    SuraName: widget.SuraName,
-                                  ))),
-                      child: const Text('OK'),
-                    ),
-                  ],
                 ),
               );
             }

@@ -5,11 +5,9 @@ import 'dart:async' show Future;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamil_quran/search_quran.dart';
 import 'package:tamil_quran/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'about_us.dart';
-import 'navigation.dart';
 import 'read_sura.dart';
 
 class SuraNames extends StatefulWidget {
@@ -26,9 +24,11 @@ class _SuraNamesState extends State<SuraNames> {
 
   double _currentArabicFontSize = 22;
   double _currentTamilFontSize = 18;
-  String _selectedTamilFont = 'MeeraInimai';
+  String _selectedTamilFont = 'MuktaMalar';
   String _selectedArabicFont = 'AlQalam';
   bool NightMode = false;
+  int _lastSura = 0;
+  int _lastVerse = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +39,32 @@ class _SuraNamesState extends State<SuraNames> {
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
+              OutlinedButton(
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+
+                  _lastSura = (prefs.getInt('lastSura') ?? 0);
+                  _lastVerse = (prefs.getInt('lastVerse') ?? 0);
+
+                  if (_lastSura != 0) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ReadSura(
+                              SuraNumber: _lastSura,
+                              VerseNumber: _lastVerse,
+                              SuraName: '${_SuraList[_lastSura - 1]["name"]}',
+                            )));
+                  }
+                },
+                child: Text(
+                  'வாசிப்பைத் தொடர்க...',
+                  style: TextStyle(
+                    color: NightMode ? Colors.white : Colors.green[900],
+                    fontFamily: _selectedTamilFont,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
               _SuraList.isNotEmpty
                   ? Expanded(
                       child: ListView.builder(
@@ -63,30 +89,36 @@ class _SuraNamesState extends State<SuraNames> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(
-                                      height: 10,
+                                      height: 5,
                                     ),
-                                    Text(
-                                      'வசனங்கள் : ${_SuraList[index]["versecnt"]}',
-                                      style: TextStyle(
-                                          color: NightMode
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: 15,
-                                          fontFamily: _selectedTamilFont,
-                                          fontWeight: FontWeight.bold),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'வசனங்கள் : ${_SuraList[index]["versecnt"]}',
+                                          style: TextStyle(
+                                              color: NightMode
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: 15,
+                                              fontFamily: _selectedTamilFont,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          '${_SuraList[index]["name_arabic"]}',
+                                          style: TextStyle(
+                                              color: NightMode
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: _currentArabicFontSize,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: _selectedArabicFont),
+                                          textDirection: TextDirection.rtl,
+                                        ),
+                                      ],
                                     ),
                                   ],
-                                ),
-                                subtitle: Text(
-                                  '${_SuraList[index]["name_arabic"]}',
-                                  style: TextStyle(
-                                      color: NightMode
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: _currentArabicFontSize,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: _selectedArabicFont),
-                                  textDirection: TextDirection.rtl,
                                 ),
                                 onTap: () {
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuraPage(selectedSura : index)));
@@ -223,53 +255,58 @@ class _SuraNamesState extends State<SuraNames> {
             if (value == 1) {
               showDialog<String>(
                 context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('வசனத்திற்குச் செல்க'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextField(
-                        onChanged: (value) {
-                          InputSura = int.parse(value);
-                        },
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
+                builder: (BuildContext context) => Center(
+                  child: SingleChildScrollView(
+                    child: AlertDialog(
+
+                      title: const Text('வசனத்திற்குச் செல்க'),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            onChanged: (value) {
+                              InputSura = int.parse(value);
+                            },
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            decoration: const InputDecoration(
+                                hintText: "அத்தியாயத்தை உள்ளிடுக",
+                                label: Text("அத்தியாயம்")),
+                          ),
+                          TextField(
+                            onChanged: (value) {
+                              InputVerse = int.parse(value);
+                            },
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            decoration: const InputDecoration(
+                                hintText: "வசனத்தை உள்ளிடுக", label: Text("வசனம்")),
+                          ),
                         ],
-                        decoration: const InputDecoration(
-                            hintText: "அத்தியாயத்தை உள்ளிடுக",
-                            label: Text("அத்தியாயம்")),
                       ),
-                      TextField(
-                        onChanged: (value) {
-                          InputVerse = int.parse(value);
-                        },
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: const InputDecoration(
-                            hintText: "வசனத்தை உள்ளிடுக", label: Text("வசனம்")),
-                      ),
-                    ],
+                      actions: <Widget>[
+                        OutlinedButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        OutlinedButton(
+                          onPressed: () =>
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ReadSura(
+                                        SuraNumber: InputSura,
+                                        VerseNumber: InputVerse,
+                                        SuraName:
+                                            '${_SuraList[InputSura - 1]["name"]}',
+                                      ))),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
                   ),
-                  actions: <Widget>[
-                    OutlinedButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
-                    ),
-                    OutlinedButton(
-                      onPressed: () =>
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReadSura(
-                                    SuraNumber: InputSura,
-                                    VerseNumber: InputVerse,
-                                    SuraName:
-                                        '${_SuraList[InputSura - 1]["name"]}',
-                                  ))),
-                      child: const Text('OK'),
-                    ),
-                  ],
                 ),
               );
             } else if (value == 2) {
@@ -304,7 +341,7 @@ class _SuraNamesState extends State<SuraNames> {
       _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 18);
       _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 22);
       _selectedTamilFont =
-          (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
+          (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
       NightMode = (prefs.getBool('NightMode') ?? false);

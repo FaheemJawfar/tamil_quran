@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamil_quran/sura_namelist.dart';
-import 'navigation.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -14,7 +12,7 @@ class _SettingsState extends State<Settings> {
   String _selectedTranslation = 'mJohn';
   double _currentArabicFontSize = 22;
   double _currentTamilFontSize = 18;
-  String _selectedTamilFont = 'MeeraInimai';
+  String _selectedTamilFont = 'MuktaMalar';
   String _selectedArabicFont = 'AlQalam';
   bool NightMode = false;
 
@@ -268,6 +266,26 @@ class _SettingsState extends State<Settings> {
               Row(
                 children: [
                   Radio(
+                    value: 'MuktaMalar',
+                    groupValue: _selectedTamilFont,
+                    onChanged: (val) async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      setState(() {
+                        _selectedTamilFont = 'MuktaMalar';
+                        prefs.setString('selectedTamilFont', 'MuktaMalar');
+                      });
+                    },
+                  ),
+                  Text(
+                    'தமிழ் 1',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'MuktaMalar',
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  Radio(
                     value: 'MeeraInimai',
                     groupValue: _selectedTamilFont,
                     onChanged: (val) async {
@@ -280,7 +298,7 @@ class _SettingsState extends State<Settings> {
                     },
                   ),
                   Text(
-                    'தமிழ் 1',
+                    'தமிழ் 2',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontFamily: 'MeeraInimai',
@@ -300,30 +318,10 @@ class _SettingsState extends State<Settings> {
                     },
                   ),
                   Text(
-                    'தமிழ் 2',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'HindMadurai',
-                      color: NightMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                  Radio(
-                    value: 'MuktaMalar',
-                    groupValue: _selectedTamilFont,
-                    onChanged: (val) async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        _selectedTamilFont = 'MuktaMalar';
-                        prefs.setString('selectedTamilFont', 'MuktaMalar');
-                      });
-                    },
-                  ),
-                  Text(
                     'தமிழ் 3',
                     style: TextStyle(
                       fontSize: 16.0,
-                      fontFamily: 'MuktaMalar',
+                      fontFamily: 'HindMadurai',
                       color: NightMode ? Colors.white : Colors.black,
                     ),
                   ),
@@ -425,14 +423,14 @@ class _SettingsState extends State<Settings> {
                       _selectedTranslation = 'mJohn';
                       _currentArabicFontSize = 22;
                       _currentTamilFontSize = 18;
-                      _selectedTamilFont = 'MeeraInimai';
+                      _selectedTamilFont = 'MuktaMalar';
                       _selectedArabicFont = 'AlQalam';
                       NightMode = false;
 
                       prefs.setString('selectedTranslation', 'mJohn');
                       prefs.setDouble('tamilFontSize', 18);
                       prefs.setDouble('arabicFontSize', 22);
-                      prefs.setString('selectedTamilFont', 'MeeraInimai');
+                      prefs.setString('selectedTamilFont', 'MuktaMalar');
                       prefs.setString('selectedArabicFont', 'AlQalam');
                       prefs.setBool('NightMode', false);
                     });
@@ -456,7 +454,7 @@ class _SettingsState extends State<Settings> {
       _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 18);
       _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 22);
       _selectedTamilFont =
-          (prefs.getString('selectedTamilFont') ?? 'MeeraInimai');
+          (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
       NightMode = (prefs.getBool('NightMode') ?? false);
