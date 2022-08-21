@@ -98,6 +98,10 @@ flutter:
       fonts:
         - asset: assets/fonts/MuktaMalar-Regular.ttf
 
+    - family: NotoSansTamil
+      fonts:
+        - asset: assets/fonts/NotoSansTamil.ttf
+
     - family: AlQalam
       fonts:
       - asset: assets/fonts/AlQalam.ttf
@@ -106,6 +110,41 @@ flutter:
     - family: PDMS_Saleem
       fonts:
       - asset: assets/fonts/PDMS_Saleem_QuranFont.ttf
+
+
+    - family: Arabic
+      fonts:
+        - asset: assets/fonts/Arabic.ttf
+
+    - family: Naskh
+      fonts:
+        - asset: assets/fonts/KFC_naskh.otf
+
+    - family: Lateef
+      fonts:
+        - asset: assets/fonts/LateefRegOT.ttf
+
+    - family: MeezanUni
+      fonts:
+        - asset: assets/fonts/MeezanUni.ttf
+
+    - family: NafeesNaskh
+      fonts:
+        - asset: assets/fonts/NafeesNaskh.ttf
+
+
+    - family: QuranCommon
+      fonts:
+        - asset: assets/fonts/QuranCommon.ttf
+
+
+    - family: Scheherazade
+      fonts:
+        - asset: assets/fonts/Scheherazade.ttf
+
+    - family: Uthmani
+      fonts:
+        - asset: assets/fonts/UthmaniFont.ttf
 
 
   #       - asset: fonts/Schyler-Italic.ttf

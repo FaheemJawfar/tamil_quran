@@ -204,7 +204,7 @@ class _SettingsState extends State<Settings> {
                 thickness: 2,
               ),
               Text(
-                'அரபு எழுத்துரு அளவு',
+                'அரபு எழுத்து அளவு',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -228,7 +228,7 @@ class _SettingsState extends State<Settings> {
                 },
               ),
               Text(
-                'தமிழ் எழுத்துரு அளவு',
+                'தமிழ் எழுத்து அளவு',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -254,170 +254,197 @@ class _SettingsState extends State<Settings> {
               Divider(
                 thickness: 2,
               ),
-              Text(
-                'தமிழ் எழுத்து வடிவத்தை தேர்வு செய்க:',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: _selectedTamilFont,
-                  color: NightMode ? Colors.white : Colors.black,
-                ),
-              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Radio(
-                    value: 'MuktaMalar',
-                    groupValue: _selectedTamilFont,
-                    onChanged: (val) async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        _selectedTamilFont = 'MuktaMalar';
-                        prefs.setString('selectedTamilFont', 'MuktaMalar');
-                      });
-                    },
-                  ),
                   Text(
-                    'தமிழ் 1',
+                    'தமிழ் எழுத்து வடிவம்',
                     style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'MuktaMalar',
-                      color: NightMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                  Radio(
-                    value: 'MeeraInimai',
-                    groupValue: _selectedTamilFont,
-                    onChanged: (val) async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        _selectedTamilFont = 'MeeraInimai';
-                        prefs.setString('selectedTamilFont', 'MeeraInimai');
-                      });
-                    },
-                  ),
-                  Text(
-                    'தமிழ் 2',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'MeeraInimai',
-                      color: NightMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                  Radio(
-                    value: 'HindMadurai',
-                    groupValue: _selectedTamilFont,
-                    onChanged: (val) async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        _selectedTamilFont = 'HindMadurai';
-                        prefs.setString('selectedTamilFont', 'HindMadurai');
-                      });
-                    },
-                  ),
-                  Text(
-                    'தமிழ் 3',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'HindMadurai',
-                      color: NightMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-              Divider(
-                thickness: 2,
-              ),
-              Text(
-                'அரபு எழுத்து வடிவத்தை தேர்வு செய்க:',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: _selectedTamilFont,
-                  color: NightMode ? Colors.white : Colors.black,
-                ),
-              ),
-              Row(
-                children: [
-                  Radio(
-                    value: 'AlQalam',
-                    groupValue: _selectedArabicFont,
-                    onChanged: (val) async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        _selectedArabicFont = 'AlQalam';
-                        prefs.setString('selectedArabicFont', 'AlQalam');
-                      });
-                    },
-                  ),
-                  Text(
-                    'اَلْعَرَبِيَّةُ ١',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'AlQalam',
-                      color: NightMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                  Radio(
-                    value: 'PDMS_Saleem',
-                    groupValue: _selectedArabicFont,
-                    onChanged: (val) async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        _selectedArabicFont = 'PDMS_Saleem';
-                        prefs.setString('selectedArabicFont', 'PDMS_Saleem');
-                      });
-                    },
-                  ),
-                  Text(
-                    'اَلْعَرَبِيَّةُ ٢',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'PDMS_Saleem',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: _selectedTamilFont,
                       color: NightMode ? Colors.white : Colors.black,
                     ),
                   ),
 
 
-                ],
-              ),
-              Divider(
-                thickness: 2,
-              ),
-              Text(
-                'அமைப்புக்களை மீளமையுங்கள்:',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: _selectedTamilFont,
-                  color: NightMode ? Colors.white : Colors.black,
-                ),
-              ),
-              ElevatedButton(
-                  onPressed: () async {
+                  DropdownButton(
+                    elevation: 16,
+                    style: TextStyle(color: Colors.black,
+                        fontSize: 18,
+                        ),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.grey[900],
+                    ),
+                    value: _selectedTamilFont,
+                    items: const [
+                      DropdownMenuItem(value: 'MuktaMalar', child: Text('தமிழ் 1',style: TextStyle(
+                        fontFamily: 'MuktaMalar',
+                      ),)),
+                      DropdownMenuItem(value: 'MeeraInimai', child: Text('தமிழ் 2',style: TextStyle(
+                        fontFamily: 'MeeraInimai',
+                      ),)),
+
+                      DropdownMenuItem(value: 'HindMadurai', child: Text('தமிழ் 3',style: TextStyle(
+                        fontFamily: 'HindMadurai',
+                      ),)),
+
+                      DropdownMenuItem(value: 'NotoSansTamil', child: Text('தமிழ் 4',style: TextStyle(
+                        fontFamily: 'NotoSansTamil',
+                      ),)),
+
+
+
+                    ], onChanged: (String? value) async {
+
                     SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
+                    await SharedPreferences.getInstance();
                     setState(() {
-                      _selectedTranslation = 'mJohn';
-                      _currentArabicFontSize = 22;
-                      _currentTamilFontSize = 18;
-                      _selectedTamilFont = 'MuktaMalar';
-                      _selectedArabicFont = 'AlQalam';
-                      NightMode = false;
-
-                      prefs.setString('selectedTranslation', 'mJohn');
-                      prefs.setDouble('tamilFontSize', 18);
-                      prefs.setDouble('arabicFontSize', 22);
-                      prefs.setString('selectedTamilFont', 'MuktaMalar');
-                      prefs.setString('selectedArabicFont', 'AlQalam');
-                      prefs.setBool('NightMode', false);
+                      _selectedTamilFont = value!;
+                      prefs.setString('selectedTamilFont', _selectedTamilFont);
                     });
+
+
                   },
-                  child: Text('Reset Settings')),
+                  )
+                ],
+              ),
+
+              Divider(
+                thickness: 2,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'அரபு எழுத்து வடிவம்',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: _selectedTamilFont,
+                      color: NightMode ? Colors.white : Colors.black,
+                    ),
+                  ),
+
+                  DropdownButton(
+                    elevation: 16,
+                    style: TextStyle(color: Colors.black,
+                      fontSize: 18,
+                    ),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.grey[900],
+                    ),
+                    value: _selectedArabicFont,
+                    items: const [
+                      DropdownMenuItem(value: 'AlQalam', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'AlQalam',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'PDMS_Saleem', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'PDMS_Saleem',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'Arabic', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'Arabic',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'Naskh', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'Naskh',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'Lateef', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'Lateef',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'MeezanUni', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'MeezanUni',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'NafeesNaskh', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'NafeesNaskh',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'QuranCommon', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'QuranCommon',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'Scheherazade', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'Scheherazade',
+                      ),
+                      )),
+
+                      DropdownMenuItem(value: 'Uthmani', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                        fontFamily: 'Uthmani',
+                      ),
+                        )),
+                    ],
+                    onChanged: (String? value) async {
+
+                    SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                    setState(() {
+                      _selectedArabicFont = value!;
+                      prefs.setString('selectedArabicFont', _selectedArabicFont);
+                    });
+
+
+                  },
+                  ),
+                ],
+              ),
+
+              Divider(
+                thickness: 2,
+              ),
+
+              SizedBox(height: 40,),
+
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'அமைப்புக்களை மீளமையுங்கள் (Reset Defaults):',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: _selectedTamilFont,
+                        color: NightMode ? Colors.white : Colors.black,
+                      ),
+                    ),
+                    ElevatedButton(
+                        onPressed: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          setState(() {
+                            _selectedTranslation = 'mJohn';
+                            _currentArabicFontSize = 22;
+                            _currentTamilFontSize = 18;
+                            _selectedTamilFont = 'MuktaMalar';
+                            _selectedArabicFont = 'AlQalam';
+                            NightMode = false;
+
+                            prefs.setString('selectedTranslation', 'mJohn');
+                            prefs.setDouble('tamilFontSize', 18);
+                            prefs.setDouble('arabicFontSize', 22);
+                            prefs.setString('selectedTamilFont', 'MuktaMalar');
+                            prefs.setString('selectedArabicFont', 'AlQalam');
+                            prefs.setBool('NightMode', false);
+                          });
+                        },
+                        child: Text('Reset Settings')),
+                  ],
+                ),
+              ),
               Divider(
                 thickness: 2,
               ),
@@ -427,6 +454,8 @@ class _SettingsState extends State<Settings> {
       ),
     );
   }
+
+
 
   void loadSelections() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
