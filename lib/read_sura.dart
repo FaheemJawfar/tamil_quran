@@ -25,6 +25,7 @@ class ReadSura extends StatefulWidget {
 }
 
 List _quranDb = [];
+List _quranArabic = [];
 List _pjQuranDb = [];
 String ShareVerse = '';
 String _selectedTranslation = 'mJohn';
@@ -47,6 +48,7 @@ class _ReadSuraState extends State<ReadSura> {
         padding: EdgeInsets.all(5),
         child: Column(
           children: [
+
             _quranDb.isNotEmpty && _pjQuranDb.isNotEmpty
                 ? Expanded(
                     child: ScrollablePositionedList.builder(
@@ -70,19 +72,45 @@ class _ReadSuraState extends State<ReadSura> {
                                   NightMode ? Colors.grey[900] : Colors.white,
                               margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                               child: ListTile(
-                                title: Text(
-                                  _selectedTranslation == 'pj'
-                                      ? setPJArabicVerse(index)
-                                      : setArabicVerse(index),
+
+                                title:
+                                _selectedTranslation == 'pj' ?
+                                Text(setPJArabicVerse(index),
                                   style: TextStyle(
                                     color:
-                                        NightMode ? Colors.white : Colors.black,
+                                    NightMode ? Colors.white : Colors.black,
                                     fontSize: _currentArabicFontSize,
                                     fontFamily: _selectedArabicFont,
                                     fontWeight: FontWeight.normal,
                                   ),
                                   textDirection: TextDirection.rtl,
+                                ):
+                                RichText(
+                                    textAlign: TextAlign.end,
+                                    text: TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text:
+                                         setArabicVerse(index),
+                                    style: TextStyle(
+                                      color:
+                                          NightMode ? Colors.white : Colors.black,
+                                      fontSize: _currentArabicFontSize,
+                                      fontFamily: _selectedArabicFont,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                 
+                                   ),
+                                      TextSpan(text: replaceArabicNumber(index),style: TextStyle(
+                                        fontFamily: 'UthmanicScript',
+                                        fontSize: _currentArabicFontSize,
+                                        color : NightMode ? Colors.white : Colors.black,
+                                      )),
+
+                                    ],
+                                  ),
                                 ),
+
                                 subtitle: Text(
                                   _selectedTranslation == 'pj'
                                       ? setPJTamilVerse(index)
@@ -127,6 +155,17 @@ class _ReadSuraState extends State<ReadSura> {
     );
   }
 
+  Future<void> readQuranArabic() async {
+    final String response =
+    await rootBundle.loadString('assets/quran_arabic.json');
+    final data = await json.decode(response);
+    setState(
+          () {
+        _quranArabic = data["quran"];
+      },
+    );
+  }
+
   Future<void> readPJQuranDb() async {
     final String response = await rootBundle.loadString('assets/quran-pj.json');
     final data = await json.decode(response);
@@ -137,19 +176,60 @@ class _ReadSuraState extends State<ReadSura> {
     );
   }
 
-  String replaceArabicNumber(String input) {
-    const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    const arabic = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  String replaceArabicNumber(index) {
 
-    for (int i = 0; i < english.length; i++) {
-      input = input.replaceAll(english[i], arabic[i]);
+    if(widget.SuraNumber == 1 || widget.SuraNumber == 9){
+      int verse = index+1;
+      String input = verse.toString();
+
+      const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const arabic = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
+      for (int i = 0; i < english.length; i++) {
+        input = input.replaceAll(english[i], arabic[i]);
+      }
+
+      return ' $input';
     }
 
-    return input;
+    else {
+      String input = index.toString();
+
+      const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const arabic = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
+      for (int i = 0; i < english.length; i++) {
+        input = input.replaceAll(english[i], arabic[i]);
+      }
+
+      if(index==0){
+        return '';
+      }
+
+      else {
+        return ' $input';
+      }
+
+    }
+
   }
 
+  // String setArabicVerse(index) {
+  //   return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["arabic"]}';
+  // }
+
   String setArabicVerse(index) {
-    return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["arabic"]}';
+    if(widget.SuraNumber == 1 || widget.SuraNumber == 9){
+      return '${_quranArabic[widget.SuraNumber-1]["verses"][index]["arabic"]}';
+    }
+    else {
+      if (index==0){
+        return 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْم';
+      }
+
+      return '${_quranArabic[widget.SuraNumber-1]["verses"][index-1]["arabic"]}';
+    }
+
   }
 
   String setTamilVerse(index) {
@@ -309,6 +389,8 @@ class _ReadSuraState extends State<ReadSura> {
     super.initState();
     loadSelections();
     readQuranDb();
+    readQuranArabic();
     readPJQuranDb();
+
   }
 }

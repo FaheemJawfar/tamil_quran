@@ -56,6 +56,10 @@ class _SuraNamesState extends State<SuraNames> {
                             )));
                   }
                 },
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                      color: NightMode ? Colors.white : Colors.green),
+                ),
                 child: Text(
                   'வாசிப்பைத் தொடர்க...',
                   style: TextStyle(

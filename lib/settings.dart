@@ -269,8 +269,9 @@ class _SettingsState extends State<Settings> {
 
 
                   DropdownButton(
+                    dropdownColor: NightMode ? Colors.grey[900] : Colors.white,
                     elevation: 16,
-                    style: TextStyle(color: Colors.black,
+                    style: TextStyle(color: NightMode ? Colors.white : Colors.black,
                         fontSize: 18,
                         ),
                     underline: Container(
@@ -328,8 +329,10 @@ class _SettingsState extends State<Settings> {
                   ),
 
                   DropdownButton(
+                    dropdownColor: NightMode ? Colors.grey[900] : Colors.white,
+                    alignment: AlignmentDirectional.centerEnd,
                     elevation: 16,
-                    style: TextStyle(color: Colors.black,
+                    style: TextStyle(color: NightMode ? Colors.white : Colors.black,
                       fontSize: 18,
                     ),
                     underline: Container(
@@ -337,53 +340,40 @@ class _SettingsState extends State<Settings> {
                       color: Colors.grey[900],
                     ),
                     value: _selectedArabicFont,
-                    items: const [
-                      DropdownMenuItem(value: 'AlQalam', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                    items:  [
+                      DropdownMenuItem(
+                          alignment: AlignmentDirectional.centerEnd,
+                          value: 'AlQalam', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
                         fontFamily: 'AlQalam',
                       ),
                       )),
 
-                      DropdownMenuItem(value: 'PDMS_Saleem', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                      DropdownMenuItem(
+                          alignment: AlignmentDirectional.centerEnd,
+                          value: 'PDMS_Saleem', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
                         fontFamily: 'PDMS_Saleem',
                       ),
                       )),
 
-                      DropdownMenuItem(value: 'Arabic', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                      DropdownMenuItem(
+                          alignment: AlignmentDirectional.centerEnd,
+                          value: 'Arabic', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
                         fontFamily: 'Arabic',
                       ),
                       )),
 
-                      DropdownMenuItem(value: 'Naskh', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
-                        fontFamily: 'Naskh',
-                      ),
-                      )),
 
-                      DropdownMenuItem(value: 'Lateef', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
-                        fontFamily: 'Lateef',
-                      ),
-                      )),
-
-                      DropdownMenuItem(value: 'MeezanUni', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                      DropdownMenuItem(
+                          alignment: AlignmentDirectional.centerEnd,
+                          value: 'MeezanUni', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
                         fontFamily: 'MeezanUni',
                       ),
                       )),
 
-                      DropdownMenuItem(value: 'NafeesNaskh', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
-                        fontFamily: 'NafeesNaskh',
-                      ),
-                      )),
 
-                      DropdownMenuItem(value: 'QuranCommon', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
-                        fontFamily: 'QuranCommon',
-                      ),
-                      )),
-
-                      DropdownMenuItem(value: 'Scheherazade', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
-                        fontFamily: 'Scheherazade',
-                      ),
-                      )),
-
-                      DropdownMenuItem(value: 'Uthmani', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
+                      DropdownMenuItem(
+                          alignment: AlignmentDirectional.centerEnd,
+                          value: 'Uthmani', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
                         fontFamily: 'Uthmani',
                       ),
                         )),
