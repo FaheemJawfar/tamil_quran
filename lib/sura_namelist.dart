@@ -5,6 +5,7 @@ import 'dart:async' show Future;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamil_quran/search_quran.dart';
 import 'package:tamil_quran/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'about_us.dart';
@@ -169,6 +170,16 @@ class _SuraNamesState extends State<SuraNames> {
       automaticallyImplyLeading: false,
 
       actions: [
+
+        IconButton(onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SearchQuran()),
+          );
+
+        }, icon: Icon(Icons.search)),
+
+
         IconButton(
           icon: Icon(Icons.settings),
           onPressed: () {
