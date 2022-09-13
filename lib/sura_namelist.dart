@@ -84,7 +84,7 @@ class _SuraNamesState extends State<SuraNames> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${index + 1}. ${_SuraList[index]["name"]}',
+                                      '${index+1}. ${_SuraList[index]["name"]}',
                                       style: TextStyle(
                                           color: NightMode
                                               ? Colors.white
@@ -118,7 +118,8 @@ class _SuraNamesState extends State<SuraNames> {
                                                   : Colors.black,
                                               fontSize: _currentArabicFontSize,
                                               fontWeight: FontWeight.bold,
-                                              fontFamily: _selectedArabicFont),
+                                              fontFamily: _selectedArabicFont
+                                          ),
                                           textDirection: TextDirection.rtl,
                                         ),
                                       ],
@@ -353,8 +354,8 @@ class _SuraNamesState extends State<SuraNames> {
   void loadSelections() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 18);
-      _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 22);
+      _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 20);
+      _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 24);
       _selectedTamilFont =
           (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
@@ -362,6 +363,7 @@ class _SuraNamesState extends State<SuraNames> {
       NightMode = (prefs.getBool('NightMode') ?? false);
     });
   }
+
 
   @override
   void initState() {

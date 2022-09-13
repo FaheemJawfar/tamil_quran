@@ -417,18 +417,18 @@ class _SettingsState extends State<Settings> {
                               await SharedPreferences.getInstance();
                           setState(() {
                             _selectedTranslation = 'mJohn';
-                            _currentArabicFontSize = 22;
-                            _currentTamilFontSize = 18;
+                            _currentArabicFontSize = 24;
+                            _currentTamilFontSize = 20;
                             _selectedTamilFont = 'MuktaMalar';
                             _selectedArabicFont = 'AlQalam';
                             NightMode = false;
 
-                            prefs.setString('selectedTranslation', 'mJohn');
-                            prefs.setDouble('tamilFontSize', 18);
-                            prefs.setDouble('arabicFontSize', 22);
-                            prefs.setString('selectedTamilFont', 'MuktaMalar');
-                            prefs.setString('selectedArabicFont', 'AlQalam');
-                            prefs.setBool('NightMode', false);
+                            prefs.setString('selectedTranslation', _selectedTranslation);
+                            prefs.setDouble('tamilFontSize', _currentTamilFontSize);
+                            prefs.setDouble('arabicFontSize', _currentArabicFontSize);
+                            prefs.setString('selectedTamilFont', _selectedTamilFont);
+                            prefs.setString('selectedArabicFont', _selectedArabicFont);
+                            prefs.setBool('NightMode', NightMode);
                           });
                         },
                         child: Text('Reset Settings')),
@@ -452,8 +452,8 @@ class _SettingsState extends State<Settings> {
     setState(() {
       _selectedTranslation =
           (prefs.getString('selectedTranslation') ?? 'mJohn');
-      _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 18);
-      _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 22);
+      _currentTamilFontSize = (prefs.getDouble('tamilFontSize') ?? 20);
+      _currentArabicFontSize = (prefs.getDouble('arabicFontSize') ?? 24);
       _selectedTamilFont =
           (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
