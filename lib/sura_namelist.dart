@@ -118,7 +118,7 @@ class _SuraNamesState extends State<SuraNames> {
                                                   : Colors.black,
                                               fontSize: _currentArabicFontSize,
                                               fontWeight: FontWeight.bold,
-                                              fontFamily: _selectedArabicFont
+                                              fontFamily: 'Arabic'
                                           ),
                                           textDirection: TextDirection.rtl,
                                         ),
