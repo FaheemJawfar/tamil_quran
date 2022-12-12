@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'dart:async' show Future;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/search_quran.dart';
 import 'package:tamil_quran/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'about_us.dart';
-import 'read_sura.dart';
+import './models/sura_names.dart';
 
-class SuraNames extends StatefulWidget {
-  const SuraNames({Key? key}) : super(key: key);
+class SuraNameScreen extends StatefulWidget {
+  const SuraNameScreen({Key? key}) : super(key: key);
 
   @override
-  State<SuraNames> createState() => _SuraNamesState();
+  State<SuraNameScreen> createState() => _SuraNameScreenState();
 }
 
-class _SuraNamesState extends State<SuraNames> {
-  List _SuraList = [];
+class _SuraNameScreenState extends State<SuraNameScreen> {
+
+  List<SuraNames> allSurahs = [];
+
   int InputSura = 0;
   int InputVerse = 0;
 
@@ -32,6 +34,24 @@ class _SuraNamesState extends State<SuraNames> {
   int _lastVerse = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    //  var dbHelper = DBHelper();
+    allSurahs = await Provider.of<QuranProvider>(context, listen:false).suraNames;
+    setState(() {
+
+    });
+  }
+
+
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: NightMode ? Colors.grey[900] : Colors.white,
@@ -42,20 +62,20 @@ class _SuraNamesState extends State<SuraNames> {
             children: [
               OutlinedButton(
                 onPressed: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-
-                  _lastSura = (prefs.getInt('lastSura') ?? 0);
-                  _lastVerse = (prefs.getInt('lastVerse') ?? 0);
-
-                  if (_lastSura != 0) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ReadSura(
-                              SuraNumber: _lastSura,
-                              VerseNumber: _lastVerse,
-                              SuraName: '${_SuraList[_lastSura - 1]["name"]}',
-                            )));
-                  }
+                  // SharedPreferences prefs =
+                  //     await SharedPreferences.getInstance();
+                  //
+                  // _lastSura = (prefs.getInt('lastSura') ?? 0);
+                  // _lastVerse = (prefs.getInt('lastVerse') ?? 0);
+                  //
+                  // if (_lastSura != 0) {
+                  //   Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (context) => ReadSura(
+                  //             SuraNumber: _lastSura,
+                  //             VerseNumber: _lastVerse,
+                  //             SuraName: '${_SuraList[_lastSura - 1]["name"]}',
+                  //           )));
+                  // }
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
@@ -65,15 +85,15 @@ class _SuraNamesState extends State<SuraNames> {
                   'வாசிப்பைத் தொடர்க...',
                   style: TextStyle(
                     color: NightMode ? Colors.white : Colors.green[900],
-                    fontFamily: _selectedTamilFont,
+                    //fontFamily: _selectedTamilFont,
                     fontSize: 16,
                   ),
                 ),
               ),
-              _SuraList.isNotEmpty
+              allSurahs.isNotEmpty
                   ? Expanded(
                       child: ListView.builder(
-                          itemCount: _SuraList.length,
+                          itemCount: allSurahs.length,
                           itemBuilder: (context, index) {
                             return Card(
                               color:
@@ -84,7 +104,7 @@ class _SuraNamesState extends State<SuraNames> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${index+1}. ${_SuraList[index]["name"]}',
+                                    '${allSurahs[index].suraNumber.toString()} ${allSurahs[index].tamilName}',
                                       style: TextStyle(
                                           color: NightMode
                                               ? Colors.white
@@ -101,7 +121,7 @@ class _SuraNamesState extends State<SuraNames> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'வசனங்கள் : ${_SuraList[index]["versecnt"]}',
+                                          'வசனங்கள்: ${allSurahs[index].totalVerses}',
                                           style: TextStyle(
                                               color: NightMode
                                                   ? Colors.white
@@ -111,7 +131,7 @@ class _SuraNamesState extends State<SuraNames> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          '${_SuraList[index]["name_arabic"]}',
+                                          allSurahs[index].arabicName,
                                           style: TextStyle(
                                               color: NightMode
                                                   ? Colors.white
@@ -127,15 +147,14 @@ class _SuraNamesState extends State<SuraNames> {
                                   ],
                                 ),
                                 onTap: () {
-                                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuraPage(selectedSura : index)));
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => ReadSura(
-                                            SuraNumber: _SuraList[index]
-                                                ["surano"],
-                                            SuraName:
-                                                '${_SuraList[index]["name"]}',
-                                            VerseNumber: 0,
-                                          )));
+                                   // Navigator.of(context).push(MaterialPageRoute(
+                                   //    builder: (context) => ReadSura(
+                                   //          SuraNumber: _SuraList[index]
+                                   //              ["surano"],
+                                   //          SuraName:
+                                   //              '${_SuraList[index]["name"]}',
+                                   //          VerseNumber: 0,
+                                   //        )));
                                 },
                               ),
                             );
@@ -154,14 +173,7 @@ class _SuraNamesState extends State<SuraNames> {
         ));
   }
 
-  Future<void> getSuraList() async {
-    final String response =
-        await rootBundle.loadString('assets/sura_names.json');
-    final data = await json.decode(response);
-    setState(() {
-      _SuraList = data["data"];
-    });
-  }
+
 
   _buildAppBar() {
     return AppBar(
@@ -310,14 +322,14 @@ class _SuraNamesState extends State<SuraNames> {
                           child: const Text('Cancel'),
                         ),
                         OutlinedButton(
-                          onPressed: () =>
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ReadSura(
-                                        SuraNumber: InputSura,
-                                        VerseNumber: InputVerse,
-                                        SuraName:
-                                            '${_SuraList[InputSura - 1]["name"]}',
-                                      ))),
+                          onPressed: () => {},
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => ReadSura(
+                              //           SuraNumber: InputSura,
+                              //           VerseNumber: InputVerse,
+                              //           SuraName:
+                              //               '${_SuraList[InputSura - 1]["name"]}',
+                              //         ))),
                           child: const Text('OK'),
                         ),
                       ],
@@ -365,10 +377,4 @@ class _SuraNamesState extends State<SuraNames> {
   }
 
 
-  @override
-  void initState() {
-    super.initState();
-    getSuraList();
-    loadSelections();
-  }
 }

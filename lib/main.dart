@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tamil_quran/employee_list.dart';
+import 'package:tamil_quran/providers/quran_provider.dart';
 import './sura_namelist.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => QuranProvider() ),
+      ],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +23,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SuraNames(),
+      home: const SuraNameScreen(),
     );
   }
 }
