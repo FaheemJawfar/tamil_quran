@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/employee_list.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import './sura_namelist.dart';
+import 'screens/sura_namelist.dart';
 
 void main() {
   runApp(MultiProvider(

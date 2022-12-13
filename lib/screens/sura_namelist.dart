@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/search_quran.dart';
-import 'package:tamil_quran/settings.dart';
+import 'package:tamil_quran/screens/search_quran.dart';
+import './settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'about_us.dart';
-import './models/sura_names.dart';
+import '../models/sura_names.dart';
 
 class SuraNameScreen extends StatefulWidget {
   const SuraNameScreen({Key? key}) : super(key: key);

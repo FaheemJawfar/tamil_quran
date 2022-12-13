@@ -5,7 +5,7 @@ import 'dart:async' show Future;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamil_quran/settings.dart';
+import './settings.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ReadSura extends StatefulWidget {
