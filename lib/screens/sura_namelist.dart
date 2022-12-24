@@ -20,32 +20,32 @@ class SuraNameScreen extends StatefulWidget {
 
 class _SuraNameScreenState extends State<SuraNameScreen> {
 
-  List<SuraNames> allSurahs = [];
+  //List<SuraNames> allSuras = [];
 
-  int InputSura = 0;
-  int InputVerse = 0;
+  late var quranProvider = Provider.of<QuranProvider>(context, listen:true);
+  int inputSura = 0;
+  int inputVerse = 0;
 
   double _currentArabicFontSize = 22;
   double _currentTamilFontSize = 18;
   String _selectedTamilFont = 'MuktaMalar';
   String _selectedArabicFont = 'AlQalam';
-  bool NightMode = false;
-  int _lastSura = 0;
-  int _lastVerse = 0;
+  bool nightMode = false;
+  final int _lastSura = 0;
+  final int _lastVerse = 0;
 
   @override
   void initState() {
-    // TODO: implement initState
+    getQuranDb();
     super.initState();
-    getData();
+
   }
 
-  void getData() async {
-    //  var dbHelper = DBHelper();
-    allSurahs = await Provider.of<QuranProvider>(context, listen:false).suraNames;
-    setState(() {
+  void getQuranDb() async {
+   Provider.of<QuranProvider>(context, listen:false).getSuraNamesFromDb();
+   Provider.of<QuranProvider>(context, listen:false).getAllArabicVersesFromDb();
 
-    });
+
   }
 
 
@@ -54,14 +54,15 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: NightMode ? Colors.grey[900] : Colors.white,
+        backgroundColor: nightMode ? Colors.grey[900] : Colors.white,
         appBar: _buildAppBar(),
         body: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               OutlinedButton(
                 onPressed: () async {
+                  print(quranProvider.allSuraArabicVerses[1][254].arabicVerse);
                   // SharedPreferences prefs =
                   //     await SharedPreferences.getInstance();
                   //
@@ -79,41 +80,41 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
-                      color: NightMode ? Colors.white : Colors.green),
+                      color: nightMode ? Colors.white : Colors.green),
                 ),
                 child: Text(
                   'வாசிப்பைத் தொடர்க...',
                   style: TextStyle(
-                    color: NightMode ? Colors.white : Colors.green[900],
+                    color: nightMode ? Colors.white : Colors.green[900],
                     //fontFamily: _selectedTamilFont,
                     fontSize: 16,
                   ),
                 ),
               ),
-              allSurahs.isNotEmpty
+              quranProvider.suraNames.isNotEmpty
                   ? Expanded(
                       child: ListView.builder(
-                          itemCount: allSurahs.length,
+                          itemCount: quranProvider.suraNames.length,
                           itemBuilder: (context, index) {
                             return Card(
                               color:
-                                  NightMode ? Colors.grey[900] : Colors.white,
-                              margin: EdgeInsets.fromLTRB(0, 2, 0, 2),
+                                  nightMode ? Colors.grey[900] : Colors.white,
+                              margin: const EdgeInsets.fromLTRB(0, 2, 0, 2),
                               child: ListTile(
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                    '${allSurahs[index].suraNumber.toString()} ${allSurahs[index].tamilName}',
+                                    '${quranProvider.suraNames[index].suraNumber.toString()} ${quranProvider.suraNames[index].tamilName}',
                                       style: TextStyle(
-                                          color: NightMode
+                                          color: nightMode
                                               ? Colors.white
                                               : Colors.black,
                                           fontSize: _currentTamilFontSize,
                                           fontFamily: _selectedTamilFont,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                     Row(
@@ -121,9 +122,9 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'வசனங்கள்: ${allSurahs[index].totalVerses}',
+                                          'வசனங்கள்: ${quranProvider.suraNames[index].totalVerses}',
                                           style: TextStyle(
-                                              color: NightMode
+                                              color: nightMode
                                                   ? Colors.white
                                                   : Colors.black,
                                               fontSize: 15,
@@ -131,9 +132,9 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          allSurahs[index].arabicName,
+                                          quranProvider.suraNames[index].arabicName,
                                           style: TextStyle(
-                                              color: NightMode
+                                              color: nightMode
                                                   ? Colors.white
                                                   : Colors.black,
                                               fontSize: _currentArabicFontSize,
@@ -177,9 +178,9 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
 
   _buildAppBar() {
     return AppBar(
-      backgroundColor: NightMode ? Colors.black : Colors.green[900],
+      backgroundColor: nightMode ? Colors.black : Colors.green[900],
       //centerTitle: true,
-      title: Text('அத்தியாயங்கள்'),
+      title: const Text('அத்தியாயங்கள்'),
       automaticallyImplyLeading: false,
 
       actions: [
@@ -187,18 +188,18 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
         IconButton(onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SearchQuran()),
+            MaterialPageRoute(builder: (context) => const SearchQuran()),
           );
 
-        }, icon: Icon(Icons.search)),
+        }, icon: const Icon(Icons.search)),
 
 
         IconButton(
-          icon: Icon(Icons.settings),
+          icon: const Icon(Icons.settings),
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Settings()),
+              MaterialPageRoute(builder: (context) => const Settings()),
             ).then((value) => setState(() {
                   loadSelections();
                 }));
@@ -275,7 +276,7 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
               ),
             ),
           ],
-          offset: Offset(0, 20),
+          offset: const Offset(0, 20),
           color: Colors.white,
           elevation: 2,
           // on selected we show the dialog box
@@ -293,7 +294,7 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
                         children: [
                           TextField(
                             onChanged: (value) {
-                              InputSura = int.parse(value);
+                              inputSura = int.parse(value);
                             },
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -305,7 +306,7 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
                           ),
                           TextField(
                             onChanged: (value) {
-                              InputVerse = int.parse(value);
+                              inputVerse = int.parse(value);
                             },
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -345,7 +346,7 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
                   'https://play.google.com/store/apps/details?id=com.faheemapps.tamil_quran');
             } else if (value == 4) {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => AboutUs()));
+                  .push(MaterialPageRoute(builder: (context) => const AboutUs()));
             }
           },
         ),
@@ -356,8 +357,8 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
   void searchQuran() {}
 
   _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
       throw 'Could not launch $url';
     }
@@ -372,7 +373,7 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
           (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
-      NightMode = (prefs.getBool('NightMode') ?? false);
+      nightMode = (prefs.getBool('NightMode') ?? false);
     });
   }
 

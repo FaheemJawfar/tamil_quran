@@ -14,28 +14,28 @@ class _SettingsState extends State<Settings> {
   double _currentTamilFontSize = 18;
   String _selectedTamilFont = 'MuktaMalar';
   String _selectedArabicFont = 'AlQalam';
-  bool NightMode = false;
+  bool nightMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NightMode ? Colors.grey[900] : Colors.green[100],
+      backgroundColor: nightMode ? Colors.grey[900] : Colors.green[100],
       appBar: AppBar(
           title: Text('அமைப்புகள்',
               style: TextStyle(fontFamily: _selectedTamilFont)),
           centerTitle: true,
-          backgroundColor: NightMode ? Colors.black : Colors.green[900],
+          backgroundColor: nightMode ? Colors.black : Colors.green[900],
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new_outlined),
+            icon: const Icon(Icons.arrow_back_ios_new_outlined),
           )),
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          margin: EdgeInsets.fromLTRB(12, 5, 12, 0),
+          margin: const EdgeInsets.fromLTRB(12, 5, 12, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,23 +47,23 @@ class _SettingsState extends State<Settings> {
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: NightMode ? Colors.white : Colors.black,
+                      color: nightMode ? Colors.white : Colors.black,
                     ),
                   ),
                   Switch(
-                    value: NightMode,
+                    value: nightMode,
                     onChanged: (value) async {
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                       setState(() {
-                        NightMode = value;
+                        nightMode = value;
                         prefs.setBool('NightMode', value);
                       });
                     },
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
               Text(
@@ -72,13 +72,13 @@ class _SettingsState extends State<Settings> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: _selectedTamilFont,
-                  color: NightMode ? Colors.white : Colors.black,
+                  color: nightMode ? Colors.white : Colors.black,
                 ),
               ),
               ListTile(
-                visualDensity: VisualDensity(vertical: -4),
+                visualDensity: const VisualDensity(vertical: -4),
                 horizontalTitleGap: 1,
-                contentPadding: EdgeInsets.only(top: 2, bottom: 2),
+                contentPadding: const EdgeInsets.only(top: 2, bottom: 2),
                 leading: Radio<String>(
                   value: 'mJohn',
                   groupValue: _selectedTranslation,
@@ -96,14 +96,14 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
-                    color: NightMode ? Colors.white : Colors.black,
+                    color: nightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
               ListTile(
-                visualDensity: VisualDensity(vertical: -4),
+                visualDensity: const VisualDensity(vertical: -4),
                 horizontalTitleGap: 1,
-                contentPadding: EdgeInsets.only(top: 2, bottom: 2),
+                contentPadding: const EdgeInsets.only(top: 2, bottom: 2),
                 leading: Radio<String>(
                   value: 'kingFahd',
                   groupValue: _selectedTranslation,
@@ -121,14 +121,14 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
-                    color: NightMode ? Colors.white : Colors.black,
+                    color: nightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
               ListTile(
-                visualDensity: VisualDensity(vertical: -4),
+                visualDensity: const VisualDensity(vertical: -4),
                 horizontalTitleGap: 1,
-                contentPadding: EdgeInsets.only(top: 2, bottom: 2),
+                contentPadding: const EdgeInsets.only(top: 2, bottom: 2),
                 leading: Radio<String>(
                   value: 'pj',
                   groupValue: _selectedTranslation,
@@ -146,14 +146,14 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
-                    color: NightMode ? Colors.white : Colors.black,
+                    color: nightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
               ListTile(
-                visualDensity: VisualDensity(vertical: -4),
+                visualDensity: const VisualDensity(vertical: -4),
                 horizontalTitleGap: 1,
-                contentPadding: EdgeInsets.only(top: 2, bottom: 2),
+                contentPadding: const EdgeInsets.only(top: 2, bottom: 2),
                 leading: Radio<String>(
                   value: 'ift',
                   groupValue: _selectedTranslation,
@@ -171,14 +171,14 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
-                    color: NightMode ? Colors.white : Colors.black,
+                    color: nightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
               ListTile(
-                visualDensity: VisualDensity(vertical: -4),
+                visualDensity: const VisualDensity(vertical: -4),
                 horizontalTitleGap: 1,
-                contentPadding: EdgeInsets.only(top: 2, bottom: 2),
+                contentPadding: const EdgeInsets.only(top: 2, bottom: 2),
                 leading: Radio<String>(
                   value: 'abdulHameed',
                   groupValue: _selectedTranslation,
@@ -196,11 +196,11 @@ class _SettingsState extends State<Settings> {
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: _selectedTamilFont,
-                    color: NightMode ? Colors.white : Colors.black,
+                    color: nightMode ? Colors.white : Colors.black,
                   ),
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
               Text(
@@ -209,7 +209,7 @@ class _SettingsState extends State<Settings> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: _selectedTamilFont,
-                  color: NightMode ? Colors.white : Colors.black,
+                  color: nightMode ? Colors.white : Colors.black,
                 ),
               ),
               Slider(
@@ -233,7 +233,7 @@ class _SettingsState extends State<Settings> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: _selectedTamilFont,
-                  color: NightMode ? Colors.white : Colors.black,
+                  color: nightMode ? Colors.white : Colors.black,
                 ),
               ),
               Slider(
@@ -251,7 +251,7 @@ class _SettingsState extends State<Settings> {
                   });
                 },
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
               Row(
@@ -263,15 +263,15 @@ class _SettingsState extends State<Settings> {
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       fontFamily: _selectedTamilFont,
-                      color: NightMode ? Colors.white : Colors.black,
+                      color: nightMode ? Colors.white : Colors.black,
                     ),
                   ),
 
 
                   DropdownButton(
-                    dropdownColor: NightMode ? Colors.grey[900] : Colors.white,
+                    dropdownColor: nightMode ? Colors.grey[900] : Colors.white,
                     elevation: 16,
-                    style: TextStyle(color: NightMode ? Colors.white : Colors.black,
+                    style: TextStyle(color: nightMode ? Colors.white : Colors.black,
                         fontSize: 18,
                         ),
                     underline: Container(
@@ -312,7 +312,7 @@ class _SettingsState extends State<Settings> {
                 ],
               ),
 
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
               Row(
@@ -324,15 +324,15 @@ class _SettingsState extends State<Settings> {
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       fontFamily: _selectedTamilFont,
-                      color: NightMode ? Colors.white : Colors.black,
+                      color: nightMode ? Colors.white : Colors.black,
                     ),
                   ),
 
                   DropdownButton(
-                    dropdownColor: NightMode ? Colors.grey[900] : Colors.white,
+                    dropdownColor: nightMode ? Colors.grey[900] : Colors.white,
                     alignment: AlignmentDirectional.centerEnd,
                     elevation: 16,
-                    style: TextStyle(color: NightMode ? Colors.white : Colors.black,
+                    style: TextStyle(color: nightMode ? Colors.white : Colors.black,
                       fontSize: 18,
                     ),
                     underline: Container(
@@ -340,7 +340,7 @@ class _SettingsState extends State<Settings> {
                       color: Colors.grey[900],
                     ),
                     value: _selectedArabicFont,
-                    items:  [
+                    items:  const [
                       DropdownMenuItem(
                           alignment: AlignmentDirectional.centerEnd,
                           value: 'AlQalam', child: Text('بِسْمِ ٱللَّٰهِ',style: TextStyle(
@@ -393,11 +393,11 @@ class _SettingsState extends State<Settings> {
                 ],
               ),
 
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
 
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
 
               Center(
                 child: Column(
@@ -408,7 +408,7 @@ class _SettingsState extends State<Settings> {
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         fontFamily: _selectedTamilFont,
-                        color: NightMode ? Colors.white : Colors.black,
+                        color: nightMode ? Colors.white : Colors.black,
                       ),
                     ),
                     ElevatedButton(
@@ -421,21 +421,21 @@ class _SettingsState extends State<Settings> {
                             _currentTamilFontSize = 20;
                             _selectedTamilFont = 'MuktaMalar';
                             _selectedArabicFont = 'AlQalam';
-                            NightMode = false;
+                            nightMode = false;
 
                             prefs.setString('selectedTranslation', _selectedTranslation);
                             prefs.setDouble('tamilFontSize', _currentTamilFontSize);
                             prefs.setDouble('arabicFontSize', _currentArabicFontSize);
                             prefs.setString('selectedTamilFont', _selectedTamilFont);
                             prefs.setString('selectedArabicFont', _selectedArabicFont);
-                            prefs.setBool('NightMode', NightMode);
+                            prefs.setBool('NightMode', nightMode);
                           });
                         },
-                        child: Text('Reset Settings')),
+                        child: const Text('Reset Settings')),
                   ],
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
             ],
@@ -458,7 +458,7 @@ class _SettingsState extends State<Settings> {
           (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
-      NightMode = (prefs.getBool('NightMode') ?? false);
+      nightMode = (prefs.getBool('NightMode') ?? false);
     });
   }
 

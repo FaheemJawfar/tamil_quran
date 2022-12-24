@@ -5,32 +5,30 @@ import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchQuran extends StatefulWidget {
-  SearchQuran({
+  const SearchQuran({
     Key? key,
   }) : super(key: key);
 
   @override
-  _SearchQuranState createState() => _SearchQuranState();
+  State<SearchQuran> createState() => _SearchQuranState();
 }
 
 class _SearchQuranState extends State<SearchQuran> {
   TextEditingController editingController = TextEditingController();
 
-
   List _quranDb = [];
   List _quranArabic = [];
   List _pjQuranDb = [];
-  String ShareVerse = '';
+  String shareVerse = '';
   String _selectedTranslation = 'mJohn';
   double _currentArabicFontSize = 20;
   double _currentTamilFontSize = 20;
   String _selectedTamilFont = 'MuktaMalar';
   String _selectedArabicFont = 'AlQalam';
-  bool NightMode = false;
-  int InputVerse = 0;
+  bool nightMode = false;
+  int inputVerse = 0;
   List searchData = [];
   List tempSearchData = [];
-
 
   onSearchTextChanged(String query) async {
     tempSearchData.clear();
@@ -40,107 +38,99 @@ class _SearchQuranState extends State<SearchQuran> {
       return;
     }
 
-    searchData.forEach(
-          (data) {
-        if (data.toString()
-            .contains(query.toString())) {
-          tempSearchData.add(
-              data); // If not empty then add search data into search data list
-        }
-
-      },
-    );
+    for (var data in searchData) {
+      if (data.toString().contains(query.toString())) {
+        tempSearchData.add(
+            data); // If not empty then add search data into search data list
+      }
+    }
 
     setState(() {});
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NightMode ? Colors.grey[900] : Colors.white,
+      backgroundColor: nightMode ? Colors.grey[900] : Colors.white,
       appBar: AppBar(
-        backgroundColor: NightMode ? Colors.black : Colors.green[900],
-        title: Text(
+        backgroundColor: nightMode ? Colors.black : Colors.green[900],
+        title: const Text(
           'திருக்குர்ஆனில் தேடுக',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 15,
           ),
         ),
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value) {
-                  onSearchTextChanged(value);
-                },
-                controller: editingController,
-                decoration: InputDecoration(
-                  labelText: "தேடுக",
-                  labelStyle: TextStyle(
-                    color: NightMode ? Colors.white70 : Colors.grey[600],
-                  ),
-                  hintText: "வார்த்தையை உள்ளிடுக",
-                  hintStyle: TextStyle(
-                    color: NightMode ? Colors.white70 : Colors.grey[600],
-                  ),
-                  prefixIcon: Icon(Icons.search,
-                      color: NightMode ? Colors.white : Colors.black),
-                  //prefixIconColor: NightMode ? Colors.white : Colors.black,
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 3,
-                        color: NightMode ? Colors.white : Colors.green,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(25.0))),
-
-                  focusedBorder: OutlineInputBorder(
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (value) {
+                onSearchTextChanged(value);
+              },
+              controller: editingController,
+              decoration: InputDecoration(
+                labelText: "தேடுக",
+                labelStyle: TextStyle(
+                  color: nightMode ? Colors.white70 : Colors.grey[600],
+                ),
+                hintText: "வார்த்தையை உள்ளிடுக",
+                hintStyle: TextStyle(
+                  color: nightMode ? Colors.white70 : Colors.grey[600],
+                ),
+                prefixIcon: Icon(Icons.search,
+                    color: nightMode ? Colors.white : Colors.black),
+                //prefixIconColor: NightMode ? Colors.white : Colors.black,
+                enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 3,
-                      color: NightMode ? Colors.white : Colors.green,
+                      color: nightMode ? Colors.white : Colors.green,
                     ),
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(25.0))),
+
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 3,
+                    color: nightMode ? Colors.white : Colors.green,
                   ),
-                ),
-                cursorColor: NightMode ? Colors.white : Colors.black,
-                style: TextStyle(
-                  color: NightMode ? Colors.white : Colors.black,
+                  borderRadius: const BorderRadius.all(Radius.circular(25.0)),
                 ),
               ),
+              cursorColor: nightMode ? Colors.white : Colors.black,
+              style: TextStyle(
+                color: nightMode ? Colors.white : Colors.black,
+              ),
             ),
-            tempSearchData.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      // shrinkWrap: true,
-                      itemCount: tempSearchData.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          color: NightMode ? Colors.grey[900] : Colors.white,
-                          margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                          child: ListTile(
-                            title: Text(
-                              tempSearchData.elementAt(index),
-                              style: TextStyle(
-                                color: NightMode ? Colors.white : Colors.black,
-                                fontFamily: _selectedTamilFont,
-                                fontSize: _currentTamilFontSize,
-                              ),
+          ),
+          tempSearchData.isNotEmpty
+              ? Expanded(
+                  child: ListView.builder(
+                    // shrinkWrap: true,
+                    itemCount: tempSearchData.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        color: nightMode ? Colors.grey[900] : Colors.white,
+                        margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: ListTile(
+                          title: Text(
+                            tempSearchData.elementAt(index),
+                            style: TextStyle(
+                              color: nightMode ? Colors.white : Colors.black,
+                              fontFamily: _selectedTamilFont,
+                              fontSize: _currentTamilFontSize,
                             ),
-                            onLongPress: () {
-
-                              Share.share(tempSearchData.elementAt(index));
-                            },
                           ),
-                        );
-                      },
-                    ),
-                  )
-                : Container(),
-          ],
-        ),
+                          onLongPress: () {
+                            Share.share(tempSearchData.elementAt(index));
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                )
+              : Container(),
+        ],
       ),
     );
   }
@@ -170,15 +160,14 @@ class _SearchQuranState extends State<SearchQuran> {
     await loadSelections();
 
     if (_selectedTranslation == 'pj') {
-
-      final String response = await rootBundle.loadString('assets/quran-pj.json');
+      final String response =
+          await rootBundle.loadString('assets/quran-pj.json');
       final data = await json.decode(response);
       setState(
-            () {
+        () {
           _pjQuranDb = data["data"];
         },
       );
-
 
       int sura = 1;
       int verse = 0;
@@ -186,23 +175,18 @@ class _SearchQuranState extends State<SearchQuran> {
       for (sura; sura <= 114; sura++) {
         for (verse; verse < _pjQuranDb[0]["sura$sura"].length; verse++) {
           setState(() {
-            searchData.add(
-              '$sura:${_pjQuranDb[0]["sura$sura"][verse]["tamil"]}');
-
+            searchData
+                .add('$sura:${_pjQuranDb[0]["sura$sura"][verse]["tamil"]}');
           });
         }
         verse = 0;
       }
-
-    }
-
-    else {
-
+    } else {
       final String response =
-      await rootBundle.loadString('assets/alquran-db.json');
+          await rootBundle.loadString('assets/alquran-db.json');
       final data = await json.decode(response);
       setState(
-            () {
+        () {
           _quranDb = data["data"];
         },
       );
@@ -222,7 +206,7 @@ class _SearchQuranState extends State<SearchQuran> {
     }
   }
 
-   loadSelections() async {
+  loadSelections() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _selectedTranslation =
@@ -233,7 +217,7 @@ class _SearchQuranState extends State<SearchQuran> {
           (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
-      NightMode = (prefs.getBool('NightMode') ?? false);
+      nightMode = (prefs.getBool('NightMode') ?? false);
     });
   }
 

@@ -9,6 +9,8 @@ void main() {
         ChangeNotifierProvider(create: (context) => QuranProvider() ),
       ],
       child: const MyApp()));
+
+
 }
 
 class MyApp extends StatelessWidget {

@@ -10,52 +10,52 @@ class AboutUs extends StatefulWidget {
 
 class _AboutUsState extends State<AboutUs> {
   String _selectedTamilFont = 'MuktaMalar';
-  bool NightMode = false;
+  bool nightMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NightMode ? Colors.grey[900] : Colors.green[100],
+      backgroundColor: nightMode ? Colors.grey[900] : Colors.green[100],
       appBar: AppBar(
-        title: Text('About Us.'),
-        backgroundColor: NightMode ? Colors.black : Colors.green[900],
+        title: const Text('About Us.'),
+        backgroundColor: nightMode ? Colors.black : Colors.green[900],
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
                   'திருக்குர்ஆன்',
                   style: TextStyle(
-                      color: NightMode ? Colors.white : Colors.black,
+                      color: nightMode ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       fontFamily: _selectedTamilFont),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
                   '( அரபி மூலமும் தமிழாக்கமும் )',
                   style: TextStyle(
-                      color: NightMode ? Colors.white : Colors.black,
+                      color: nightMode ? Colors.white : Colors.black,
                       fontWeight: FontWeight.normal,
                       fontSize: 16,
                       fontFamily: _selectedTamilFont),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
                   'மொழிபெயர்ப்புகள் : ',
                   style: TextStyle(
-                      color: NightMode ? Colors.white : Colors.black,
+                      color: nightMode ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
                       fontFamily: _selectedTamilFont),
@@ -68,14 +68,14 @@ class _AboutUsState extends State<AboutUs> {
                   '\n4. இஸ்லாமிய நிறுவனம் அறக்கட்டளை (IFT)'
                   '\n5. அப்துல் ஹமீது பாகவி',
                   style: TextStyle(
-                      color: NightMode ? Colors.white : Colors.black,
+                      color: nightMode ? Colors.white : Colors.black,
                       fontWeight: FontWeight.normal,
                       fontSize: 16,
                       fontFamily: _selectedTamilFont),
                   textAlign: TextAlign.start,
                 ),
-                Divider(),
-                SizedBox(
+                const Divider(),
+                const SizedBox(
                   height: 30,
                 ),
                 Text(
@@ -83,10 +83,10 @@ class _AboutUsState extends State<AboutUs> {
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
-                    color: NightMode ? Colors.white : Colors.black,
+                    color: nightMode ? Colors.white : Colors.black,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
@@ -94,16 +94,16 @@ class _AboutUsState extends State<AboutUs> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: NightMode ? Colors.white : Colors.black,
+                    color: nightMode ? Colors.white : Colors.black,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Text(
@@ -112,7 +112,7 @@ class _AboutUsState extends State<AboutUs> {
                     fontFamily: _selectedTamilFont,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: NightMode ? Colors.white : Colors.black,
+                    color: nightMode ? Colors.white : Colors.black,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -129,7 +129,7 @@ class _AboutUsState extends State<AboutUs> {
     setState(() {
       _selectedTamilFont =
           (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
-      NightMode = (prefs.getBool('NightMode') ?? false);
+      nightMode = (prefs.getBool('NightMode') ?? false);
     });
   }
 

@@ -9,15 +9,15 @@ import './settings.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ReadSura extends StatefulWidget {
-  final int SuraNumber;
-  final String SuraName;
-  final int VerseNumber;
+  final int suraNumber;
+  final String suraName;
+  final int verseNumber;
 
   const ReadSura({
     Key? key,
-    required this.SuraNumber,
-    required this.SuraName,
-    required this.VerseNumber,
+    required this.suraNumber,
+    required this.suraName,
+    required this.verseNumber,
   }) : super(key: key);
 
   @override
@@ -27,14 +27,14 @@ class ReadSura extends StatefulWidget {
 List _quranDb = [];
 List _quranArabic = [];
 List _pjQuranDb = [];
-String ShareVerse = '';
+String shareVerse = '';
 String _selectedTranslation = 'mJohn';
 double _currentArabicFontSize = 20;
 double _currentTamilFontSize = 20;
 String _selectedTamilFont = 'MuktaMalar';
 String _selectedArabicFont = 'AlQalam';
-bool NightMode = false;
-int InputVerse = 0;
+bool nightMode = false;
+int inputVerse = 0;
 
 class _ReadSuraState extends State<ReadSura> {
   final ItemScrollController _itemScrollController = ItemScrollController();
@@ -42,21 +42,21 @@ class _ReadSuraState extends State<ReadSura> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NightMode ? Colors.grey[900] : Colors.white,
+      backgroundColor: nightMode ? Colors.grey[900] : Colors.white,
       appBar: _buildAppBar(),
       body: Padding(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Column(
           children: [
 
             _quranDb.isNotEmpty && _pjQuranDb.isNotEmpty
                 ? Expanded(
                     child: ScrollablePositionedList.builder(
-                        initialScrollIndex: widget.VerseNumber,
+                        initialScrollIndex: widget.verseNumber,
                         itemScrollController: _itemScrollController,
                         itemCount: _selectedTranslation == 'pj'
-                            ? _pjQuranDb[0]["sura${widget.SuraNumber}"].length
-                            : _quranDb[0]["sura${widget.SuraNumber}"].length,
+                            ? _pjQuranDb[0]["sura${widget.suraNumber}"].length
+                            : _quranDb[0]["sura${widget.suraNumber}"].length,
                         itemBuilder: (context, index) {
                           return VisibilityDetector(
                             key: Key(index.toString()),
@@ -65,11 +65,11 @@ class _ReadSuraState extends State<ReadSura> {
                                   await SharedPreferences.getInstance();
 
                               prefs.setInt('lastVerse', index);
-                              prefs.setInt('lastSura', widget.SuraNumber);
+                              prefs.setInt('lastSura', widget.suraNumber);
                             },
                             child: Card(
                               color:
-                                  NightMode ? Colors.grey[900] : Colors.white,
+                                  nightMode ? Colors.grey[900] : Colors.white,
                               margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                               child: ListTile(
 
@@ -78,7 +78,7 @@ class _ReadSuraState extends State<ReadSura> {
                                 Text(setPJArabicVerse(index),
                                   style: TextStyle(
                                     color:
-                                    NightMode ? Colors.white : Colors.black,
+                                    nightMode ? Colors.white : Colors.black,
                                     fontSize: _currentArabicFontSize,
                                     fontFamily: _selectedArabicFont,
                                     fontWeight: FontWeight.normal,
@@ -94,7 +94,7 @@ class _ReadSuraState extends State<ReadSura> {
                                          setArabicVerse(index),
                                     style: TextStyle(
                                       color:
-                                          NightMode ? Colors.white : Colors.black,
+                                          nightMode ? Colors.white : Colors.black,
                                       fontSize: _currentArabicFontSize,
                                       fontFamily: _selectedArabicFont,
                                       fontWeight: FontWeight.normal,
@@ -104,7 +104,7 @@ class _ReadSuraState extends State<ReadSura> {
                                       TextSpan(text: replaceArabicNumber(index),style: TextStyle(
                                         fontFamily: 'UthmanicScript',
                                         fontSize: _currentArabicFontSize,
-                                        color : NightMode ? Colors.white : Colors.black,
+                                        color : nightMode ? Colors.white : Colors.black,
                                       )),
 
                                     ],
@@ -117,7 +117,7 @@ class _ReadSuraState extends State<ReadSura> {
                                       : setTamilVerse(index),
                                   style: TextStyle(
                                     color:
-                                        NightMode ? Colors.white : Colors.black,
+                                        nightMode ? Colors.white : Colors.black,
                                     fontFamily: _selectedTamilFont,
                                     fontSize: _currentTamilFontSize,
                                   ),
@@ -126,10 +126,10 @@ class _ReadSuraState extends State<ReadSura> {
                                 onLongPress: () {
                                   _selectedTranslation == 'pj'
                                       ? Share.share(
-                                          '${setPJArabicVerse(index)}\n\n${setPJTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_pjQuranDb[0]["sura${widget.SuraNumber}"][index]["verse_id"]})'
+                                          '${setPJArabicVerse(index)}\n\n${setPJTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.suraNumber}:${_pjQuranDb[0]["sura${widget.suraNumber}"][index]["verse_id"]})'
                                           '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )')
                                       : Share.share(
-                                          '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.SuraNumber}:${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]})'
+                                          '${setArabicVerse(index)}\n\n${setTamilVerse(index)}\n\n(திருக்குர்ஆன் ${widget.suraNumber}:${_quranDb[0]["sura${widget.suraNumber}"][index]["ayah"]})'
                                           '\n\n\n( Get Tamil Quran Android App: https://bit.ly/TamilQuran )');
                                 },
                               ),
@@ -178,7 +178,7 @@ class _ReadSuraState extends State<ReadSura> {
 
   String replaceArabicNumber(index) {
 
-    if(widget.SuraNumber == 1 || widget.SuraNumber == 9){
+    if(widget.suraNumber == 1 || widget.suraNumber == 9){
       int verse = index+1;
       String input = verse.toString();
 
@@ -219,37 +219,37 @@ class _ReadSuraState extends State<ReadSura> {
   // }
 
   String setArabicVerse(index) {
-    if(widget.SuraNumber == 1 || widget.SuraNumber == 9){
-      return '${_quranArabic[widget.SuraNumber-1]["verses"][index]["arabic"]}';
+    if(widget.suraNumber == 1 || widget.suraNumber == 9){
+      return '${_quranArabic[widget.suraNumber-1]["verses"][index]["arabic"]}';
     }
     else {
       if (index==0){
         return 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْم';
       }
 
-      return '${_quranArabic[widget.SuraNumber-1]["verses"][index-1]["arabic"]}';
+      return '${_quranArabic[widget.suraNumber-1]["verses"][index-1]["arabic"]}';
     }
 
   }
 
   String setTamilVerse(index) {
-    if (widget.SuraNumber == 1 || widget.SuraNumber == 9) {
-      return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]}. ${_quranDb[0]["sura${widget.SuraNumber}"][index][_selectedTranslation]}';
+    if (widget.suraNumber == 1 || widget.suraNumber == 9) {
+      return '${_quranDb[0]["sura${widget.suraNumber}"][index]["ayah"]}. ${_quranDb[0]["sura${widget.suraNumber}"][index][_selectedTranslation]}';
     } else {
       if (index == 0) {
-        return '${_quranDb[0]["sura${widget.SuraNumber}"][index][_selectedTranslation]}';
+        return '${_quranDb[0]["sura${widget.suraNumber}"][index][_selectedTranslation]}';
       } else {
-        return '${_quranDb[0]["sura${widget.SuraNumber}"][index]["ayah"]}. ${_quranDb[0]["sura${widget.SuraNumber}"][index][_selectedTranslation]}';
+        return '${_quranDb[0]["sura${widget.suraNumber}"][index]["ayah"]}. ${_quranDb[0]["sura${widget.suraNumber}"][index][_selectedTranslation]}';
       }
     }
   }
 
   String setPJArabicVerse(index) {
-    return '${_pjQuranDb[0]["sura${widget.SuraNumber}"][index]["arabic"]}';
+    return '${_pjQuranDb[0]["sura${widget.suraNumber}"][index]["arabic"]}';
   }
 
   String setPJTamilVerse(index) {
-    return '${_pjQuranDb[0]["sura${widget.SuraNumber}"][index]["tamil"]}';
+    return '${_pjQuranDb[0]["sura${widget.suraNumber}"][index]["tamil"]}';
   }
 
   void loadSelections() async {
@@ -263,23 +263,23 @@ class _ReadSuraState extends State<ReadSura> {
           (prefs.getString('selectedTamilFont') ?? 'MuktaMalar');
       _selectedArabicFont =
           (prefs.getString('selectedArabicFont') ?? 'AlQalam');
-      NightMode = (prefs.getBool('NightMode') ?? false);
+      nightMode = (prefs.getBool('NightMode') ?? false);
     });
   }
 
   _buildAppBar() {
     return AppBar(
-      backgroundColor: NightMode ? Colors.black : Colors.green[900],
+      backgroundColor: nightMode ? Colors.black : Colors.green[900],
       centerTitle: true,
       title: Text(
-        widget.SuraName,
+        widget.suraName,
         style: const TextStyle(
           fontSize: 15,
         ),
       ),
       automaticallyImplyLeading: false,
       leading: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.arrow_back_ios_new_outlined,
         ),
         onPressed: () {
@@ -322,7 +322,7 @@ class _ReadSuraState extends State<ReadSura> {
               ),
             ),
           ],
-          offset: Offset(0, 20),
+          offset: const Offset(0, 20),
           color: Colors.white,
           elevation: 2,
           // on selected we show the dialog box
@@ -330,7 +330,7 @@ class _ReadSuraState extends State<ReadSura> {
             if (value == 1) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Settings()),
+                MaterialPageRoute(builder: (context) => const Settings()),
               ).then((value) => setState(() {
                     loadSelections();
                   }));
@@ -346,7 +346,7 @@ class _ReadSuraState extends State<ReadSura> {
                         children: [
                           TextField(
                             onChanged: (value) {
-                              InputVerse = int.parse(value);
+                              inputVerse = int.parse(value);
                             },
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -366,9 +366,9 @@ class _ReadSuraState extends State<ReadSura> {
                           onPressed: () =>
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ReadSura(
-                                        SuraNumber: widget.SuraNumber,
-                                        VerseNumber: InputVerse,
-                                        SuraName: widget.SuraName,
+                                        suraNumber: widget.suraNumber,
+                                        verseNumber: inputVerse,
+                                        suraName: widget.suraName,
                                       ))),
                           child: const Text('OK'),
                         ),

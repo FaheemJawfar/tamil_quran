@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/helpers/dbhelper.dart';
+import 'package:tamil_quran/models/arabic_verses.dart';
 
 import '../models/sura_names.dart';
 
@@ -8,17 +9,24 @@ import '../models/sura_names.dart';
 class QuranProvider extends ChangeNotifier {
 
 
-  final Future<List<SuraNames>> _suraNames =  DBHelper().getSuraNames();
-
+  List<SuraNames> _suraNames = [];
   get suraNames => _suraNames;
 
-  // set suraNames (value){
-  //   _suraNames = value;
-  //   notifyListeners();
-  // }
+  getSuraNamesFromDb() async {
+    var result = await DBHelper().getSuraNames();
+    _suraNames = result;
+    notifyListeners();
+  }
 
 
 
+  List _allSuraArabicVerses = [];
+  get allSuraArabicVerses => _allSuraArabicVerses;
 
+  getAllArabicVersesFromDb() async {
+    var result = await DBHelper().getAllSuraArabicVerses();
+    _allSuraArabicVerses = result;
+    notifyListeners();
+  }
 
 }

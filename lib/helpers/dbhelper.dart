@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+import 'package:tamil_quran/models/arabic_verses.dart';
 import '../models/sura_names.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -35,16 +36,52 @@ class DBHelper {
     return database;
   }
 
+
   Future<List<SuraNames>> getSuraNames() async {
     var dbClient = await db;
     List<Map> list = await dbClient!.rawQuery('SELECT * FROM sura_names');
-    //print(list);
     List<SuraNames> allSuraNames = [];
-    for (int i = 0; i < list.length; i++) {
-      // print(list[i]["arabic_name"]);
-      allSuraNames.add(SuraNames(list[i]["sura_number"], list[i]["name"],
-          list[i]["arabic_name"], list[i]["total_verses"]));
+
+
+    for (var suraNameDetails in list) {
+
+      allSuraNames.add(SuraNames(
+          suraNameDetails["sura_number"],
+          suraNameDetails["name"],
+          suraNameDetails["arabic_name"],
+          suraNameDetails["total_verses"] ));
+
     }
     return allSuraNames;
   }
+
+
+
+
+  Future<List> getAllSuraArabicVerses() async {
+
+    var dbClient = await db;
+
+    List allSurasArabic = [];
+
+    for(int i = 1; i <= 114; i++){
+
+      List<ArabicVerses> allVerses = [];
+      List<Map> list = await dbClient!.rawQuery('SELECT * from quran_arabic where sura=$i');
+
+      for (var arabicVerses in list) {
+        allVerses.add(ArabicVerses(
+            arabicVerses['index'],
+            arabicVerses['sura'],
+            arabicVerses['aya'],
+            arabicVerses['arabic']));
+
+      }
+
+      allSurasArabic.add(allVerses);
+    }
+
+    return allSurasArabic;
+  }
+
 }
