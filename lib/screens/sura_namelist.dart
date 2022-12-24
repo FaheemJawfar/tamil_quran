@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
+import 'package:tamil_quran/screens/read_sura.dart';
 import 'package:tamil_quran/screens/search_quran.dart';
 import './settings.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,6 +45,8 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
   void getQuranDb() async {
    Provider.of<QuranProvider>(context, listen:false).getSuraNamesFromDb();
    Provider.of<QuranProvider>(context, listen:false).getAllArabicVersesFromDb();
+   Provider.of<QuranProvider>(context, listen:false).getAllTamilVersesFromDb();
+
 
 
   }
@@ -63,6 +66,9 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
               OutlinedButton(
                 onPressed: () async {
                   print(quranProvider.allSuraArabicVerses[1][254].arabicVerse);
+                  print(quranProvider.allSuraTamilVerses[1][254].mJohn);
+                  print(quranProvider.allSuraArabicVerses[0].length,);
+
                   // SharedPreferences prefs =
                   //     await SharedPreferences.getInstance();
                   //
@@ -148,14 +154,13 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
                                   ],
                                 ),
                                 onTap: () {
-                                   // Navigator.of(context).push(MaterialPageRoute(
-                                   //    builder: (context) => ReadSura(
-                                   //          SuraNumber: _SuraList[index]
-                                   //              ["surano"],
-                                   //          SuraName:
-                                   //              '${_SuraList[index]["name"]}',
-                                   //          VerseNumber: 0,
-                                   //        )));
+                                   Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ReadSura(
+                                         suraNumber: quranProvider.suraNames[index].suraNumber,
+                                         suraName: quranProvider.suraNames[index].tamilName,
+                                         verseNumber: 0)
+                                   ));
+
                                 },
                               ),
                             );

@@ -29,4 +29,14 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  List _allSuraTamilVerses = [];
+  get allSuraTamilVerses => _allSuraTamilVerses;
+
+  getAllTamilVersesFromDb() async {
+    var result = await DBHelper().getAllSuraTamilVerses();
+    _allSuraTamilVerses = result;
+    notifyListeners();
+  }
+
 }

@@ -3,6 +3,7 @@ import 'dart:io' as io;
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:tamil_quran/models/arabic_verses.dart';
+import 'package:tamil_quran/models/tamil_verses.dart';
 import '../models/sura_names.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -66,22 +67,49 @@ class DBHelper {
 
     for(int i = 1; i <= 114; i++){
 
-      List<ArabicVerses> allVerses = [];
+      List<ArabicVerses> allArabicVerses = [];
       List<Map> list = await dbClient!.rawQuery('SELECT * from quran_arabic where sura=$i');
 
       for (var arabicVerses in list) {
-        allVerses.add(ArabicVerses(
+        allArabicVerses.add(ArabicVerses(
             arabicVerses['index'],
             arabicVerses['sura'],
             arabicVerses['aya'],
             arabicVerses['arabic']));
+      }
+
+      allSurasArabic.add(allArabicVerses);
+    }
+    return allSurasArabic;
+  }
+
+
+  Future<List> getAllSuraTamilVerses() async {
+
+    var dbClient = await db;
+
+    List allSurasTamil = [];
+
+    for(int i = 1; i <= 114; i++){
+
+      List<TamilVerses> allTamilVerses = [];
+      List<Map> list = await dbClient!.rawQuery('SELECT * from quran_db_all where sura=$i');
+
+      for (var tamilVerses in list) {
+        allTamilVerses.add(TamilVerses(
+            tamilVerses['sura'],
+            tamilVerses['aya'],
+            tamilVerses['m_john'],
+            tamilVerses['abdul_hameed'],
+            tamilVerses['ift'],
+            tamilVerses['king_fahd']
+        ));
 
       }
 
-      allSurasArabic.add(allVerses);
+      allSurasTamil.add(allTamilVerses);
     }
-
-    return allSurasArabic;
+    return allSurasTamil;
   }
 
 }
