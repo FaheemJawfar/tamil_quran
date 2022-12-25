@@ -65,8 +65,8 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
             children: [
               OutlinedButton(
                 onPressed: () async {
-                  print(quranProvider.allSuraArabicVerses[1][254].arabicVerse);
-                  print(quranProvider.allSuraTamilVerses[1][254].mJohn);
+                  print(quranProvider.allSuraArabicVerses[1][0].arabicVerse);
+                  print(quranProvider.allSuraTamilVerses[1][0].mJohn);
                   print(quranProvider.allSuraArabicVerses[0].length,);
 
                   // SharedPreferences prefs =
