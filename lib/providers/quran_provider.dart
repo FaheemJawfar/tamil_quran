@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tamil_quran/helpers/dbhelper.dart';
-import 'package:tamil_quran/models/arabic_verses.dart';
 
 import '../models/sura_names.dart';
 
@@ -38,5 +36,17 @@ class QuranProvider extends ChangeNotifier {
     _allSuraTamilVerses = result;
     notifyListeners();
   }
+
+
+  String _selectedTranslation = 'mJohn';
+
+  get selectedTranslation => _selectedTranslation;
+
+
+  setSelectedTranslation (value) {
+    _selectedTranslation = value;
+    notifyListeners();
+  }
+
 
 }

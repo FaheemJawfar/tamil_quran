@@ -26,13 +26,8 @@ class _ReadSuraState extends State<ReadSura> {
   late var quranProvider = Provider.of<QuranProvider>(context, listen: true);
   final ItemScrollController _itemScrollController = ItemScrollController();
 
+  late int suraNumberIndex = widget.suraNumber - 1;
 
-  late int suraNumberIndex = widget.suraNumber -1;
-  // List _quranDb = [];
-  // List _quranArabic = [];
-  // List _pjQuranDb = [];
-  // String shareVerse = '';
-  // String _selectedTranslation = 'mJohn';
   final double _currentArabicFontSize = 20;
   final double _currentTamilFontSize = 20;
   final String _selectedTamilFont = 'MuktaMalar';
@@ -44,7 +39,8 @@ class _ReadSuraState extends State<ReadSura> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: nightMode ? Colors.grey[900] : Colors.white,
-      appBar: CommonAppBar(label: widget.suraName,
+      appBar: CommonAppBar(
+        label: widget.suraName,
       ),
       body: quranProvider.allSuraTamilVerses.isNotEmpty
           ? Padding(
@@ -83,7 +79,7 @@ class _ReadSuraState extends State<ReadSura> {
                                   textDirection: TextDirection.rtl,
                                 ),
                                 subtitle: Text(
-                                 setTamilVerse(index),
+                                  setTamilVerse(index),
                                   style: TextStyle(
                                     color:
                                         nightMode ? Colors.white : Colors.black,
@@ -105,42 +101,74 @@ class _ReadSuraState extends State<ReadSura> {
     );
   }
 
-
-  int getVerseCount(){
+  int getVerseCount() {
     if (widget.suraNumber == 1 || widget.suraNumber == 9) {
       return quranProvider.allSuraArabicVerses[suraNumberIndex].length;
-  } else {
-      return quranProvider.allSuraArabicVerses[suraNumberIndex].length+1;
+    } else {
+      return quranProvider.allSuraArabicVerses[suraNumberIndex].length + 1;
     }
   }
 
 
   String setTamilVerse(index) {
-    if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-      return  '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].mJohn}';
-    } else {
-      if (index == 0) {
-        return  '${quranProvider.allSuraTamilVerses[0][0].mJohn}';
+
+    if (quranProvider.selectedTranslation == 'mJohn') {
+      if (widget.suraNumber == 1 || widget.suraNumber == 9) {
+        return '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].mJohn}';
       } else {
-        return  '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index-1].mJohn}';
+        if (index == 0) {
+          return '${quranProvider.allSuraTamilVerses[0][0].mJohn}';
+        } else {
+          return '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index - 1].mJohn}';
+        }
+      }
+    } else if (quranProvider.selectedTranslation == 'abdulHameed') {
+      if (widget.suraNumber == 1 || widget.suraNumber == 9) {
+        return '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].abdulHameed}';
+      } else {
+        if (index == 0) {
+          return '${quranProvider.allSuraTamilVerses[0][0].abdulHameed}';
+        } else {
+          return '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index - 1].abdulHameed}';
+        }
+      }
+    } else if (quranProvider.selectedTranslation == 'ift') {
+      if (widget.suraNumber == 1 || widget.suraNumber == 9) {
+        return '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].ift}';
+      } else {
+        if (index == 0) {
+          return '${quranProvider.allSuraTamilVerses[0][0].ift}';
+        } else {
+          return '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index - 1].ift}';
+        }
+      }
+    } else if (quranProvider.selectedTranslation == 'kingFahd') {
+      if (widget.suraNumber == 1 || widget.suraNumber == 9) {
+        return '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].kingFahd}';
+      } else {
+        if (index == 0) {
+          return '${quranProvider.allSuraTamilVerses[0][0].kingFahd}';
+        } else {
+          return '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index - 1].kingFahd}';
+        }
       }
     }
+    return '';
   }
-
 
   String setArabicVerse(index) {
     if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-      return  quranProvider.allSuraArabicVerses[suraNumberIndex][index].arabicVerse;
+      return quranProvider
+          .allSuraArabicVerses[suraNumberIndex][index].arabicVerse;
     } else {
       if (index == 0) {
-        return  '${quranProvider.allSuraArabicVerses[0][0].arabicVerse}';
+        return '${quranProvider.allSuraArabicVerses[0][0].arabicVerse}';
       } else {
-        return  quranProvider.allSuraArabicVerses[suraNumberIndex][index-1].arabicVerse;
+        return quranProvider
+            .allSuraArabicVerses[suraNumberIndex][index - 1].arabicVerse;
       }
     }
   }
-
-
 
   @override
   void initState() {
