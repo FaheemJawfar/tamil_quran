@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,12 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     readData();
     getQuranDb();
     super.initState();
-    Future.delayed(
-        const Duration(seconds: 5),
-        () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SuraNameScreen()),
-            ));
+    splashTimer();
   }
 
   @override
@@ -112,5 +106,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         .getAllArabicVersesFromDb();
     Provider.of<QuranProvider>(context, listen: false)
         .getAllTamilVersesFromDb();
+  }
+
+  void splashTimer() {
+    Future.delayed(
+        const Duration(seconds: 6),
+        () => Navigator.pushReplacement<void, void>(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => const SuraNameScreen(),
+            )));
   }
 }
