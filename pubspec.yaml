@@ -44,7 +44,8 @@ dependencies:
   sqflite: ^2.0.0+4
   path_provider: ^2.0.5
   path:
-  provider:   
+  provider:
+  auto_size_text: ^3.0.0
 
 
 
@@ -77,6 +78,7 @@ flutter:
   assets:
     - assets/
     - assets/tamil_quran_all.db
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

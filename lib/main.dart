@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import 'screens/sura_namelist.dart';
+import 'package:tamil_quran/screens/welcome_screen.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -20,7 +20,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SuraNameScreen(),
+      // home: const SuraNameScreen(),
+
+      home: const WelcomeScreen(),
     );
   }
 }

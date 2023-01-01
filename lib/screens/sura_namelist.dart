@@ -10,7 +10,6 @@ import 'package:tamil_quran/screens/search_quran.dart';
 import './settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'about_us.dart';
-import '../models/sura_names.dart';
 
 class SuraNameScreen extends StatefulWidget {
   const SuraNameScreen({Key? key}) : super(key: key);
@@ -37,17 +36,7 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
 
   @override
   void initState() {
-    getQuranDb();
     super.initState();
-
-  }
-
-  void getQuranDb() async {
-   Provider.of<QuranProvider>(context, listen:false).getSuraNamesFromDb();
-   Provider.of<QuranProvider>(context, listen:false).getAllArabicVersesFromDb();
-   Provider.of<QuranProvider>(context, listen:false).getAllTamilVersesFromDb();
-
-
 
   }
 
@@ -65,9 +54,6 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
             children: [
               OutlinedButton(
                 onPressed: () async {
-                  print(quranProvider.allSuraArabicVerses[1][0].arabicVerse);
-                  print(quranProvider.allSuraTamilVerses[1][0].mJohn);
-                  print(quranProvider.allSuraArabicVerses[0].length,);
 
                   // SharedPreferences prefs =
                   //     await SharedPreferences.getInstance();
