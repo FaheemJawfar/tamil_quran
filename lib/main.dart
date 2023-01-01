@@ -4,13 +4,9 @@ import 'package:tamil_quran/providers/quran_provider.dart';
 import 'screens/sura_namelist.dart';
 
 void main() {
-  runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => QuranProvider() ),
-      ],
-      child: const MyApp()));
-
-
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => QuranProvider()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
