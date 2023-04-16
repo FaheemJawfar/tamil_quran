@@ -37,7 +37,6 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
   @override
   void initState() {
     super.initState();
-
   }
 
 
@@ -54,21 +53,20 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
             children: [
               OutlinedButton(
                 onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
 
-                  // SharedPreferences prefs =
-                  //     await SharedPreferences.getInstance();
-                  //
-                  // _lastSura = (prefs.getInt('lastSura') ?? 0);
-                  // _lastVerse = (prefs.getInt('lastVerse') ?? 0);
-                  //
-                  // if (_lastSura != 0) {
-                  //   Navigator.of(context).push(MaterialPageRoute(
-                  //       builder: (context) => ReadSura(
-                  //             SuraNumber: _lastSura,
-                  //             VerseNumber: _lastVerse,
-                  //             SuraName: '${_SuraList[_lastSura - 1]["name"]}',
-                  //           )));
-                  // }
+                  final _lastSura = (prefs.getInt('lastSura') ?? 0);
+                  final _lastVerse = (prefs.getInt('lastVerse') ?? 0);
+
+                  print(_lastVerse);
+                  if (_lastSura != 0) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ReadSura(
+                            suraNumber: _lastSura,
+                            suraName: 'suraName',
+                            verseNumber: -_lastVerse)));
+                  }
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(

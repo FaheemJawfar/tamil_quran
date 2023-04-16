@@ -110,10 +110,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   void splashTimer() {
     Future.delayed(
-        const Duration(seconds: 6),
-        () => Navigator.pushReplacement<void, void>(
+        const Duration(seconds: 5),
+        () => Navigator.pushReplacement(
             context,
-            MaterialPageRoute<void>(
+            MaterialPageRoute(
               builder: (BuildContext context) => const SuraNameScreen(),
             )));
   }
