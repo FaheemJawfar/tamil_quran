@@ -157,17 +157,17 @@ class _ReadSuraState extends State<ReadSura> {
   }
 
   String setArabicVerse(index) {
-    // if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-    //   return quranProvider
-    //       .allSuraArabicVerses[suraNumberIndex][index].arabicVerse;
-    // } else {
-    //   if (index == 0) {
-    return '${quranProvider.allSuraArabicVerses[0][0].arabicVerse}';
-    //   } else {
-    //     return quranProvider
-    //         .allSuraArabicVerses[suraNumberIndex][index - 1].arabicVerse;
-    //   }
-    // }
+    if (widget.suraNumber == 1 || widget.suraNumber == 9) {
+      return quranProvider
+          .allSuraArabicVerses[suraNumberIndex][index].arabicVerse;
+    } else {
+      if (index == 0) {
+        return '${quranProvider.allSuraArabicVerses[0][0].arabicVerse}';
+      } else {
+        return quranProvider
+            .allSuraArabicVerses[suraNumberIndex][index - 1].arabicVerse;
+      }
+    }
   }
 
   @override

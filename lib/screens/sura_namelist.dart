@@ -61,11 +61,13 @@ class _SuraNameScreenState extends State<SuraNameScreen> {
 
                   print(_lastVerse);
                   if (_lastSura != 0) {
+                    print(quranProvider.suraNames[_lastSura].tamilName);
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ReadSura(
                             suraNumber: _lastSura,
-                            suraName: 'suraName',
-                            verseNumber: -_lastVerse)));
+                            suraName: quranProvider
+                                .suraNames[_lastSura - 1].tamilName,
+                            verseNumber: _lastVerse)));
                   }
                 },
                 style: OutlinedButton.styleFrom(
