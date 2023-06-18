@@ -1,177 +1,133 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/widgets/common_app_bar.dart';
-import 'package:visibility_detector/visibility_detector.dart';
+import 'package:quran/quran.dart';
 
-class ReadSura extends StatefulWidget {
-  final int suraNumber;
+import '../models/translation_model.dart';
+import '../providers/quran_provider.dart';
+
+class ReadSuraScreen extends StatefulWidget {
+  final int selectedSura;
   final String suraName;
-  final int verseNumber;
 
-  const ReadSura({
-    Key? key,
-    required this.suraNumber,
+  const ReadSuraScreen({
+    required this.selectedSura,
     required this.suraName,
-    required this.verseNumber,
+    Key? key,
   }) : super(key: key);
 
   @override
-  State<ReadSura> createState() => _ReadSuraState();
+  _ReadSuraScreenState createState() => _ReadSuraScreenState();
 }
 
-class _ReadSuraState extends State<ReadSura> {
-  late var quranProvider = Provider.of<QuranProvider>(context, listen: true);
-  final ItemScrollController _itemScrollController = ItemScrollController();
+class _ReadSuraScreenState extends State<ReadSuraScreen> {
+  late final List<TranslationModel> allVersesOfSura =
+      context.read<QuranProvider>().filterBySura(widget.selectedSura);
 
-  late int suraNumberIndex = widget.suraNumber - 1;
-
-  final double _currentArabicFontSize = 20;
-  final double _currentTamilFontSize = 20;
-  final String _selectedTamilFont = 'MuktaMalar';
-  final String _selectedArabicFont = 'AlQalam';
-  bool nightMode = false;
-  int inputVerse = 0;
+  late final bool hasBismi =
+      widget.selectedSura != 1 && widget.selectedSura != 9;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: nightMode ? Colors.grey[900] : Colors.white,
-      appBar: CommonAppBar(
-        label: widget.suraName,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          widget.suraName,
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
       ),
-      body: quranProvider.allSuraTamilVerses.isNotEmpty
-          ? Padding(
-              padding: const EdgeInsets.all(5),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ScrollablePositionedList.builder(
-                        initialScrollIndex: widget.verseNumber,
-                        itemScrollController: _itemScrollController,
-                        itemCount: getVerseCount(),
-                        itemBuilder: (context, index) {
-                          return VisibilityDetector(
-                            key: Key(index.toString()),
-                            onVisibilityChanged: (info) async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-
-                              prefs.setInt('lastVerse', index);
-                              prefs.setInt('lastSura', widget.suraNumber);
-                            },
-                            child: Card(
-                              color:
-                                  nightMode ? Colors.grey[900] : Colors.white,
-                              margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                              child: ListTile(
-                                title: Text(
-                                  setArabicVerse(index),
-                                  style: TextStyle(
-                                    color:
-                                        nightMode ? Colors.white : Colors.black,
-                                    fontSize: _currentArabicFontSize,
-                                    fontFamily: _selectedArabicFont,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  textDirection: TextDirection.rtl,
-                                ),
-                                subtitle: Text(
-                                  setTamilVerse(index),
-                                  style: TextStyle(
-                                    color:
-                                        nightMode ? Colors.white : Colors.black,
-                                    fontFamily: _selectedTamilFont,
-                                    fontSize: _currentTamilFontSize,
-                                  ),
-                                ),
-                                onTap: () {},
-                                onLongPress: () {},
-                              ),
-                            ),
-                          );
-                        }),
-                  )
-                ],
-              ),
-            )
-          : Container(),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: allVersesOfSura.length + (hasBismi ? 1 : 0),
+              itemBuilder: (BuildContext context, int index) {
+                if (hasBismi && index == 0) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(top: 15, left: 15, right: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'அளவற்ற அருளாளனும், நிகரற்ற அன்புடையோனுமாகிய அல்லாஹ்வின் திருப்பெயரால்(துவங்குகிறேன்)',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  int adjustedIndex = hasBismi ? index - 1 : index;
+                  // print(getVerseEndSymbol(translation.aya));
+                  return createAyah(adjustedIndex);
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  int getVerseCount() {
-    if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-      return quranProvider.allSuraArabicVerses[suraNumberIndex].length;
-    } else {
-      return quranProvider.allSuraArabicVerses[suraNumberIndex].length + 1;
-    }
-  }
-
-
-  String setTamilVerse(index) {
-
-    if (quranProvider.selectedTranslation == 'mJohn') {
-      if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-        return '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].mJohn}';
-      } else {
-        if (index == 0) {
-          return '${quranProvider.allSuraTamilVerses[0][0].mJohn}';
-        } else {
-          return '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index - 1].mJohn}';
-        }
-      }
-    } else if (quranProvider.selectedTranslation == 'abdulHameed') {
-      if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-        return '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].abdulHameed}';
-      } else {
-        if (index == 0) {
-          return '${quranProvider.allSuraTamilVerses[0][0].abdulHameed}';
-        } else {
-          return '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index - 1].abdulHameed}';
-        }
-      }
-    } else if (quranProvider.selectedTranslation == 'ift') {
-      if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-        return '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].ift}';
-      } else {
-        if (index == 0) {
-          return '${quranProvider.allSuraTamilVerses[0][0].ift}';
-        } else {
-          return '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index - 1].ift}';
-        }
-      }
-    } else if (quranProvider.selectedTranslation == 'kingFahd') {
-      if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-        return '${index + 1}. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index].kingFahd}';
-      } else {
-        if (index == 0) {
-          return '${quranProvider.allSuraTamilVerses[0][0].kingFahd}';
-        } else {
-          return '$index. ${quranProvider.allSuraTamilVerses[suraNumberIndex][index - 1].kingFahd}';
-        }
-      }
-    }
-    return '';
-  }
-
-  String setArabicVerse(index) {
-    if (widget.suraNumber == 1 || widget.suraNumber == 9) {
-      return quranProvider
-          .allSuraArabicVerses[suraNumberIndex][index].arabicVerse;
-    } else {
-      if (index == 0) {
-        return '${quranProvider.allSuraArabicVerses[0][0].arabicVerse}';
-      } else {
-        return quranProvider
-            .allSuraArabicVerses[suraNumberIndex][index - 1].arabicVerse;
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
+  Widget createAyah(int index) {
+    TranslationModel translation = allVersesOfSura[index];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${translation.aya}. ',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              IconButton(
+                visualDensity: VisualDensity.compact,
+                icon: Icon(Icons.more_vert),
+                onPressed: () {},
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                  ' ${translation.arabic} ${getVerseEndSymbol(translation.aya)}',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                translation.mJohn,
+                style: TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+        ),
+        Divider(),
+      ],
+    );
   }
 }

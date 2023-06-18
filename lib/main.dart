@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/screens/welcome_screen.dart';
+import 'package:tamil_quran/screens/home_screen.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => QuranProvider()),
-  ], child: const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tamil Quran',
-      theme: ThemeData(
-        primaryColor: Colors.green,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => QuranProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'My App',
+        theme: ThemeData(primarySwatch: Colors.green),
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const WelcomeScreen(),
     );
   }
 }

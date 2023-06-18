@@ -1,120 +1,73 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
-import 'package:tamil_quran/helpers/random_number.dart';
-import 'package:tamil_quran/screens/sura_namelist.dart';
-import '../providers/quran_provider.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  List _quranHadithData = [];
-
-  @override
-  void initState() {
-    readData();
-    getQuranDb();
-    super.initState();
-    splashTimer();
-  }
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.green.shade900,
-        body: showScreen(),
-      ),
-    );
-  }
-
-  showScreen() {
-    if (_quranHadithData.isNotEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(15.0),
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF398AE5),
+              Color(0xFF478DE0),
+              Color(0xFF4A90DB),
+            ],
+          ),
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Flexible(
-                flex: 1,
-                child: Image.asset(
-                  'assets/images/quran_icon.png',
-                  width: 100,
-                  height: 100,
-                )),
-            Flexible(
-              flex: 2,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 300,
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: AutoSizeText(
-                        _quranHadithData[RandomNumber()
-                            .getRandomNumber(_quranHadithData.length)]['verse'],
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 17,
-                            color: Colors.white,
-                            fontFamily: 'MuktaMalar'),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SpinKitThreeBounce(
-                    color: Colors.white,
-                    size: 30.0,
-                  ),
-                ],
+            Image.asset(
+              'assets/images/quran_icon.png',
+              // Replace with your app logo asset
+              width: 150,
+              height: 150,
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Quran Tamil Translation',
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Explore the Holy Quran in Tamil',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () {
+                // Replace with your navigation logic
+                Navigator.pushNamed(context, '/home');
+              },
+              child: Text(
+                'Get Started',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                backgroundColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ),
             ),
           ],
         ),
-      );
-    } else {
-      return Container();
-    }
-  }
-
-  Future<void> readData() async {
-    final String response =
-        await rootBundle.loadString('assets/importance_of_quran.json');
-    final data = await json.decode(response);
-
-    _quranHadithData = data["quran_hadith_data"];
-  }
-
-  void getQuranDb() async {
-    Provider.of<QuranProvider>(context, listen: false).getSuraNamesFromDb();
-    Provider.of<QuranProvider>(context, listen: false)
-        .getAllArabicVersesFromDb();
-    Provider.of<QuranProvider>(context, listen: false)
-        .getAllTamilVersesFromDb();
-  }
-
-  void splashTimer() {
-    Future.delayed(
-        const Duration(seconds: 5),
-        () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const SuraNameScreen(),
-            )));
+      ),
+    );
   }
 }

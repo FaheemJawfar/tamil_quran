@@ -1,52 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:tamil_quran/helpers/dbhelper.dart';
-
-import '../models/sura_names.dart';
-
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import '../models/translation_model.dart';
 
 class QuranProvider extends ChangeNotifier {
+  List<TranslationModel> translations = [];
 
-
-  List<SuraNames> _suraNames = [];
-  get suraNames => _suraNames;
-
-  getSuraNamesFromDb() async {
-    var result = await DBHelper().getSuraNames();
-    _suraNames = result;
-    notifyListeners();
+  List<TranslationModel> filterBySura(int sura) {
+    return translations.where((model) => model.sura == sura).toList();
   }
 
+  Future<void> loadTranslationsFromDatabase() async {
+    final startTime = DateTime.now();
+    final databasesPath = await getDatabasesPath();
+    final path = join(databasesPath, 'tamil_quran_all.db');
 
+    // Check if the database file already exists in the device's file system
+    if (await databaseExists(path)) {
+      // Open the existing database
+      final database = await openDatabase(path);
+      final List<Map<String, dynamic>> result =
+          await database.query('quran_db_all');
 
-  List _allSuraArabicVerses = [];
-  get allSuraArabicVerses => _allSuraArabicVerses;
+      translations =
+          result.map((data) => TranslationModel.fromMap(data)).toList();
 
-  getAllArabicVersesFromDb() async {
-    var result = await DBHelper().getAllSuraArabicVerses();
-    _allSuraArabicVerses = result;
-    notifyListeners();
+      print('*' * 100);
+      print(DateTime.now().difference(startTime).inSeconds);
+      print(translations.length);
+      notifyListeners();
+    } else {
+      // Copy the database from assets to the device's file system
+      await Directory(dirname(path)).create(recursive: true);
+      final ByteData data = await rootBundle.load('assets/tamil_quran_all.db');
+      final List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      await File(path).writeAsBytes(bytes);
+
+      // Open the copied database
+      final database = await openDatabase(path);
+      final List<Map<String, dynamic>> result =
+          await database.query('quran_db_all');
+
+      translations =
+          result.map((data) => TranslationModel.fromMap(data)).toList();
+      notifyListeners();
+    }
   }
-
-
-  List _allSuraTamilVerses = [];
-  get allSuraTamilVerses => _allSuraTamilVerses;
-
-  getAllTamilVersesFromDb() async {
-    var result = await DBHelper().getAllSuraTamilVerses();
-    _allSuraTamilVerses = result;
-    notifyListeners();
-  }
-
-
-  String _selectedTranslation = 'mJohn';
-
-  get selectedTranslation => _selectedTranslation;
-
-
-  setSelectedTranslation (value) {
-    _selectedTranslation = value;
-    notifyListeners();
-  }
-
-
 }
