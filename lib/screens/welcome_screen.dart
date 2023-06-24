@@ -1,7 +1,49 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class WelcomeScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+import 'package:tamil_quran/screens/home_screen.dart';
+import 'package:tamil_quran/screens/read_sura.dart';
+
+import '../models/sura_list.dart';
+import '../providers/quran_provider.dart';
+
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  void initState() {
+    loadDb();
+    checkConditionAndNavigate();
+    super.initState();
+  }
+
+  loadDb() async {
+    context.read<QuranProvider>().loadTranslationsFromDatabase();
+  }
+
+  void checkConditionAndNavigate() {
+    Timer? timer;
+    timer = Timer(const Duration(seconds: 2), () {
+      print('running after 2 sec');
+      if (context.read<QuranProvider>().translations.isNotEmpty) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
+      } else {
+        checkConditionAndNavigate();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,24 +88,9 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () {
-                // Replace with your navigation logic
-                Navigator.pushNamed(context, '/home');
-              },
-              child: Text(
-                'Get Started',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                backgroundColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
+            SpinKitFadingCircle(
+              color: Colors.white,
+              size: 30,
             ),
           ],
         ),

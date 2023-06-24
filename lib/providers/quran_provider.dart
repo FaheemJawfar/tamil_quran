@@ -28,7 +28,8 @@ class QuranProvider extends ChangeNotifier {
           result.map((data) => TranslationModel.fromMap(data)).toList();
 
       print('*' * 100);
-      print(DateTime.now().difference(startTime).inSeconds);
+      print(
+          'loaded in ${DateTime.now().difference(startTime).inSeconds} seconds');
       print(translations.length);
       notifyListeners();
     } else {

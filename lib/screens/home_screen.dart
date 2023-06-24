@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/models/sura_list.dart';
 import 'package:tamil_quran/models/translation_model.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/screens/read_sura.dart';
+import 'package:tamil_quran/screens/sura_verse_picker.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,21 +17,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    super.initState();
-    loadDb();
-  }
-
-  loadDb() async {
-    context.read<QuranProvider>().loadTranslationsFromDatabase();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('ஸூரா அட்டவணை'),
           centerTitle: true,
+
+          actions: [
+            IconButton(onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return SuraVersePickerScreen();
+                },
+              );
+            }, icon: Icon(Icons.search))
+          ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,11 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListTile(
                       leading: Text(
                         '${sura.suraNumber}.',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      title: Text(sura.tamilName,
-                          style: TextStyle(
+                      title: Text(
+                          sura.tamilMeaning == null ? sura.tamilName : '${sura
+                              .tamilName} (${sura.tamilMeaning})',
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15)),
+
                       subtitle: Padding(
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Text('வசனங்கள்: ${sura.verseCount}'),
@@ -58,18 +65,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         textDirection: TextDirection.rtl,
                       ),
                       onTap: () {
-                        if (context
-                            .read<QuranProvider>()
-                            .translations
-                            .isNotEmpty) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ReadSuraScreen(
-                                        selectedSura: sura.suraNumber,
-                                        suraName: sura.tamilName,
-                                      )));
-                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReadSuraScreen(
+                              selectedSura: sura.suraNumber,
+                              suraName: sura.tamilName,
+                            ),
+                          ),
+                        );
                       },
                     ),
                   );
