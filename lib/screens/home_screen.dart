@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tamil_quran/models/sura_list.dart';
-import 'package:tamil_quran/models/translation_model.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/screens/read_sura.dart';
+import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/screens/sura_verse_picker.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,14 +20,26 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
 
           actions: [
-            IconButton(onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return SuraVersePickerScreen();
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const SuraVersePickerScreen();
+                    },
+                  );
                 },
-              );
-            }, icon: Icon(Icons.search))
+                icon: const Icon(Icons.open_in_new)),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SearchScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.search))
           ],
         ),
         body: Column(
@@ -47,7 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListTile(
                       leading: Text(
                         '${sura.suraNumber}.',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.grey),
                       ),
                       title: Text(
                           sura.tamilMeaning == null ? sura.tamilName : '${sura
@@ -61,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       trailing: Text(
                         sura.arabicName,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                         textDirection: TextDirection.rtl,
                       ),
                       onTap: () {

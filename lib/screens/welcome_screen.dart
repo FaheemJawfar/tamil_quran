@@ -1,12 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/screens/home_screen.dart';
-import 'package:tamil_quran/screens/read_sura.dart';
-
-import '../models/sura_list.dart';
 import '../providers/quran_provider.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -29,8 +25,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void checkConditionAndNavigate() {
-    Timer? timer;
-    timer = Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       print('running after 2 sec');
       if (context.read<QuranProvider>().translations.isNotEmpty) {
         Navigator.pushReplacement(
@@ -50,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -70,8 +65,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               width: 150,
               height: 150,
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Quran Tamil Translation',
               style: TextStyle(
                 fontSize: 24,
@@ -79,16 +74,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Explore the Holy Quran in Tamil',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 40),
-            SpinKitFadingCircle(
+            const SizedBox(height: 40),
+            const SpinKitFadingCircle(
               color: Colors.white,
               size: 30,
             ),

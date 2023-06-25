@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/screens/home_screen.dart';
-import 'package:tamil_quran/screens/sura_verse_picker.dart';
 import 'package:tamil_quran/screens/welcome_screen.dart';
 
 void main() {
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.green, brightness: Brightness.light),
         debugShowCheckedModeBanner: false,
-        home: WelcomeScreen(),
+        home: const WelcomeScreen(),
       ),
     );
   }

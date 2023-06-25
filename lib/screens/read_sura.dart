@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:tamil_quran/models/sura_list.dart';
+import 'package:tamil_quran/screens/read_sura_only_arabic.dart';
+import 'package:tamil_quran/widgets/show_verse.dart';
 
 import '../models/translation_model.dart';
 import '../providers/quran_provider.dart';
@@ -23,16 +26,17 @@ class ReadSuraScreen extends StatefulWidget {
 }
 
 class _ReadSuraScreenState extends State<ReadSuraScreen> {
-  late final List<TranslationModel> allVersesOfSura;
-  late final bool hasBismi;
-  late final _scrollController = ItemScrollController();
+  List<TranslationModel> allVersesOfSura = [];
+  late final bool hasBismi =
+      widget.selectedSura != 1 && widget.selectedSura != 9;
+  final _scrollController = ItemScrollController();
+  bool arabicOnly = false;
 
   @override
   void initState() {
     super.initState();
     allVersesOfSura =
         context.read<QuranProvider>().filterBySura(widget.selectedSura);
-    hasBismi = widget.selectedSura != 1 && widget.selectedSura != 9;
 
     if (widget.scrollTo > 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -49,108 +53,48 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
     );
   }
 
-  Widget createAyah(int index) {
-    TranslationModel translation = allVersesOfSura[index];
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${translation.aya}. ',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              PopupMenuButton<String>(
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  const PopupMenuItem<String>(
-                    value: 'option1',
-                    child: Text('Option 1'),
-                  ),
-                  const PopupMenuItem<String>(
-                    value: 'option2',
-                    child: Text('Option 2'),
-                  ),
-                  const PopupMenuItem<String>(
-                    value: 'option3',
-                    child: Text('Option 3'),
-                  ),
-                ],
-                onSelected: (String value) {
-                  switch (value) {
-                    case 'option1':
-                      // Handle option 1 selection
-                      break;
-                    case 'option2':
-                      // Handle option 2 selection
-                      break;
-                    case 'option3':
-                      // Handle option 3 selection
-                      break;
-                  }
-                },
-                child: const Icon(Icons.more_vert),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Text(
-                  ' ${translation.arabic}${getVerseEndSymbol(translation.aya)}',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                translation.mJohn,
-                style: TextStyle(fontSize: 14),
-              ),
-            ],
-          ),
-        ),
-        Divider(
-          color: Colors.black,
-        ),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          widget.suraName,
-          style: TextStyle(
-            fontSize: 15,
-          ),
-        ),
+        title: Text(widget.suraName),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  arabicOnly = !arabicOnly;
+                });
+              },
+              icon: const Icon(Icons.menu_book)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.navigate_before)),
+          IconButton(
+              onPressed: () {
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => ReadSuraScreen(
+                //         selectedSura: SuraList, suraName: suraName),
+                //   ),
+                // );
+              },
+              icon: const Icon(Icons.navigate_next)),
+        ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ScrollablePositionedList.builder(
-              itemScrollController: _scrollController,
-              itemCount: allVersesOfSura.length + (hasBismi ? 1 : 0),
-              itemBuilder: (BuildContext context, int index) {
-                if (hasBismi && index == 0) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.only(top: 15, left: 15, right: 15),
-                    child: Column(
+      body: arabicOnly
+          ? ReadSuraOnlyArabic(allVersesOfSura: allVersesOfSura)
+          : Column(
+              children: [
+                Expanded(
+                  child: ScrollablePositionedList.builder(
+                    itemScrollController: _scrollController,
+                    itemCount: allVersesOfSura.length + (hasBismi ? 1 : 0),
+                    itemBuilder: (BuildContext context, int index) {
+                      if (hasBismi && index == 0) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              top: 15, left: 15, right: 15),
+                          child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Align(
@@ -173,10 +117,12 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
                     ),
                   );
                 } else {
-                  int adjustedIndex = hasBismi ? index - 1 : index;
-                  return createAyah(adjustedIndex);
-                }
-              },
+                        int adjustedIndex = hasBismi ? index - 1 : index;
+                        return ShowVerse(
+                          verseModel: allVersesOfSura[adjustedIndex],
+                        );
+                      }
+                    },
             ),
           ),
         ],

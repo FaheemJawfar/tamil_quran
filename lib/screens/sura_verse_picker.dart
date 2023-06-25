@@ -4,8 +4,10 @@ import 'package:tamil_quran/screens/read_sura.dart';
 import '../models/sura_list.dart';
 
 class SuraVersePickerScreen extends StatefulWidget {
+  const SuraVersePickerScreen({super.key});
+
   @override
-  _SuraVersePickerScreenState createState() => _SuraVersePickerScreenState();
+  State<SuraVersePickerScreen> createState() => _SuraVersePickerScreenState();
 }
 
 class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
@@ -61,11 +63,12 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
           ),
         ),
         bottomNavigationBar: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
               Expanded(
-                child: TextButton(onPressed: () {}, child: Text('Cancel')),
+                child:
+                    TextButton(onPressed: () {}, child: const Text('Cancel')),
               ),
               Expanded(
                 child: ElevatedButton(
@@ -85,7 +88,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                       ),
                     );
                   },
-                  child: Text('Pick'),
+                  child: const Text('Pick'),
                 ),
               ),
             ],
