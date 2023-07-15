@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'My App',
         theme: ThemeData(
-            primarySwatch: Colors.green, brightness: Brightness.light),
+            primarySwatch: Colors.green,
+            brightness: Brightness.light,
+            fontFamily: 'MuktaMalar'),
         debugShowCheckedModeBanner: false,
         home: const WelcomeScreen(),
       ),

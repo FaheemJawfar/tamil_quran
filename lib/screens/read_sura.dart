@@ -27,6 +27,8 @@ class ReadSuraScreen extends StatefulWidget {
 }
 
 class _ReadSuraScreenState extends State<ReadSuraScreen> {
+  late final quranProvider = context.read<QuranProvider>();
+
   List<TranslationModel> allVersesOfSura = [];
   late final bool hasBismi =
       widget.selectedSura != 1 && widget.selectedSura != 9;
@@ -58,7 +60,7 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(QuranData.suras[widget.selectedSura - 1].tamilName),
+        title: Text(quranProvider.suraList[widget.selectedSura - 1].tamilName),
         actions: [
           IconButton(
               onPressed: () {
@@ -97,11 +99,14 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
       ),
       body: arabicOnly
           ? ReadSuraOnlyArabic(
-              allVersesOfSura: allVersesOfSura,
-              suraNumber: widget.selectedSura,
-            )
+        allVersesOfSura: allVersesOfSura,
+        suraNumber: widget.selectedSura,
+      )
           : Column(
-              children: [
+        children: [
+                SizedBox(
+                  height: 10,
+                ),
                 Expanded(
                   child: ScrollablePositionedList.builder(
                     itemScrollController: _scrollController,
@@ -113,37 +118,37 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
                               top: 15, left: 15, right: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: Text(
-                                  'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ',
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'அளவற்ற அருளாளனும், நிகரற்ற அன்புடையோனுமாகிய அல்லாஹ்வின் திருப்பெயரால்(துவங்குகிறேன்)',
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              Divider(
-                                color: Colors.black,
-                              ),
-                            ],
+                      children: const [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(fontSize: 18),
                           ),
-                        );
-                      } else {
-                        int adjustedIndex = hasBismi ? index - 1 : index;
-                        return ShowVerse(
-                          verseModel: allVersesOfSura[adjustedIndex],
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ],
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'அளவற்ற அருளாளனும், நிகரற்ற அன்புடையோனுமாகிய அல்லாஹ்வின் திருப்பெயரால்(துவங்குகிறேன்)',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  int adjustedIndex = hasBismi ? index - 1 : index;
+                  return ShowVerse(
+                    verseModel: allVersesOfSura[adjustedIndex],
+                  );
+                }
+              },
             ),
+          ),
+        ],
+      ),
     );
   }
 }

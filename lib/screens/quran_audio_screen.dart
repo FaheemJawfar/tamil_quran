@@ -1,7 +1,9 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
+import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/screens/page_manager.dart';
 
 import '../models/sura_list.dart';
@@ -19,6 +21,8 @@ class QuranAudioPlayerScreen extends StatefulWidget {
 }
 
 class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
+  late final quranProvider = context.read<QuranProvider>();
+
   @override
   void initState() {
     super.initState();
@@ -111,13 +115,13 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: QuranData.suras.length,
+        itemCount: quranProvider.suraList.length,
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(
-                '${QuranData.suras[index].suraNumber}. ${QuranData.suras[index].tamilName}'),
+                '${quranProvider.suraList[index].suraNumber}. ${quranProvider.suraList[index].tamilName}'),
             onTap: () {
-              print(QuranData.suras[index].suraNumber);
+              print(quranProvider.suraList[index].suraNumber);
               setState(() {
                 selectedSuraIndex = index;
                 _audioPlayer.dispose();

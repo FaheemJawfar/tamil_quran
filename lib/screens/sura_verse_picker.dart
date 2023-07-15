@@ -1,7 +1,8 @@
 import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import '../models/sura_list.dart';
+import '../providers/quran_provider.dart';
 
 class SuraVersePickerScreen extends StatefulWidget {
   const SuraVersePickerScreen({super.key});
@@ -11,7 +12,8 @@ class SuraVersePickerScreen extends StatefulWidget {
 }
 
 class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
-  List<SuraList> suras = QuranData.suras;
+  late final quranProvider = context.read<QuranProvider>();
+
   int selectedSura = 1;
   int selectedVerse = 1;
 
@@ -43,7 +45,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                 setState(() {});
                 print('selected sura: $selectedSura');
               },
-              children: suras
+              children: quranProvider.suraList
                   .map(
                     (sura) => Center(
                         child: Text(
@@ -75,91 +77,13 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                 selectedVerse = value + 1;
                 print('selected verse: $selectedVerse');
               },
-              children: List.generate(suras[selectedSura - 1].verseCount,
+              children: List.generate(
+                  quranProvider.suraList[selectedSura - 1].verseCount,
                   (index) => Center(child: Text('${index + 1}'))),
             ),
           ),
         ],
       ),
     );
-    // return Container(
-    //   padding: const EdgeInsets.fromLTRB(25, 100, 25, 100),
-    //   child: Scaffold(
-    //     body: Padding(
-    //       padding: const EdgeInsets.only(top: 20, bottom: 20),
-    //       child: Row(
-    //         children: [
-    //           Expanded(
-    //             flex: 8,
-    //             child: ListView.builder(
-    //               itemCount: suras.length,
-    //               itemBuilder: (context, index) {
-    //                 return ListTile(
-    //                   title: Text(
-    //                       '${suras[index].suraNumber}. ${suras[index].tamilName}'),
-    //                   selected: selectedSuraIndex == index,
-    //                   onTap: () {
-    //                     setState(() {
-    //                       selectedSuraIndex = index;
-    //                     });
-    //                   },
-    //                 );
-    //               },
-    //             ),
-    //           ),
-    //           Expanded(
-    //             flex: 2,
-    //             child: ListView.builder(
-    //               itemCount: suras[selectedSuraIndex].verseCount,
-    //               itemBuilder: (context, index) {
-    //                 return ListTile(
-    //                   title: Text((index + 1).toString()),
-    //                   selected: selectedVerseIndex == index,
-    //                   onTap: () {
-    //                     setState(() {
-    //                       selectedVerseIndex = index;
-    //                     });
-    //                   },
-    //                 );
-    //               },
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //     bottomNavigationBar: Container(
-    //       padding: const EdgeInsets.all(16),
-    //       child: Row(
-    //         children: [
-    //           Expanded(
-    //             child:
-    //                 TextButton(onPressed: () {}, child: const Text('Cancel')),
-    //           ),
-    //           Expanded(
-    //             child: ElevatedButton(
-    //               onPressed: () {
-    //                 int selectedSura = suras[selectedSuraIndex].suraNumber;
-    //                 int selectedVerse = selectedVerseIndex + 1;
-    //                 String suraName = suras[selectedSuraIndex].tamilName;
-    //
-    //                 Navigator.pushReplacement(
-    //                   context,
-    //                   MaterialPageRoute(
-    //                     builder: (context) => ReadSuraScreen(
-    //                       selectedSura: selectedSura,
-    //                       //suraName: suraName,
-    //                       scrollTo: selectedVerse,
-    //                     ),
-    //                   ),
-    //                 );
-    //               },
-    //               child: const Text('Pick'),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }

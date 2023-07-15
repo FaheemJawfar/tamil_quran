@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tamil_quran/screens/read_sura.dart';
 
 import '../models/sura_list.dart';
+import '../providers/quran_provider.dart';
 
 class SuraListScreen extends StatefulWidget {
   const SuraListScreen({Key? key}) : super(key: key);
@@ -11,12 +13,14 @@ class SuraListScreen extends StatefulWidget {
 }
 
 class _SuraListScreenState extends State<SuraListScreen> {
+  late final quranProvider = context.read<QuranProvider>();
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: QuranData.suras.length,
+      itemCount: quranProvider.suraList.length,
       itemBuilder: (BuildContext context, int index) {
-        final sura = QuranData.suras[index];
+        final sura = quranProvider.suraList[index];
 
         return Card(
           child: ListTile(
