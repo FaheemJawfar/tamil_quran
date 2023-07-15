@@ -4,6 +4,7 @@ class SuraList {
   final String? tamilMeaning;
   final String arabicName;
   final int verseCount;
+  bool isPlaying;
 
   SuraList({
     required this.suraNumber,
@@ -11,6 +12,7 @@ class SuraList {
     this.tamilMeaning,
     required this.arabicName,
     required this.verseCount,
+    this.isPlaying = false,
   });
 }
 

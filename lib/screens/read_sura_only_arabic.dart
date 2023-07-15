@@ -5,8 +5,10 @@ import '../models/translation_model.dart';
 
 class ReadSuraOnlyArabic extends StatefulWidget {
   final List<TranslationModel> allVersesOfSura;
+  final int suraNumber;
 
-  const ReadSuraOnlyArabic({required this.allVersesOfSura, Key? key})
+  const ReadSuraOnlyArabic(
+      {required this.allVersesOfSura, required this.suraNumber, Key? key})
       : super(key: key);
 
   @override
@@ -14,33 +16,60 @@ class ReadSuraOnlyArabic extends StatefulWidget {
 }
 
 class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
+  List<TextSpan> textSpans = [];
+
   @override
   Widget build(BuildContext context) {
-    String allVersesCombined = '';
     for (var verse in widget.allVersesOfSura) {
-      allVersesCombined += '${verse.arabic}${getVerseEndSymbol(verse.aya)} ';
+      textSpans.add(TextSpan(
+        text: verse.arabic,
+        style: const TextStyle(
+          fontSize: 20,
+          fontFamily: 'Uthmani',
+          color: Colors.black,
+        ),
+      ));
+
+      textSpans.add(TextSpan(
+        text: '${getVerseEndSymbol(verse.aya)} ',
+        style: const TextStyle(
+          fontSize: 20,
+          color: Colors.black,
+        ),
+      ));
     }
 
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Image.asset(
-              'assets/images/bismillah.png',
-              height: 60,
-              width: double.infinity,
-            ),
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: Text(
-                allVersesCombined,
-                textAlign: TextAlign.justify,
-                style: const TextStyle(fontSize: 18),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              if (widget.suraNumber != 1 && widget.suraNumber != 9)
+                Image.asset(
+                  'assets/images/bismillah.png',
+                  height: 40,
+                  width: double.infinity,
+                ),
+              const SizedBox(
+                height: 10,
               ),
-            ),
-          ],
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: RichText(
+                  textAlign: TextAlign.justify,
+                  text: TextSpan(children: textSpans),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
