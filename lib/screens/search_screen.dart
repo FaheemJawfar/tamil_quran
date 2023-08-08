@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
 
-import '../models/translation_model.dart';
+import '../models/verse_model.dart';
 import '../providers/quran_provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -14,9 +14,9 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final _searchController = TextEditingController();
-  late List<TranslationModel> allVerses =
-      context.read<QuranProvider>().translations;
-  final List<TranslationModel> _filteredVerses = [];
+  late List<VerseModel> allVerses =
+      context.read<QuranProvider>().allVersesOfQuran;
+  final List<VerseModel> _filteredVerses = [];
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('குர்ஆனில் தேடுக'),
+        title: const Text('குர்ஆனில் தேடுக'),
       ),
       body: Column(
         children: [
@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   _searchVerses(query);
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: 'தேட வேண்டிய சொல்லை உள்ளிடுக',
                   prefixIcon: Icon(Icons.search)),
             ),
@@ -70,7 +70,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: ListView.builder(
                 itemCount: _filteredVerses.length,
                 itemBuilder: (context, index) {
-                  TranslationModel verse = _filteredVerses[index];
+                  VerseModel verse = _filteredVerses[index];
                   String mJohn = verse.mJohn;
                   String query = _searchController.text;
 
@@ -85,7 +85,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       // Add non-matching text before the match
                       textSpans.add(TextSpan(
                         text: mJohn.substring(currentIndex, match.start),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           // Customize the color as needed
                         ),
@@ -96,7 +96,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     textSpans.add(
                       TextSpan(
                         text: mJohn.substring(match.start, match.end),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.red,
                           // Customize the color as needed
@@ -111,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     // Add any remaining non-matching text
                     textSpans.add(TextSpan(
                       text: mJohn.substring(currentIndex),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         // Customize the color as needed
                       ),

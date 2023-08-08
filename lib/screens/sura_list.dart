@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/screens/read_sura.dart';
 
-import '../models/sura_list.dart';
 import '../providers/quran_provider.dart';
 
 class SuraListScreen extends StatefulWidget {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
 
-import '../models/translation_model.dart';
+import '../models/verse_model.dart';
 
 class ReadSuraOnlyArabic extends StatefulWidget {
-  final List<TranslationModel> allVersesOfSura;
+  final List<VerseModel> allVersesOfSura;
   final int suraNumber;
 
   const ReadSuraOnlyArabic(

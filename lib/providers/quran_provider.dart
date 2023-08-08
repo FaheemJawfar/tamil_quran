@@ -1,56 +1,34 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:tamil_quran/helpers/db_helper.dart';
 import '../models/sura_list.dart';
-import '../models/translation_model.dart';
+import '../models/verse_model.dart';
 
 class QuranProvider extends ChangeNotifier {
-  List<TranslationModel> translations = [];
 
-  List<TranslationModel> filterBySura(int sura) {
-    return translations.where((model) => model.sura == sura).toList();
-  }
+  final List<VerseModel> _allVersesOfQuran = [];
 
-  Future<void> loadTranslationsFromDatabase() async {
-    final startTime = DateTime.now();
-    final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, 'tamil_quran_all.db');
+  get allVersesOfQuran => _allVersesOfQuran;
 
-    // Check if the database file already exists in the device's file system
-    if (await databaseExists(path)) {
-      // Open the existing database
-      final database = await openDatabase(path);
-      final List<Map<String, dynamic>> result =
-          await database.query('quran_db_all');
 
-      translations =
-          result.map((data) => TranslationModel.fromMap(data)).toList();
 
-      print('*' * 100);
-      print(
-          'loaded in ${DateTime.now().difference(startTime).inSeconds} seconds');
-      print(translations.length);
-      notifyListeners();
-    } else {
-      // Copy the database from assets to the device's file system
-      await Directory(dirname(path)).create(recursive: true);
-      final ByteData data = await rootBundle.load('assets/tamil_quran_all.db');
-      final List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      await File(path).writeAsBytes(bytes);
+  void loadQuranData() async {
+    final db = await DatabaseHelper().database;
+    List<Map<String, dynamic>> queryResult = await db.query('quran_db_all');
 
-      // Open the copied database
-      final database = await openDatabase(path);
-      final List<Map<String, dynamic>> result =
-          await database.query('quran_db_all');
-
-      translations =
-          result.map((data) => TranslationModel.fromMap(data)).toList();
-      notifyListeners();
+    for (var verse in queryResult) {
+      _allVersesOfQuran.add(VerseModel.fromMap(verse));
     }
+
+    print('Quran verses loaded: ${_allVersesOfQuran.length}');
   }
+
+
+  List<VerseModel> filterBySura(int sura) {
+    return _allVersesOfQuran.where((model) => model.sura == sura).toList();
+  }
+
+
+
 
   final List<SuraModel> _suraList = [
     SuraModel(
@@ -160,7 +138,10 @@ class QuranProvider extends ChangeNotifier {
         arabicName: 'مريم',
         verseCount: 98),
     SuraModel(
-        suraNumber: 20, tamilName: 'தாஹா', arabicName: 'طه', verseCount: 135),
+        suraNumber: 20,
+        tamilName: 'தாஹா',
+        arabicName: 'طه',
+        verseCount: 135),
     SuraModel(
         suraNumber: 21,
         tamilName: 'அல்அன்பியா',
@@ -238,7 +219,10 @@ class QuranProvider extends ChangeNotifier {
         arabicName: 'الأحزاب',
         verseCount: 73),
     SuraModel(
-        suraNumber: 34, tamilName: 'ஸபா', arabicName: 'سبإ', verseCount: 54),
+        suraNumber: 34,
+        tamilName: 'ஸபா',
+        arabicName: 'سبإ',
+        verseCount: 54),
     SuraModel(
         suraNumber: 35,
         tamilName: 'ஃபாதிர்',
@@ -246,7 +230,10 @@ class QuranProvider extends ChangeNotifier {
         arabicName: 'فاطر',
         verseCount: 45),
     SuraModel(
-        suraNumber: 36, tamilName: 'யாஸீன்', arabicName: 'يس', verseCount: 83),
+        suraNumber: 36,
+        tamilName: 'யாஸீன்',
+        arabicName: 'يس',
+        verseCount: 83),
     SuraModel(
         suraNumber: 37,
         tamilName: 'அஸ்ஸாஃப்ஃபாத்',
@@ -254,7 +241,10 @@ class QuranProvider extends ChangeNotifier {
         arabicName: 'الصافات',
         verseCount: 182),
     SuraModel(
-        suraNumber: 38, tamilName: 'ஸாத்', arabicName: 'ص', verseCount: 88),
+        suraNumber: 38,
+        tamilName: 'ஸாத்',
+        arabicName: 'ص',
+        verseCount: 88),
     SuraModel(
         suraNumber: 39,
         tamilName: 'அல் ஜுமர்',
@@ -320,7 +310,9 @@ class QuranProvider extends ChangeNotifier {
         arabicName: 'الحجرات',
         verseCount: 18),
     SuraModel(
-        suraNumber: 50, tamilName: 'ஃகாஃப்', arabicName: 'ق', verseCount: 45),
+        suraNumber: 50,
+        tamilName: 'ஃகாஃப்',
+        arabicName: 'ق', verseCount: 45),
     SuraModel(
         suraNumber: 51,
         tamilName: 'அத்தாரியாத்',
@@ -442,7 +434,10 @@ class QuranProvider extends ChangeNotifier {
         arabicName: 'المعارج',
         verseCount: 44),
     SuraModel(
-        suraNumber: 71, tamilName: 'நூஹ்', arabicName: 'نوح', verseCount: 28),
+        suraNumber: 71,
+        tamilName: 'நூஹ்',
+        arabicName: 'نوح',
+        verseCount: 28),
     SuraModel(
         suraNumber: 72,
         tamilName: 'அல் ஜின்',

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quran/quran.dart';
-import 'package:tamil_quran/models/sura_list.dart';
 import 'package:tamil_quran/screens/boomarks.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
-import 'package:tamil_quran/screens/read_sura.dart';
-import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/screens/sura_list.dart';
-import 'package:tamil_quran/screens/sura_verse_picker.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -35,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('திருக்குர்ஆன்'),
+        title: const Text('திருக்குர்ஆன்'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12.0),

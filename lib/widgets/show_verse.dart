@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
-import 'package:tamil_quran/models/translation_model.dart';
+import 'package:tamil_quran/models/verse_model.dart';
 
 class ShowVerse extends StatefulWidget {
-  final TranslationModel verseModel;
+  final VerseModel verseModel;
 
   const ShowVerse({required this.verseModel, Key? key}) : super(key: key);
 

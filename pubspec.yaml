@@ -43,11 +43,11 @@ dependencies:
   visibility_detector: ^0.3.3
   sqflite: ^2.0.0+4
   provider: ^6.0.5
-  path: ^1.8.2
   quran: ^1.2.2
   just_audio: ^0.9.34
   audio_video_progress_bar: ^0.9.0
   custom_cupertino_picker: ^2.0.3
+  path_provider: ^2.1.0
 
 
 

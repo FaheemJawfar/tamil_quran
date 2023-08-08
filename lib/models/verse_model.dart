@@ -1,4 +1,4 @@
-class TranslationModel {
+class VerseModel {
   final int index;
   final int sura;
   final int aya;
@@ -8,7 +8,7 @@ class TranslationModel {
   final String ift;
   final String kingFahd;
 
-  TranslationModel(
+  VerseModel(
       {required this.index,
       required this.sura,
       required this.aya,
@@ -18,8 +18,8 @@ class TranslationModel {
       required this.ift,
       required this.kingFahd});
 
-  factory TranslationModel.fromMap(Map<String, dynamic> map) {
-    return TranslationModel(
+  factory VerseModel.fromMap(Map<String, dynamic> map) {
+    return VerseModel(
         index: map['index'],
         sura: map['sura'],
         aya: map['aya'],

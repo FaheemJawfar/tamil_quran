@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-import 'package:quran/quran.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:tamil_quran/models/sura_list.dart';
-import 'package:tamil_quran/screens/quran_audio_screen.dart';
 import 'package:tamil_quran/screens/read_sura_only_arabic.dart';
 import 'package:tamil_quran/widgets/show_verse.dart';
 
-import '../models/translation_model.dart';
+import '../models/verse_model.dart';
 import '../providers/quran_provider.dart';
 
 class ReadSuraScreen extends StatefulWidget {
@@ -29,7 +25,7 @@ class ReadSuraScreen extends StatefulWidget {
 class _ReadSuraScreenState extends State<ReadSuraScreen> {
   late final quranProvider = context.read<QuranProvider>();
 
-  List<TranslationModel> allVersesOfSura = [];
+  List<VerseModel> allVersesOfSura = [];
   late final bool hasBismi =
       widget.selectedSura != 1 && widget.selectedSura != 9;
   final _scrollController = ItemScrollController();
@@ -104,7 +100,7 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
       )
           : Column(
         children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Expanded(
@@ -113,12 +109,12 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
                     itemCount: allVersesOfSura.length + (hasBismi ? 1 : 0),
                     itemBuilder: (BuildContext context, int index) {
                       if (hasBismi && index == 0) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
+                        return const Padding(
+                          padding: EdgeInsets.only(
                               top: 15, left: 15, right: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(

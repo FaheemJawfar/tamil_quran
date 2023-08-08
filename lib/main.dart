@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamil_quran/helpers/shared_preferences.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/screens/welcome_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Preferences.load();
+  Preferences.setString('tamilFont', 'MuktaMalar');
+  print(Preferences.getString('tamilFont'));
   runApp(const MyApp());
+
+
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -19,11 +27,11 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'My App',
+        title: 'Tamil Quran',
         theme: ThemeData(
             primarySwatch: Colors.green,
             brightness: Brightness.light,
-            fontFamily: 'MuktaMalar'),
+            fontFamily: Preferences.getString('tamilFont')),
         debugShowCheckedModeBanner: false,
         home: const WelcomeScreen(),
       ),

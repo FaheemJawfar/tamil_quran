@@ -13,10 +13,10 @@ class QuranBookmarkScreen extends StatelessWidget {
             leading: const CircleAvatar(
               child: Icon(Icons.bookmark), // Display bookmark number
             ),
-            title: Text('Surah Name'), // Display the name of the Surah
-            subtitle: Text('Verse Number'), // Display the verse number
+            title: const Text('Surah Name'), // Display the name of the Surah
+            subtitle: const Text('Verse Number'), // Display the verse number
             trailing: IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () {
                 // Handle delete bookmark action
                 // You can add your own logic here to remove the bookmark

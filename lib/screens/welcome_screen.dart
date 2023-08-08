@@ -13,6 +13,10 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+
+  int sec = 0;
+
+
   @override
   void initState() {
     loadDb();
@@ -21,13 +25,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   loadDb() async {
-    context.read<QuranProvider>().loadTranslationsFromDatabase();
+    context.read<QuranProvider>().loadQuranData();
   }
 
   void checkConditionAndNavigate() {
     Timer(const Duration(seconds: 2), () {
-      print('running after 2 sec');
-      if (context.read<QuranProvider>().translations.isNotEmpty) {
+      sec += 2;
+      print('running after $sec seconds');
+      if (context.read<QuranProvider>().allVersesOfQuran.isNotEmpty) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

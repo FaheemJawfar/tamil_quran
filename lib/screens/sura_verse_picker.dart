@@ -1,7 +1,6 @@
 import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/sura_list.dart';
 import '../providers/quran_provider.dart';
 
 class SuraVersePickerScreen extends StatefulWidget {

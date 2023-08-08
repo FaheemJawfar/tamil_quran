@@ -4,9 +4,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/screens/page_manager.dart';
 
-import '../models/sura_list.dart';
+
 
 class QuranAudioPlayerScreen extends StatefulWidget {
 //  final String audioUrl;
@@ -121,7 +120,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
             title: Text(
                 '${quranProvider.suraList[index].suraNumber}. ${quranProvider.suraList[index].tamilName}'),
             onTap: () {
-              print(quranProvider.suraList[index].suraNumber);
+              //print(quranProvider.suraList[index].suraNumber);
               setState(() {
                 selectedSuraIndex = index;
                 _audioPlayer.dispose();
