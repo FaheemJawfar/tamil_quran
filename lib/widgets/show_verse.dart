@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
+import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/helpers/verse_options.dart';
+import 'package:tamil_quran/models/bookmark.dart';
 import 'package:tamil_quran/models/verse.dart';
 
 class ShowVerse extends StatefulWidget {
@@ -41,7 +43,7 @@ class _ShowVerseState extends State<ShowVerse> {
                   PopupMenuItem<String>(
                     value: 'bookmark',
                     child: getPopupMenuItem(
-                        Icons.bookmark_add_outlined, 'Bookmark verse'),
+                        Icons.bookmark_add_outlined, 'Add to Bookmark'),
                   ),
                 ],
                 onSelected: (String value) {
@@ -54,7 +56,9 @@ class _ShowVerseState extends State<ShowVerse> {
                       VerseOptions.shareVerse(getVerseCopy(widget.verseModel));
                       break;
                     case 'bookmark':
-                      // Handle option 3 selection
+                      BookmarkHelper.addBookmark(Bookmark(
+                          key: widget.verseModel.sura.toString(),
+                          value: widget.verseModel.aya.toString()));
                       break;
                   }
                 },

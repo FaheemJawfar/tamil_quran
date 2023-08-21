@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/screens/boomarks.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
 import 'package:tamil_quran/screens/sura_list.dart';
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
         title: const Text('திருக்குர்ஆன்'),
         actions: [

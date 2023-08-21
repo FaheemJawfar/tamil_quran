@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
+import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
@@ -42,52 +43,56 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
 
   void _init() async {
     _audioPlayer = AudioPlayer();
-    await _audioPlayer.setUrl(getAudioURLBySurah(selectedSuraIndex + 1));
-    // print('\$' * 100);
-    // print(_audioPlayer.duration);
+    try {
+      await _audioPlayer.setUrl(getAudioURLBySurah(selectedSuraIndex + 1));
+      // print('\$' * 100);
+      // print(_audioPlayer.duration);
 
-    _audioPlayer.playerStateStream.listen((playerState) {
-      final isPlaying = playerState.playing;
-      final processingState = playerState.processingState;
-      if (processingState == ProcessingState.loading ||
-          processingState == ProcessingState.buffering) {
-        buttonNotifier.value = ButtonState.loading;
-      } else if (!isPlaying) {
-        buttonNotifier.value = ButtonState.paused;
-      } else if (processingState != ProcessingState.completed) {
-        buttonNotifier.value = ButtonState.playing;
-      } else {
-        _audioPlayer.seek(Duration.zero);
-        _audioPlayer.pause();
-      }
-    });
+      _audioPlayer.playerStateStream.listen((playerState) {
+        final isPlaying = playerState.playing;
+        final processingState = playerState.processingState;
+        if (processingState == ProcessingState.loading ||
+            processingState == ProcessingState.buffering) {
+          buttonNotifier.value = ButtonState.loading;
+        } else if (!isPlaying) {
+          buttonNotifier.value = ButtonState.paused;
+        } else if (processingState != ProcessingState.completed) {
+          buttonNotifier.value = ButtonState.playing;
+        } else {
+          _audioPlayer.seek(Duration.zero);
+          _audioPlayer.pause();
+        }
+      });
 
-    _audioPlayer.positionStream.listen((position) {
-      final oldState = progressNotifier.value;
-      progressNotifier.value = ProgressBarState(
-        current: position,
-        buffered: oldState.buffered,
-        total: oldState.total,
-      );
-    });
+      _audioPlayer.positionStream.listen((position) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarState(
+          current: position,
+          buffered: oldState.buffered,
+          total: oldState.total,
+        );
+      });
 
-    _audioPlayer.bufferedPositionStream.listen((bufferedPosition) {
-      final oldState = progressNotifier.value;
-      progressNotifier.value = ProgressBarState(
-        current: oldState.current,
-        buffered: bufferedPosition,
-        total: oldState.total,
-      );
-    });
+      _audioPlayer.bufferedPositionStream.listen((bufferedPosition) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarState(
+          current: oldState.current,
+          buffered: bufferedPosition,
+          total: oldState.total,
+        );
+      });
 
-    _audioPlayer.durationStream.listen((totalDuration) {
-      final oldState = progressNotifier.value;
-      progressNotifier.value = ProgressBarState(
-        current: oldState.current,
-        buffered: oldState.buffered,
-        total: totalDuration ?? Duration.zero,
-      );
-    });
+      _audioPlayer.durationStream.listen((totalDuration) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarState(
+          current: oldState.current,
+          buffered: oldState.buffered,
+          total: totalDuration ?? Duration.zero,
+        );
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   void play() {
@@ -111,6 +116,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConfig.backgroundColor,
       body: ListView.builder(
         itemCount: quranProvider.suraList.length,
         itemBuilder: (context, index) {
