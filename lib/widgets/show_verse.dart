@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
-import 'package:tamil_quran/models/verse_model.dart';
+import 'package:tamil_quran/helpers/verse_options.dart';
+import 'package:tamil_quran/models/verse.dart';
 
 class ShowVerse extends StatefulWidget {
   final VerseModel verseModel;
@@ -27,29 +28,32 @@ class _ShowVerseState extends State<ShowVerse> {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               PopupMenuButton<String>(
+                color: Colors.green.shade100,
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  const PopupMenuItem<String>(
-                    value: 'option1',
-                    child: Text('Option 1'),
+                  PopupMenuItem<String>(
+                    value: 'copy',
+                    child: getPopupMenuItem(Icons.copy, 'Copy verse'),
                   ),
-                  const PopupMenuItem<String>(
-                    value: 'option2',
-                    child: Text('Option 2'),
+                  PopupMenuItem<String>(
+                    value: 'share',
+                    child: getPopupMenuItem(Icons.share, 'Share verse'),
                   ),
-                  const PopupMenuItem<String>(
-                    value: 'option3',
-                    child: Text('Option 3'),
+                  PopupMenuItem<String>(
+                    value: 'bookmark',
+                    child: getPopupMenuItem(
+                        Icons.bookmark_add_outlined, 'Bookmark verse'),
                   ),
                 ],
                 onSelected: (String value) {
                   switch (value) {
-                    case 'option1':
-                      // Handle option 1 selection
+                    case 'copy':
+                      VerseOptions.copyToClipboard(
+                          getVerseCopy(widget.verseModel));
                       break;
-                    case 'option2':
-                      // Handle option 2 selection
+                    case 'share':
+                      VerseOptions.shareVerse(getVerseCopy(widget.verseModel));
                       break;
-                    case 'option3':
+                    case 'bookmark':
                       // Handle option 3 selection
                       break;
                   }
@@ -88,5 +92,21 @@ class _ShowVerseState extends State<ShowVerse> {
         ),
       ],
     );
+  }
+
+  Widget getPopupMenuItem(IconData icon, String title) {
+    return ListTile(
+      iconColor: Colors.green.shade700,
+      contentPadding: EdgeInsets.zero,
+      leading: Icon(icon),
+      title: Text(title),
+    );
+  }
+
+  getVerseCopy(VerseModel selectedVerse) {
+    String verseCopy =
+        '${selectedVerse.arabic}\n\n${selectedVerse.mJohn}\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})';
+    // print(verseCopy);
+    return verseCopy;
   }
 }

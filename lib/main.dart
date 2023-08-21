@@ -6,13 +6,10 @@ import 'package:tamil_quran/screens/welcome_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Preferences.load();
+  await Preferences.initialize();
   Preferences.setString('tamilFont', 'MuktaMalar');
-  print(Preferences.getString('tamilFont'));
+  debugPrint(Preferences.getString('tamilFont'));
   runApp(const MyApp());
-
-
-  
 }
 
 class MyApp extends StatelessWidget {

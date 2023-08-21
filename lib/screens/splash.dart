@@ -1,0 +1,100 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:tamil_quran/models/quran_hadith_about_quran.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  int selectedQuoteNumber = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getRandomQuote();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF398AE5),
+              Color(0xFF478DE0),
+              Color(0xFF4A90DB),
+            ],
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/quran_icon.png',
+              width: 150,
+              height: 150,
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'திருக்குர்ஆன்',
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'அரபி மூலம் மற்றும் மொழிபெயர்ப்பு',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+            const Divider(),
+            const Spacer(),
+            Text(
+              QuranHadithAboutQuran
+                  .listOfVersesAndHadhiths[selectedQuoteNumber].quote,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              QuranHadithAboutQuran
+                  .listOfVersesAndHadhiths[selectedQuoteNumber].reference,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const Spacer(),
+            const SpinKitFadingCircle(
+              color: Colors.white,
+              size: 30,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  getRandomQuote() {
+    selectedQuoteNumber =
+        Random().nextInt(QuranHadithAboutQuran.listOfVersesAndHadhiths.length);
+  }
+}

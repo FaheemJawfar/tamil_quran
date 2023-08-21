@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tamil_quran/helpers/db_helper.dart';
 import '../models/sura_list.dart';
-import '../models/verse_model.dart';
+import '../models/verse.dart';
 
 class QuranProvider extends ChangeNotifier {
 

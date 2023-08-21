@@ -1,26 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:tamil_quran/helpers/bookmark_helper.dart';
+import 'package:tamil_quran/models/bookmark.dart';
 
-class QuranBookmarkScreen extends StatelessWidget {
+class QuranBookmarkScreen extends StatefulWidget {
   const QuranBookmarkScreen({super.key});
+
+  @override
+  State<QuranBookmarkScreen> createState() => _QuranBookmarkScreenState();
+}
+
+class _QuranBookmarkScreenState extends State<QuranBookmarkScreen> {
+  bool loadingBookmarks = false;
+  List<Bookmark> bookmarkList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getBookmarks();
+  }
+
+  getBookmarks() async {
+    loadingBookmarks = true;
+    bookmarkList = await BookmarkHelper.getBookmarkList();
+    print(bookmarkList);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: 3, // Assuming you have 30 bookmarks
+        itemCount: bookmarkList.length,
         itemBuilder: (context, index) {
           return ListTile(
             leading: const CircleAvatar(
-              child: Icon(Icons.bookmark), // Display bookmark number
+              child: Icon(Icons.bookmark),
             ),
-            title: const Text('Surah Name'), // Display the name of the Surah
-            subtitle: const Text('Verse Number'), // Display the verse number
+            title: Text(bookmarkList[index].key.toString()),
+            subtitle: Text(bookmarkList[index].value.toString()),
             trailing: IconButton(
               icon: const Icon(Icons.delete),
-              onPressed: () {
-                // Handle delete bookmark action
-                // You can add your own logic here to remove the bookmark
-              },
+              onPressed: () {},
             ),
           );
         },

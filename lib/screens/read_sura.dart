@@ -4,7 +4,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tamil_quran/screens/read_sura_only_arabic.dart';
 import 'package:tamil_quran/widgets/show_verse.dart';
 
-import '../models/verse_model.dart';
+import '../models/verse.dart';
 import '../providers/quran_provider.dart';
 
 class ReadSuraScreen extends StatefulWidget {

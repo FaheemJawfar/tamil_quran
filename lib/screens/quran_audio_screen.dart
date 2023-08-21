@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 
-
-
 class QuranAudioPlayerScreen extends StatefulWidget {
 //  final String audioUrl;
   const QuranAudioPlayerScreen(
@@ -45,8 +43,8 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   void _init() async {
     _audioPlayer = AudioPlayer();
     await _audioPlayer.setUrl(getAudioURLBySurah(selectedSuraIndex + 1));
-    print('\$' * 100);
-    print(_audioPlayer.duration);
+    // print('\$' * 100);
+    // print(_audioPlayer.duration);
 
     _audioPlayer.playerStateStream.listen((playerState) {
       final isPlaying = playerState.playing;
@@ -118,7 +116,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(
-                '${quranProvider.suraList[index].suraNumber}. ${quranProvider.suraList[index].tamilName}'),
+              '${quranProvider.suraList[index].suraNumber}. ${quranProvider.suraList[index].tamilName}',
+              style: TextStyle(
+                color: selectedSuraIndex == index ? Colors.white : Colors.black,
+              ),
+            ),
             onTap: () {
               //print(quranProvider.suraList[index].suraNumber);
               setState(() {
@@ -129,12 +131,19 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                 //buttonNotifier.value = ButtonState.playing;
               });
             },
-            tileColor: selectedSuraIndex == index ? Colors.grey[300] : null,
+            tileColor: selectedSuraIndex == index ? Colors.green[300] : null,
           );
         },
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: Container(
         padding: const EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

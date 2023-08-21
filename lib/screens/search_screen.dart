@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
 
-import '../models/verse_model.dart';
+import '../models/verse.dart';
 import '../providers/quran_provider.dart';
 
 class SearchScreen extends StatefulWidget {
