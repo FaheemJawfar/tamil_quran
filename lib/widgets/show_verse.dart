@@ -57,8 +57,8 @@ class _ShowVerseState extends State<ShowVerse> {
                       break;
                     case 'bookmark':
                       BookmarkHelper.addBookmark(Bookmark(
-                          key: widget.verseModel.sura.toString(),
-                          value: widget.verseModel.aya.toString()));
+                          suraNumber: widget.verseModel.sura.toString(),
+                          verseNumber: widget.verseModel.aya.toString()));
                       break;
                   }
                 },

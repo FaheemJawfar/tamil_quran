@@ -3,13 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tamil_quran/screens/read_sura_only_arabic.dart';
 import 'package:tamil_quran/widgets/show_verse.dart';
-
 import '../models/verse.dart';
 import '../providers/quran_provider.dart';
 
 class ReadSuraScreen extends StatefulWidget {
   final int selectedSura;
-
   final int scrollTo;
 
   const ReadSuraScreen({
@@ -35,7 +33,7 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
   void initState() {
     super.initState();
     allVersesOfSura =
-        context.read<QuranProvider>().filterBySura(widget.selectedSura);
+        context.read<QuranProvider>().filterOneSura(widget.selectedSura);
 
     if (widget.scrollTo > 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

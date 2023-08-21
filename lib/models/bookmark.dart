@@ -1,6 +1,6 @@
 class Bookmark {
-  final String key;
-  final String value;
+  final String suraNumber;
+  final String verseNumber;
 
-  Bookmark({required this.key, required this.value});
+  Bookmark({required this.suraNumber, required this.verseNumber});
 }

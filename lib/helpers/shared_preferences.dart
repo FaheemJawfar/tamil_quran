@@ -12,6 +12,10 @@ class Preferences {
     _prefs.setString(key, value);
   }
 
+  static void setStringList(String key, List<String> value) {
+    _prefs.setStringList(key, value);
+  }
+
   static void setInt(String key, int value) {
     _prefs.setInt(key, value);
   }
@@ -26,6 +30,7 @@ class Preferences {
 
   static String? getString(String key) => _prefs.getString(key);
 
+  static List<String>? getStringList(String key) => _prefs.getStringList(key);
   static int? getInt(String key) => _prefs.getInt(key);
 
   static double? getDouble(String key) => _prefs.getDouble(key);

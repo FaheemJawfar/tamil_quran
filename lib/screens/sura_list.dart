@@ -18,7 +18,9 @@ class _SuraListScreenState extends State<SuraListScreen> {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: quranProvider.suraList.length,
-      separatorBuilder: (context, index) => const Divider(thickness: 2,),
+      separatorBuilder: (context, index) => const Divider(
+        thickness: 2,
+      ),
       itemBuilder: (BuildContext context, int index) {
         final sura = quranProvider.suraList[index];
 

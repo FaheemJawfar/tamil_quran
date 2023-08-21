@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tamil_quran/models/quran_hadith_about_quran.dart';
+import 'package:tamil_quran/widgets/loading_indicator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -83,10 +84,7 @@ class _SplashScreenState extends State<SplashScreen> {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            const SpinKitFadingCircle(
-              color: Colors.white,
-              size: 30,
-            ),
+            const LoadingIndicator(size: 30,),
           ],
         ),
       ),

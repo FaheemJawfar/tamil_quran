@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/models/bookmark.dart';
+import 'package:tamil_quran/screens/read_sura.dart';
+import 'package:tamil_quran/widgets/loading_indicator.dart';
+
+import '../providers/quran_provider.dart';
 
 class QuranBookmarkScreen extends StatefulWidget {
   const QuranBookmarkScreen({super.key});
@@ -11,7 +16,7 @@ class QuranBookmarkScreen extends StatefulWidget {
 }
 
 class _QuranBookmarkScreenState extends State<QuranBookmarkScreen> {
-  bool loadingBookmarks = false;
+  late final quranProvider = context.read<QuranProvider>();
   List<Bookmark> bookmarkList = [];
 
   @override
@@ -21,37 +26,57 @@ class _QuranBookmarkScreenState extends State<QuranBookmarkScreen> {
   }
 
   getBookmarks() async {
-    // loadingBookmarks = true;
-    bookmarkList = await BookmarkHelper.getBookmarkList();
-    setState(() {});
-    print(bookmarkList);
+    setState(() {
+      bookmarkList = BookmarkHelper.getBookmarkList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
-      body: ListView.builder(
-        itemCount: bookmarkList.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: const CircleAvatar(
-              child: Icon(Icons.bookmark),
-            ),
-            title: Text(bookmarkList[index].key),
-            subtitle: Text(bookmarkList[index].value),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () {
-                BookmarkHelper.deleteBookmark(Bookmark(
-                    key: bookmarkList[index].key,
-                    value: bookmarkList[index].value));
-                getBookmarks();
+      body: bookmarkList.isEmpty
+          ? const Center(child: Text('Your bookmark will appear here!'))
+          : ListView.separated(
+              itemCount: bookmarkList.length,
+              separatorBuilder: (context, index) => const Divider(thickness: 2,),
+              itemBuilder: (context, index) {
+                Bookmark currentBookmark = bookmarkList[index];
+                return ListTile(
+                  onTap: () => onBookmarkSelected(int.parse(currentBookmark.suraNumber),
+                    int.parse(currentBookmark.verseNumber),
+                  ),
+                  leading: CircleAvatar(
+                    child: Text('${currentBookmark.suraNumber}:${currentBookmark.verseNumber}'),
+                  ),
+                  title: Text(getSuraName(currentBookmark.suraNumber)),
+                  subtitle: Text(getVerse(currentBookmark.suraNumber, currentBookmark.verseNumber)),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      BookmarkHelper.deleteBookmark(Bookmark(
+                          suraNumber: currentBookmark.suraNumber,
+                          verseNumber: currentBookmark.verseNumber));
+                      getBookmarks();
+                    },
+                  ),
+                );
               },
             ),
-          );
-        },
-      ),
     );
+  }
+
+  getSuraName(String suraNumber) {
+    return quranProvider.suraList[int.parse(suraNumber) - 1].tamilName;
+  }
+
+
+  getVerse(String suraNumber, String verseNumber) {
+    return quranProvider.filterOneVerse(int.parse(suraNumber), int.parse(verseNumber)).mJohn;
+  }
+
+  void onBookmarkSelected(int selectedSura, int selectedVerse) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) =>
+        ReadSuraScreen(selectedSura: selectedSura, scrollTo: selectedVerse,)));
   }
 }

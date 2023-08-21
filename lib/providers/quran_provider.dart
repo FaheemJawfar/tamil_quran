@@ -10,6 +10,14 @@ class QuranProvider extends ChangeNotifier {
   get allVersesOfQuran => _allVersesOfQuran;
 
 
+  List<VerseModel> filterOneSura(int sura) {
+    return _allVersesOfQuran.where((model) => model.sura == sura).toList();
+  }
+
+  VerseModel filterOneVerse(int sura, int aya) {
+    return _allVersesOfQuran.where((model) => model.sura == sura && model.aya == aya).first;
+  }
+
 
   void loadQuranData() async {
     final db = await DatabaseHelper().database;
@@ -22,10 +30,6 @@ class QuranProvider extends ChangeNotifier {
     print('Quran verses loaded: ${_allVersesOfQuran.length}');
   }
 
-
-  List<VerseModel> filterBySura(int sura) {
-    return _allVersesOfQuran.where((model) => model.sura == sura).toList();
-  }
 
 
 
