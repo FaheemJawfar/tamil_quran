@@ -1,8 +1,13 @@
+import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
+import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/screens/sura_list_screen.dart';
+import 'package:tamil_quran/screens/sura_verse_picker.dart';
+import 'package:tamil_quran/widgets/popup_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,39 +39,20 @@ class _HomeScreenState extends State<HomeScreen>
       appBar: AppBar(
         title: const Text('திருக்குர்ஆன்'),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: PopupMenuButton<String>(
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                const PopupMenuItem<String>(
-                  value: 'option1',
-                  child: Text('Option 1'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'option2',
-                  child: Text('Option 2'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'option3',
-                  child: Text('Option 3'),
-                ),
-              ],
-              onSelected: (String value) {
-                switch (value) {
-                  case 'option1':
-                    // Handle option 1 selection
-                    break;
-                  case 'option2':
-                    // Handle option 2 selection
-                    break;
-                  case 'option3':
-                    // Handle option 3 selection
-                    break;
-                }
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SearchScreen()));
               },
-              child: const Icon(Icons.more_vert),
-            ),
-          ),
+              icon: const Icon(Icons.search)),
+          IconButton(
+              onPressed: () {
+                _showVersePicker(context);
+              },
+              icon: const Icon(Icons.shuffle_sharp)),
+          const QuranPopupMenu(),
         ],
         bottom: TabBar(
           controller: _tabController,
@@ -84,6 +70,48 @@ class _HomeScreenState extends State<HomeScreen>
           QuranAudioPlayerScreen(),
           BookmarksScreen()
         ],
+      ),
+    );
+  }
+
+  void _showVersePicker(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          backgroundColor: ColorConfig.primaryColor,
+          title: const Text('வசனத்திற்குச் செல்க...'),
+          content: Container(
+              height: 400,
+              width: double.infinity,
+              color: ColorConfig.backgroundColor,
+              child: const SuraVersePickerScreen()),
+          actions: [
+            showVersePickupButton('Cancel', () {
+              Navigator.of(context).pop();
+            }),
+            showVersePickupButton('OK', () {
+              Navigator.of(context).pop();
+            })
+          ],
+        );
+      },
+    );
+  }
+
+  Widget showVersePickupButton(String label, void Function()? onPressed) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: ColorConfig.backgroundColor,
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: ColorConfig.primaryColor,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

@@ -49,11 +49,11 @@ class _ShowVerseState extends State<ShowVerse> {
                 onSelected: (String value) {
                   switch (value) {
                     case 'copy':
-                      VerseOptions.copyToClipboard(
+                      VerseHelper.copyToClipboard(
                           getVerseCopy(widget.verseModel));
                       break;
                     case 'share':
-                      VerseOptions.shareVerse(getVerseCopy(widget.verseModel));
+                      VerseHelper.shareVerse(getVerseCopy(widget.verseModel));
                       break;
                     case 'bookmark':
                       BookmarkHelper.addBookmark(Bookmark(
@@ -85,7 +85,7 @@ class _ShowVerseState extends State<ShowVerse> {
               ),
               const SizedBox(height: 8),
               Text(
-                widget.verseModel.mJohn,
+                VerseHelper.getTamilTranslation(widget.verseModel),
                 style: const TextStyle(fontSize: 14),
               ),
             ],
@@ -109,7 +109,7 @@ class _ShowVerseState extends State<ShowVerse> {
 
   getVerseCopy(VerseModel selectedVerse) {
     String verseCopy =
-        '${selectedVerse.arabic}\n\n${selectedVerse.mJohn}\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})';
+        '${selectedVerse.arabic}\n\n${VerseHelper.getTamilTranslation(selectedVerse)}\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})';
     // print(verseCopy);
     return verseCopy;
   }

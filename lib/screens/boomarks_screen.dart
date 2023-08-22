@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/bookmark_helper.dart';
+import 'package:tamil_quran/helpers/verse_options.dart';
 import 'package:tamil_quran/models/bookmark.dart';
 import 'package:tamil_quran/screens/read_sura_screen.dart';
 import '../providers/quran_provider.dart';
@@ -75,9 +76,8 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
   }
 
   getVerse(String suraNumber, String verseNumber) {
-    return quranProvider
-        .filterOneVerse(int.parse(suraNumber), int.parse(verseNumber))
-        .mJohn;
+    return VerseHelper.getTamilTranslation(quranProvider
+        .filterOneVerse(int.parse(suraNumber), int.parse(verseNumber)));
   }
 
   void onBookmarkSelected(int selectedSura, int selectedVerse) {

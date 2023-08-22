@@ -11,78 +11,77 @@ class SuraVersePickerScreen extends StatefulWidget {
 }
 
 class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
-  late final quranProvider = context.read<QuranProvider>();
+  late final quranProvider = context.watch<QuranProvider>();
 
-  int selectedSura = 1;
-  int selectedVerse = 1;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: CustomCupertinoPicker(
-              highlighterBorder: const Border(
-                top: BorderSide(
-                  width: 2.0,
-                  color: Colors.green,
-                ),
-                bottom: BorderSide(
-                  width: 2.0,
-                  color: Colors.green,
-                ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 2,
+          child: CustomCupertinoPicker(
+            highlighterBorder: const Border(
+              top: BorderSide(
+                width: 2.0,
+                color: Colors.green,
               ),
-              highlighterBorderWidth: 60,
-              scrollPhysics: const FixedExtentScrollPhysics(
-                parent: BouncingScrollPhysics(),
+              bottom: BorderSide(
+                width: 2.0,
+                color: Colors.green,
               ),
-              itemExtent: 40,
-              onSelectedItemChanged: (value) {
-                selectedSura = value + 1;
-                setState(() {});
-                print('selected sura: $selectedSura');
-              },
-              children: quranProvider.suraList
-                  .map(
-                    (sura) => Center(
-                        child: Text(
+            ),
+            highlighterBorderWidth: 60,
+            scrollPhysics: const FixedExtentScrollPhysics(
+              parent: BouncingScrollPhysics(),
+            ),
+            itemExtent: 40,
+            onSelectedItemChanged: (value) {
+              quranProvider.pickedSura = value + 1;
+            },
+            children: quranProvider.suraList
+                .map(
+                  (sura) => Center(
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
                       '${sura.suraNumber}. ${sura.tamilName}',
                       style: const TextStyle(fontSize: 18),
-                    )),
-                  )
-                  .toList(),
-            ),
+                    ),
+                  )),
+            )
+                .toList(),
           ),
-          Expanded(
-            child: CustomCupertinoPicker(
-              highlighterBorder: const Border(
-                top: BorderSide(
-                  width: 1.0,
-                  color: Colors.green,
-                ),
-                bottom: BorderSide(
-                  width: 1.0,
-                  color: Colors.green,
-                ),
+        ),
+        Expanded(
+          flex: 1,
+          child: CustomCupertinoPicker(
+            highlighterBorder: const Border(
+              top: BorderSide(
+                width: 1.0,
+                color: Colors.green,
               ),
-              highlighterBorderWidth: 60,
-              scrollPhysics: const FixedExtentScrollPhysics(
-                parent: BouncingScrollPhysics(),
+              bottom: BorderSide(
+                width: 1.0,
+                color: Colors.green,
               ),
-              itemExtent: 40,
-              onSelectedItemChanged: (value) {
-                selectedVerse = value + 1;
-                print('selected verse: $selectedVerse');
-              },
-              children: List.generate(
-                  quranProvider.suraList[selectedSura - 1].verseCount,
-                  (index) => Center(child: Text('${index + 1}'))),
             ),
+            highlighterBorderWidth: 60,
+            scrollPhysics: const FixedExtentScrollPhysics(
+              parent: BouncingScrollPhysics(),
+            ),
+            itemExtent: 40,
+            onSelectedItemChanged: (value) {
+              quranProvider.pickedVerse = value + 1;
+
+            },
+            children: List.generate(
+                quranProvider.suraList[quranProvider.pickedSura - 1].verseCount,
+                    (index) => Center(child: Text('${index + 1}'))),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

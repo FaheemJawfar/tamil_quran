@@ -20,34 +20,31 @@ class _SuraListScreenState extends State<SuraListScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if(Preferences.getInt('lastSeenVerse') != null)
-        OutlinedButton(
-          onPressed: () {
-            int? sura = Preferences.getInt('lastSeenSura');
-            int? verse = Preferences.getInt('lastSeenVerse');
+        if (Preferences.getInt('lastSeenVerse') != null)
+          OutlinedButton(
+            onPressed: () {
+              int? sura = Preferences.getInt('lastSeenSura');
+              int? verse = Preferences.getInt('lastSeenVerse');
 
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ReadSuraScreen(
-                      selectedSura: sura!,
-                      scrollTo: verse!,
-                    )));
-
-          },
-          style: OutlinedButton.styleFrom(
-            side: const BorderSide(
-                color: Colors.green),
-          ),
-          child: Text(
-            'வாசிப்பைத் தொடர்க...',
-            style: TextStyle(
-              color: Colors.green[900],
-              //fontFamily: _selectedTamilFont,
-
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ReadSuraScreen(
+                            selectedSura: sura!,
+                            scrollTo: verse!,
+                          )));
+            },
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(color: Colors.green),
+            ),
+            child: Text(
+              'வாசிப்பைத் தொடர்க...',
+              style: TextStyle(
+                color: Colors.green[900],
+                //fontFamily: _selectedTamilFont,
+              ),
             ),
           ),
-        ),
         Expanded(
           child: ListView.separated(
             itemCount: quranProvider.suraList.length,
@@ -73,16 +70,15 @@ class _SuraListScreenState extends State<SuraListScreen> {
                       : '${sura.tamilName} (${sura.tamilMeaning})',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 16,
                   ),
                 ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text('வசனங்கள்: ${sura.verseCount}'),
-                ),
+                subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
                 trailing: Text(
                   sura.arabicName,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold,
+                  fontSize: 16
+                  ),
                   textDirection: TextDirection.rtl,
                 ),
                 onTap: () {

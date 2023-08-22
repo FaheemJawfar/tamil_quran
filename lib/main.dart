@@ -10,7 +10,8 @@ Future<void> main() async {
   Preferences.setString('tamilFont', 'MuktaMalar');
   debugPrint(Preferences.getString('tamilFont'));
   runApp(const MyApp());
-  //Preferences.clear();
+  Preferences.setString('selectedTranslation', 'mJohn');
+
 }
 
 class MyApp extends StatelessWidget {
