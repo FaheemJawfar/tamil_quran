@@ -14,35 +14,46 @@ class _QuranPopupMenuState extends State<QuranPopupMenu> {
     return Padding(
       padding: const EdgeInsets.only(right: 12.0),
       child: PopupMenuButton<String>(
+        color: Colors.green.shade100,
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-          const PopupMenuItem<String>(
-            value: 'option1',
-            child: Text('Option 1'),
+          PopupMenuItem<String>(
+            value: 'settings',
+            child: getPopupMenuItem(Icons.settings, 'Settings'),
           ),
-          const PopupMenuItem<String>(
-            value: 'option2',
-            child: Text('Option 2'),
+          PopupMenuItem<String>(
+            value: 'share_app',
+            child: getPopupMenuItem(Icons.share, 'Share App'),
           ),
-          const PopupMenuItem<String>(
-            value: 'option3',
-            child: Text('Option 3'),
+          PopupMenuItem<String>(
+            value: 'about_us',
+            child: getPopupMenuItem(
+                Icons.info, 'About us'),
           ),
         ],
         onSelected: (String value) {
           switch (value) {
-            case 'option1':
-            // Handle option 1 selection
+            case 'settings':
+
               break;
-            case 'option2':
-            // Handle option 2 selection
+            case 'share_app':
+
               break;
-            case 'option3':
-            // Handle option 3 selection
+            case 'about_us':
+
               break;
           }
         },
         child: const Icon(Icons.more_vert),
-      ),
+      )
+    );
+  }
+
+  Widget getPopupMenuItem(IconData icon, String title) {
+    return ListTile(
+      iconColor: Colors.green.shade700,
+      contentPadding: EdgeInsets.zero,
+      leading: Icon(icon),
+      title: Text(title),
     );
   }
 }

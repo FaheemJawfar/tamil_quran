@@ -60,7 +60,7 @@ class _SuraListScreenState extends State<SuraListScreen> {
                   '${sura.suraNumber}.',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 20,
                     color: Colors.grey,
                   ),
                 ),

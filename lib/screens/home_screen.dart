@@ -6,7 +6,7 @@ import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
 import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/screens/sura_list_screen.dart';
-import 'package:tamil_quran/screens/sura_verse_picker.dart';
+import 'package:tamil_quran/widgets/sura_verse_picker.dart';
 import 'package:tamil_quran/widgets/popup_menu.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -78,41 +78,10 @@ class _HomeScreenState extends State<HomeScreen>
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.zero,
-          backgroundColor: ColorConfig.primaryColor,
-          title: const Text('வசனத்திற்குச் செல்க...'),
-          content: Container(
-              height: 400,
-              width: double.infinity,
-              color: ColorConfig.backgroundColor,
-              child: const SuraVersePickerScreen()),
-          actions: [
-            showVersePickupButton('Cancel', () {
-              Navigator.of(context).pop();
-            }),
-            showVersePickupButton('OK', () {
-              Navigator.of(context).pop();
-            })
-          ],
-        );
+        return SuraVersePickerScreen();
       },
     );
   }
 
-  Widget showVersePickupButton(String label, void Function()? onPressed) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: ColorConfig.backgroundColor,
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: ColorConfig.primaryColor,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
+
 }
