@@ -12,6 +12,32 @@ class VerseHelper {
     await Clipboard.setData(clipboardData);
   }
 
+  static String getVerseCopy(VerseModel selectedVerse, String option) {
+    switch(option) {
+      case 'copy':
+        String verseCopy =
+            '${selectedVerse.arabic}\n\n${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )';
+
+        return verseCopy;
+
+
+      case 'copy_arabic':
+        String verseCopy =
+            '${selectedVerse.arabic}\n\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})';
+
+        return verseCopy;
+
+
+      case 'copy_tamil':
+        String verseCopy =
+            '${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})';
+        return verseCopy;
+
+      default:
+        return '';
+    }
+  }
+
   static void shareVerse(String verse) {
     Share.share(verse);
   }

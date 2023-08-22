@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
+import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/helpers/verse_options.dart';
 import 'package:tamil_quran/models/bookmark.dart';
@@ -27,38 +28,54 @@ class _ShowVerseState extends State<ShowVerse> {
             children: [
               Text(
                 '${widget.verseModel.aya}. ',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               PopupMenuButton<String>(
                 color: Colors.green.shade100,
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                   PopupMenuItem<String>(
                     value: 'copy',
-                    child: getPopupMenuItem(Icons.copy, 'Copy verse'),
+                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
                   ),
                   PopupMenuItem<String>(
                     value: 'share',
-                    child: getPopupMenuItem(Icons.share, 'Share verse'),
+                    child: getPopupMenuItem(Icons.share, 'Share'),
                   ),
                   PopupMenuItem<String>(
                     value: 'bookmark',
                     child: getPopupMenuItem(
-                        Icons.bookmark_add_outlined, 'Add to Bookmark'),
+                        Icons.bookmark_add_outlined, 'Add Bookmark'),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'copy_arabic',
+                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'copy_tamil',
+                    child: getPopupMenuItem(Icons.copy, 'Copy Tamil'),
                   ),
                 ],
                 onSelected: (String value) {
                   switch (value) {
                     case 'copy':
                       VerseHelper.copyToClipboard(
-                          getVerseCopy(widget.verseModel));
+                          VerseHelper.getVerseCopy(widget.verseModel, 'copy') );
                       break;
                     case 'share':
-                      VerseHelper.shareVerse(getVerseCopy(widget.verseModel));
+                      VerseHelper.shareVerse(VerseHelper.getVerseCopy(widget.verseModel, 'copy'));
                       break;
                     case 'bookmark':
                       BookmarkHelper.addBookmark(Bookmark(
                           suraNumber: widget.verseModel.sura.toString(),
                           verseNumber: widget.verseModel.aya.toString()));
+                      break;
+                    case 'copy_arabic':
+                      VerseHelper.copyToClipboard(
+                        VerseHelper.getVerseCopy(widget.verseModel, 'copy_arabic'), );
+                      break;
+                    case 'copy_tamil':
+                      VerseHelper.copyToClipboard(
+                        VerseHelper.getVerseCopy(widget.verseModel,  'copy_tamil'),);
                       break;
                   }
                 },
@@ -91,9 +108,6 @@ class _ShowVerseState extends State<ShowVerse> {
             ],
           ),
         ),
-        const Divider(
-          color: Colors.black,
-        ),
       ],
     );
   }
@@ -107,10 +121,5 @@ class _ShowVerseState extends State<ShowVerse> {
     );
   }
 
-  getVerseCopy(VerseModel selectedVerse) {
-    String verseCopy =
-        '${selectedVerse.arabic}\n\n${VerseHelper.getTamilTranslation(selectedVerse)}\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})';
-    // print(verseCopy);
-    return verseCopy;
-  }
+
 }

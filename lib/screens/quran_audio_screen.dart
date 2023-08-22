@@ -144,10 +144,10 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Colors.grey.shade300,
+          color: Colors.green[100],
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
           ),
         ),
         child: Column(

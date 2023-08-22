@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
+import 'package:tamil_quran/config/color_config.dart';
 
 import '../models/verse.dart';
 
@@ -46,7 +47,7 @@ class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 2),
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: ColorConfig.backgroundColor,
           ),
           padding: const EdgeInsets.all(10),
           child: Column(

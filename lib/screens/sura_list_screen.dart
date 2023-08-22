@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
-import 'package:tamil_quran/screens/read_sura_screen.dart';
+import 'package:tamil_quran/screens/read_sura_translation.dart';
 
 import '../providers/quran_provider.dart';
 
@@ -29,7 +29,7 @@ class _SuraListScreenState extends State<SuraListScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ReadSuraScreen(
+                      builder: (context) => ReadSuraTranslation(
                             selectedSura: sura!,
                             scrollTo: verse!,
                           )));
@@ -85,7 +85,7 @@ class _SuraListScreenState extends State<SuraListScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ReadSuraScreen(
+                      builder: (context) => ReadSuraTranslation(
                         selectedSura: sura.suraNumber,
                         // suraName: sura.tamilName,
                       ),
