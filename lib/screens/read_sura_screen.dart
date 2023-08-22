@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:tamil_quran/helpers/shared_preferences.dart';
 import 'package:tamil_quran/screens/read_sura_only_arabic.dart';
 import 'package:tamil_quran/widgets/show_verse.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import '../models/verse.dart';
 import '../providers/quran_provider.dart';
 
@@ -32,14 +34,7 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
   @override
   void initState() {
     super.initState();
-    allVersesOfSura =
-        context.read<QuranProvider>().filterOneSura(widget.selectedSura);
-
-    if (widget.scrollTo > 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        scrollToIndex(hasBismi ? widget.scrollTo : widget.scrollTo - 1);
-      });
-    }
+   getAllVersesOfSura(widget.selectedSura);
   }
 
   void scrollToIndex(int index) {
@@ -103,7 +98,8 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
                   height: 10,
                 ),
                 Expanded(
-                  child: ScrollablePositionedList.builder(
+                  child: 
+                  ScrollablePositionedList.builder(
                     itemScrollController: _scrollController,
                     itemCount: allVersesOfSura.length + (hasBismi ? 1 : 0),
                     itemBuilder: (BuildContext context, int index) {
@@ -135,8 +131,13 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
                   );
                 } else {
                   int adjustedIndex = hasBismi ? index - 1 : index;
-                  return ShowVerse(
-                    verseModel: allVersesOfSura[adjustedIndex],
+                  return VisibilityDetector(
+                    key: Key(index.toString()),
+                    onVisibilityChanged: (info) => updateLastSeen(widget.selectedSura, index),
+
+                    child: ShowVerse(
+                      verseModel: allVersesOfSura[adjustedIndex],
+                    ),
                   );
                 }
               },
@@ -146,4 +147,23 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
       ),
     );
   }
+
+  void getAllVersesOfSura(int selectedSura) {
+    setState(() {
+      allVersesOfSura =
+          context.read<QuranProvider>().filterOneSura(widget.selectedSura);
+    });
+
+    if (widget.scrollTo > 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        scrollToIndex(hasBismi ? widget.scrollTo : widget.scrollTo - 1);
+      });
+    }
+  }
+
+  updateLastSeen(int suraNumber, int verseNumber) {
+    Preferences.setInt('lastSeenSura', suraNumber);
+    Preferences.setInt('lastSeenVerse', verseNumber);
+  }
+
 }

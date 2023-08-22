@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/screens/boomarks.dart';
+import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
-import 'package:tamil_quran/screens/sura_list.dart';
+import 'package:tamil_quran/screens/sura_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen>
         children: const [
           SuraListScreen(),
           QuranAudioPlayerScreen(),
-          QuranBookmarkScreen()
+          BookmarksScreen()
         ],
       ),
     );

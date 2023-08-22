@@ -36,4 +36,7 @@ class Preferences {
   static double? getDouble(String key) => _prefs.getDouble(key);
 
   static bool? getBool(String key) => _prefs.getBool(key);
+
+
+  static Future<bool> clear() => _prefs.clear();
 }

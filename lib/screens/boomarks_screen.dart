@@ -3,19 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/models/bookmark.dart';
-import 'package:tamil_quran/screens/read_sura.dart';
-import 'package:tamil_quran/widgets/loading_indicator.dart';
-
+import 'package:tamil_quran/screens/read_sura_screen.dart';
 import '../providers/quran_provider.dart';
 
-class QuranBookmarkScreen extends StatefulWidget {
-  const QuranBookmarkScreen({super.key});
+class BookmarksScreen extends StatefulWidget {
+  const BookmarksScreen({super.key});
 
   @override
-  State<QuranBookmarkScreen> createState() => _QuranBookmarkScreenState();
+  State<BookmarksScreen> createState() => _BookmarksScreenState();
 }
 
-class _QuranBookmarkScreenState extends State<QuranBookmarkScreen> {
+class _BookmarksScreenState extends State<BookmarksScreen> {
   late final quranProvider = context.read<QuranProvider>();
   List<Bookmark> bookmarkList = [];
 
@@ -39,18 +37,24 @@ class _QuranBookmarkScreenState extends State<QuranBookmarkScreen> {
           ? const Center(child: Text('Your bookmark will appear here!'))
           : ListView.separated(
               itemCount: bookmarkList.length,
-              separatorBuilder: (context, index) => const Divider(thickness: 2,),
+              separatorBuilder: (context, index) => Divider(
+                thickness: 1,
+                color: ColorConfig.primaryColor,
+              ),
               itemBuilder: (context, index) {
                 Bookmark currentBookmark = bookmarkList[index];
                 return ListTile(
-                  onTap: () => onBookmarkSelected(int.parse(currentBookmark.suraNumber),
+                  onTap: () => onBookmarkSelected(
+                    int.parse(currentBookmark.suraNumber),
                     int.parse(currentBookmark.verseNumber),
                   ),
                   leading: CircleAvatar(
-                    child: Text('${currentBookmark.suraNumber}:${currentBookmark.verseNumber}'),
+                    child: Text(
+                        '${currentBookmark.suraNumber}:${currentBookmark.verseNumber}'),
                   ),
                   title: Text(getSuraName(currentBookmark.suraNumber)),
-                  subtitle: Text(getVerse(currentBookmark.suraNumber, currentBookmark.verseNumber)),
+                  subtitle: Text(getVerse(
+                      currentBookmark.suraNumber, currentBookmark.verseNumber)),
                   trailing: IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
@@ -70,13 +74,19 @@ class _QuranBookmarkScreenState extends State<QuranBookmarkScreen> {
     return quranProvider.suraList[int.parse(suraNumber) - 1].tamilName;
   }
 
-
   getVerse(String suraNumber, String verseNumber) {
-    return quranProvider.filterOneVerse(int.parse(suraNumber), int.parse(verseNumber)).mJohn;
+    return quranProvider
+        .filterOneVerse(int.parse(suraNumber), int.parse(verseNumber))
+        .mJohn;
   }
 
   void onBookmarkSelected(int selectedSura, int selectedVerse) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) =>
-        ReadSuraScreen(selectedSura: selectedSura, scrollTo: selectedVerse,)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ReadSuraScreen(
+                  selectedSura: selectedSura,
+                  scrollTo: selectedVerse,
+                )));
   }
 }

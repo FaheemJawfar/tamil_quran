@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/screens/home_screen.dart';
-import 'package:tamil_quran/screens/splash.dart';
+import 'package:tamil_quran/screens/splash_screen.dart';
 import '../providers/quran_provider.dart';
 
 class WelcomeScreen extends StatefulWidget {
