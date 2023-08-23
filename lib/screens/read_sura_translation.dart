@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -20,32 +22,28 @@ class ReadSuraTranslation extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ReadSuraTranslation> createState() => _ReadSuraTranslationState();
+  _ReadSuraTranslationState createState() => _ReadSuraTranslationState();
 }
 
 class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
-
-  late int selectedSura = widget.selectedSura;
-  late int scrollTo = widget.scrollTo;
-  late final quranProvider = context.read<QuranProvider>();
-
-  late List<VerseModel> allVersesOfSura = context.read<QuranProvider>().filterOneSura(selectedSura);
-  late final bool hasBismi =
-      selectedSura != 1 && selectedSura != 9;
+  late int selectedSura;
+  late bool hasBismi;
+  late List<VerseModel> allVersesOfSura;
+  late final quranProvider;
   final _scrollController = ItemScrollController();
   bool arabicOnly = false;
+  Timer? _debounceTimer;
+
 
   @override
   void initState() {
     super.initState();
-   scrollToVerse();
+    selectedSura = widget.selectedSura;
+    quranProvider = context.read<QuranProvider>();
+    allVersesOfSura = quranProvider.filterOneSura(selectedSura);
+    hasBismi = selectedSura != 1 && selectedSura != 9;
+    scrollToVerse();
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,42 +53,19 @@ class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
         title: Text(quranProvider.suraList[selectedSura - 1].tamilName),
         actions: [
           IconButton(
-              onPressed: () {
-                setState(() {
-                  arabicOnly = !arabicOnly;
-                });
-              },
-              icon: const Icon(Icons.menu_book)),
+            onPressed: () => setState(() => arabicOnly = !arabicOnly),
+            icon: const Icon(Icons.menu_book),
+          ),
           IconButton(
-              onPressed: () {
-                if (selectedSura != 1) {
-                  setState(() {
-                    selectedSura = selectedSura - 1;
-                    allVersesOfSura = context.read<QuranProvider>().filterOneSura(selectedSura);
-                  });
-                 if(!arabicOnly){
-                   scrollToFirstVerse();
-                 }
-                }
-              },
-              icon: const Icon(Icons.navigate_before)),
+            onPressed: () => navigateToSura(selectedSura - 1),
+            icon: const Icon(Icons.navigate_before),
+          ),
           IconButton(
-              onPressed: () {
-                if (selectedSura != 114) {
-                  setState(() {
-                    selectedSura = selectedSura + 1;
-                    allVersesOfSura = context.read<QuranProvider>().filterOneSura(selectedSura);
-                  });
-                  if(!arabicOnly){
-                    scrollToFirstVerse();
-                  }
-                }
-              },
-              icon: const Icon(Icons.navigate_next)),
+            onPressed: () => navigateToSura(selectedSura + 1),
+            icon: const Icon(Icons.navigate_next),
+          ),
         ],
       ),
-
-
       body: arabicOnly
           ? ReadSuraOnlyArabic(
         allVersesOfSura: allVersesOfSura,
@@ -98,22 +73,23 @@ class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
       )
           : Column(
         children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: 
-                  ScrollablePositionedList.separated(
-                    separatorBuilder: (context, index) => Divider(color: ColorConfig.primaryColor,),
-                    itemScrollController: _scrollController,
-                    itemCount: allVersesOfSura.length + (hasBismi ? 1 : 0),
-                    itemBuilder: (BuildContext context, int index) {
-                      if (hasBismi && index == 0) {
-                        return const Padding(
-                          padding: EdgeInsets.only(
-                              top: 15, left: 15, right: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+          const SizedBox(height: 10),
+          Expanded(
+            child: ScrollablePositionedList.separated(
+              separatorBuilder: (context, index) =>
+                  Divider(color: ColorConfig.primaryColor),
+              itemScrollController: _scrollController,
+              itemCount: allVersesOfSura.length + (hasBismi ? 1 : 0),
+              itemBuilder: (BuildContext context, int index) {
+                if (hasBismi && index == 0) {
+                  return const Padding(
+                    padding: EdgeInsets.only(
+                      top: 15,
+                      left: 15,
+                      right: 15,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Align(
                           alignment: Alignment.topRight,
@@ -128,7 +104,7 @@ class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
                           'அளவற்ற அருளாளனும், நிகரற்ற அன்புடையோனுமாகிய அல்லாஹ்வின் திருப்பெயரால்(துவங்குகிறேன்)',
                           style: TextStyle(fontSize: 14),
                         ),
-                       SizedBox(height: 10,),
+                        SizedBox(height: 10),
                       ],
                     ),
                   );
@@ -136,8 +112,8 @@ class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
                   int adjustedIndex = hasBismi ? index - 1 : index;
                   return VisibilityDetector(
                     key: Key(index.toString()),
-                    onVisibilityChanged: (info) => updateLastSeen(selectedSura, index),
-
+                    onVisibilityChanged: (info) =>
+                        updateLastSeen(selectedSura, index),
                     child: ShowVerse(
                       verseModel: allVersesOfSura[adjustedIndex],
                     ),
@@ -152,16 +128,34 @@ class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
   }
 
   void scrollToVerse() {
-    if (scrollTo > 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _scrollController.scrollTo(
-          index: hasBismi ? scrollTo : scrollTo - 1,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      });
+    if (widget.scrollTo > 0) {
+      _scrollController.scrollTo(
+        index: hasBismi ? widget.scrollTo : widget.scrollTo - 1,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
     }
   }
+
+  void navigateToSura(int suraNumber) {
+    if (_debounceTimer != null && _debounceTimer!.isActive) {
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      if (suraNumber >= 1 && suraNumber <= 114) {
+        setState(() {
+          selectedSura = suraNumber;
+          allVersesOfSura = quranProvider.filterOneSura(selectedSura);
+          hasBismi = selectedSura != 1 && selectedSura != 9;
+        });
+        if (!arabicOnly) {
+          scrollToFirstVerse();
+        }
+      }
+    });
+  }
+
 
   updateLastSeen(int suraNumber, int verseNumber) {
     Preferences.setInt('lastSeenSura', suraNumber);
@@ -169,13 +163,8 @@ class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
   }
 
   void scrollToFirstVerse() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.scrollTo(
-        index: hasBismi ? 0 : 1,
-        duration: const Duration(milliseconds: 1),
-        curve: Curves.easeInOut,
-      );
-    });
+    _scrollController.jumpTo(
+      index: 0,
+    );
   }
-
 }
