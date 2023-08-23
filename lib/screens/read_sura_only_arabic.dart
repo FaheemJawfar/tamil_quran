@@ -17,29 +17,8 @@ class ReadSuraOnlyArabic extends StatefulWidget {
 }
 
 class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
-  List<TextSpan> textSpans = [];
-
   @override
   Widget build(BuildContext context) {
-    for (var verse in widget.allVersesOfSura) {
-      textSpans.add(TextSpan(
-        text: verse.arabic,
-        style: const TextStyle(
-          fontSize: 20,
-          fontFamily: 'Uthmani',
-          color: Colors.black,
-        ),
-      ));
-
-      textSpans.add(TextSpan(
-        text: '${getVerseEndSymbol(verse.aya)} ',
-        style: const TextStyle(
-          fontSize: 20,
-          color: Colors.black,
-        ),
-      ));
-    }
-
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
       child: SingleChildScrollView(
@@ -66,7 +45,7 @@ class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
                 textDirection: TextDirection.rtl,
                 child: RichText(
                   textAlign: TextAlign.justify,
-                  text: TextSpan(children: textSpans),
+                  text: _buildRichTextSpan(),
                 ),
               ),
             ],
@@ -74,5 +53,30 @@ class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
         ),
       ),
     );
+  }
+
+  TextSpan _buildRichTextSpan() {
+    List<InlineSpan> inlineSpans = [];
+
+    for (var verse in widget.allVersesOfSura) {
+      inlineSpans.add(TextSpan(
+        text: verse.arabic,
+        style: const TextStyle(
+          fontSize: 20,
+          fontFamily: 'Uthmani',
+          color: Colors.black,
+        ),
+      ));
+
+      inlineSpans.add(TextSpan(
+        text: '${getVerseEndSymbol(verse.aya)} ',
+        style: const TextStyle(
+          fontSize: 20,
+          color: Colors.black,
+        ),
+      ));
+    }
+
+    return TextSpan(children: inlineSpans);
   }
 }
