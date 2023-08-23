@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_spinkit: ^5.2.0
-  scrollable_positioned_list: ^0.3.2
+  scrollable_positioned_list: ^0.3.8
   share_plus: ^7.0.2
   url_launcher: ^6.1.4
   shared_preferences: ^2.0.15
