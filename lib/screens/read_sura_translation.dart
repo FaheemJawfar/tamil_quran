@@ -22,7 +22,7 @@ class ReadSuraTranslation extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ReadSuraTranslationState createState() => _ReadSuraTranslationState();
+  State<ReadSuraTranslation> createState() => _ReadSuraTranslationState();
 }
 
 class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
@@ -138,11 +138,11 @@ class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
   }
 
   void navigateToSura(int suraNumber) {
-    if (_debounceTimer != null && _debounceTimer!.isActive) {
-      _debounceTimer!.cancel();
-    }
-
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+    // if (_debounceTimer != null && _debounceTimer!.isActive) {
+    //   _debounceTimer!.cancel();
+    // }
+    //
+    // _debounceTimer = Timer(const Duration(milliseconds: 500), () {
       if (suraNumber >= 1 && suraNumber <= 114) {
         setState(() {
           selectedSura = suraNumber;
@@ -153,7 +153,7 @@ class _ReadSuraTranslationState extends State<ReadSuraTranslation> {
           scrollToFirstVerse();
         }
       }
-    });
+ //   });
   }
 
 

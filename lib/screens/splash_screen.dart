@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/models/quran_hadith_about_quran.dart';
 import 'package:tamil_quran/widgets/loading_indicator.dart';
 
@@ -26,14 +27,15 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF398AE5),
-              Color(0xFF478DE0),
-              Color(0xFF4A90DB),
+              ColorConfig.backgroundColor,
+              ColorConfig.primaryColor,
+              Colors.green.shade600,
+              Colors.green.shade900,
             ],
           ),
         ),
