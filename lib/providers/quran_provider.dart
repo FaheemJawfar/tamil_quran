@@ -6,30 +6,26 @@ import '../models/verse.dart';
 class QuranProvider extends ChangeNotifier {
 
   final List<VerseModel> _allVersesOfQuran = [];
-
   get allVersesOfQuran => _allVersesOfQuran;
 
   int _selectedSura = 0;
-
   get selectedSura => _selectedSura;
 
-  setSelectedSura(int value){
+  setSelectedSura(int value) {
     _selectedSura = value;
     notifyListeners();
   }
 
-
-  late final List<VerseModel> _selectedSuraContent = filterOneSura(selectedSura);
-  get selectedSuraContent => _selectedSuraContent;
-
-
+  List<VerseModel> get selectedSuraContent {
+    return filterOneSura(_selectedSura);
+  }
 
   List<VerseModel> filterOneSura(int sura) {
     return _allVersesOfQuran.where((model) => model.sura == sura).toList();
   }
 
   VerseModel filterOneVerse(int sura, int aya) {
-    return _allVersesOfQuran.where((model) => model.sura == sura && model.aya == aya).first;
+    return _allVersesOfQuran.firstWhere((model) => model.sura == sura && model.aya == aya);
   }
 
 
@@ -40,8 +36,6 @@ class QuranProvider extends ChangeNotifier {
     for (var verse in queryResult) {
       _allVersesOfQuran.add(VerseModel.fromMap(verse));
     }
-
-    print('Quran verses loaded: ${_allVersesOfQuran.length}');
   }
 
 

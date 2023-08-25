@@ -5,7 +5,7 @@ import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/helpers/verse_options.dart';
 import 'package:tamil_quran/models/bookmark.dart';
 import '../providers/quran_provider.dart';
-import '../screens/read_sura_translation.dart';
+import '../screens/read_sura_screen.dart';
 
 class BookmarksScreen extends StatefulWidget {
   const BookmarksScreen({super.key});
@@ -84,8 +84,8 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ReadSuraTranslation(
-                  scrollTo: selectedVerse,
+            builder: (context) => ReadSuraScreen(
+                  goToVerse: selectedVerse,
                 )));
   }
 }

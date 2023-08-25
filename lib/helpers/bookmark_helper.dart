@@ -1,4 +1,3 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
 
 import '../models/bookmark.dart';

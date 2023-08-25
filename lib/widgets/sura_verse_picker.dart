@@ -1,7 +1,7 @@
 import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/screens/read_sura_translation.dart';
+import 'package:tamil_quran/screens/read_sura_screen.dart';
 import '../config/color_config.dart';
 import '../providers/quran_provider.dart';
 
@@ -111,8 +111,8 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => ReadSuraTranslation(
-                        scrollTo: selectedVerse,
+                  builder: (context) => ReadSuraScreen(
+                        goToVerse: selectedVerse,
                       )));
         })
       ],

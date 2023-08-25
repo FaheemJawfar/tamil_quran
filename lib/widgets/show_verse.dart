@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
-import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/helpers/verse_options.dart';
 import 'package:tamil_quran/models/bookmark.dart';

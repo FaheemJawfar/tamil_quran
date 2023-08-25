@@ -17,11 +17,14 @@ class ReadSuraOnlyArabic extends StatefulWidget {
 }
 
 class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
       child: SingleChildScrollView(
+        controller: _scrollController,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 2),
@@ -53,6 +56,22 @@ class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
         ),
       ),
     );
+  }
+
+  @override
+  void didUpdateWidget(ReadSuraOnlyArabic oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _scrollController.animateTo(
+      0.0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   TextSpan _buildRichTextSpan() {

@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/models/quran_hadith_about_quran.dart';
 import 'package:tamil_quran/widgets/loading_indicator.dart';

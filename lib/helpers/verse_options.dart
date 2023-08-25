@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
 import 'package:tamil_quran/models/verse.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:provider/provider.dart';
 
 class VerseHelper {
   static Future<void> copyToClipboard(String text) async {

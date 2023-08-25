@@ -1,6 +1,4 @@
-import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
@@ -78,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen>
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return SuraVersePickerScreen();
+        return const SuraVersePickerScreen();
       },
     );
   }
