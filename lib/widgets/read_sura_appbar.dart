@@ -23,7 +23,8 @@ class ReadSuraAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: onBookIconPressed,
-          icon: const Icon(Icons.menu_book),
+         icon: ImageIcon(AssetImage('assets/images/read_quran.png')),
+         // icon: const Icon(Icons.menu_book),
         ),
         IconButton(
           onPressed: onNavigatePreviousPressed,

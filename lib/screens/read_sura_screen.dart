@@ -28,7 +28,9 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
     return Scaffold(
       appBar: ReadSuraAppBar(
         title: quranProvider.suraList[quranProvider.selectedSura - 1].tamilName,
-      onBookIconPressed: () {},
+      onBookIconPressed: () {setState(() {
+        arabicOnly = !arabicOnly;
+      });},
         onNavigatePreviousPressed: () => _navigateSura(-1),
         onNavigateNextPressed: () => _navigateSura(1),
       ),
@@ -50,11 +52,13 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
     if (newSura >= 1 && newSura <= 114) {
       quranProvider.setSelectedSura(newSura);
 
-      scrollController.scrollTo(
-        index: 0,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+      if(!arabicOnly){
+        scrollController.scrollTo(
+          index: 0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
     }
   }
 }
