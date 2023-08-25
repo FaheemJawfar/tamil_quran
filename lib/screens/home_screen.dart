@@ -3,9 +3,10 @@ import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
 import 'package:tamil_quran/screens/search_screen.dart';
+import 'package:tamil_quran/screens/sura_list_arabic_screen.dart';
 import 'package:tamil_quran/screens/sura_list_screen.dart';
 import 'package:tamil_quran/widgets/sura_verse_picker.dart';
-import 'package:tamil_quran/widgets/popup_menu.dart';
+import 'package:tamil_quran/widgets/home_popup_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,18 +17,26 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late final _tabController = TabController(length: 4, vsync: this);
+  late String _appBarTitle = getAppbarTitle();
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_updateTitle);
   }
 
   @override
   void dispose() {
+    _tabController.removeListener(_updateTitle);
     _tabController.dispose();
     super.dispose();
+  }
+
+  void _updateTitle() {
+    setState(() {
+      _appBarTitle = getAppbarTitle();
+    });
   }
 
   @override
@@ -35,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text('திருக்குர்ஆன்'),
+        title: FittedBox(fit: BoxFit.contain, child: Text(_appBarTitle)),
         actions: [
           IconButton(
               onPressed: () {
@@ -44,19 +53,32 @@ class _HomeScreenState extends State<HomeScreen>
                     MaterialPageRoute(
                         builder: (context) => const SearchScreen()));
               },
-              icon: const Icon(Icons.search)),
+              icon: const Icon(Icons.search_sharp)),
           IconButton(
               onPressed: () {
                 _showVersePicker(context);
               },
               icon: const Icon(Icons.shuffle_sharp)),
-          const QuranPopupMenu(),
+          const HomeScreenPopupMenu(),
         ],
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(icon: Icon(Icons.list)),
-            Tab(icon: Icon(Icons.queue_music)),
+            Tab(
+              icon: ImageIcon(
+                AssetImage('assets/images/quran_book.png'),
+              ),
+            ),
+            Tab(
+              icon: ImageIcon(
+                AssetImage('assets/images/read_quran.png'),
+              ),
+            ),
+            Tab(
+              icon: ImageIcon(
+                AssetImage('assets/images/audio-book.png'),
+              ),
+            ),
             Tab(icon: Icon(Icons.bookmarks)),
           ],
         ),
@@ -65,8 +87,9 @@ class _HomeScreenState extends State<HomeScreen>
         controller: _tabController,
         children: const [
           SuraListScreen(),
+          SuraListArabicScreen(),
           QuranAudioPlayerScreen(),
-          BookmarksScreen()
+          BookmarksScreen(),
         ],
       ),
     );
@@ -81,5 +104,22 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
+  String getAppbarTitle() {
+    switch (_tabController.index) {
+      case 0:
+        return 'திருக்குர்ஆன் மொழிபெயர்ப்பு';
 
+      case 1:
+        return 'திருக்குர்ஆன் - அரபு மூலம்';
+
+      case 2:
+        return 'திருக்குர்ஆன் - கிராஅத்';
+
+      case 3:
+        return 'புத்தகக்குறிகள்';
+
+      default:
+        return '';
+    }
+  }
 }

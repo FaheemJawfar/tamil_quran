@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 
-class QuranPopupMenu extends StatefulWidget {
-  const QuranPopupMenu({super.key});
+class ReadSuraPopupMenu extends StatefulWidget {
+  const ReadSuraPopupMenu({super.key});
 
   @override
-  State<QuranPopupMenu> createState() => _QuranPopupMenuState();
+  State<ReadSuraPopupMenu> createState() => _ReadSuraPopupMenuState();
 }
 
-class _QuranPopupMenuState extends State<QuranPopupMenu> {
+class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,16 +18,22 @@ class _QuranPopupMenuState extends State<QuranPopupMenu> {
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
             value: 'settings',
-            child: getPopupMenuItem(Icons.settings, 'Settings'),
+            child: getPopupMenuItem(Icons.settings, 'அமைப்புகள்'),
           ),
           PopupMenuItem<String>(
-            value: 'share_app',
-            child: getPopupMenuItem(Icons.share, 'Share App'),
+            value: 'go_to_verse',
+            child: getPopupMenuItem(Icons.shuffle, 'வசனத்திற்குச் செல்க'),
           ),
           PopupMenuItem<String>(
-            value: 'about_us',
+            value: 'increase_font_size',
             child: getPopupMenuItem(
-                Icons.info, 'About us'),
+                Icons.text_increase, 'எழுத்துரு அளவு +'),
+          ),
+
+          PopupMenuItem<String>(
+            value: 'decrease_font_size',
+            child: getPopupMenuItem(
+                Icons.text_decrease, 'எழுத்துரு அளவு -'),
           ),
         ],
         onSelected: (String value) {

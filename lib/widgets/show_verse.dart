@@ -31,6 +31,7 @@ class _ShowVerseState extends State<ShowVerse> {
               ),
               PopupMenuButton<String>(
                 color: Colors.green.shade100,
+
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                   PopupMenuItem<String>(
                     value: 'copy',

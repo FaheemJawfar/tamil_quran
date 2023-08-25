@@ -91,7 +91,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         );
       });
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Error: ${e.toString()}!');
     }
   }
 

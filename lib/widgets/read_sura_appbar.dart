@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamil_quran/widgets/read_sura_popup_menu.dart';
 
 class ReadSuraAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -23,7 +24,7 @@ class ReadSuraAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: onBookIconPressed,
-         icon: ImageIcon(AssetImage('assets/images/read_quran.png')),
+         icon: const ImageIcon(AssetImage('assets/images/read_quran.png')),
          // icon: const Icon(Icons.menu_book),
         ),
         IconButton(
@@ -34,6 +35,8 @@ class ReadSuraAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: onNavigateNextPressed,
           icon: const Icon(Icons.navigate_next),
         ),
+
+        ReadSuraPopupMenu()
       ],
     );
   }
