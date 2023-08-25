@@ -9,6 +9,20 @@ class QuranProvider extends ChangeNotifier {
 
   get allVersesOfQuran => _allVersesOfQuran;
 
+  int _selectedSura = 0;
+
+  get selectedSura => _selectedSura;
+
+  setSelectedSura(int value){
+    _selectedSura = value;
+    notifyListeners();
+  }
+
+
+  late final List<VerseModel> _selectedSuraContent = filterOneSura(selectedSura);
+  get selectedSuraContent => _selectedSuraContent;
+
+
 
   List<VerseModel> filterOneSura(int sura) {
     return _allVersesOfQuran.where((model) => model.sura == sura).toList();

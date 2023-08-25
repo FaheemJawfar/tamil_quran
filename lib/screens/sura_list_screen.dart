@@ -30,8 +30,7 @@ class _SuraListScreenState extends State<SuraListScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => ReadSuraTranslation(
-                            selectedSura: sura!,
-                            scrollTo: verse!,
+                        scrollTo: verse!,
                           )));
             },
             style: OutlinedButton.styleFrom(
@@ -76,19 +75,16 @@ class _SuraListScreenState extends State<SuraListScreen> {
                 subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
                 trailing: Text(
                   sura.arabicName,
-                  style: const TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: 16
-                  ),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
                   textDirection: TextDirection.rtl,
                 ),
                 onTap: () {
+                  quranProvider.setSelectedSura(sura.suraNumber);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ReadSuraTranslation(
-                        selectedSura: sura.suraNumber,
-                        // suraName: sura.tamilName,
-                      ),
+                      builder: (context) => const ReadSuraTranslation(),
                     ),
                   );
                 },

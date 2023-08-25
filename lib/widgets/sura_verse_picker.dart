@@ -112,7 +112,6 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
               context,
               MaterialPageRoute(
                   builder: (context) => ReadSuraTranslation(
-                        selectedSura: selectedSura,
                         scrollTo: selectedVerse,
                       )));
         })

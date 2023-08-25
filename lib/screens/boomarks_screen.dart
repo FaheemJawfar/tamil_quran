@@ -76,8 +76,8 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
   }
 
   getVerse(String suraNumber, String verseNumber) {
-    return VerseHelper.getTamilTranslation(quranProvider
-        .filterOneVerse(int.parse(suraNumber), int.parse(verseNumber)));
+    return VerseHelper.getTamilTranslation(quranProvider.filterOneVerse(
+        int.parse(suraNumber), int.parse(verseNumber)));
   }
 
   void onBookmarkSelected(int selectedSura, int selectedVerse) {
@@ -85,7 +85,6 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
         context,
         MaterialPageRoute(
             builder: (context) => ReadSuraTranslation(
-                  selectedSura: selectedSura,
                   scrollTo: selectedVerse,
                 )));
   }
