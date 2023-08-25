@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/screens/sura_arabic_screen.dart';
 import 'package:tamil_quran/screens/sura_translation_screen.dart';
 import 'package:tamil_quran/widgets/read_sura_appbar.dart';
@@ -35,11 +34,11 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
       ),
 
       body: arabicOnly
-          ? ReadSuraOnlyArabic(
+          ? SuraArabicScreen(
               allVersesOfSura: quranProvider.selectedSuraContent,
               suraNumber: quranProvider.selectedSura,
             )
-          : TranslationScreen(
+          : SuraTranslationScreen(
               scrollController: scrollController,
               goToVerse: widget.goToVerse,
             ),

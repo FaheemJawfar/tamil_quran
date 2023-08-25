@@ -9,21 +9,21 @@ import '../models/verse.dart';
 import '../providers/quran_provider.dart';
 import '../widgets/show_verse.dart';
 
-class TranslationScreen extends StatefulWidget {
+class SuraTranslationScreen extends StatefulWidget {
   final int goToVerse;
   final ItemScrollController scrollController;
 
-  const TranslationScreen({
+  const SuraTranslationScreen({
     required this.scrollController,
     this.goToVerse = 0,
     super.key,
   });
 
   @override
-  State<TranslationScreen> createState() => _TranslationScreenState();
+  State<SuraTranslationScreen> createState() => _SuraTranslationScreenState();
 }
 
-class _TranslationScreenState extends State<TranslationScreen> {
+class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   late int scrollTo = widget.goToVerse;
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 

@@ -4,19 +4,19 @@ import 'package:tamil_quran/config/color_config.dart';
 
 import '../models/verse.dart';
 
-class ReadSuraOnlyArabic extends StatefulWidget {
+class SuraArabicScreen extends StatefulWidget {
   final List<VerseModel> allVersesOfSura;
   final int suraNumber;
 
-  const ReadSuraOnlyArabic(
+  const SuraArabicScreen(
       {required this.allVersesOfSura, required this.suraNumber, Key? key})
       : super(key: key);
 
   @override
-  State<ReadSuraOnlyArabic> createState() => _ReadSuraOnlyArabicState();
+  State<SuraArabicScreen> createState() => _SuraArabicScreenState();
 }
 
-class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
+class _SuraArabicScreenState extends State<SuraArabicScreen> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -59,7 +59,7 @@ class _ReadSuraOnlyArabicState extends State<ReadSuraOnlyArabic> {
   }
 
   @override
-  void didUpdateWidget(ReadSuraOnlyArabic oldWidget) {
+  void didUpdateWidget(SuraArabicScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     _scrollController.animateTo(
       0.0,
