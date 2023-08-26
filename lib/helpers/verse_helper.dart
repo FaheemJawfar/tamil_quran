@@ -1,11 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
+import 'package:tamil_quran/helpers/show_toast.dart';
 import 'package:tamil_quran/models/verse.dart';
 
+import '../providers/settings_provider.dart';
+
 class VerseHelper {
-  static Future<void> copyToClipboard(String text) async {
+  static Future<void> copyToClipboard(String text, BuildContext context) async {
     final clipboardData = ClipboardData(text: text);
+    ShowToast.showToast(context, 'வசனம் பிரதி செய்யப்பட்டது!');
     await Clipboard.setData(clipboardData);
   }
 
@@ -40,8 +47,7 @@ class VerseHelper {
   }
 
   static String getTamilTranslation(VerseModel verse) {
-    String? selectedTranslation =
-        Preferences.getString('selectedTranslation');
+    String selectedTranslation = SettingsProvider().selectedTranslation;
 
     switch (selectedTranslation) {
       case 'mJohn':

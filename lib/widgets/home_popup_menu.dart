@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/settings_screen.dart';
+
 
 class HomeScreenPopupMenu extends StatefulWidget {
   const HomeScreenPopupMenu({super.key});
@@ -33,7 +35,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
         onSelected: (String value) {
           switch (value) {
             case 'settings':
-
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
               break;
             case 'share_app':
 

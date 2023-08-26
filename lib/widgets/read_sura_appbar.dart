@@ -3,13 +3,13 @@ import 'package:tamil_quran/widgets/read_sura_popup_menu.dart';
 
 class ReadSuraAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final void Function() onBookIconPressed;
+  //final void Function() onBookIconPressed;
   final void Function() onNavigatePreviousPressed;
   final void Function() onNavigateNextPressed;
 
   const ReadSuraAppBar({super.key, 
     required this.title,
-    required this.onBookIconPressed,
+   // required this.onBookIconPressed,
     required this.onNavigateNextPressed,
     required this.onNavigatePreviousPressed,
   });
@@ -22,11 +22,11 @@ class ReadSuraAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(title),
       actions: [
-        IconButton(
-          onPressed: onBookIconPressed,
-         icon: const ImageIcon(AssetImage('assets/images/read_quran.png')),
-         // icon: const Icon(Icons.menu_book),
-        ),
+        // IconButton(
+        //   onPressed: onBookIconPressed,
+        //  icon: const ImageIcon(AssetImage('assets/images/read_quran.png')),
+        //  // icon: const Icon(Icons.menu_book),
+        // ),
         IconButton(
           onPressed: onNavigatePreviousPressed,
           icon: const Icon(Icons.navigate_before),
@@ -36,7 +36,7 @@ class ReadSuraAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.navigate_next),
         ),
 
-        ReadSuraPopupMenu()
+        const ReadSuraPopupMenu()
       ],
     );
   }

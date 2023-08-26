@@ -17,38 +17,23 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
         color: Colors.green.shade100,
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
-            value: 'settings',
+            onTap: () => print('settings'),
             child: getPopupMenuItem(Icons.settings, 'அமைப்புகள்'),
           ),
           PopupMenuItem<String>(
-            value: 'go_to_verse',
             child: getPopupMenuItem(Icons.shuffle, 'வசனத்திற்குச் செல்க'),
           ),
           PopupMenuItem<String>(
-            value: 'increase_font_size',
             child: getPopupMenuItem(
                 Icons.text_increase, 'எழுத்துரு அளவு +'),
           ),
 
           PopupMenuItem<String>(
-            value: 'decrease_font_size',
             child: getPopupMenuItem(
                 Icons.text_decrease, 'எழுத்துரு அளவு -'),
           ),
         ],
-        onSelected: (String value) {
-          switch (value) {
-            case 'settings':
 
-              break;
-            case 'share_app':
-
-              break;
-            case 'about_us':
-
-              break;
-          }
-        },
         child: const Icon(Icons.more_vert),
       )
     );

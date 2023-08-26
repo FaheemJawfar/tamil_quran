@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/bookmark_helper.dart';
-import 'package:tamil_quran/helpers/verse_options.dart';
+import 'package:tamil_quran/helpers/verse_helper.dart';
 import 'package:tamil_quran/models/bookmark.dart';
 import '../providers/quran_provider.dart';
 import '../screens/read_sura_screen.dart';
@@ -35,7 +35,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       body: bookmarkList.isEmpty
-          ? const Center(child: Text('Your bookmark will appear here!'))
+          ? const Center(child: Text('நீங்கள் Bookmark செய்தவற்றை இங்கே காணலாம்!'))
           : ListView.separated(
               itemCount: bookmarkList.length,
               separatorBuilder: (context, index) => Divider(
@@ -61,7 +61,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                     onPressed: () {
                       BookmarkHelper.deleteBookmark(Bookmark(
                           suraNumber: currentBookmark.suraNumber,
-                          verseNumber: currentBookmark.verseNumber));
+                          verseNumber: currentBookmark.verseNumber), context);
                       getBookmarks();
                     },
                   ),

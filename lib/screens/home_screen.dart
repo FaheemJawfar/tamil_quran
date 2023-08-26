@@ -4,7 +4,7 @@ import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
 import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/screens/sura_list_arabic_screen.dart';
-import 'package:tamil_quran/screens/sura_list_screen.dart';
+import 'package:tamil_quran/screens/sura_list_tamil_screen.dart';
 import 'package:tamil_quran/widgets/sura_verse_picker.dart';
 import 'package:tamil_quran/widgets/home_popup_menu.dart';
 
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen>
       body: TabBarView(
         controller: _tabController,
         children: const [
-          SuraListScreen(),
+          SuraListTamilScreen(),
           SuraListArabicScreen(),
           QuranAudioPlayerScreen(),
           BookmarksScreen(),

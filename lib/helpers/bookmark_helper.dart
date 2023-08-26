@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
+import 'package:tamil_quran/helpers/show_toast.dart';
 
 import '../models/bookmark.dart';
 
@@ -6,22 +8,28 @@ class BookmarkHelper {
   static const String _bookmarkKey = 'bookmarkList';
 
   // Add a bookmark to the list
-  static void addBookmark(Bookmark bookmark) {
-
+  static void addBookmark(Bookmark bookmark, BuildContext context) {
     final List<String> bookmarkList = Preferences.getStringList(_bookmarkKey) ?? [];
+    final String newBookmark = '${bookmark.suraNumber}:${bookmark.verseNumber}';
 
-    bookmarkList.add('${bookmark.suraNumber}:${bookmark.verseNumber}');
-    Preferences.setStringList(_bookmarkKey, bookmarkList);
+    if (!bookmarkList.contains(newBookmark)) {
+      bookmarkList.add(newBookmark);
+      Preferences.setStringList(_bookmarkKey, bookmarkList);
+    }
+
+    ShowToast.showToast(context, 'Bookmark added successfully!');
   }
 
+
   // Delete a bookmark from the list
-  static void deleteBookmark(Bookmark bookmark) {
+  static void deleteBookmark(Bookmark bookmark, BuildContext context) {
     final List<String>? bookmarkList = Preferences.getStringList(_bookmarkKey);
 
     if (bookmarkList != null) {
       bookmarkList.remove('${bookmark.suraNumber}:${bookmark.verseNumber}');
      Preferences.setStringList(_bookmarkKey, bookmarkList);
     }
+    ShowToast.showToast(context, 'Bookmark deleted successfully!');
   }
 
   // Get the list of bookmarks

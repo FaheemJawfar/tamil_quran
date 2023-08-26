@@ -6,14 +6,14 @@ import 'package:tamil_quran/screens/read_sura_screen.dart';
 
 import '../providers/quran_provider.dart';
 
-class SuraListScreen extends StatefulWidget {
-  const SuraListScreen({Key? key}) : super(key: key);
+class SuraListTamilScreen extends StatefulWidget {
+  const SuraListTamilScreen({Key? key}) : super(key: key);
 
   @override
-  State<SuraListScreen> createState() => _SuraListScreenState();
+  State<SuraListTamilScreen> createState() => _SuraListTamilScreenState();
 }
 
-class _SuraListScreenState extends State<SuraListScreen> {
+class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
   late final quranProvider = context.read<QuranProvider>();
 
   @override
@@ -74,12 +74,7 @@ class _SuraListScreenState extends State<SuraListScreen> {
                   ),
                 ),
                 subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
-                trailing: Text(
-                  sura.arabicName,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
-                  textDirection: TextDirection.rtl,
-                ),
+                trailing: Image.asset('assets/images/sura_headers/Surah_${sura.suraNumber}.png'),
                 onTap: () {
                   quranProvider.setSelectedSura(sura.suraNumber);
                   Navigator.push(

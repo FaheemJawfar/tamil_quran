@@ -4,4 +4,5 @@ class ColorConfig {
 
   static Color primaryColor = Colors.green;
   static Color backgroundColor = Colors.green.shade50;
+  static Color popupColor = Colors.green.shade100;
 }

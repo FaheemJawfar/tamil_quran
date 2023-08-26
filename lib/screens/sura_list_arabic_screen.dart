@@ -17,16 +17,6 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
   late final quranProvider = context.read<QuranProvider>();
 
 
-  String convertToArabicNumber(String input) {
-    const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    const farsi = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-
-    for (int i = 0; i < english.length; i++) {
-      input = input.replaceAll(english[i], farsi[i]);
-    }
-
-    return input;
-  }
 
 
 
@@ -45,36 +35,27 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
               final sura = quranProvider.suraList[index];
 
               return ListTile(
-                trailing: Text(
-                  '${convertToArabicNumber(sura.suraNumber.toString())}.',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
-                  textDirection: TextDirection.rtl,
+                leading: Text('${sura.suraNumber}. ',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
+
                 ),
                 title: Text(
-                  sura.arabicName,
+                  sura.tamilName,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                  textDirection: TextDirection.rtl,
+
                 ),
-                subtitle: Text('${sura.tamilName}\nவசனங்கள்: ${sura.verseCount}'),
-                // trailing: Text(
-                //   sura.arabicName,
-                //   style: const TextStyle(
-                //       fontWeight: FontWeight.bold, fontSize: 16),
-                //   textDirection: TextDirection.rtl,
-                // ),
+                subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
+                trailing: Image.asset('assets/images/sura_headers/Surah_${sura.suraNumber}.png'),
                 onTap: () {
                   quranProvider.setSelectedSura(sura.suraNumber);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ReadSuraScreen(),
+                      builder: (context) => const ReadSuraScreen(arabicOnly: true,),
                     ),
                   );
                 },

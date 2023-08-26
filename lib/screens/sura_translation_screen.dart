@@ -4,9 +4,10 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../config/color_config.dart';
 import '../helpers/shared_preferences.dart';
-import '../helpers/verse_options.dart';
+import '../helpers/verse_helper.dart';
 import '../models/verse.dart';
 import '../providers/quran_provider.dart';
+import '../providers/settings_provider.dart';
 import '../widgets/show_verse.dart';
 
 class SuraTranslationScreen extends StatefulWidget {
@@ -26,6 +27,8 @@ class SuraTranslationScreen extends StatefulWidget {
 class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   late int scrollTo = widget.goToVerse;
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
+  late final settingsProvider =
+      Provider.of<SettingsProvider>(context, listen: true);
 
   @override
   void initState() {
@@ -110,13 +113,18 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
                 child: Text(
                   verse.arabic,
                   textAlign: TextAlign.right,
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(
+                    fontSize: settingsProvider.arabicFontSize,
+                    fontFamily: settingsProvider.arabicFont,
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 VerseHelper.getTamilTranslation(verse),
-                style: const TextStyle(fontSize: 14),
+                style: TextStyle(
+                    fontSize: settingsProvider.tamilFontSize,
+                    fontFamily: settingsProvider.tamilFont),
               ),
             ],
           ),

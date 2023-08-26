@@ -82,6 +82,7 @@ flutter:
     - assets/
     - assets/tamil_quran_all.db
     - assets/images/
+    - assets/images/sura_headers/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
