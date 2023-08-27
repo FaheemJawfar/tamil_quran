@@ -70,6 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   .listOfVersesAndHadhiths[selectedQuoteNumber].quote,
               style: const TextStyle(
                 color: Colors.white,
+                fontSize: 16,
               ),
               textAlign: TextAlign.center,
             ),
@@ -81,6 +82,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   .listOfVersesAndHadhiths[selectedQuoteNumber].reference,
               style: const TextStyle(
                 color: Colors.white,
+                  fontSize: 16
+
               ),
               textAlign: TextAlign.center,
             ),

@@ -8,7 +8,7 @@ import 'package:tamil_quran/screens/welcome_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Preferences.initialize();
- // Preferences.clear();
+ //Preferences.clear();
   runApp(const MyApp());
 }
 

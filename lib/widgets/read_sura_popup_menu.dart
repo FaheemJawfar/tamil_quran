@@ -15,6 +15,8 @@ class ReadSuraPopupMenu extends StatefulWidget {
 }
 
 class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,14 +32,15 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
               value: 'go_to_verse',
               child: getPopupMenuItem(Icons.shuffle, 'வசனத்திற்குச் செல்க'),
             ),
-            PopupMenuItem<String>(
-              value: 'share_sura',
-              child: getPopupMenuItem(Icons.mobile_screen_share, 'அத்தியாயத்தைப் பகிர்க'),
-            ),
+            if (quranProvider.selectedSuraContent.length < 100)
+              PopupMenuItem<String>(
+                value: 'share_sura',
+                child: getPopupMenuItem(
+                    Icons.mobile_screen_share, 'அத்தியாயத்தைப் பகிர்க'),
+              ),
             PopupMenuItem<String>(
               value: 'search',
-              child: getPopupMenuItem(
-                  Icons.search, 'திருக்குர்ஆனில் தேடுக'),
+              child: getPopupMenuItem(Icons.search, 'திருக்குர்ஆனில் தேடுக'),
             ),
           ],
           onSelected: (String value) {
@@ -50,7 +53,11 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
                 _showVersePicker(context);
                 break;
               case 'share_sura':
-                VerseHelper.shareSura(Provider.of<QuranProvider>(context, listen: false).selectedSuraContent);
+                VerseHelper.copySura(
+                  quranProvider.selectedSuraContent,
+                  context,
+                  quranProvider.suraList[quranProvider.selectedSura- 1],
+                );
                 break;
               case 'search':
                 Navigator.push(context,

@@ -18,6 +18,7 @@ class ShowVerse extends StatefulWidget {
 
 class _ShowVerseState extends State<ShowVerse> {
   late final settingsProvider = Provider.of<SettingsProvider>(context, listen:true);
+  late final quranProvider = Provider.of<SettingsProvider>(context, listen:true);
 
 
 
@@ -133,7 +134,7 @@ class _ShowVerseState extends State<ShowVerse> {
               ),
               const SizedBox(height: 8),
               Text(
-                VerseHelper.getTamilTranslation(widget.verseModel),
+                VerseHelper.getTamilTranslation(widget.verseModel,),
                 style: TextStyle(
                   fontSize: settingsProvider.tamilFontSize,
                   fontFamily: settingsProvider.tamilFont,

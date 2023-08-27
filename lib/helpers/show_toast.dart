@@ -6,7 +6,7 @@ class ShowToast {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Text(message, textAlign: TextAlign.center,),
         duration: const Duration(seconds: 2),
       ),
     );

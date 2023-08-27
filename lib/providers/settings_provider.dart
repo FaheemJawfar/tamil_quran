@@ -25,8 +25,7 @@ class SettingsProvider extends ChangeNotifier {
   }
 
 
-  double _tamilFontSize = 16;
-
+  double _tamilFontSize = 20;
   double get tamilFontSize => Preferences.getDouble('tamilFontSize') ?? _tamilFontSize;
 
   set tamilFontSize (double value) {
@@ -36,7 +35,7 @@ class SettingsProvider extends ChangeNotifier {
   }
 
 
-  double _arabicFontSize = 18;
+  double _arabicFontSize = 22;
 
   double get arabicFontSize => Preferences.getDouble('arabicFontSize') ?? _arabicFontSize;
 
