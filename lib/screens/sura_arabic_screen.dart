@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
 import 'package:tamil_quran/config/color_config.dart';
+import 'package:tamil_quran/providers/settings_provider.dart';
 
 import '../models/verse.dart';
 
@@ -80,9 +82,9 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
     for (var verse in widget.allVersesOfSura) {
       inlineSpans.add(TextSpan(
         text: verse.arabic,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 20,
-          fontFamily: 'Uthmani',
+          fontFamily: Provider.of<SettingsProvider>(context, listen: true).arabicFont,
           color: Colors.black,
         ),
       ));

@@ -3,14 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
-import 'package:tamil_quran/screens/settings_screen.dart';
 import 'package:tamil_quran/screens/welcome_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Preferences.initialize();
-   //Preferences.setString('selectedTranslation', 'ift');
-  // debugPrint(Preferences.getString('arabicFont'));
+ // Preferences.clear();
   runApp(const MyApp());
 }
 

@@ -35,7 +35,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       body: bookmarkList.isEmpty
-          ? const Center(child: Text('நீங்கள் Bookmark செய்தவற்றை இங்கே காணலாம்!'))
+          ? const Center(child: Text('நீங்கள் Bookmark செய்த வசனங்களை இங்கே காணலாம்!'))
           : ListView.separated(
               itemCount: bookmarkList.length,
               separatorBuilder: (context, index) => Divider(
