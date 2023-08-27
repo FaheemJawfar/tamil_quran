@@ -82,13 +82,14 @@ class _SplashScreenState extends State<SplashScreen> {
                   .listOfVersesAndHadhiths[selectedQuoteNumber].reference,
               style: const TextStyle(
                 color: Colors.white,
-                  fontSize: 16
-
+                fontSize: 16,
               ),
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            const LoadingIndicator(size: 30,),
+            const LoadingIndicator(
+              size: 30,
+            ),
           ],
         ),
       ),
