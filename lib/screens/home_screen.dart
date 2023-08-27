@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen>
   late final _tabController = TabController(length: 4, vsync: this);
   late String _appBarTitle = getAppbarTitle();
 
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: FittedBox(fit: BoxFit.contain, child: Text(_appBarTitle)),
         actions: [
           IconButton(

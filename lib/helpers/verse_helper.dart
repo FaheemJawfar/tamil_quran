@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:path/path.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tamil_quran/helpers/shared_preferences.dart';
 import 'package:tamil_quran/helpers/show_toast.dart';
 import 'package:tamil_quran/models/verse.dart';
 
@@ -45,6 +42,24 @@ class VerseHelper {
   static void shareVerse(String verse) {
     Share.share(verse);
   }
+
+  static void shareSura(List<VerseModel> sura) {
+    StringBuffer suraTextBuffer = StringBuffer();
+    if(sura[0].sura != 1 && sura[0].sura != 9){
+      suraTextBuffer.write('${'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ'}\nஅளவற்ற அருளாளனும், நிகரற்ற அன்புடையோனுமாகிய அல்லாஹ்வின் திருப்பெயரால்(துவங்குகிறேன்)');
+    }
+    for (var verse in sura) {
+      String verseText =
+          '\n\n${verse.arabic}\n${verse.aya}. ${getTamilTranslation(verse)}';
+      suraTextBuffer.write(verseText);
+    }
+
+    suraTextBuffer.write('\n\n- (திருக்குர்ஆன் - அத்தியாயம் ${sura[0].sura})\nவசனங்கள்: ${sura.length})\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )');
+    String suraText = suraTextBuffer.toString();
+    Share.share(suraText);
+  }
+
+
 
   static String getTamilTranslation(VerseModel verse) {
     String selectedTranslation = SettingsProvider().selectedTranslation;

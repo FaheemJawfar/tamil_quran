@@ -27,6 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              /// TODO: Enable or Disable Dark mode
               _buildHeader('மொழிபெயர்ப்பைத் தெரிவு செய்க!'),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +71,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       alignment: AlignmentDirectional.bottomStart,
                       dropdownColor: ColorConfig.popupColor,
                       value: settingsProvider.arabicFont,
-                      isDense: true,
                       padding: const EdgeInsets.all(5),
                       onChanged: (newValue) {
                         settingsProvider.arabicFont = newValue!;

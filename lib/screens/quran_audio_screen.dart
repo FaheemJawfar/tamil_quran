@@ -7,12 +7,7 @@ import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
-//  final String audioUrl;
-  const QuranAudioPlayerScreen(
-      {
-      //required this.audioUrl,
-      Key? key})
-      : super(key: key);
+  const QuranAudioPlayerScreen({Key? key}) : super(key: key);
 
   @override
   State<QuranAudioPlayerScreen> createState() => _QuranAudioPlayerScreenState();
