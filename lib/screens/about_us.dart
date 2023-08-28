@@ -20,9 +20,10 @@ class AboutUsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 40,
-                backgroundImage: AssetImage('assets/images/quran_icon.png'),
+                backgroundColor: ColorConfig.backgroundColor,
+                backgroundImage: AssetImage('assets/icon/quran_icon.png'),
               ),
               const SizedBox(height: 20),
               const Text(
@@ -35,7 +36,10 @@ class AboutUsScreen extends StatelessWidget {
                 'Version 2.0',
                 style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
+              Divider(
+                color: ColorConfig.primaryColor,
+              ),
               const Text(
                 'இறைவன் மனித சமுதாயத்துக்கு வழங்கிய இறுதி வேதமாகிய திருக்குர்ஆனைப் பொருளுணர்ந்து வாசிப்பதும், அதன் போதனைகளை முஸ்லிம்கள் மற்றும் முஸ்லிம் அல்லாத மக்களுக்கும் எடுத்துச் சொல்வதும் நம்மீது கடமையாக இருக்கின்றது. \nஇந்த இறைப்பணியில் ஒரு சிறு முயற்சியாகத் தான் இந்த அப்ளிகேசன் உருவாக்கப் பட்டுள்ளது. இதன் மூலம் நீங்களும் பயனடைந்து பிறரையும் பயனடையச் செய்வீர்கள் என்று நம்புகிறேன்.',
                 style: TextStyle(fontSize: 15),
@@ -44,6 +48,7 @@ class AboutUsScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
+
               const Text(
                 'App created by:',
                 style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
