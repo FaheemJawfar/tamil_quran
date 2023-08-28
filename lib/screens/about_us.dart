@@ -30,9 +30,9 @@ class AboutUsScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               Text(
-                'Version 23.8',
+                'Version 2.0',
                 style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
               ),
               const SizedBox(height: 20),
@@ -45,15 +45,20 @@ class AboutUsScreen extends StatelessWidget {
                 height: 10,
               ),
               const Text(
+                'App created by:',
+                style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+                textAlign: TextAlign.center,
+              ),
+              const Text(
                 ' - J. பஹீம் ( Software Engineer )',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 15,),
                 textAlign: TextAlign.center,
               ),
               Divider(
                 color: ColorConfig.primaryColor,
               ),
               const Text(
-                'இந்த அப்ளிகேசன் பற்றிய உங்கள் கருத்துக்களையும் விமர்சனங்களையும் எமக்குத் தெரிவியுங்கள்:',
+                'இந்த App பற்றிய உங்கள் கருத்துக்களையும் விமர்சனங்களையும் எமக்குத் தெரிவியுங்கள்:',
                 style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),

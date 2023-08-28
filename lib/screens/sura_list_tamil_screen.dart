@@ -70,11 +70,11 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
                       : '${sura.tamilName} (${sura.tamilMeaning})',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 17,
                   ),
                 ),
                 subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
-                trailing: Image.asset('assets/images/sura_headers/Surah_${sura.suraNumber}.png'),
+                trailing: Image.asset('assets/images/sura_headers/Surah_${sura.suraNumber}.png', color: Colors.black),
                 onTap: () {
                   quranProvider.setSelectedSura(sura.suraNumber);
                   Navigator.push(

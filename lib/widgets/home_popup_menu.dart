@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/screens/about_us.dart';
 
 import '../screens/settings_screen.dart';
@@ -39,7 +40,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
               Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
               break;
             case 'share_app':
-
+              Share.share('திருக்குர்ஆன் தமிழாக்கம் Android App இனை இப்போதே Playstore இலிருந்து பதிவிறக்கம் செய்து பயன் படுத்துங்கள்: \nhttps://play.google.com/store/apps/details?id=com.faheemapps.tamil_quran');
               break;
             case 'about_us':
               Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutUsScreen()));

@@ -25,7 +25,7 @@ class SettingsProvider extends ChangeNotifier {
   }
 
 
-  double _tamilFontSize = 20;
+  double _tamilFontSize = 18;
   double get tamilFontSize => Preferences.getDouble('tamilFontSize') ?? _tamilFontSize;
 
   set tamilFontSize (double value) {
@@ -35,7 +35,7 @@ class SettingsProvider extends ChangeNotifier {
   }
 
 
-  double _arabicFontSize = 22;
+  double _arabicFontSize = 20;
 
   double get arabicFontSize => Preferences.getDouble('arabicFontSize') ?? _arabicFontSize;
 
@@ -56,13 +56,12 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   void clearSettings() {
+    Preferences.clear();
     _tamilFont = 'MUktaMalar';
     _arabicFont = 'AlQalam';
-    _tamilFontSize = 16;
-    _arabicFontSize = 18;
+    _tamilFontSize = 18;
+    _arabicFontSize = 20;
     _selectedTranslation = 'mJohn';
-
-    Preferences.clear();
     notifyListeners();
   }
 
