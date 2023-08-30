@@ -9,9 +9,9 @@ class QuranProvider extends ChangeNotifier {
   get allVersesOfQuran => _allVersesOfQuran;
 
   int _selectedSura = 0;
-  get selectedSura => _selectedSura;
+  int get selectedSura => _selectedSura;
 
-  setSelectedSura(int value) {
+  set selectedSura(int value) {
     _selectedSura = value;
     notifyListeners();
   }

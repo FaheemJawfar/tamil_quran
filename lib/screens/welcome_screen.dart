@@ -19,7 +19,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     super.initState();
     loadDb();
-   // checkQuranDb();
+    checkQuranDb();
   }
 
   loadDb() async {

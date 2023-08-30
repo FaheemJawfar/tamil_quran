@@ -50,7 +50,7 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                 subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
                 trailing: Image.asset('assets/images/sura_headers/Surah_${sura.suraNumber}.png', color: Colors.black),
                 onTap: () {
-                  quranProvider.setSelectedSura(sura.suraNumber);
+                  quranProvider.selectedSura = sura.suraNumber;
                   Navigator.push(
                     context,
                     MaterialPageRoute(

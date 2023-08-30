@@ -52,7 +52,7 @@ class _ReadSuraScreenState extends State<ReadSuraScreen> {
   void _navigateSura(int increment) {
     final newSura = quranProvider.selectedSura + increment;
     if (newSura >= 1 && newSura <= 114) {
-      quranProvider.setSelectedSura(newSura);
+      quranProvider.selectedSura = newSura;
 
       if(!arabicOnly){
         scrollController.scrollTo(

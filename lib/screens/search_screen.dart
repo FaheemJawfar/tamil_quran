@@ -128,14 +128,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       ));
                     }
 
-                    // return ListTile(
-                    //   title: Text(verse.arabic),
-                    //   subtitle: RichText(
-                    //     text: TextSpan(children: textSpans),
-                    //   ),
-                    //   // Add any additional fields you want to display
-                    // );
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

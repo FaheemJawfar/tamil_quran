@@ -108,7 +108,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
           Navigator.of(context).pop();
         }),
         showVersePickupButton('OK', () {
-          quranProvider.setSelectedSura(selectedSura);
+          quranProvider.selectedSura = selectedSura;
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(

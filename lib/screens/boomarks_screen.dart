@@ -84,6 +84,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
   }
 
   void onBookmarkSelected(int selectedSura, int selectedVerse) {
+    quranProvider.selectedSura = selectedSura;
     Navigator.push(
         context,
         MaterialPageRoute(
