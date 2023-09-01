@@ -33,7 +33,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void checkQuranDb() {
     Timer(const Duration(seconds: 5), () {
-      if (context.read<QuranProvider>().allVersesOfQuran.isNotEmpty) {
+      if (context
+          .read<QuranProvider>()
+          .allVersesOfQuran
+          .isNotEmpty) {
         setState(() {
           dbInitiated = true;
         });
@@ -51,13 +54,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-   return dbInitiated ? const HomeScreen(): _buildSplash();
-
+    return dbInitiated ? const HomeScreen() : _buildSplash();
   }
 
 
-
-  Widget _buildSplash(){
+  Widget _buildSplash() {
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -124,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 const Spacer(),
                 const LoadingIndicator(
-                  size: 30,
+                  size: 25,
                 ),
               ],
             ),

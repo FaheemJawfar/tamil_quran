@@ -50,13 +50,13 @@ class AboutUsScreen extends StatelessWidget {
               ),
 
               const Text(
-                'App created by:',
+                'App developed by:',
                 style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
               const Text(
-                ' - J. பஹீம் ( Software Engineer )',
-                style: TextStyle(fontSize: 15,),
+                ' - J. பஹீம்',
+                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               Divider(

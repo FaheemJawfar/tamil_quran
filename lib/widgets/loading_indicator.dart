@@ -14,9 +14,11 @@ class LoadingIndicator extends StatefulWidget {
 class _LoadingIndicatorState extends State<LoadingIndicator> {
   @override
   Widget build(BuildContext context) {
-    return SpinKitFadingCircle(
-      color: Colors.white,
-      size: widget.size ?? 50.0,
+    return Container(
+      height: widget.size ?? 50.0,
+      width: widget.size ?? 50.0,
+
+      child: const CircularProgressIndicator(color: Colors.white,),
     );
   }
 }
