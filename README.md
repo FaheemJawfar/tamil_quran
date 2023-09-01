@@ -27,12 +27,12 @@ Availabe Translations :
 ## *Screenshots of 'Tamil Quran'.*
 
 <p float="left">
-  <img src="screenshots/Google Pixel 4 XL Screenshot 1.png" width="300" />
-  <img src="screenshots/Google Pixel 4 XL Screenshot 2.png" width="300" /> 
-  <img src="screenshots/Google Pixel 4 XL Screenshot 3.png" width="300" />
-  <img src="screenshots/Google Pixel 4 XL Screenshot 4.png" width="300" />
-  <img src="screenshots/Google Pixel 4 XL Screenshot 5.png" width="300" />
-  <img src="screenshots/Google Pixel 4 XL Screenshot 6.png" width="300" />
-  <img src="screenshots/Google Pixel 4 XL Screenshot 7.png" width="300" />
-  <img src="screenshots/Google Pixel 4 XL Screenshot 8.png" width="300" />
+  <img src="screenshots/Google Pixel 4 XL Screenshot 1.png" width="200" />
+  <img src="screenshots/Google Pixel 4 XL Screenshot 2.png" width="200" /> 
+  <img src="screenshots/Google Pixel 4 XL Screenshot 3.png" width="200" />
+  <img src="screenshots/Google Pixel 4 XL Screenshot 4.png" width="200" />
+  <img src="screenshots/Google Pixel 4 XL Screenshot 5.png" width="200" />
+  <img src="screenshots/Google Pixel 4 XL Screenshot 6.png" width="200" />
+  <img src="screenshots/Google Pixel 4 XL Screenshot 7.png" width="200" />
+  <img src="screenshots/Google Pixel 4 XL Screenshot 8.png" width="200" />
 </p>
