@@ -1,8 +1,12 @@
 import 'dart:math';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/models/quran_hadith_about_quran.dart';
 import 'package:tamil_quran/widgets/loading_indicator.dart';
+import '../providers/quran_provider.dart';
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,15 +17,47 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   int selectedQuoteNumber = 0;
+  bool dbInitiated = false;
 
   @override
   void initState() {
     super.initState();
     getRandomQuote();
+    loadDb();
+    checkQuranDb();
   }
+
+  loadDb() async {
+    Provider.of<QuranProvider>(context, listen: false).loadQuranData();
+  }
+
+  void checkQuranDb() {
+    Timer(const Duration(seconds: 5), () {
+      if (context.read<QuranProvider>().allVersesOfQuran.isNotEmpty) {
+        setState(() {
+          dbInitiated = true;
+        });
+      } else {
+        checkQuranDb();
+      }
+    });
+  }
+
+  getRandomQuote() {
+    selectedQuoteNumber =
+        Random().nextInt(QuranHadithAboutQuran.listOfVersesAndHadhiths.length);
+  }
+
 
   @override
   Widget build(BuildContext context) {
+   return dbInitiated ? const HomeScreen(): _buildSplash();
+
+  }
+
+
+
+  Widget _buildSplash(){
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -96,10 +132,5 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
-  }
-
-  getRandomQuote() {
-    selectedQuoteNumber =
-        Random().nextInt(QuranHadithAboutQuran.listOfVersesAndHadhiths.length);
   }
 }

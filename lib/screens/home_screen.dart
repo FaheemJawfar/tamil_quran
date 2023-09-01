@@ -40,10 +40,38 @@ class _HomeScreenState extends State<HomeScreen>
     });
   }
 
+  String getAppbarTitle() {
+    switch (_tabController.index) {
+      case 0:
+        return 'திருக்குர்ஆன் மொழிபெயர்ப்பு';
+
+      case 1:
+        return 'திருக்குர்ஆன் - அரபு மூலம்';
+
+      case 2:
+        return 'திருக்குர்ஆன் - கிராஅத்';
+
+      case 3:
+        return 'புத்தகக்குறிகள்';
+
+      default:
+        return '';
+    }
+  }
+
+  void _showVersePicker(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const SuraVersePickerScreen();
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: FittedBox(fit: BoxFit.contain, child: Text(_appBarTitle)),
@@ -97,31 +125,5 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  void _showVersePicker(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const SuraVersePickerScreen();
-      },
-    );
-  }
 
-  String getAppbarTitle() {
-    switch (_tabController.index) {
-      case 0:
-        return 'திருக்குர்ஆன் மொழிபெயர்ப்பு';
-
-      case 1:
-        return 'திருக்குர்ஆன் - அரபு மூலம்';
-
-      case 2:
-        return 'திருக்குர்ஆன் - கிராஅத்';
-
-      case 3:
-        return 'புத்தகக்குறிகள்';
-
-      default:
-        return '';
-    }
-  }
 }

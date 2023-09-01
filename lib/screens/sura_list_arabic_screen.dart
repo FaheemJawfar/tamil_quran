@@ -21,48 +21,51 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.separated(
-            itemCount: quranProvider.suraList.length,
-            separatorBuilder: (context, index) => Divider(
-              thickness: 1,
-              color: ColorConfig.primaryColor,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              final sura = quranProvider.suraList[index];
+    return Scaffold(
+      backgroundColor: ColorConfig.backgroundColor,
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              itemCount: quranProvider.suraList.length,
+              separatorBuilder: (context, index) => Divider(
+                thickness: 1,
+                color: ColorConfig.primaryColor,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                final sura = quranProvider.suraList[index];
 
-              return ListTile(
-                leading: Text('${sura.suraNumber}. ',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
+                return ListTile(
+                  leading: Text('${sura.suraNumber}. ',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
 
-                ),
-                title: Text(
-                  sura.tamilName,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
                   ),
-
-                ),
-                subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
-                trailing: Image.asset('assets/images/sura_headers/Surah_${sura.suraNumber}.png', color: Colors.black),
-                onTap: () {
-                  quranProvider.selectedSura = sura.suraNumber;
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ReadSuraScreen(arabicOnly: true,),
+                  title: Text(
+                    sura.tamilName,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
                     ),
-                  );
-                },
-              );
-            },
+
+                  ),
+                  subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
+                  trailing: Image.asset('assets/images/sura_headers/Surah_${sura.suraNumber}.png', color: Colors.black),
+                  onTap: () {
+                    quranProvider.selectedSura = sura.suraNumber;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ReadSuraScreen(arabicOnly: true,),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
