@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:tamil_quran/widgets/read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../config/color_config.dart';
 import '../helpers/shared_preferences.dart';
@@ -12,10 +13,8 @@ import '../widgets/show_verse.dart';
 
 class SuraTranslationScreen extends StatefulWidget {
   final int goToVerse;
-  final ItemScrollController scrollController;
 
   const SuraTranslationScreen({
-    required this.scrollController,
     this.goToVerse = 0,
     super.key,
   });
@@ -25,10 +24,11 @@ class SuraTranslationScreen extends StatefulWidget {
 }
 
 class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
-  late int scrollTo = widget.goToVerse;
+//  late int scrollTo = widget.goToVerse;
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
   late final settingsProvider =
       Provider.of<SettingsProvider>(context, listen: true);
+  final scrollController = ItemScrollController();
 
   @override
   void initState() {
@@ -42,10 +42,10 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   }
 
   void scrollToVerse() {
-    if (scrollTo > 0) {
+    if (widget.goToVerse > 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        widget.scrollController.scrollTo(
-          index: scrollTo,
+        scrollController.scrollTo(
+          index: widget.goToVerse,
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );
@@ -57,6 +57,9 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
+      appBar: ReadSuraAppBar(
+        tamilScrollController: scrollController,
+      ),
       body: Column(
         children: [
           const SizedBox(height: 10),
@@ -64,7 +67,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
             child: ScrollablePositionedList.separated(
               separatorBuilder: (context, index) =>
                   Divider(color: ColorConfig.primaryColor),
-              itemScrollController: widget.scrollController,
+              itemScrollController: scrollController,
               itemCount: quranProvider.selectedSuraContent.length +
                   (quranProvider.selectedSura != 1 &&
                           quranProvider.selectedSura != 9

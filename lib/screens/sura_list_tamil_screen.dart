@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
-import 'package:tamil_quran/screens/read_sura_screen.dart';
+import 'package:tamil_quran/screens/sura_translation_screen.dart';
 import '../providers/quran_provider.dart';
 
 class SuraListTamilScreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ReadSuraScreen(
+                  builder: (context) => SuraTranslationScreen(
                         goToVerse: verse!,
                       )));
         },
@@ -95,7 +95,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ReadSuraScreen(),
+                  builder: (context) => const SuraTranslationScreen(),
                 ),
               );
             },

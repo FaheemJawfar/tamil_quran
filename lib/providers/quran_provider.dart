@@ -29,6 +29,11 @@ class QuranProvider extends ChangeNotifier {
   }
 
 
+  String get selectedSuraName {
+    return _suraList[_selectedSura - 1].tamilName;
+  }
+
+
   void loadQuranData() async {
     final db = await DatabaseHelper().database;
     List<Map<String, dynamic>> queryResult = await db.query('quran_db_all');
