@@ -37,8 +37,8 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   }
 
   void _updateLastSeen(int suraNumber, int verseNumber) {
-    Preferences.setInt('lastSeenSura', suraNumber);
-    Preferences.setInt('lastSeenVerse', verseNumber);
+    AppPreferences.setInt('lastSeenSura', suraNumber);
+    AppPreferences.setInt('lastSeenVerse', verseNumber);
   }
 
   void scrollToVerse() {

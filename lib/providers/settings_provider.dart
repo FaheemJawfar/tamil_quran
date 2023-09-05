@@ -5,10 +5,10 @@ class SettingsProvider extends ChangeNotifier {
 
   String _tamilFont = 'MUktaMalar';
 
-  String get tamilFont => Preferences.getString('tamilFont') ?? _tamilFont;
+  String get tamilFont => AppPreferences.getString('tamilFont') ?? _tamilFont;
 
   set tamilFont (String value) {
-    Preferences.setString('tamilFont', value);
+    AppPreferences.setString('tamilFont', value);
     _tamilFont = value;
     notifyListeners();
   }
@@ -16,20 +16,20 @@ class SettingsProvider extends ChangeNotifier {
 
   String _arabicFont = 'AlQalam';
 
-  String get arabicFont => Preferences.getString('arabicFont') ?? _arabicFont;
+  String get arabicFont => AppPreferences.getString('arabicFont') ?? _arabicFont;
 
   set arabicFont (String value) {
-    Preferences.setString('arabicFont', value);
+    AppPreferences.setString('arabicFont', value);
     _arabicFont = value;
     notifyListeners();
   }
 
 
   double _tamilFontSize = 18;
-  double get tamilFontSize => Preferences.getDouble('tamilFontSize') ?? _tamilFontSize;
+  double get tamilFontSize => AppPreferences.getDouble('tamilFontSize') ?? _tamilFontSize;
 
   set tamilFontSize (double value) {
-    Preferences.setDouble('tamilFontSize', value);
+    AppPreferences.setDouble('tamilFontSize', value);
     _tamilFontSize = value;
     notifyListeners();
   }
@@ -37,26 +37,26 @@ class SettingsProvider extends ChangeNotifier {
 
   double _arabicFontSize = 20;
 
-  double get arabicFontSize => Preferences.getDouble('arabicFontSize') ?? _arabicFontSize;
+  double get arabicFontSize => AppPreferences.getDouble('arabicFontSize') ?? _arabicFontSize;
 
   set arabicFontSize (double value) {
-    Preferences.setDouble('arabicFontSize', value);
+    AppPreferences.setDouble('arabicFontSize', value);
     _arabicFontSize = value;
     notifyListeners();
   }
 
 
   String _selectedTranslation = 'mJohn';
-  String get selectedTranslation => Preferences.getString('selectedTranslation') ?? _selectedTranslation;
+  String get selectedTranslation => AppPreferences.getString('selectedTranslation') ?? _selectedTranslation;
 
   set selectedTranslation (String value) {
-    Preferences.setString('selectedTranslation', value);
+    AppPreferences.setString('selectedTranslation', value);
     _selectedTranslation = value;
     notifyListeners();
   }
 
   void clearSettings() {
-    Preferences.clear();
+    AppPreferences.clear();
     _tamilFont = 'MUktaMalar';
     _arabicFont = 'AlQalam';
     _tamilFontSize = 18;

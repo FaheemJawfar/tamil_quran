@@ -29,11 +29,11 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
   }
 
   Widget _buildContinueReadingButton() {
-    if (Preferences.getInt('lastSeenVerse') != null) {
+    if (AppPreferences.getInt('lastSeenVerse') != null) {
       return OutlinedButton(
         onPressed: () {
-          int? sura = Preferences.getInt('lastSeenSura');
-          int? verse = Preferences.getInt('lastSeenVerse');
+          int? sura = AppPreferences.getInt('lastSeenSura');
+          int? verse = AppPreferences.getInt('lastSeenVerse');
 
           quranProvider.selectedSura = sura!;
           Navigator.push(

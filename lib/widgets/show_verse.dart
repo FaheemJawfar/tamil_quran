@@ -44,15 +44,6 @@ class _ShowVerseState extends State<ShowVerse> {
                 color: Colors.green.shade100,
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                   PopupMenuItem<String>(
-                    value: 'copy',
-                    onTap: () {
-                      VerseHelper.copyToClipboard(
-                          VerseHelper.getVerseCopy(widget.verseModel, 'copy'),
-                          context);
-                    },
-                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
-                  ),
-                  PopupMenuItem<String>(
                     onTap: () {
                       VerseHelper.shareVerse(
                           VerseHelper.getVerseCopy(widget.verseModel, 'copy'));
@@ -71,6 +62,15 @@ class _ShowVerseState extends State<ShowVerse> {
                     },
                     child: getPopupMenuItem(
                         Icons.bookmark_add_outlined, 'Add Bookmark'),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'copy',
+                    onTap: () {
+                      VerseHelper.copyToClipboard(
+                          VerseHelper.getVerseCopy(widget.verseModel, 'copy'),
+                          context);
+                    },
+                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
                   ),
                   PopupMenuItem<String>(
                     onTap: () {

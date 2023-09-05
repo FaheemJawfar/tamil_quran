@@ -50,7 +50,7 @@ class AboutUsScreen extends StatelessWidget {
               ),
 
               const Text(
-                'App developed by:',
+                'App designed & developed by:',
                 style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),

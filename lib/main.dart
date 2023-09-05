@@ -7,8 +7,7 @@ import 'package:tamil_quran/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Preferences.initialize();
- //Preferences.clear();
+  await AppPreferences.initialize();
   runApp(const MyApp());
 }
 
@@ -24,12 +23,13 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Tamil Quran',
+        debugShowCheckedModeBanner: false,
+
         theme: ThemeData(
           primarySwatch: Colors.green,
           brightness: Brightness.light,
           fontFamily: 'MuktaMalar',
         ),
-        debugShowCheckedModeBanner: false,
         home: const SplashScreen(),
       ),
     );
