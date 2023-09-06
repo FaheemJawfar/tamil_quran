@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class RateApp extends StatefulWidget {
@@ -17,7 +16,7 @@ class _RateAppState extends State<RateApp> {
 
     try {
       await launchUrlString("market://details?id=$appId");
-    } catch(e) {
+    } catch (e) {
       throw 'Could not launch ${e.toString()}';
     }
   }
@@ -96,7 +95,7 @@ class _RateAppState extends State<RateApp> {
             }),
           ),
           Text(
-            selectedRating == 5 ? 'Rate us 5 stars!' : 'Give us your feedback',
+            selectedRating == 5 ? 'Rate us 5 stars on Play Store!' : 'Please give your feedback',
             style: const TextStyle(
                 fontWeight: FontWeight.bold),
           ),
