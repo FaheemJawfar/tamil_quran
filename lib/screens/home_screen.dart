@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/quran_audio_screen.dart';
 import 'package:tamil_quran/screens/search_screen.dart';

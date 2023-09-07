@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/helpers/show_toast.dart';
 import 'package:tamil_quran/models/sura_list.dart';
 import 'package:tamil_quran/models/verse.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
-
 import '../providers/settings_provider.dart';
 
 class VerseHelper {

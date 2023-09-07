@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class AboutUsScreen extends StatelessWidget {
+class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({super.key});
 
+  @override
+  State<AboutUsScreen> createState() => _AboutUsScreenState();
+}
+
+class _AboutUsScreenState extends State<AboutUsScreen> {
+  String appVersion = '1.0';
+
+
+
+  @override
+  void initState() {
+    getVersion();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +48,7 @@ class AboutUsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                'Version 2.0',
+                'Version $appVersion',
                 style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
               ),
               const SizedBox(height: 10),
@@ -88,5 +103,12 @@ class AboutUsScreen extends StatelessWidget {
     } catch (e) {
       debugPrint('Error Launching WhatsApp');
     }
+  }
+
+  void getVersion() async{
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = packageInfo.version;
+    });
   }
 }
