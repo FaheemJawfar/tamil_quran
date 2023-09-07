@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tamil_quran/helpers/show_toast.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class RateApp extends StatefulWidget {
@@ -10,6 +12,7 @@ class RateApp extends StatefulWidget {
 
 class _RateAppState extends State<RateApp> {
   int selectedRating = 0;
+  final feedbackController = TextEditingController();
 
   void _launchPlayStore() async {
     const appId = 'com.faheemapps.tamil_quran';
@@ -27,8 +30,9 @@ class _RateAppState extends State<RateApp> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Feedback'),
-          content: const TextField(
-            decoration: InputDecoration(hintText: 'Enter your feedback here'),
+          content: TextField(
+            controller: feedbackController,
+            decoration: const InputDecoration(hintText: 'Enter your feedback here'),
             maxLines: 3,
           ),
           actions: [
@@ -40,8 +44,12 @@ class _RateAppState extends State<RateApp> {
             ),
             TextButton(
               onPressed: () {
-                // Implement feedback submission logic here
-                Navigator.of(context).pop();
+                if(feedbackController.text.isNotEmpty) {
+                  _launchEmail();
+                  Navigator.of(context).pop();
+                } else {
+                  ShowToast.showToast(context, 'Please enter your feedback to submit!');
+                }
               },
               child: const Text('Submit'),
             ),
@@ -49,6 +57,31 @@ class _RateAppState extends State<RateApp> {
         );
       },
     );
+  }
+
+  void _launchEmail() async {
+
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+      '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'faheemjawfar@gmail.com',
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Tamil Quran App - Feedback',
+        'body': feedbackController.text,
+      }),
+    );
+
+    try {
+      await launchUrl(emailLaunchUri);
+    } catch(e) {
+      throw 'Could not launch $e';
+    }
   }
 
   @override
