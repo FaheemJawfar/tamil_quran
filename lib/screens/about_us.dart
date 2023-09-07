@@ -55,7 +55,7 @@ class AboutUsScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const Text(
-                ' - J. பஹீம்',
+                ' - J. பஹீம் ( Software Engineer )',
                 style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),

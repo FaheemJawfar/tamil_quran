@@ -27,11 +27,11 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
           ),
           PopupMenuItem<String>(
             value: 'share_app',
-            child: getPopupMenuItem(Icons.share, 'Share App'),
+            child: getPopupMenuItem(Icons.share, 'Share this App'),
           ),
           PopupMenuItem<String>(
             value: 'rate_app',
-            child: getPopupMenuItem(Icons.share, 'Rate App'),
+            child: getPopupMenuItem(Icons.share, 'Rate this App'),
           ),
           PopupMenuItem<String>(
             value: 'about_us',
