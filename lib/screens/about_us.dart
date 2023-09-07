@@ -23,7 +23,7 @@ class AboutUsScreen extends StatelessWidget {
               CircleAvatar(
                 radius: 40,
                 backgroundColor: ColorConfig.backgroundColor,
-                backgroundImage: AssetImage('assets/icon/quran_icon.png'),
+                backgroundImage: const AssetImage('assets/icon/quran_icon.png'),
               ),
               const SizedBox(height: 20),
               const Text(
