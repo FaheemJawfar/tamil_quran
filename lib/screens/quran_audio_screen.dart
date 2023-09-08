@@ -15,12 +15,8 @@ class QuranAudioPlayerScreen extends StatefulWidget {
 
 class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   late final quranProvider = context.read<QuranProvider>();
-
-  @override
-  void initState() {
-    super.initState();
-    _init();
-  }
+  late AudioPlayer _audioPlayer;
+  int selectedSuraIndex = 0;
 
   final progressNotifier = ValueNotifier<ProgressBarState>(
     ProgressBarState(
@@ -29,19 +25,28 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       total: Duration.zero,
     ),
   );
+
   final buttonNotifier = ValueNotifier<ButtonState>(ButtonState.paused);
 
-  // String  url = getAudioURLBySurah(1);
 
-  late AudioPlayer _audioPlayer;
-  int selectedSuraIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _audioPlayer.dispose();
+  }
+
+  // String  url = getAudioURLBySurah(1);
 
   void _init() async {
     _audioPlayer = AudioPlayer();
     try {
       await _audioPlayer.setUrl(getAudioURLBySurah(selectedSuraIndex + 1));
-      // print('\$' * 100);
-      // print(_audioPlayer.duration);
 
       _audioPlayer.playerStateStream.listen((playerState) {
         final isPlaying = playerState.playing;
@@ -102,11 +107,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     _audioPlayer.seek(position);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _audioPlayer.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
