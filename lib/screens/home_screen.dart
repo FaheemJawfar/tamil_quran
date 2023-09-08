@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late final _tabController = TabController(length: 4, vsync: this);
+  late final _tabController = TabController(length: 3, vsync: this);
   late String _appBarTitle = getAppbarTitle();
 
 
@@ -42,15 +42,12 @@ class _HomeScreenState extends State<HomeScreen>
   String getAppbarTitle() {
     switch (_tabController.index) {
       case 0:
-        return 'திருக்குர்ஆன் மொழிபெயர்ப்பு';
+        return 'மொழிபெயர்ப்பு';
 
       case 1:
-        return 'திருக்குர்ஆன் - அரபு மூலம்';
+        return 'அரபு மூலம்';
 
       case 2:
-        return 'திருக்குர்ஆன் - கிராஅத்';
-
-      case 3:
         return 'புத்தகக்குறிகள்';
 
       default:
@@ -83,11 +80,26 @@ class _HomeScreenState extends State<HomeScreen>
                         builder: (context) => const SearchScreen()));
               },
               icon: const Icon(Icons.search_sharp)),
+
+
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const QuranAudioPlayerScreen()));
+            },
+            icon: ImageIcon(
+              AssetImage('assets/images/audio-book.png'),
+            ),),
+
           IconButton(
               onPressed: () {
                 _showVersePicker(context);
               },
               icon: const Icon(Icons.shuffle_sharp)),
+
+
           const HomeScreenPopupMenu(),
         ],
         bottom: TabBar(
@@ -103,11 +115,11 @@ class _HomeScreenState extends State<HomeScreen>
                 AssetImage('assets/images/read_quran.png'),
               ),
             ),
-            Tab(
-              icon: ImageIcon(
-                AssetImage('assets/images/audio-book.png'),
-              ),
-            ),
+            // Tab(
+            //   icon: ImageIcon(
+            //     AssetImage('assets/images/audio-book.png'),
+            //   ),
+            // ),
             Tab(icon: Icon(Icons.bookmarks)),
           ],
         ),
@@ -117,7 +129,6 @@ class _HomeScreenState extends State<HomeScreen>
         children: const [
           SuraListTamilScreen(),
           SuraListArabicScreen(),
-          QuranAudioPlayerScreen(),
           BookmarksScreen(),
         ],
       ),
