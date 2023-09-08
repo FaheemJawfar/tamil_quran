@@ -13,13 +13,31 @@ class AboutUsScreen extends StatefulWidget {
 class _AboutUsScreenState extends State<AboutUsScreen> {
   String appVersion = '1.0';
 
-
-
   @override
   void initState() {
     getVersion();
     super.initState();
   }
+
+
+  void _openWhatsApp() async {
+    const phoneNumber = '94774106399';
+
+    try {
+      await launchUrlString('whatsapp://send?phone=$phoneNumber');
+    } catch (e) {
+      debugPrint('Error Launching WhatsApp');
+    }
+  }
+
+  void getVersion() async{
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = packageInfo.version;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,22 +111,5 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
         ),
       ),
     );
-  }
-
-  void _openWhatsApp() async {
-    const phoneNumber = '94774106399';
-
-    try {
-      await launchUrlString('whatsapp://send?phone=$phoneNumber');
-    } catch (e) {
-      debugPrint('Error Launching WhatsApp');
-    }
-  }
-
-  void getVersion() async{
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      appVersion = packageInfo.version;
-    });
   }
 }
