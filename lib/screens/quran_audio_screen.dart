@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:quran/quran.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
+import 'package:tamil_quran/providers/settings_provider.dart';
+
+import '../widgets/home_popup_menu.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
   const QuranAudioPlayerScreen({Key? key}) : super(key: key);
@@ -14,7 +17,8 @@ class QuranAudioPlayerScreen extends StatefulWidget {
 }
 
 class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
-  late final quranProvider = context.read<QuranProvider>();
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
+  late final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
   late AudioPlayer _audioPlayer;
   int selectedSuraIndex = 0;
 
@@ -33,6 +37,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   void initState() {
     super.initState();
     _init();
+    settingsProvider.allReciters;
   }
 
   @override
@@ -112,6 +117,15 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
+      appBar: AppBar(
+        title: FittedBox(
+            fit: BoxFit.contain,
+            child: Text('கிராஅத் - ${settingsProvider.selectedReciter}')),
+
+        actions: const [
+          HomeScreenPopupMenu(),
+        ],
+      ),
       body: ListView.builder(
         itemCount: quranProvider.suraList.length,
         itemBuilder: (context, index) {

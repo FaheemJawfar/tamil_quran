@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
+
+import '../models/reciter.dart';
 
 class SettingsProvider extends ChangeNotifier {
 
@@ -55,6 +60,24 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String _selectedReciter = 'ar.alafasy';
+  String get selectedReciter => AppPreferences.getString('selectedReciter') ?? _selectedReciter;
+
+  set selectedReciter (String value) {
+    AppPreferences.setString('selectedReciter', value);
+    _selectedReciter = value;
+    notifyListeners();
+  }
+
+  String? getReciterName(Reciter reciter){
+    return reciter.englishName;
+  }
+
+  List<Reciter> get allReciters {
+    return Reciter.recitersJsonList.map((json) => Reciter.fromJson(json)).toList();
+  }
+
+
   void clearSettings() {
     AppPreferences.clear();
     _tamilFont = 'MUktaMalar';
@@ -62,6 +85,7 @@ class SettingsProvider extends ChangeNotifier {
     _tamilFontSize = 18;
     _arabicFontSize = 20;
     _selectedTranslation = 'mJohn';
+    _selectedReciter = 'ar.alafasy';
     notifyListeners();
   }
 

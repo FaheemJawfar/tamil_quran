@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen>
                   MaterialPageRoute(
                       builder: (context) => const QuranAudioPlayerScreen()));
             },
-            icon: ImageIcon(
+            icon: const ImageIcon(
               AssetImage('assets/images/audio-book.png'),
             ),),
 
