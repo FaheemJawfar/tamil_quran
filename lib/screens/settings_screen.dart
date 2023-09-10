@@ -76,6 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (newValue) {
                         settingsProvider.arabicFont = newValue!;
                       },
+                      
                       items: [
                         _buildDropDownMenuItem(
                             'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
@@ -173,6 +174,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   )),
 
               _buildDivider(),
+              const SizedBox(height: 20,),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -230,6 +232,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       String text, String fontFamily, double fontSize) {
     return DropdownMenuItem<String>(
       value: fontFamily,
+
       child: Text(
         text,
         style: TextStyle(

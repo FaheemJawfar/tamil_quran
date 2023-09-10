@@ -88,7 +88,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 textAlign: TextAlign.center,
               ),
               const Text(
-                ' - J. பஹீம் ( Software Engineer )',
+                ' - J. பஹீம்',
                 style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
