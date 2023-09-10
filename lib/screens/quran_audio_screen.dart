@@ -2,11 +2,12 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-import 'package:quran/quran.dart';
 import 'package:tamil_quran/config/color_config.dart';
+import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
 
+import '../models/reciter.dart';
 import '../widgets/home_popup_menu.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
@@ -18,7 +19,8 @@ class QuranAudioPlayerScreen extends StatefulWidget {
 
 class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
-  late final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+  late final settingsProvider =
+      Provider.of<SettingsProvider>(context, listen: true);
   late AudioPlayer _audioPlayer;
   int selectedSuraIndex = 0;
 
@@ -32,12 +34,10 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
 
   final buttonNotifier = ValueNotifier<ButtonState>(ButtonState.paused);
 
-
   @override
   void initState() {
     super.initState();
     _init();
-    settingsProvider.allReciters;
   }
 
   @override
@@ -46,12 +46,10 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     _audioPlayer.dispose();
   }
 
-  // String  url = getAudioURLBySurah(1);
-
   void _init() async {
     _audioPlayer = AudioPlayer();
     try {
-      await _audioPlayer.setUrl(getAudioURLBySurah(selectedSuraIndex + 1));
+      await _audioPlayer.setUrl(QuranHelper.getAudioURLBySurah(settingsProvider.selectedReciter, selectedSuraIndex + 1));
 
       _audioPlayer.playerStateStream.listen((playerState) {
         final isPlaying = playerState.playing;
@@ -112,7 +110,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     _audioPlayer.seek(position);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,43 +117,69 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       appBar: AppBar(
         title: FittedBox(
             fit: BoxFit.contain,
-            child: Text('கிராஅத் - ${settingsProvider.selectedReciter}')),
-
-        actions: const [
-          HomeScreenPopupMenu(),
+            child: Text(
+                'கிராஅத் - ${settingsProvider.getRecitersName(settingsProvider.selectedReciter)}')),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ReciterSelectionDialog(
+                      reciters: settingsProvider.allReciters,
+                      selectedReciter: settingsProvider.selectedReciter,
+                      onSelected: (reciterIdentifier) {
+                        settingsProvider.selectedReciter = reciterIdentifier;
+                      },
+                    );
+                  },
+                );
+              },
+              icon: const Icon(Icons.edit)),
+          const HomeScreenPopupMenu(),
         ],
       ),
-      body: ListView.builder(
-        itemCount: quranProvider.suraList.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              '${quranProvider.suraList[index].suraNumber}. ${quranProvider.suraList[index].tamilName}',
-              style: TextStyle(
-                color: selectedSuraIndex == index ? Colors.white : Colors.black,
-              ),
+      body: Column(
+        children: [
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: quranProvider.suraList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    '${quranProvider.suraList[index].suraNumber}. ${quranProvider.suraList[index].tamilName}',
+                    style: TextStyle(
+                      color: selectedSuraIndex == index
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    //print(quranProvider.suraList[index].suraNumber);
+                    setState(() {
+                      selectedSuraIndex = index;
+                      _audioPlayer.dispose();
+                      _init();
+                      play();
+                      //buttonNotifier.value = ButtonState.playing;
+                    });
+                  },
+                  tileColor:
+                      selectedSuraIndex == index ? Colors.green[300] : null,
+                );
+              },
             ),
-            onTap: () {
-              //print(quranProvider.suraList[index].suraNumber);
-              setState(() {
-                selectedSuraIndex = index;
-                _audioPlayer.dispose();
-                _init();
-                play();
-                //buttonNotifier.value = ButtonState.playing;
-              });
-            },
-            tileColor: selectedSuraIndex == index ? Colors.green[300] : null,
-          );
-        },
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
+        margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           color: Colors.green[100],
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(15),
           ),
         ),
         child: Column(
@@ -219,3 +242,69 @@ class ProgressBarState {
 }
 
 enum ButtonState { paused, playing, loading }
+
+class ReciterSelectionDialog extends StatefulWidget {
+  final List<Reciter> reciters;
+  final String selectedReciter;
+  final ValueChanged<String> onSelected;
+
+  const ReciterSelectionDialog({
+    required this.reciters,
+    required this.selectedReciter,
+    required this.onSelected,
+    super.key,
+  });
+
+  @override
+  State<ReciterSelectionDialog> createState() => _ReciterSelectionDialogState();
+}
+
+class _ReciterSelectionDialogState extends State<ReciterSelectionDialog> {
+  late String selectedReciter;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedReciter = widget.selectedReciter;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select a Reciter'),
+      content: SizedBox(
+        width: double.maxFinite,
+        child: ListView(
+          shrinkWrap: true,
+          children: widget.reciters.map((reciter) {
+            return RadioListTile(
+              title: Text(reciter.name),
+              value: reciter.identifier,
+              groupValue: selectedReciter,
+              onChanged: (value) {
+                setState(() {
+                  selectedReciter = value as String;
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: const Text('Select'),
+          onPressed: () {
+            widget.onSelected(selectedReciter);
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+}

@@ -69,12 +69,14 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? getReciterName(Reciter reciter){
-    return reciter.englishName;
-  }
 
   List<Reciter> get allReciters {
     return Reciter.recitersJsonList.map((json) => Reciter.fromJson(json)).toList();
+  }
+
+  String getRecitersName(String identifier) {
+    Reciter reciter = allReciters.firstWhere((reciter) => reciter.identifier == identifier);
+    return reciter.name;
   }
 
 
