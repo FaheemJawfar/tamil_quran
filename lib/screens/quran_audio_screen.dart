@@ -6,9 +6,8 @@ import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
-
-import '../models/reciter.dart';
 import '../widgets/home_popup_menu.dart';
+import '../widgets/reciter_selection_dialog.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
   const QuranAudioPlayerScreen({Key? key}) : super(key: key);
@@ -118,7 +117,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         title: FittedBox(
             fit: BoxFit.contain,
             child: Text(
-                'கிராஅத் - ${settingsProvider.getRecitersName(settingsProvider.selectedReciter)}')),
+                'கிராஅத் - ${settingsProvider.getRecitersName()}')),
         actions: [
           IconButton(
               onPressed: () {
@@ -243,68 +242,3 @@ class ProgressBarState {
 
 enum ButtonState { paused, playing, loading }
 
-class ReciterSelectionDialog extends StatefulWidget {
-  final List<Reciter> reciters;
-  final String selectedReciter;
-  final ValueChanged<String> onSelected;
-
-  const ReciterSelectionDialog({
-    required this.reciters,
-    required this.selectedReciter,
-    required this.onSelected,
-    super.key,
-  });
-
-  @override
-  State<ReciterSelectionDialog> createState() => _ReciterSelectionDialogState();
-}
-
-class _ReciterSelectionDialogState extends State<ReciterSelectionDialog> {
-  late String selectedReciter;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedReciter = widget.selectedReciter;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Select a Reciter'),
-      content: SizedBox(
-        width: double.maxFinite,
-        child: ListView(
-          shrinkWrap: true,
-          children: widget.reciters.map((reciter) {
-            return RadioListTile(
-              title: Text(reciter.name),
-              value: reciter.identifier,
-              groupValue: selectedReciter,
-              onChanged: (value) {
-                setState(() {
-                  selectedReciter = value as String;
-                });
-              },
-            );
-          }).toList(),
-        ),
-      ),
-      actions: <Widget>[
-        TextButton(
-          child: const Text('Cancel'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: const Text('Select'),
-          onPressed: () {
-            widget.onSelected(selectedReciter);
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
-    );
-  }
-}

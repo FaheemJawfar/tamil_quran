@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
-
 import '../models/reciter.dart';
 
 class SettingsProvider extends ChangeNotifier {
@@ -74,8 +70,8 @@ class SettingsProvider extends ChangeNotifier {
     return Reciter.recitersJsonList.map((json) => Reciter.fromJson(json)).toList();
   }
 
-  String getRecitersName(String identifier) {
-    Reciter reciter = allReciters.firstWhere((reciter) => reciter.identifier == identifier);
+  String getRecitersName() {
+    Reciter reciter = allReciters.firstWhere((reciter) => reciter.identifier == _selectedReciter);
     return reciter.name;
   }
 

@@ -145,15 +145,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                 color: Colors.green.shade100,
                                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                                   PopupMenuItem<String>(
-                                    value: 'copy',
-                                    onTap: () {
-                                      VerseHelper.copyToClipboard(
-                                          VerseHelper.getVerseCopy(verse, 'copy'),
-                                          context);
-                                    },
-                                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
-                                  ),
-                                  PopupMenuItem<String>(
                                     onTap: () {
                                       VerseHelper.shareVerse(
                                           VerseHelper.getVerseCopy(verse, 'copy'));
@@ -172,6 +163,15 @@ class _SearchScreenState extends State<SearchScreen> {
                                     },
                                     child: getPopupMenuItem(
                                         Icons.bookmark_add_outlined, 'Add Bookmark'),
+                                  ),
+                                  PopupMenuItem<String>(
+                                    value: 'copy',
+                                    onTap: () {
+                                      VerseHelper.copyToClipboard(
+                                          VerseHelper.getVerseCopy(verse, 'copy'),
+                                          context);
+                                    },
+                                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
                                   ),
                                   PopupMenuItem<String>(
                                     onTap: () {

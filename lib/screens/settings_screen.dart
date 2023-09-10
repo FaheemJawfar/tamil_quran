@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import '../providers/settings_provider.dart';
+import '../widgets/reciter_selection_dialog.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -148,6 +149,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
               _buildDivider(),
+              _buildHeader('கிராஅத் ஓதுபவரைத் தேர்வு செய்க!'),
+              OutlinedButton.icon(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ReciterSelectionDialog(
+                          reciters: settingsProvider.allReciters,
+                          selectedReciter: settingsProvider.selectedReciter,
+                          onSelected: (reciterIdentifier) {
+                            settingsProvider.selectedReciter =
+                                reciterIdentifier;
+                          },
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.record_voice_over),
+                  label: Text(
+                    settingsProvider.getRecitersName(),
+                    style: const TextStyle(color: Colors.black),
+                  )),
+
+              _buildDivider(),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -163,7 +189,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         backgroundColor:
                             Colors.red.shade400, // Background color
                       ),
-                      label: const Text('Reset'))
+                      label: const Text('Reset')),
                 ],
               )
             ],
