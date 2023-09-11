@@ -6,7 +6,9 @@ import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
+import '../models/reciter.dart';
 import '../widgets/home_popup_menu.dart';
+import '../widgets/pop_up_selector.dart';
 import '../widgets/reciter_selection_dialog.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
@@ -117,18 +119,23 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         title: FittedBox(
             fit: BoxFit.contain,
             child: Text(
-                'கிராஅத் - ${settingsProvider.getRecitersName()}')),
+                'கிராஅத் - ${settingsProvider.getSelectedReciterDetails.englishName}')),
         actions: [
           IconButton(
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return ReciterSelectionDialog(
-                      reciters: settingsProvider.allReciters,
-                      selectedReciter: settingsProvider.selectedReciter,
-                      onSelected: (reciterIdentifier) {
-                        settingsProvider.selectedReciter = reciterIdentifier;
+                    return PopupSelector<Reciter>(
+                      listOfItems: settingsProvider.allReciters,
+                      selectedItem: settingsProvider.getSelectedReciterDetails,
+                      onSelected: (Reciter? reciter) {
+                        if (reciter != null) {
+                          settingsProvider.selectedReciter = reciter.identifier;
+                        }
+                      },
+                      displayNameExtractor: (item) {
+                        return item.englishName;
                       },
                     );
                   },

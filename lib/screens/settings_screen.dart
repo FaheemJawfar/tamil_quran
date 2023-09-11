@@ -26,8 +26,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              //Changed Version
+              Text('மொழிபெயர்ப்பைத் தெரிவு செய்க!'),
+              ListTile(
+                leading: Icon(Icons.language),
+                title: Text('முஹம்மது ஜான் தமிழாக்கம்'),
+                onTap: () {
+                  print('tapped');
+                },
+              ),
+
+              Divider(thickness: 4,),
               /// TODO: Enable or Disable Dark mode
               _buildHeader('மொழிபெயர்ப்பைத் தெரிவு செய்க!'),
               Column(
@@ -169,7 +181,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                   icon: const Icon(Icons.record_voice_over),
                   label: Text(
-                    settingsProvider.getRecitersName(),
+                    settingsProvider.getSelectedReciterDetails.englishName,
                     style: const TextStyle(color: Colors.black),
                   )),
 
