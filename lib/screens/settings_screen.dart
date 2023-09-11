@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
+import '../models/reciter.dart';
 import '../providers/settings_provider.dart';
-import '../widgets/reciter_selection_dialog.dart';
+import '../widgets/pop_up_selector.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -168,12 +169,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return ReciterSelectionDialog(
-                          reciters: settingsProvider.allReciters,
-                          selectedReciter: settingsProvider.selectedReciter,
-                          onSelected: (reciterIdentifier) {
-                            settingsProvider.selectedReciter =
-                                reciterIdentifier;
+                        return PopupSelector<Reciter>(
+                          listOfItems: settingsProvider.allReciters,
+                          selectedItem: settingsProvider.getSelectedReciterDetails,
+                          onSelected: (Reciter? reciter) {
+                            if (reciter != null) {
+                              settingsProvider.selectedReciter = reciter.identifier;
+                            }
+                          },
+                          displayNameExtractor: (item) {
+                            return item.englishName;
                           },
                         );
                       },

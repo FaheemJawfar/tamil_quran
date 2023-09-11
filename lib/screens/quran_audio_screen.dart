@@ -9,7 +9,6 @@ import 'package:tamil_quran/providers/settings_provider.dart';
 import '../models/reciter.dart';
 import '../widgets/home_popup_menu.dart';
 import '../widgets/pop_up_selector.dart';
-import '../widgets/reciter_selection_dialog.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
   const QuranAudioPlayerScreen({Key? key}) : super(key: key);
