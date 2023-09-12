@@ -29,18 +29,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              //Changed Version
-              Text('மொழிபெயர்ப்பைத் தெரிவு செய்க!'),
-              ListTile(
-                leading: Icon(Icons.language),
-                title: Text('முஹம்மது ஜான் தமிழாக்கம்'),
-                onTap: () {
-                  print('tapped');
-                },
+              _buildDivider(),
+              _buildOption(Icon(Icons.language), 'தமிழ் மொழிபெயர்ப்பு', 'முஹம்மது ஜான் தமிழாக்கம்'),
+              _buildDivider(),
+              _buildOptionImageIcon(ImageIcon(AssetImage('assets/images/tamil.png')), 'தமிழ் எழுத்துரு ( Tamil Font )', 'அல்லாஹ்வின் திருப்பெயரால்...',
+                settingsProvider.tamilFont
+              ),
+              _buildDivider(),
+              _buildOptionImageIcon(ImageIcon(AssetImage('assets/images/arabic.png')), 'அரபு எழுத்துரு ( Arabic Font )', 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                  settingsProvider.arabicFont
               ),
 
-              Divider(thickness: 4,),
+              _buildDivider(),
+              _buildOption(Icon(Icons.text_fields), 'தமிழ் எழுத்து அளவு ( Tamil Font Size)', settingsProvider.tamilFontSize.floor().toString(),
+              ),
+
+
+              _buildDivider(),
+              _buildOption(Icon(Icons.text_fields), 'அரபு எழுத்து அளவு ( Arabic Font Size)', settingsProvider.arabicFontSize.floor().toString(),
+              ),
+
               /// TODO: Enable or Disable Dark mode
               _buildHeader('மொழிபெயர்ப்பைத் தெரிவு செய்க!'),
               Column(
@@ -263,6 +271,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildDivider() {
     return Divider(
       color: ColorConfig.primaryColor,
+    );
+  }
+
+
+  Widget _buildOption(Icon icon, String option, String value,
+  [String? subtitleFont]){
+
+    return ListTile(
+      leading: icon,
+      title: Text(option),
+      subtitle: Text(value, style: TextStyle(fontFamily: subtitleFont),),
+      onTap: () {
+        print('tapped');
+      },
+    );
+  }
+
+  Widget _buildOptionImageIcon(ImageIcon imageIcon, String option, String value,
+      [String? subtitleFont]){
+
+    return ListTile(
+      leading: imageIcon,
+      title: Text(option),
+      subtitle: Text(value, style: TextStyle(fontFamily: subtitleFont),),
+      onTap: () {
+        print('tapped');
+      },
     );
   }
 }
