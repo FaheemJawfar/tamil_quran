@@ -126,20 +126,8 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    // return PopupSelector<Reciter>(
-                    //   listOfItems: settingsProvider.allReciters,
-                    //   selectedItem: settingsProvider.getSelectedReciterDetails,
-                    //   onSelected: (Reciter? reciter) {
-                    //     if (reciter != null) {
-                    //       settingsProvider.selectedReciter = reciter.identifier;
-                    //     }
-                    //   },
-                    //   displayNameExtractor: (item) {
-                    //     return item.englishName;
-                    //   },
-                    // );
 
-                    return ReciterSelectionDialog(
+                    return ReciterSelectorPopup(
                         reciters: settingsProvider.allReciters,
                         selectedReciter: settingsProvider.getSelectedReciterDetails.identifier,
                         onSelected: (value) {

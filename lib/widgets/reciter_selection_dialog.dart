@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../models/reciter.dart';
 
 
-class ReciterSelectionDialog extends StatefulWidget {
+class ReciterSelectorPopup extends StatefulWidget {
   final List<Reciter> reciters;
   final String selectedReciter;
   final ValueChanged<String> onSelected;
 
-  const ReciterSelectionDialog({
+  const ReciterSelectorPopup({
     required this.reciters,
     required this.selectedReciter,
     required this.onSelected,
@@ -15,10 +15,10 @@ class ReciterSelectionDialog extends StatefulWidget {
   });
 
   @override
-  State<ReciterSelectionDialog> createState() => _ReciterSelectionDialogState();
+  State<ReciterSelectorPopup> createState() => _ReciterSelectorPopupState();
 }
 
-class _ReciterSelectionDialogState extends State<ReciterSelectionDialog> {
+class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
   late String selectedReciter;
 
   @override
