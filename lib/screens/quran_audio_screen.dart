@@ -6,6 +6,7 @@ import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
+import 'package:tamil_quran/widgets/reciter_selection_dialog.dart';
 import '../models/reciter.dart';
 import '../widgets/home_popup_menu.dart';
 import '../widgets/pop_up_selector.dart';
@@ -125,18 +126,25 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return PopupSelector<Reciter>(
-                      listOfItems: settingsProvider.allReciters,
-                      selectedItem: settingsProvider.getSelectedReciterDetails,
-                      onSelected: (Reciter? reciter) {
-                        if (reciter != null) {
-                          settingsProvider.selectedReciter = reciter.identifier;
-                        }
-                      },
-                      displayNameExtractor: (item) {
-                        return item.englishName;
-                      },
-                    );
+                    // return PopupSelector<Reciter>(
+                    //   listOfItems: settingsProvider.allReciters,
+                    //   selectedItem: settingsProvider.getSelectedReciterDetails,
+                    //   onSelected: (Reciter? reciter) {
+                    //     if (reciter != null) {
+                    //       settingsProvider.selectedReciter = reciter.identifier;
+                    //     }
+                    //   },
+                    //   displayNameExtractor: (item) {
+                    //     return item.englishName;
+                    //   },
+                    // );
+
+                    return ReciterSelectionDialog(
+                        reciters: settingsProvider.allReciters,
+                        selectedReciter: settingsProvider.getSelectedReciterDetails.identifier,
+                        onSelected: (value) {
+                          settingsProvider.selectedReciter = value;
+                        },);
                   },
                 );
               },

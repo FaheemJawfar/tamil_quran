@@ -70,9 +70,8 @@ class SettingsProvider extends ChangeNotifier {
     return Reciter.recitersJsonList.map((json) => Reciter.fromJson(json)).toList();
   }
 
-  Reciter  get getSelectedReciterDetails  {
-    Reciter reciter = allReciters.firstWhere((reciter) => reciter.identifier == _selectedReciter);
-    return reciter;
+  Reciter get getSelectedReciterDetails  {
+    return allReciters.firstWhere((reciter) => reciter.identifier == selectedReciter);
   }
 
 

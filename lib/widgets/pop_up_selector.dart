@@ -38,9 +38,8 @@ class _PopupSelectorState<T> extends State<PopupSelector<T>> {
         child: ListView(
           shrinkWrap: true,
           children: widget.listOfItems.map((item) {
-            final displayName = widget.displayNameExtractor(item);
             return RadioListTile<T>(
-              title: Text(displayName),
+              title: Text(widget.displayNameExtractor(item)),
               value: item,
               groupValue: selectedItem,
               onChanged: (value) {
