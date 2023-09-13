@@ -16,6 +16,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late final settingsProvider =
       Provider.of<SettingsProvider>(context, listen: true);
 
+  Map<String, String> translations = {
+    'mJohn': 'முஹம்மது ஜான் தமிழாக்கம்',
+    'kingFahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா',
+    'ift': 'இஸ்லாமிய நிறுவனம் ட்ரஸ்ட்',
+    'abdulHameed': 'அப்துல் ஹமீது பாகவி',
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,41 +36,80 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDivider(),
-              _buildOption(Icon(Icons.language), 'தமிழ் மொழிபெயர்ப்பு', 'முஹம்மது ஜான் தமிழாக்கம்'),
-              _buildDivider(),
-              _buildOptionImageIcon(ImageIcon(AssetImage('assets/images/tamil.png')), 'தமிழ் எழுத்துரு ( Tamil Font )', 'அல்லாஹ்வின் திருப்பெயரால்...',
-                settingsProvider.tamilFont
+              ListTile(
+                leading: const Icon(Icons.language),
+                title: const Text('தமிழ் மொழிபெயர்ப்பு'),
+                subtitle: Text(
+                  translations[settingsProvider.selectedTranslation]!,
+                ),
+                onTap: () {
+                  _showPopup(ShowTranslationSelector(
+                    translations: translations,
+                    selectedTranslation: settingsProvider.selectedTranslation,
+                    onSelected: (value) {
+                      settingsProvider.selectedTranslation = value;
+                    },
+                  ));
+                },
               ),
               _buildDivider(),
-              _buildOptionImageIcon(ImageIcon(AssetImage('assets/images/arabic.png')), 'அரபு எழுத்துரு ( Arabic Font )', 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                  settingsProvider.arabicFont
+              _buildOptionImageIcon(
+                const ImageIcon(AssetImage('assets/images/tamil.png')),
+                'தமிழ் எழுத்துரு ( Tamil Font )',
+                'அல்லாஹ்வின் திருப்பெயரால்...',
+                settingsProvider.tamilFont,
+              ),
+              _buildDivider(),
+              _buildOptionImageIcon(
+                const ImageIcon(AssetImage('assets/images/arabic.png')),
+                'அரபு எழுத்துரு ( Arabic Font )',
+                'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                settingsProvider.arabicFont,
               ),
 
               _buildDivider(),
-              _buildOption(Icon(Icons.text_fields), 'தமிழ் எழுத்து அளவு ( Tamil Font Size)', settingsProvider.tamilFontSize.floor().toString(),
-              ),
 
+              ListTile(
+                leading: const Icon(Icons.text_fields),
+                title: const Text('தமிழ் எழுத்து அளவு ( Tamil Font Size)'),
+                subtitle: Text(
+                  settingsProvider.tamilFontSize.floor().toString(),
+                ),
+                onTap: () {
+                  print('tapped');
+                },
+              ),
 
               _buildDivider(),
-              _buildOption(Icon(Icons.text_fields), 'அரபு எழுத்து அளவு ( Arabic Font Size)', settingsProvider.arabicFontSize.floor().toString(),
-              ),
 
-              /// TODO: Enable or Disable Dark mode
-              _buildHeader('மொழிபெயர்ப்பைத் தெரிவு செய்க!'),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildTranslationSelector(
-                      'முஹம்மது ஜான் தமிழாக்கம்', 'mJohn'),
-                  _buildTranslationSelector(
-                      'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா', 'kingFahd'),
-                  _buildTranslationSelector('இஸ்லாமிய நிறுவனம் ட்ரஸ்ட்', 'ift'),
-                  _buildTranslationSelector(
-                      'அப்துல் ஹமீது பாகவி', 'abdulHameed'),
-                ],
+              ListTile(
+                leading: const Icon(Icons.text_fields),
+                title: const Text(
+                  'அரபு எழுத்து அளவு ( Arabic Font Size)',
+                ),
+                subtitle: Text(
+                  settingsProvider.arabicFontSize.floor().toString(),
+                ),
+                onTap: () {
+                  print('tapped');
+                },
               ),
               _buildDivider(),
+
+              ListTile(
+                leading: const Icon(Icons.record_voice_over),
+                title: const Text('குர்ஆன் - கிராஅத் ( ஓதுபவர் )'),
+                subtitle: Text(
+                  settingsProvider.getSelectedReciterDetails.englishName,
+                ),
+                onTap: () {
+                  print('tapped');
+                },
+              ),
+
+              /// TODO: Delete all below
+
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -97,7 +143,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (newValue) {
                         settingsProvider.arabicFont = newValue!;
                       },
-                      
                       items: [
                         _buildDropDownMenuItem(
                             'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
@@ -179,10 +224,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (BuildContext context) {
                         return PopupSelector<Reciter>(
                           listOfItems: settingsProvider.allReciters,
-                          selectedItem: settingsProvider.getSelectedReciterDetails,
+                          selectedItem:
+                              settingsProvider.getSelectedReciterDetails,
                           onSelected: (Reciter? reciter) {
                             if (reciter != null) {
-                              settingsProvider.selectedReciter = reciter.identifier;
+                              settingsProvider.selectedReciter =
+                                  reciter.identifier;
                             }
                           },
                           displayNameExtractor: (item) {
@@ -199,7 +246,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   )),
 
               _buildDivider(),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -237,27 +286,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildTranslationSelector(String title, String value) {
-    return RadioListTile<String>(
-      contentPadding: EdgeInsets.zero,
-      dense: true,
-      title: Text(
-        title,
-        style: const TextStyle(fontSize: 15),
-      ),
-      value: value,
-      groupValue: settingsProvider.selectedTranslation,
-      onChanged: (newValue) {
-        settingsProvider.selectedTranslation = newValue!;
-      },
-    );
-  }
+
 
   DropdownMenuItem<String> _buildDropDownMenuItem(
       String text, String fontFamily, double fontSize) {
     return DropdownMenuItem<String>(
       value: fontFamily,
-
       child: Text(
         text,
         style: TextStyle(
@@ -274,30 +308,87 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-
-  Widget _buildOption(Icon icon, String option, String value,
-  [String? subtitleFont]){
-
+  Widget _buildOptionImageIcon(ImageIcon imageIcon, String option, String value,
+      [String? subtitleFont]) {
     return ListTile(
-      leading: icon,
+      leading: imageIcon,
       title: Text(option),
-      subtitle: Text(value, style: TextStyle(fontFamily: subtitleFont),),
+      subtitle: Text(
+        value,
+        style: TextStyle(fontFamily: subtitleFont),
+      ),
       onTap: () {
         print('tapped');
       },
     );
   }
 
-  Widget _buildOptionImageIcon(ImageIcon imageIcon, String option, String value,
-      [String? subtitleFont]){
-
-    return ListTile(
-      leading: imageIcon,
-      title: Text(option),
-      subtitle: Text(value, style: TextStyle(fontFamily: subtitleFont),),
-      onTap: () {
-        print('tapped');
+  _showPopup(Widget child) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return child;
       },
+    );
+  }
+}
+
+class ShowTranslationSelector extends StatefulWidget {
+  final Map<String, String> translations;
+  final String selectedTranslation;
+  final ValueChanged<String> onSelected;
+
+  const ShowTranslationSelector(
+      {required this.translations,
+      required this.selectedTranslation,
+      required this.onSelected,
+      super.key});
+
+  @override
+  State<ShowTranslationSelector> createState() =>
+      _ShowTranslationSelectorState();
+}
+
+class _ShowTranslationSelectorState extends State<ShowTranslationSelector> {
+  late String selectedTranslation = widget.selectedTranslation;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('ஓதுபவரைத் தேர்வு செய்க...'),
+      content: SizedBox(
+        width: double.maxFinite,
+        child: ListView(
+          shrinkWrap: true,
+          children: widget.translations.keys.map((String key) {
+            return RadioListTile(
+              title: Text(widget.translations[key]!),
+              value: key,
+              groupValue: selectedTranslation,
+              onChanged: (value) {
+                setState(() {
+                  selectedTranslation = value as String;
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        ElevatedButton(
+          child: const Text('Select'),
+          onPressed: () {
+            widget.onSelected(selectedTranslation);
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }
