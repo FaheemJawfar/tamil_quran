@@ -32,148 +32,145 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: const Text('அமைப்புக்கள் (Settings)'),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildListTile(
-                leadingIcon: Icons.language,
-                title: 'தமிழ் மொழிபெயர்ப்பு',
-                subtitle: translations[settingsProvider.selectedTranslation]!,
-                onTap: () => _showPopup(
-                  child: ShowTranslationSelector(
-                    translations: translations,
-                    selectedTranslation: settingsProvider.selectedTranslation,
-                    onSelected: (value) =>
-                        settingsProvider.selectedTranslation = value,
-                  ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildListTile(
+              leadingIcon: Icons.language,
+              title: 'தமிழ் மொழிபெயர்ப்பு',
+              subtitle: translations[settingsProvider.selectedTranslation]!,
+              onTap: () => _showPopup(
+                child: ShowTranslationSelector(
+                  translations: translations,
+                  selectedTranslation: settingsProvider.selectedTranslation,
+                  onSelected: (value) =>
+                      settingsProvider.selectedTranslation = value,
                 ),
               ),
-              _buildDivider(),
-              _buildImageIconListTile(
-                leadingIcon:
-                    const ImageIcon(AssetImage('assets/images/tamil.png')),
-                title: 'தமிழ் எழுத்துரு ( Tamil Font )',
-                subtitle: 'அல்லாஹ்வின் திருப் பெயரால் ...',
-                selectedFont: settingsProvider.tamilFont,
-                onTap: () => _showPopup(
-                  child: ShowFontSelector(
-                    selectedFont: settingsProvider.tamilFont,
-                    tamilFonts: const [
-                      'MUktaMalar',
-                      'HindMadurai',
-                      'NotoSansTamil',
-                      'MeeraInimai'
-                    ],
-                    label: 'அல்லாஹ்வின் திருப் பெயரால் ...',
-                    onSelected: (value) => settingsProvider.tamilFont = value,
-                  ),
+            ),
+            _buildDivider(),
+            _buildImageIconListTile(
+              leadingIcon:
+                  const ImageIcon(AssetImage('assets/images/tamil.png')),
+              title: 'தமிழ் எழுத்துரு ( Tamil Font )',
+              subtitle: 'அல்லாஹ்வின் திருப் பெயரால் ...',
+              selectedFont: settingsProvider.tamilFont,
+              onTap: () => _showPopup(
+                child: ShowFontSelector(
+                  selectedFont: settingsProvider.tamilFont,
+                  tamilFonts: const [
+                    'MUktaMalar',
+                    'HindMadurai',
+                    'NotoSansTamil',
+                    'MeeraInimai'
+                  ],
+                  label: 'அல்லாஹ்வின் திருப் பெயரால் ...',
+                  onSelected: (value) => settingsProvider.tamilFont = value,
                 ),
               ),
-              _buildDivider(),
-              _buildImageIconListTile(
-                leadingIcon:
-                    const ImageIcon(AssetImage('assets/images/arabic.png')),
-                title: 'அரபு எழுத்துரு (Arabic Font)',
-                subtitle: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                selectedFont: settingsProvider.arabicFont,
-                onTap: () => _showPopup(
-                  child: ShowFontSelector(
-                    selectedFont: settingsProvider.arabicFont,
-                    tamilFonts: const [
-                      'AlQalam',
-                      'PDMS_Saleem',
-                      'Arabic',
-                      'MeezanUni',
-                      'Uthmani',
-                      'UthmanicScript'
-                    ],
-                    label: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                    onSelected: (value) => settingsProvider.arabicFont = value,
-                  ),
+            ),
+            _buildDivider(),
+            _buildImageIconListTile(
+              leadingIcon:
+                  const ImageIcon(AssetImage('assets/images/arabic.png')),
+              title: 'அரபு எழுத்துரு (Arabic Font)',
+              subtitle: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
+              selectedFont: settingsProvider.arabicFont,
+              onTap: () => _showPopup(
+                child: ShowFontSelector(
+                  selectedFont: settingsProvider.arabicFont,
+                  tamilFonts: const [
+                    'AlQalam',
+                    'PDMS_Saleem',
+                    'Arabic',
+                    'MeezanUni',
+                    'Uthmani',
+                    'UthmanicScript'
+                  ],
+                  label: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                  onSelected: (value) => settingsProvider.arabicFont = value,
                 ),
               ),
-              _buildDivider(),
-              _buildListTile(
-                leadingIcon: Icons.text_fields,
-                title: 'தமிழ் எழுத்து அளவு (Tamil Font Size)',
-                subtitle: settingsProvider.tamilFontSize.floor().toString(),
-                onTap: () => _showPopup(
-                    child: FontSizeSelector(
-                  fontSize: settingsProvider.tamilFontSize,
-                  text: 'அல்லாஹ்வின் திருப் பெயரால் ...',
-                  fontFamily: settingsProvider.tamilFont,
-                  onChanged: (value) {
-                    settingsProvider.tamilFontSize = value;
+            ),
+            _buildDivider(),
+            _buildListTile(
+              leadingIcon: Icons.text_fields,
+              title: 'தமிழ் எழுத்து அளவு (Tamil Font Size)',
+              subtitle: settingsProvider.tamilFontSize.floor().toString(),
+              onTap: () => _showPopup(
+                  child: FontSizeSelector(
+                fontSize: settingsProvider.tamilFontSize,
+                text: 'அல்லாஹ்வின் திருப் பெயரால் ...',
+                fontFamily: settingsProvider.tamilFont,
+                onChanged: (value) {
+                  settingsProvider.tamilFontSize = value;
+                },
+              )),
+            ),
+            _buildDivider(),
+            _buildListTile(
+              leadingIcon: Icons.text_fields,
+              title: 'அரபு எழுத்து அளவு (Arabic Font Size)',
+              subtitle: settingsProvider.arabicFontSize.floor().toString(),
+              onTap: () => _showPopup(
+                  child: FontSizeSelector(
+                fontSize: settingsProvider.arabicFontSize,
+                fontFamily: settingsProvider.arabicFont,
+                text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                onChanged: (value) {
+                  settingsProvider.arabicFontSize = value;
+                },
+              )),
+            ),
+            _buildDivider(),
+            _buildListTile(
+              leadingIcon: Icons.record_voice_over,
+              title: 'குர்ஆன் - கிராஅத் (ஓதுபவர்)',
+              subtitle:
+                  settingsProvider.getSelectedReciterDetails.englishName,
+              onTap: () => _showPopup(
+                child: ReciterSelectorPopup(
+                  reciters: settingsProvider.allReciters,
+                  selectedReciter:
+                      settingsProvider.getSelectedReciterDetails.identifier,
+                  onSelected: (value) {
+                    settingsProvider.selectedReciter = value;
                   },
-                )),
-              ),
-              _buildDivider(),
-              _buildListTile(
-                leadingIcon: Icons.text_fields,
-                title: 'அரபு எழுத்து அளவு (Arabic Font Size)',
-                subtitle: settingsProvider.arabicFontSize.floor().toString(),
-                onTap: () => _showPopup(
-                    child: FontSizeSelector(
-                  fontSize: settingsProvider.arabicFontSize,
-                  fontFamily: settingsProvider.arabicFont,
-                  text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                  onChanged: (value) {
-                    settingsProvider.arabicFontSize = value;
-                  },
-                )),
-              ),
-              _buildDivider(),
-              _buildListTile(
-                leadingIcon: Icons.record_voice_over,
-                title: 'குர்ஆன் - கிராஅத் (ஓதுபவர்)',
-                subtitle:
-                    settingsProvider.getSelectedReciterDetails.englishName,
-                onTap: () => _showPopup(
-                  child: ReciterSelectorPopup(
-                    reciters: settingsProvider.allReciters,
-                    selectedReciter:
-                        settingsProvider.getSelectedReciterDetails.identifier,
-                    onSelected: (value) {
-                      settingsProvider.selectedReciter = value;
-                    },
-                  ),
                 ),
               ),
-              _buildDivider(),
-              _buildListTile(
-                leadingIcon: Icons.restore,
-                title: 'அமைப்புக்களை மீளமைத்தல்',
-                subtitle: 'Reset Settings to Default',
-                onTap: () => _showPopup(
-                  child: AlertDialog(
-                    title: const Text('அமைப்புக்களை மீளமைக்க வேண்டுமா?'),
-                    content: const SizedBox(
-                      width: double.maxFinite,
+            ),
+            _buildDivider(),
+            _buildListTile(
+              leadingIcon: Icons.restore,
+              title: 'அமைப்புக்களை மீளமைத்தல்',
+              subtitle: 'Reset Settings to Default',
+              onTap: () => _showPopup(
+                child: AlertDialog(
+                  title: const Text('அமைப்புக்களை மீளமைக்க வேண்டுமா?'),
+                  content: const SizedBox(
+                    width: double.maxFinite,
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('இல்லை'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                     ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('இல்லை'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ElevatedButton(
-                        child: const Text('ஆம்!'),
-                        onPressed: () {
-                          settingsProvider.clearSettings();
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  ),
+                    ElevatedButton(
+                      child: const Text('ஆம்!'),
+                      onPressed: () {
+                        settingsProvider.clearSettings();
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
                 ),
               ),
+            ),
 
-              _buildDivider(),
-            ],
-          ),
+            _buildDivider(),
+          ],
         ),
       ),
     );
@@ -185,9 +182,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       required String subtitle,
       required Function() onTap}) {
     return ListTile(
+      dense: true,
       leading: Icon(leadingIcon),
-      title: Text(title),
-      subtitle: Text(subtitle),
+      title: Text(title, style: const TextStyle(fontSize: 16),),
+      subtitle: Text(subtitle, style: const TextStyle(fontSize: 15),),
       onTap: onTap,
     );
   }
@@ -199,9 +197,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         required String selectedFont,
       required Function() onTap}) {
     return ListTile(
+      dense: true,
       leading: leadingIcon,
-      title: Text(title),
-      subtitle: Text(subtitle, style: TextStyle(fontFamily: selectedFont),),
+      title: Text(title, style: const TextStyle(fontSize: 16),),
+      subtitle: Text(subtitle, style: TextStyle(fontFamily: selectedFont, fontSize: 15),),
       onTap: onTap,
     );
   }

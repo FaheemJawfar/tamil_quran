@@ -3,6 +3,8 @@ import 'package:tamil_quran/helpers/show_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../helpers/launcher.dart';
+
 class RateApp extends StatefulWidget {
   const RateApp({super.key});
 
@@ -14,15 +16,7 @@ class _RateAppState extends State<RateApp> {
   int selectedRating = 0;
   final feedbackController = TextEditingController();
 
-  void _launchPlayStore() async {
-    const appId = 'com.faheemapps.tamil_quran';
 
-    try {
-      await launchUrlString("market://details?id=$appId");
-    } catch (e) {
-      throw 'Could not launch ${e.toString()}';
-    }
-  }
 
   void _showFeedbackDialog() {
     showDialog(
@@ -45,7 +39,7 @@ class _RateAppState extends State<RateApp> {
             TextButton(
               onPressed: () {
                 if(feedbackController.text.isNotEmpty) {
-                  _launchEmail();
+                  Launcher.launchEmail(feedbackController.text);
                   Navigator.of(context).pop();
                 } else {
                   ShowToast.showToast(context, 'Please enter your feedback to submit!');
@@ -59,30 +53,7 @@ class _RateAppState extends State<RateApp> {
     );
   }
 
-  void _launchEmail() async {
 
-    String? encodeQueryParameters(Map<String, String> params) {
-      return params.entries
-          .map((MapEntry<String, String> e) =>
-      '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-          .join('&');
-    }
-
-    final Uri emailLaunchUri = Uri(
-      scheme: 'mailto',
-      path: 'faheemjawfar@gmail.com',
-      query: encodeQueryParameters(<String, String>{
-        'subject': 'Tamil Quran App - Feedback',
-        'body': feedbackController.text,
-      }),
-    );
-
-    try {
-      await launchUrl(emailLaunchUri);
-    } catch(e) {
-      throw 'Could not launch $e';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +70,7 @@ class _RateAppState extends State<RateApp> {
           onPressed: () {
             Navigator.of(context).pop();
             if (selectedRating == 5) {
-              _launchPlayStore();
+              Launcher.launchPlayStore();
             } else {
               _showFeedbackDialog();
             }

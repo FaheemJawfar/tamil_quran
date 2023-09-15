@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tamil_quran/config/color_config.dart';
+import 'package:tamil_quran/helpers/launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -19,16 +20,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     super.initState();
   }
 
-
-  void _openWhatsApp() async {
-    const phoneNumber = '94774106399';
-
-    try {
-      await launchUrlString('whatsapp://send?phone=$phoneNumber');
-    } catch (e) {
-      debugPrint('Error Launching WhatsApp');
-    }
-  }
 
   void getVersion() async{
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -88,7 +79,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 textAlign: TextAlign.center,
               ),
               const Text(
-                ' - J. பஹீம்',
+                '- J. பஹீம்',
                 style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -102,9 +93,11 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ),
               const SizedBox(height: 10),
               ElevatedButton.icon(
-                onPressed: _openWhatsApp,
-                icon: const ImageIcon(AssetImage('assets/images/whatsapp.png')),
-                label: const Text('WhatsApp +94774106399'),
+                onPressed: () {
+                  Launcher.launchEmail('');
+                },
+                icon: Icon(Icons.mail),
+                label: const Text('Email Us.'),
               ),
             ],
           ),
