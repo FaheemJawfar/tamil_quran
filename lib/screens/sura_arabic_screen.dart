@@ -20,7 +20,8 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReadSuraAppBar(arabicOnly: true,
+      appBar: ReadSuraAppBar(
+        arabicOnly: true,
         arabicScrollController: scrollController,
 
       ),

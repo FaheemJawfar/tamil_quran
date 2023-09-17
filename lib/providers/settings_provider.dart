@@ -8,72 +8,77 @@ class SettingsProvider extends ChangeNotifier {
 
   String get tamilFont => AppPreferences.getString('tamilFont') ?? _tamilFont;
 
-  set tamilFont (String value) {
+  set tamilFont(String value) {
     AppPreferences.setString('tamilFont', value);
     _tamilFont = value;
     notifyListeners();
   }
 
-
   String _arabicFont = 'AlQalam';
 
-  String get arabicFont => AppPreferences.getString('arabicFont') ?? _arabicFont;
+  String get arabicFont =>
+      AppPreferences.getString('arabicFont') ?? _arabicFont;
 
-  set arabicFont (String value) {
+  set arabicFont(String value) {
     AppPreferences.setString('arabicFont', value);
     _arabicFont = value;
     notifyListeners();
   }
 
-
   double _tamilFontSize = 18;
-  double get tamilFontSize => AppPreferences.getDouble('tamilFontSize') ?? _tamilFontSize;
 
-  set tamilFontSize (double value) {
+  double get tamilFontSize =>
+      AppPreferences.getDouble('tamilFontSize') ?? _tamilFontSize;
+
+  set tamilFontSize(double value) {
     AppPreferences.setDouble('tamilFontSize', value);
     _tamilFontSize = value;
     notifyListeners();
   }
 
-
   double _arabicFontSize = 20;
 
-  double get arabicFontSize => AppPreferences.getDouble('arabicFontSize') ?? _arabicFontSize;
+  double get arabicFontSize =>
+      AppPreferences.getDouble('arabicFontSize') ?? _arabicFontSize;
 
-  set arabicFontSize (double value) {
+  set arabicFontSize(double value) {
     AppPreferences.setDouble('arabicFontSize', value);
     _arabicFontSize = value;
     notifyListeners();
   }
 
-
   String _selectedTranslation = 'mJohn';
-  String get selectedTranslation => AppPreferences.getString('selectedTranslation') ?? _selectedTranslation;
 
-  set selectedTranslation (String value) {
+  String get selectedTranslation =>
+      AppPreferences.getString('selectedTranslation') ?? _selectedTranslation;
+
+  set selectedTranslation(String value) {
     AppPreferences.setString('selectedTranslation', value);
     _selectedTranslation = value;
     notifyListeners();
   }
 
   String _selectedReciter = 'ar.alafasy';
-  String get selectedReciter => AppPreferences.getString('selectedReciter') ?? _selectedReciter;
 
-  set selectedReciter (String value) {
+  String get selectedReciter =>
+      AppPreferences.getString('selectedReciter') ?? _selectedReciter;
+
+  set selectedReciter(String value) {
     AppPreferences.setString('selectedReciter', value);
     _selectedReciter = value;
     notifyListeners();
   }
 
-
   List<Reciter> get allReciters {
-    return Reciter.recitersJsonList.map((json) => Reciter.fromJson(json)).toList();
+    return Reciter.recitersJsonList
+        .map((json) => Reciter.fromJson(json))
+        .toList();
   }
 
-  Reciter get getSelectedReciterDetails  {
-    return allReciters.firstWhere((reciter) => reciter.identifier == selectedReciter);
+  Reciter get getSelectedReciterDetails {
+    return allReciters
+        .firstWhere((reciter) => reciter.identifier == selectedReciter);
   }
-
 
   void clearSettings() {
     AppPreferences.clear();
@@ -85,8 +90,4 @@ class SettingsProvider extends ChangeNotifier {
     _selectedReciter = 'ar.alafasy';
     notifyListeners();
   }
-
-
-
-
 }

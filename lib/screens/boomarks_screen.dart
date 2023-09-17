@@ -5,6 +5,7 @@ import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/helpers/verse_helper.dart';
 import 'package:tamil_quran/models/bookmark.dart';
 import 'package:tamil_quran/screens/sura_translation_screen.dart';
+import '../models/sura_details.dart';
 import '../providers/quran_provider.dart';
 
 class BookmarksScreen extends StatefulWidget {
@@ -35,10 +36,13 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       body: bookmarkList.isEmpty
-          ? const Center(child: Text('நீங்கள் Bookmark செய்த வசனங்களை இங்கே காணலாம்!',
-      style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-        textAlign: TextAlign.center,
-      ),)
+          ? const Center(
+              child: Text(
+                'நீங்கள் Bookmark செய்த வசனங்களை இங்கே காணலாம்!',
+                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                textAlign: TextAlign.center,
+              ),
+            )
           : ListView.separated(
               itemCount: bookmarkList.length,
               separatorBuilder: (context, index) => Divider(
@@ -62,9 +66,11 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   trailing: IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
-                      BookmarkHelper.deleteBookmark(Bookmark(
-                          suraNumber: currentBookmark.suraNumber,
-                          verseNumber: currentBookmark.verseNumber), context);
+                      BookmarkHelper.deleteBookmark(
+                          Bookmark(
+                              suraNumber: currentBookmark.suraNumber,
+                              verseNumber: currentBookmark.verseNumber),
+                          context);
                       getBookmarks();
                     },
                   ),
@@ -75,7 +81,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
   }
 
   getSuraName(String suraNumber) {
-    return quranProvider.suraList[int.parse(suraNumber) - 1].tamilName;
+    return SuraDetails.suraList[int.parse(suraNumber) - 1].tamilName;
   }
 
   getVerse(String suraNumber, String verseNumber) {

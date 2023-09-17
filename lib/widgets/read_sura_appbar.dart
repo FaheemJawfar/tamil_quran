@@ -41,36 +41,25 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );
-
       }
     }
   }
 
-  scrollToStartArabic(){
-    if(widget.arabicOnly){
+  scrollToStartArabic() {
+    if (widget.arabicOnly) {
       widget.arabicScrollController?.animateTo(
         0.0,
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
-
     }
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(quranProvider.selectedSuraName),
       automaticallyImplyLeading: true,
-      // leading: IconButton(
-      //     onPressed: () {
-      //       Navigator.push(
-      //           context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-      //     },
-      //     icon: const Icon(Icons.arrow_back)),
       actions: [
         IconButton(
           onPressed: () => _navigateSura(-1),

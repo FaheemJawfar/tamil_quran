@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/helpers/verse_helper.dart';
+import 'package:tamil_quran/models/sura_details.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/widgets/sura_verse_picker.dart';
@@ -31,11 +32,11 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
               value: 'go_to_verse',
               child: getPopupMenuItem(Icons.shuffle, 'வசனத்திற்குச் செல்க'),
             ),
-              PopupMenuItem<String>(
-                value: 'share_sura',
-                child: getPopupMenuItem(
-                    Icons.mobile_screen_share, 'அத்தியாயத்தைப் பகிர்க'),
-              ),
+            PopupMenuItem<String>(
+              value: 'share_sura',
+              child: getPopupMenuItem(
+                  Icons.mobile_screen_share, 'அத்தியாயத்தைப் பகிர்க'),
+            ),
             PopupMenuItem<String>(
               value: 'search',
               child: getPopupMenuItem(Icons.search, 'திருக்குர்ஆனில் தேடுக'),
@@ -54,7 +55,7 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
                 VerseHelper.copySura(
                   quranProvider.selectedSuraContent,
                   context,
-                  quranProvider.suraList[quranProvider.selectedSura- 1],
+                  SuraDetails.suraList[quranProvider.selectedSura - 1],
                 );
                 break;
               case 'search':

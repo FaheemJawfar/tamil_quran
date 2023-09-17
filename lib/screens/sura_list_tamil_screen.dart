@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
+import 'package:tamil_quran/models/sura_details.dart';
 import 'package:tamil_quran/screens/sura_translation_screen.dart';
 import '../providers/quran_provider.dart';
 
@@ -60,17 +61,17 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
   Widget _buildSuraListView() {
     return Expanded(
       child: ListView.separated(
-        itemCount: quranProvider.suraList.length,
+        itemCount: SuraDetails.suraList.length,
         separatorBuilder: (context, index) => Divider(
           thickness: 1,
           color: ColorConfig.primaryColor,
         ),
         itemBuilder: (BuildContext context, int index) {
-          final sura = quranProvider.suraList[index];
+          final suraDetails = SuraDetails.suraList[index];
 
           return ListTile(
             leading: Text(
-              '${sura.suraNumber}.',
+              '${suraDetails.suraNumber}.',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -78,20 +79,18 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
               ),
             ),
             title: Text(
-              sura.tamilMeaning == null
-                  ? sura.tamilName
-                  : '${sura.tamilName} (${sura.tamilMeaning})',
+              '${suraDetails.tamilName} ${suraDetails.tamilMeaning != null ? '(${suraDetails.tamilMeaning})' : ''}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
               ),
             ),
-            subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
+            subtitle: Text('வசனங்கள்: ${suraDetails.verseCount}'),
             trailing: Image.asset(
-                'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
+                'assets/images/sura_headers/Surah_${suraDetails.suraNumber}.png',
                 color: Colors.black),
             onTap: () {
-              quranProvider.selectedSura = sura.suraNumber;
+              quranProvider.selectedSura = suraDetails.suraNumber;
               Navigator.push(
                 context,
                 MaterialPageRoute(

@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/quran_helper.dart';
+import 'package:tamil_quran/models/sura_details.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
 import 'package:tamil_quran/widgets/reciter_selector_popup.dart';
@@ -48,7 +49,8 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   void _init() async {
     _audioPlayer = AudioPlayer();
     try {
-      await _audioPlayer.setUrl(QuranHelper.getAudioURLBySurah(settingsProvider.selectedReciter, selectedSuraIndex + 1));
+      await _audioPlayer.setUrl(QuranHelper.getAudioURLBySurah(
+          settingsProvider.selectedReciter, selectedSuraIndex + 1));
 
       _audioPlayer.playerStateStream.listen((playerState) {
         final isPlaying = playerState.playing;
@@ -124,13 +126,14 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-
                     return ReciterSelectorPopup(
-                        reciters: settingsProvider.allReciters,
-                        selectedReciter: settingsProvider.getSelectedReciterDetails.identifier,
-                        onSelected: (value) {
-                          settingsProvider.selectedReciter = value;
-                        },);
+                      reciters: settingsProvider.allReciters,
+                      selectedReciter:
+                          settingsProvider.getSelectedReciterDetails.identifier,
+                      onSelected: (value) {
+                        settingsProvider.selectedReciter = value;
+                      },
+                    );
                   },
                 );
               },
@@ -140,14 +143,13 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       ),
       body: Column(
         children: [
-
           Expanded(
             child: ListView.builder(
-              itemCount: quranProvider.suraList.length,
+              itemCount: SuraDetails.suraList.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
-                    '${quranProvider.suraList[index].suraNumber}. ${quranProvider.suraList[index].tamilName}',
+                    '${SuraDetails.suraList[index].suraNumber}. ${SuraDetails.suraList[index].tamilName}',
                     style: TextStyle(
                       color: selectedSuraIndex == index
                           ? Colors.white
@@ -241,4 +243,3 @@ class ProgressBarState {
 }
 
 enum ButtonState { paused, playing, loading }
-

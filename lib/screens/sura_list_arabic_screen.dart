@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
+import 'package:tamil_quran/models/sura_details.dart';
 import 'package:tamil_quran/screens/sura_arabic_screen.dart';
 import '../providers/quran_provider.dart';
 
@@ -22,13 +23,13 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
         children: [
           Expanded(
             child: ListView.separated(
-              itemCount: quranProvider.suraList.length,
+              itemCount: SuraDetails.suraList.length,
               separatorBuilder: (context, index) => Divider(
                 thickness: 1,
                 color: ColorConfig.primaryColor,
               ),
               itemBuilder: (BuildContext context, int index) {
-                final sura = quranProvider.suraList[index];
+                final sura = SuraDetails.suraList[index];
 
                 return ListTile(
                   leading: Text(

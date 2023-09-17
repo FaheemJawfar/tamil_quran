@@ -1,6 +1,7 @@
 import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamil_quran/models/sura_details.dart';
 import 'package:tamil_quran/screens/sura_translation_screen.dart';
 import '../config/color_config.dart';
 import '../providers/quran_provider.dart';
@@ -61,7 +62,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                       selectedSura = value + 1;
                     });
                   },
-                  children: quranProvider.suraList
+                  children: SuraDetails.suraList
                       .map(
                         (sura) => Center(
                             child: FittedBox(
@@ -97,7 +98,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                     selectedVerse = value + 1;
                   },
                   children: List.generate(
-                      quranProvider.suraList[selectedSura - 1].verseCount,
+                      SuraDetails.suraList[selectedSura - 1].verseCount,
                       (index) => Center(child: Text('${index + 1}'))),
                 ),
               ),
