@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:tamil_quran/screens/home_screen.dart';
 import 'package:tamil_quran/widgets/read_sura_popup_menu.dart';
-
 import '../providers/quran_provider.dart';
 
 class ReadSuraAppBar extends StatefulWidget implements PreferredSizeWidget {
