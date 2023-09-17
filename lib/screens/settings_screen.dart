@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
-import '../models/reciter.dart';
 import '../providers/settings_provider.dart';
-import '../widgets/pop_up_selector.dart';
 import '../widgets/reciter_selector_popup.dart';
 
 class SettingsScreen extends StatefulWidget {

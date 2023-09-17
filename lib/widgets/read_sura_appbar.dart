@@ -64,12 +64,13 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(quranProvider.selectedSuraName),
-      leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-          },
-          icon: const Icon(Icons.arrow_back)),
+      automaticallyImplyLeading: true,
+      // leading: IconButton(
+      //     onPressed: () {
+      //       Navigator.push(
+      //           context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+      //     },
+      //     icon: const Icon(Icons.arrow_back)),
       actions: [
         IconButton(
           onPressed: () => _navigateSura(-1),

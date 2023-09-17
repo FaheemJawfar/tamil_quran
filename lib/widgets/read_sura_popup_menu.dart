@@ -4,7 +4,6 @@ import 'package:tamil_quran/helpers/verse_helper.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/widgets/sura_verse_picker.dart';
-
 import '../screens/settings_screen.dart';
 
 class ReadSuraPopupMenu extends StatefulWidget {
@@ -32,7 +31,6 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
               value: 'go_to_verse',
               child: getPopupMenuItem(Icons.shuffle, 'வசனத்திற்குச் செல்க'),
             ),
-            if (quranProvider.selectedSuraContent.length < 100)
               PopupMenuItem<String>(
                 value: 'share_sura',
                 child: getPopupMenuItem(

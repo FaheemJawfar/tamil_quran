@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:quran/quran.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/helpers/show_toast.dart';
 import 'package:tamil_quran/models/sura_list.dart';
 import 'package:tamil_quran/models/verse.dart';
@@ -47,39 +47,50 @@ class VerseHelper {
 
   static Future<void> copySura(
       List<VerseModel> sura, BuildContext context, SuraModel suraModel) async {
-    StringBuffer suraTextBuffer = StringBuffer();
-
-    String header = '${suraModel.tamilName} - ( ${suraModel.tamilMeaning} )';
-
-    suraTextBuffer.write('$header\n${'-' * header.length}\n\n');
-    if (sura[0].sura != 1 && sura[0].sura != 9) {
-      suraTextBuffer.write(
-          '${'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ'}\nஅளவற்ற அருளாளனும், நிகரற்ற அன்புடையோனுமாகிய அல்லாஹ்வின் திருப்பெயரால்(துவங்குகிறேன்)\n\n');
-    }
-    for (var verse in sura) {
-      String verseText =
-          '\n\n${verse.arabic}${getVerseEndSymbol(verse.aya)}\n${verse.aya}. ${getTamilTranslation(verse)}';
-      suraTextBuffer.write(verseText);
-    }
-
-    suraTextBuffer.write(
-        '\n\n- (திருக்குர்ஆன் - அத்தியாயம் ${sura[0].sura})\n(மொத்த வசனங்கள்: ${sura.length})\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )');
-    String suraText = suraTextBuffer.toString();
-    // Share.share(suraText);
-
-    final clipboardData = ClipboardData(text: suraText);
     try {
+      StringBuffer suraTextBuffer = StringBuffer();
+
+      String header =
+          '${suraModel.tamilName}${suraModel.tamilMeaning != null ? ' - ( ${suraModel.tamilMeaning} )' : ''}';
+
+      suraTextBuffer.write('$header\n${'-' * header.length}\n');
+
+      int loopLimit = sura.length < 100 ? sura.length : 100;
+
+      for (int i = 0; i < loopLimit; i++) {
+        final verse = sura[i];
+
+        bool suraStartsWithBismillah =
+            verse.index == 1 && verse.sura == 1 && suraModel.suraNumber != 1;
+
+        String verseText =
+            '\n\n${verse.arabic}${suraStartsWithBismillah ? '' : QuranHelper.getVerseEndSymbol(verse.aya)}'
+            '\n${suraStartsWithBismillah ? '' : '${verse.aya.toString()}. '}${getTamilTranslation(verse)}';
+
+        suraTextBuffer.write(verseText);
+      }
+
+      if (sura.length > 100) {
+        suraTextBuffer.write(
+            '\n\n*****\n( மீதமுள்ள வசனங்கள்: ${sura.length - 100} )\n\nஅத்தியாயத்தை முழுமையாக வாசிக்க எமது Tamil Quran அப்ளிகேஷனை Download செய்யவும்:');
+      }
+
+      suraTextBuffer.write(
+          '\n\nதிருக்குர்ஆன்:\nஅத்தியாயம்:${suraModel.suraNumber} - வசனங்கள்: ${suraModel.verseCount}\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )');
+      String suraText = suraTextBuffer.toString();
+
+      final clipboardData = ClipboardData(text: suraText);
       ShowToast.showToast(context, 'அத்தியாயம் பிரதி செய்யப்பட்டது!');
       await Clipboard.setData(
         clipboardData,
       );
     } catch (e) {
-      debugPrint(e.toString());
+      rethrow;
     }
   }
 
   static String getArabicVerse(VerseModel verse) {
-    return '${verse.arabic}${getVerseEndSymbol(verse.aya)}';
+    return '${verse.arabic}${QuranHelper.getVerseEndSymbol(verse.aya)}';
   }
 
   static String getTamilTranslation(VerseModel verse) {

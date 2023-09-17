@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutUsScreen extends StatefulWidget {
@@ -96,7 +95,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 onPressed: () {
                   Launcher.launchEmail('');
                 },
-                icon: Icon(Icons.mail),
+                icon: const Icon(Icons.mail),
                 label: const Text('Email Us.'),
               ),
             ],

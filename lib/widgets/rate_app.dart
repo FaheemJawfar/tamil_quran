@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tamil_quran/helpers/show_toast.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../helpers/launcher.dart';
 

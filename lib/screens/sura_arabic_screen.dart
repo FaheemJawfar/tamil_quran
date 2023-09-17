@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quran/quran.dart';
 import 'package:tamil_quran/config/color_config.dart';
+import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
 import 'package:tamil_quran/widgets/read_sura_appbar.dart';
 import '../providers/quran_provider.dart';
@@ -86,7 +86,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
       ));
 
       inlineSpans.add(TextSpan(
-        text: '${getVerseEndSymbol(verse.aya)} ',
+        text: '${QuranHelper.getVerseEndSymbol(verse.aya)} ',
         style: const TextStyle(
           fontSize: 20,
           color: Colors.black,

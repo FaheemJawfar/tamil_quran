@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quran/quran.dart';
 import 'package:tamil_quran/config/color_config.dart';
-
+import 'package:tamil_quran/helpers/quran_helper.dart';
 import '../helpers/bookmark_helper.dart';
 import '../helpers/verse_helper.dart';
 import '../models/bookmark.dart';
@@ -208,7 +207,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               Align(
                                 alignment: Alignment.topRight,
                                 child: Text(
-                                  ' ${verse.arabic}${getVerseEndSymbol(verse.aya)}',
+                                  ' ${verse.arabic}${QuranHelper.getVerseEndSymbol(verse.aya)}',
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(fontSize: 18),
                                 ),

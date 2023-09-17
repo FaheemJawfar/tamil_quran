@@ -5,8 +5,6 @@ import 'package:tamil_quran/widgets/read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../config/color_config.dart';
 import '../helpers/shared_preferences.dart';
-import '../helpers/verse_helper.dart';
-import '../models/verse.dart';
 import '../providers/quran_provider.dart';
 import '../providers/settings_provider.dart';
 import '../widgets/show_verse.dart';
@@ -24,10 +22,10 @@ class SuraTranslationScreen extends StatefulWidget {
 }
 
 class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
-
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
   late final settingsProvider =
       Provider.of<SettingsProvider>(context, listen: true);
+
   final scrollController = ItemScrollController();
 
   @override

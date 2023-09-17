@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quran/quran.dart';
 import 'package:tamil_quran/helpers/bookmark_helper.dart';
+import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/helpers/verse_helper.dart';
 import 'package:tamil_quran/models/bookmark.dart';
 import 'package:tamil_quran/models/verse.dart';
@@ -60,7 +60,7 @@ class _ShowVerseState extends State<ShowVerse> {
                           ),
                         ),
                         TextSpan(
-                          text: getVerseEndSymbol(widget.verseModel.aya),
+                          text: QuranHelper.getVerseEndSymbol(widget.verseModel.aya),
                           // No font applied to this portion
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
