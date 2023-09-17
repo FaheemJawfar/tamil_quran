@@ -13,16 +13,18 @@ class QuranProvider extends ChangeNotifier {
 
   set selectedSura(int value) {
     _selectedSura = value;
+    print(_selectedSura);
+
     notifyListeners();
   }
 
   List<VerseModel> get selectedSuraContent {
     List<VerseModel> suraContent = [];
-    if(selectedSura != 1 || selectedSura != 9){
-
-
+    if(selectedSura != 1 && selectedSura != 9){
+      suraContent.add(bismillahVerse);
     }
-    return filterOneSura(_selectedSura);
+    suraContent.addAll(filterOneSura(_selectedSura));
+    return suraContent;
   }
 
   List<VerseModel> filterOneSura(int sura) {

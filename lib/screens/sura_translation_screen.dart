@@ -55,7 +55,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final hasBismillah =
+    bool hasBismillah =
         (quranProvider.selectedSura != 1 && quranProvider.selectedSura != 9);
 
     return Scaffold(
@@ -65,36 +65,29 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 10),
           Expanded(
-            child: ScrollablePositionedList.separated(
-              separatorBuilder: (context, index) =>
-                  Divider(color: ColorConfig.primaryColor),
-              itemScrollController: scrollController,
-              itemCount: quranProvider.selectedSuraContent.length +
-                  (hasBismillah ? 1 : 0),
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0 && hasBismillah) {
-                  return ShowVerse(
-                    isBismi: true,
-                    verseModel: quranProvider.bismillahVerse,
-                  );
-                } else {
-                  return VisibilityDetector(
-                    key: Key(index.toString()),
-                    onVisibilityChanged: (info) =>
-                        _updateLastSeen(quranProvider.selectedSura, index),
-                    child: ShowVerse(
-                      isBismi: false,
-                      verseModel: quranProvider
-                          .selectedSuraContent[index - (hasBismillah ? 1 : 0)],
-                    ),
-                  );
-                }
-              },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: ScrollablePositionedList.separated(
+                separatorBuilder: (context, index) =>
+                    Divider(color: ColorConfig.primaryColor),
+                itemScrollController: scrollController,
+                itemCount: quranProvider.selectedSuraContent.length,
+                itemBuilder: (BuildContext context, int index) {
+
+                    return VisibilityDetector(
+                      key: Key(index.toString()),
+                      onVisibilityChanged: (info) =>
+                          _updateLastSeen(quranProvider.selectedSura, index),
+                      child: ShowVerse(
+                        verseModel: quranProvider.selectedSuraContent[index],
+                      ),
+                    );
+
+                },
+              ),
             ),
           ),
-          Divider(color: ColorConfig.primaryColor),
         ],
       ),
     );

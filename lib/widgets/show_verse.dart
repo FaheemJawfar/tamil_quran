@@ -5,15 +5,14 @@ import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/helpers/verse_helper.dart';
 import 'package:tamil_quran/models/bookmark.dart';
 import 'package:tamil_quran/models/verse.dart';
+import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
 
 class ShowVerse extends StatefulWidget {
   final VerseModel verseModel;
-  final bool isBismi;
 
   const ShowVerse({
     required this.verseModel,
-    required this.isBismi,
     Key? key}) : super(key: key);
 
   @override
@@ -21,9 +20,9 @@ class ShowVerse extends StatefulWidget {
 }
 
 class _ShowVerseState extends State<ShowVerse> {
-  late final settingsProvider = Provider.of<SettingsProvider>(context, listen:true);
-  late final quranProvider = Provider.of<SettingsProvider>(context, listen:true);
 
+  late final settingsProvider = Provider.of<SettingsProvider>(context, listen:true);
+  late final quranProvider = Provider.of<QuranProvider>(context, listen:false);
 
 
 
@@ -31,12 +30,15 @@ class _ShowVerseState extends State<ShowVerse> {
 
   @override
   Widget build(BuildContext context) {
+    bool suraStartsWithBismillah = widget.verseModel.index == 1 && widget.verseModel.sura == 1
+        && quranProvider.selectedSura != 1;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: widget.isBismi ? const SizedBox(): _buildOptionsRow(),
+          child: suraStartsWithBismillah ? const SizedBox(): _buildOptionsRow(),
         ),
         const SizedBox(
           height: 12,
