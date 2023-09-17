@@ -9,8 +9,12 @@ import 'package:tamil_quran/providers/settings_provider.dart';
 
 class ShowVerse extends StatefulWidget {
   final VerseModel verseModel;
+  final bool isBismi;
 
-  const ShowVerse({required this.verseModel, Key? key}) : super(key: key);
+  const ShowVerse({
+    required this.verseModel,
+    required this.isBismi,
+    Key? key}) : super(key: key);
 
   @override
   State<ShowVerse> createState() => _ShowVerseState();
@@ -32,69 +36,7 @@ class _ShowVerseState extends State<ShowVerse> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${widget.verseModel.aya}. ',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              PopupMenuButton<String>(
-                color: Colors.green.shade100,
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  PopupMenuItem<String>(
-                    onTap: () {
-                      VerseHelper.shareVerse(
-                          VerseHelper.getVerseCopy(widget.verseModel, 'copy'));
-                    },
-                    child: getPopupMenuItem(Icons.share, 'Share'),
-                  ),
-                  PopupMenuItem<String>(
-                    onTap: () {
-                      BookmarkHelper.addBookmark(
-                        Bookmark(
-                          suraNumber: widget.verseModel.sura.toString(),
-                          verseNumber: widget.verseModel.aya.toString(),
-                        ),
-                        context,
-                      );
-                    },
-                    child: getPopupMenuItem(
-                        Icons.bookmark_add_outlined, 'Add Bookmark'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'copy',
-                    onTap: () {
-                      VerseHelper.copyToClipboard(
-                          VerseHelper.getVerseCopy(widget.verseModel, 'copy'),
-                          context);
-                    },
-                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
-                  ),
-                  PopupMenuItem<String>(
-                    onTap: () {
-                      VerseHelper.copyToClipboard(
-                          VerseHelper.getVerseCopy(
-                              widget.verseModel, 'copy_arabic'),
-                          context);
-                    },
-                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
-                  ),
-                  PopupMenuItem<String>(
-                    onTap: () {
-                      VerseHelper.copyToClipboard(
-                          VerseHelper.getVerseCopy(
-                              widget.verseModel, 'copy_tamil'),
-                          context);
-                    },
-                    child: getPopupMenuItem(Icons.copy, 'Copy Tamil'),
-                  ),
-                ],
-                child: const Icon(Icons.more_vert),
-              )
-            ],
-          ),
+          child: widget.isBismi ? const SizedBox(): _buildOptionsRow(),
         ),
         const SizedBox(
           height: 12,
@@ -154,6 +96,72 @@ class _ShowVerseState extends State<ShowVerse> {
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon),
       title: Text(title),
+    );
+  }
+
+  Widget _buildOptionsRow() {
+    return  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          '${widget.verseModel.aya}. ',
+          style:
+          const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        PopupMenuButton<String>(
+          color: Colors.green.shade100,
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              onTap: () {
+                VerseHelper.shareVerse(
+                    VerseHelper.getVerseCopy(widget.verseModel, 'copy'));
+              },
+              child: getPopupMenuItem(Icons.share, 'Share'),
+            ),
+            PopupMenuItem<String>(
+              onTap: () {
+                BookmarkHelper.addBookmark(
+                  Bookmark(
+                    suraNumber: widget.verseModel.sura.toString(),
+                    verseNumber: widget.verseModel.aya.toString(),
+                  ),
+                  context,
+                );
+              },
+              child: getPopupMenuItem(
+                  Icons.bookmark_add_outlined, 'Add Bookmark'),
+            ),
+            PopupMenuItem<String>(
+              value: 'copy',
+              onTap: () {
+                VerseHelper.copyToClipboard(
+                    VerseHelper.getVerseCopy(widget.verseModel, 'copy'),
+                    context);
+              },
+              child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
+            ),
+            PopupMenuItem<String>(
+              onTap: () {
+                VerseHelper.copyToClipboard(
+                    VerseHelper.getVerseCopy(
+                        widget.verseModel, 'copy_arabic'),
+                    context);
+              },
+              child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
+            ),
+            PopupMenuItem<String>(
+              onTap: () {
+                VerseHelper.copyToClipboard(
+                    VerseHelper.getVerseCopy(
+                        widget.verseModel, 'copy_tamil'),
+                    context);
+              },
+              child: getPopupMenuItem(Icons.copy, 'Copy Tamil'),
+            ),
+          ],
+          child: const Icon(Icons.more_vert),
+        )
+      ],
     );
   }
 }

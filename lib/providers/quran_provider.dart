@@ -17,6 +17,11 @@ class QuranProvider extends ChangeNotifier {
   }
 
   List<VerseModel> get selectedSuraContent {
+    List<VerseModel> suraContent = [];
+    if(selectedSura != 1 || selectedSura != 9){
+
+
+    }
     return filterOneSura(_selectedSura);
   }
 
@@ -26,6 +31,11 @@ class QuranProvider extends ChangeNotifier {
 
   VerseModel filterOneVerse(int sura, int aya) {
     return _allVersesOfQuran.firstWhere((model) => model.sura == sura && model.aya == aya);
+  }
+
+
+  VerseModel get bismillahVerse{
+    return _allVersesOfQuran[0];
   }
 
 

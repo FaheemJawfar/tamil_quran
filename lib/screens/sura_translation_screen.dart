@@ -55,6 +55,9 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final hasBismillah =
+        (quranProvider.selectedSura != 1 && quranProvider.selectedSura != 9);
+
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: ReadSuraAppBar(
@@ -69,70 +72,31 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
                   Divider(color: ColorConfig.primaryColor),
               itemScrollController: scrollController,
               itemCount: quranProvider.selectedSuraContent.length +
-                  (quranProvider.selectedSura != 1 &&
-                          quranProvider.selectedSura != 9
-                      ? 1
-                      : 0),
+                  (hasBismillah ? 1 : 0),
               itemBuilder: (BuildContext context, int index) {
-                final showBismillah = index == 0 &&
-                    (quranProvider.selectedSura != 1 &&
-                        quranProvider.selectedSura != 9);
-
-                if (showBismillah) {
-                  return _getBismillah(quranProvider.filterOneVerse(1, 1));
+                if (index == 0 && hasBismillah) {
+                  return ShowVerse(
+                    isBismi: true,
+                    verseModel: quranProvider.bismillahVerse,
+                  );
                 } else {
                   return VisibilityDetector(
                     key: Key(index.toString()),
                     onVisibilityChanged: (info) =>
                         _updateLastSeen(quranProvider.selectedSura, index),
                     child: ShowVerse(
-                      verseModel: quranProvider.selectedSuraContent[index -
-                          (quranProvider.selectedSura != 1 &&
-                                  quranProvider.selectedSura != 9
-                              ? 1
-                              : 0)],
+                      isBismi: false,
+                      verseModel: quranProvider
+                          .selectedSuraContent[index - (hasBismillah ? 1 : 0)],
                     ),
                   );
                 }
               },
             ),
           ),
+          Divider(color: ColorConfig.primaryColor),
         ],
       ),
-    );
-  }
-
-  Widget _getBismillah(VerseModel verse) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Text(
-                  verse.arabic,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: settingsProvider.arabicFontSize,
-                    fontFamily: settingsProvider.arabicFont,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                VerseHelper.getTamilTranslation(verse),
-                style: TextStyle(
-                    fontSize: settingsProvider.tamilFontSize,
-                    fontFamily: settingsProvider.tamilFont),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

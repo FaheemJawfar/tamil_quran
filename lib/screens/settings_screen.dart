@@ -29,7 +29,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text('அமைப்புக்கள் (Settings)'),
+        title: const Text('Settings'),
       ),
       body: SingleChildScrollView(
         child: Column(
