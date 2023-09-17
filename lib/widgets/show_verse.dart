@@ -11,34 +11,30 @@ import 'package:tamil_quran/providers/settings_provider.dart';
 class ShowVerse extends StatefulWidget {
   final VerseModel verseModel;
 
-  const ShowVerse({
-    required this.verseModel,
-    Key? key}) : super(key: key);
+  const ShowVerse({required this.verseModel, Key? key}) : super(key: key);
 
   @override
   State<ShowVerse> createState() => _ShowVerseState();
 }
 
 class _ShowVerseState extends State<ShowVerse> {
-
-  late final settingsProvider = Provider.of<SettingsProvider>(context, listen:true);
-  late final quranProvider = Provider.of<QuranProvider>(context, listen:false);
-
-
-
-
+  late final settingsProvider =
+      Provider.of<SettingsProvider>(context, listen: true);
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
-    bool suraStartsWithBismillah = widget.verseModel.index == 1 && widget.verseModel.sura == 1
-        && quranProvider.selectedSura != 1;
+    bool suraStartsWithBismillah = (widget.verseModel.index == 1 &&
+        widget.verseModel.sura == 1 &&
+        quranProvider.selectedSura != 1);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: suraStartsWithBismillah ? const SizedBox(): _buildOptionsRow(),
+          child:
+              suraStartsWithBismillah ? const SizedBox() : _buildOptionsRow(),
         ),
         const SizedBox(
           height: 12,
@@ -49,40 +45,37 @@ class _ShowVerseState extends State<ShowVerse> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Align(
-                alignment: Alignment.topRight,
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                   // style: TextStyle(color: Colors.black),
-                    children: [
-                      TextSpan(
-                        text: widget.verseModel.arabic,
-                        style: TextStyle(
-                          fontSize: settingsProvider.arabicFontSize,
-                          fontFamily: settingsProvider.arabicFont,
+                  alignment: Alignment.topRight,
+                  child: RichText(
+                    textAlign: TextAlign.right,
+                    text: TextSpan(
+                      // style: TextStyle(color: Colors.black),
+                      children: [
+                        TextSpan(
+                          text: widget.verseModel.arabic,
+                          style: TextStyle(
+                            fontSize: settingsProvider.arabicFontSize,
+                            fontFamily: settingsProvider.arabicFont,
                             color: Colors.black,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: getVerseEndSymbol(widget.verseModel.aya), // No font applied to this portion
-                        style: const TextStyle(
-                          fontSize: 18,
-                            color: Colors.black
-
+                        TextSpan(
+                          text: getVerseEndSymbol(widget.verseModel.aya),
+                          // No font applied to this portion
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.black),
                         ),
-                      ),
-                    ],
-                  ),
-                )
-
-              ),
+                      ],
+                    ),
+                  )),
               const SizedBox(height: 8),
               Text(
-                VerseHelper.getTamilTranslation(widget.verseModel,),
+                VerseHelper.getTamilTranslation(
+                  widget.verseModel,
+                ),
                 style: TextStyle(
                   fontSize: settingsProvider.tamilFontSize,
                   fontFamily: settingsProvider.tamilFont,
-
                 ),
               ),
             ],
@@ -102,13 +95,12 @@ class _ShowVerseState extends State<ShowVerse> {
   }
 
   Widget _buildOptionsRow() {
-    return  Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           '${widget.verseModel.aya}. ',
-          style:
-          const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         PopupMenuButton<String>(
           color: Colors.green.shade100,
@@ -130,8 +122,8 @@ class _ShowVerseState extends State<ShowVerse> {
                   context,
                 );
               },
-              child: getPopupMenuItem(
-                  Icons.bookmark_add_outlined, 'Add Bookmark'),
+              child:
+                  getPopupMenuItem(Icons.bookmark_add_outlined, 'Add Bookmark'),
             ),
             PopupMenuItem<String>(
               value: 'copy',
@@ -145,8 +137,7 @@ class _ShowVerseState extends State<ShowVerse> {
             PopupMenuItem<String>(
               onTap: () {
                 VerseHelper.copyToClipboard(
-                    VerseHelper.getVerseCopy(
-                        widget.verseModel, 'copy_arabic'),
+                    VerseHelper.getVerseCopy(widget.verseModel, 'copy_arabic'),
                     context);
               },
               child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
@@ -154,8 +145,7 @@ class _ShowVerseState extends State<ShowVerse> {
             PopupMenuItem<String>(
               onTap: () {
                 VerseHelper.copyToClipboard(
-                    VerseHelper.getVerseCopy(
-                        widget.verseModel, 'copy_tamil'),
+                    VerseHelper.getVerseCopy(widget.verseModel, 'copy_tamil'),
                     context);
               },
               child: getPopupMenuItem(Icons.copy, 'Copy Tamil'),

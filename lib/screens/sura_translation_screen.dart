@@ -24,7 +24,7 @@ class SuraTranslationScreen extends StatefulWidget {
 }
 
 class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
-//  late int scrollTo = widget.goToVerse;
+
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
   late final settingsProvider =
       Provider.of<SettingsProvider>(context, listen: true);
@@ -55,9 +55,6 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool hasBismillah =
-        (quranProvider.selectedSura != 1 && quranProvider.selectedSura != 9);
-
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: ReadSuraAppBar(
@@ -74,16 +71,14 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
                 itemScrollController: scrollController,
                 itemCount: quranProvider.selectedSuraContent.length,
                 itemBuilder: (BuildContext context, int index) {
-
-                    return VisibilityDetector(
-                      key: Key(index.toString()),
-                      onVisibilityChanged: (info) =>
-                          _updateLastSeen(quranProvider.selectedSura, index),
-                      child: ShowVerse(
-                        verseModel: quranProvider.selectedSuraContent[index],
-                      ),
-                    );
-
+                  return VisibilityDetector(
+                    key: Key(index.toString()),
+                    onVisibilityChanged: (info) =>
+                        _updateLastSeen(quranProvider.selectedSura, index),
+                    child: ShowVerse(
+                      verseModel: quranProvider.selectedSuraContent[index],
+                    ),
+                  );
                 },
               ),
             ),
