@@ -4,12 +4,12 @@ import 'package:tamil_quran/helpers/bookmark_helper.dart';
 import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/helpers/verse_helper.dart';
 import 'package:tamil_quran/models/bookmark.dart';
-import 'package:tamil_quran/models/verse.dart';
+import 'package:tamil_quran/models/quran_aya.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
 
 class ShowVerse extends StatefulWidget {
-  final VerseModel verseModel;
+  final QuranAya verseModel;
 
   const ShowVerse({required this.verseModel, Key? key}) : super(key: key);
 
@@ -25,7 +25,7 @@ class _ShowVerseState extends State<ShowVerse> {
   @override
   Widget build(BuildContext context) {
     bool suraStartsWithBismillah = (widget.verseModel.index == 1 &&
-        widget.verseModel.sura == 1 &&
+        widget.verseModel.suraNumber == 1 &&
         quranProvider.selectedSura != 1);
 
     return Column(
@@ -60,7 +60,7 @@ class _ShowVerseState extends State<ShowVerse> {
                           ),
                         ),
                         TextSpan(
-                          text: QuranHelper.getVerseEndSymbol(widget.verseModel.aya),
+                          text: QuranHelper.getVerseEndSymbol(widget.verseModel.ayaNumber),
                           // No font applied to this portion
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
@@ -99,7 +99,7 @@ class _ShowVerseState extends State<ShowVerse> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '${widget.verseModel.aya}. ',
+          '${widget.verseModel.ayaNumber}. ',
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         PopupMenuButton<String>(
@@ -116,8 +116,8 @@ class _ShowVerseState extends State<ShowVerse> {
               onTap: () {
                 BookmarkHelper.addBookmark(
                   Bookmark(
-                    suraNumber: widget.verseModel.sura.toString(),
-                    verseNumber: widget.verseModel.aya.toString(),
+                    suraNumber: widget.verseModel.suraNumber.toString(),
+                    verseNumber: widget.verseModel.ayaNumber.toString(),
                   ),
                   context,
                 );

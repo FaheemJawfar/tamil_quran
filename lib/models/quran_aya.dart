@@ -1,28 +1,28 @@
-class VerseModel {
+class QuranAya {
   final int index;
-  final int sura;
-  final int aya;
+  final int suraNumber;
+  final int ayaNumber;
   final String arabic;
   final String mJohn;
   final String abdulHameed;
   final String ift;
   final String kingFahd;
 
-  VerseModel(
+  QuranAya(
       {required this.index,
-      required this.sura,
-      required this.aya,
+      required this.suraNumber,
+      required this.ayaNumber,
       required this.arabic,
       required this.mJohn,
       required this.abdulHameed,
       required this.ift,
       required this.kingFahd});
 
-  factory VerseModel.fromMap(Map<String, dynamic> map) {
-    return VerseModel(
+  factory QuranAya.fromMap(Map<String, dynamic> map) {
+    return QuranAya(
         index: map['index'],
-        sura: map['sura'],
-        aya: map['aya'],
+        suraNumber: map['sura'],
+        ayaNumber: map['aya'],
         arabic: map['arabic'],
         mJohn: map['m_john'],
         abdulHameed: map['abdul_hameed'],

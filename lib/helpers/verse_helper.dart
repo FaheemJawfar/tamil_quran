@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/helpers/show_toast.dart';
-import 'package:tamil_quran/models/sura_list.dart';
-import 'package:tamil_quran/models/verse.dart';
+import 'package:tamil_quran/models/sura_details.dart';
+import 'package:tamil_quran/models/quran_aya.dart';
 import '../providers/settings_provider.dart';
 
 class VerseHelper {
@@ -17,23 +17,23 @@ class VerseHelper {
     await Clipboard.setData(clipboardData);
   }
 
-  static String getVerseCopy(VerseModel selectedVerse, String option) {
+  static String getVerseCopy(QuranAya selectedVerse, String option) {
     switch (option) {
       case 'copy':
         String verseCopy =
-            '${getArabicVerse(selectedVerse)}\n\n${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )';
+            '${getArabicVerse(selectedVerse)}\n\n${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraNumber}:${selectedVerse.ayaNumber})\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )';
 
         return verseCopy;
 
       case 'copy_arabic':
         String verseCopy =
-            '${getArabicVerse(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})';
+            '${getArabicVerse(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraNumber}:${selectedVerse.ayaNumber})';
 
         return verseCopy;
 
       case 'copy_tamil':
         String verseCopy =
-            '${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.sura}:${selectedVerse.aya})';
+            '${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraNumber}:${selectedVerse.ayaNumber})';
         return verseCopy;
 
       default:
@@ -46,7 +46,7 @@ class VerseHelper {
   }
 
   static Future<void> copySura(
-      List<VerseModel> sura, BuildContext context, SuraModel suraModel) async {
+      List<QuranAya> sura, BuildContext context, SuraDetails suraModel) async {
     try {
       StringBuffer suraTextBuffer = StringBuffer();
 
@@ -61,11 +61,11 @@ class VerseHelper {
         final verse = sura[i];
 
         bool suraStartsWithBismillah =
-            verse.index == 1 && verse.sura == 1 && suraModel.suraNumber != 1;
+            verse.index == 1 && verse.suraNumber == 1 && suraModel.suraNumber != 1;
 
         String verseText =
-            '\n\n${verse.arabic}${suraStartsWithBismillah ? '' : QuranHelper.getVerseEndSymbol(verse.aya)}'
-            '\n${suraStartsWithBismillah ? '' : '${verse.aya.toString()}. '}${getTamilTranslation(verse)}';
+            '\n\n${verse.arabic}${suraStartsWithBismillah ? '' : QuranHelper.getVerseEndSymbol(verse.ayaNumber)}'
+            '\n${suraStartsWithBismillah ? '' : '${verse.ayaNumber.toString()}. '}${getTamilTranslation(verse)}';
 
         suraTextBuffer.write(verseText);
       }
@@ -89,11 +89,11 @@ class VerseHelper {
     }
   }
 
-  static String getArabicVerse(VerseModel verse) {
-    return '${verse.arabic}${QuranHelper.getVerseEndSymbol(verse.aya)}';
+  static String getArabicVerse(QuranAya verse) {
+    return '${verse.arabic}${QuranHelper.getVerseEndSymbol(verse.ayaNumber)}';
   }
 
-  static String getTamilTranslation(VerseModel verse) {
+  static String getTamilTranslation(QuranAya verse) {
     String selectedTranslation = SettingsProvider().selectedTranslation;
 
     switch (selectedTranslation) {

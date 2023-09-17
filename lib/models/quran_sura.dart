@@ -1,0 +1,8 @@
+import 'package:tamil_quran/models/quran_aya.dart';
+
+class QuranSura {
+  final int index;
+  final List<QuranAya> listOfAyas;
+
+  QuranSura(this.index, this.listOfAyas);
+}

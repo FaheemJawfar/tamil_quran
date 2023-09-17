@@ -5,7 +5,7 @@ import 'package:tamil_quran/helpers/quran_helper.dart';
 import '../helpers/bookmark_helper.dart';
 import '../helpers/verse_helper.dart';
 import '../models/bookmark.dart';
-import '../models/verse.dart';
+import '../models/quran_aya.dart';
 import '../providers/quran_provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -17,9 +17,9 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final _searchController = TextEditingController();
-  late List<VerseModel> allVerses =
+  late List<QuranAya> allVerses =
       context.read<QuranProvider>().allVersesOfQuran;
-  final List<VerseModel> _filteredVerses = [];
+  final List<QuranAya> _filteredVerses = [];
 
   @override
   void initState() {
@@ -79,7 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: ListView.builder(
                   itemCount: _filteredVerses.length,
                   itemBuilder: (context, index) {
-                    VerseModel verse = _filteredVerses[index];
+                    QuranAya verse = _filteredVerses[index];
                     String mJohn = verse.mJohn;
                     String query = _searchController.text;
 
@@ -136,7 +136,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '${verse.sura}:${verse.aya}',
+                                '${verse.suraNumber}:${verse.ayaNumber}',
                                 style:
                                     const TextStyle(fontWeight: FontWeight.bold),
                               ),
@@ -154,8 +154,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     onTap: () {
                                       BookmarkHelper.addBookmark(
                                         Bookmark(
-                                          suraNumber: verse.sura.toString(),
-                                          verseNumber: verse.aya.toString(),
+                                          suraNumber: verse.suraNumber.toString(),
+                                          verseNumber: verse.ayaNumber.toString(),
                                         ),
                                         context,
                                       );
@@ -207,7 +207,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               Align(
                                 alignment: Alignment.topRight,
                                 child: Text(
-                                  ' ${verse.arabic}${QuranHelper.getVerseEndSymbol(verse.aya)}',
+                                  ' ${verse.arabic}${QuranHelper.getVerseEndSymbol(verse.ayaNumber)}',
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(fontSize: 18),
                                 ),

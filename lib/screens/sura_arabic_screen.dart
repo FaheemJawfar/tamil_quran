@@ -86,7 +86,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
       ));
 
       inlineSpans.add(TextSpan(
-        text: '${QuranHelper.getVerseEndSymbol(verse.aya)} ',
+        text: '${QuranHelper.getVerseEndSymbol(verse.ayaNumber)} ',
         style: const TextStyle(
           fontSize: 20,
           color: Colors.black,
