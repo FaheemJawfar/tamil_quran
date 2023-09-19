@@ -18,7 +18,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final _searchController = TextEditingController();
   late List<QuranAya> allVerses =
-      context.read<QuranProvider>().allVersesOfQuran;
+      Provider.of<QuranProvider>(context, listen: false).allVersesOfQuran;
   final List<QuranAya> _filteredVerses = [];
 
   @override
@@ -40,7 +40,9 @@ class _SearchScreenState extends State<SearchScreen> {
       _filteredVerses.addAll(allVerses);
     } else {
       _filteredVerses.addAll(allVerses.where(
-        (verse) => verse.mJohn.toLowerCase().contains(query.toLowerCase()),
+        (verse) => VerseHelper.getTamilTranslation(verse)
+            .toLowerCase()
+            .contains(query.toLowerCase()),
       ));
     }
   }
@@ -74,41 +76,36 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             if (_searchController.text.isNotEmpty)
-
               Expanded(
                 child: ListView.builder(
                   itemCount: _filteredVerses.length,
                   itemBuilder: (context, index) {
                     QuranAya verse = _filteredVerses[index];
-                    String mJohn = verse.mJohn;
+                    String translation = VerseHelper.getTamilTranslation(verse);
                     String query = _searchController.text;
 
-                    // Create a regular expression pattern for the query
                     RegExp regExp = RegExp(query, caseSensitive: false);
 
                     List<TextSpan> textSpans = [];
 
                     int currentIndex = 0;
-                    regExp.allMatches(mJohn).forEach((match) {
+                    regExp.allMatches(translation).forEach((match) {
                       if (currentIndex < match.start) {
-                        // Add non-matching text before the match
                         textSpans.add(TextSpan(
-                          text: mJohn.substring(currentIndex, match.start),
+                          text:
+                              translation.substring(currentIndex, match.start),
                           style: const TextStyle(
                             color: Colors.black,
-                            // Customize the color as needed
                           ),
                         ));
                       }
 
-                      // Add matching text with custom styling
                       textSpans.add(
                         TextSpan(
-                          text: mJohn.substring(match.start, match.end),
+                          text: translation.substring(match.start, match.end),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.red,
-                            // Customize the color as needed
                           ),
                         ),
                       );
@@ -116,13 +113,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       currentIndex = match.end;
                     });
 
-                    if (currentIndex < mJohn.length) {
-                      // Add any remaining non-matching text
+                    if (currentIndex < translation.length) {
                       textSpans.add(TextSpan(
-                        text: mJohn.substring(currentIndex),
+                        text: translation.substring(currentIndex),
                         style: const TextStyle(
                           color: Colors.black,
-                          // Customize the color as needed
                         ),
                       ));
                     }
@@ -137,40 +132,48 @@ class _SearchScreenState extends State<SearchScreen> {
                             children: [
                               Text(
                                 '${verse.suraNumber}:${verse.ayaNumber}',
-                                style:
-                                    const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                               PopupMenuButton<String>(
                                 color: Colors.green.shade100,
-                                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                itemBuilder: (BuildContext context) =>
+                                    <PopupMenuEntry<String>>[
                                   PopupMenuItem<String>(
                                     onTap: () {
                                       VerseHelper.shareVerse(
-                                          VerseHelper.getVerseCopy(verse, 'copy'));
+                                          VerseHelper.getVerseCopy(
+                                              verse, 'copy'));
                                     },
-                                    child: getPopupMenuItem(Icons.share, 'Share'),
+                                    child:
+                                        getPopupMenuItem(Icons.share, 'Share'),
                                   ),
                                   PopupMenuItem<String>(
                                     onTap: () {
                                       BookmarkHelper.addBookmark(
                                         Bookmark(
-                                          suraNumber: verse.suraNumber.toString(),
-                                          verseNumber: verse.ayaNumber.toString(),
+                                          suraNumber:
+                                              verse.suraNumber.toString(),
+                                          verseNumber:
+                                              verse.ayaNumber.toString(),
                                         ),
                                         context,
                                       );
                                     },
                                     child: getPopupMenuItem(
-                                        Icons.bookmark_add_outlined, 'Add Bookmark'),
+                                        Icons.bookmark_add_outlined,
+                                        'Add Bookmark'),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy',
                                     onTap: () {
                                       VerseHelper.copyToClipboard(
-                                          VerseHelper.getVerseCopy(verse, 'copy'),
+                                          VerseHelper.getVerseCopy(
+                                              verse, 'copy'),
                                           context);
                                     },
-                                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
+                                    child: getPopupMenuItem(
+                                        Icons.copy, 'Copy Arabic + Tamil'),
                                   ),
                                   PopupMenuItem<String>(
                                     onTap: () {
@@ -179,7 +182,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                               verse, 'copy_arabic'),
                                           context);
                                     },
-                                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
+                                    child: getPopupMenuItem(
+                                        Icons.copy, 'Copy Arabic'),
                                   ),
                                   PopupMenuItem<String>(
                                     onTap: () {
@@ -188,7 +192,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                               verse, 'copy_tamil'),
                                           context);
                                     },
-                                    child: getPopupMenuItem(Icons.copy, 'Copy Tamil'),
+                                    child: getPopupMenuItem(
+                                        Icons.copy, 'Copy Tamil'),
                                   ),
                                 ],
                                 child: const Icon(Icons.more_vert),
