@@ -144,9 +144,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               subtitle: 'Reset Settings to Default',
               onTap: () => _showPopup(
                 child: AlertDialog(
-                  title: const Text('அமைப்புக்களை மீளமைக்க வேண்டுமா?'),
+                  title: const Text('Reset Settings?'),
+                  
                   content: const SizedBox(
                     width: double.maxFinite,
+                    child: Text('அமைப்புகளை மீளமைக்க வேண்டுமா?'),
                   ),
                   actions: <Widget>[
                     TextButton(
