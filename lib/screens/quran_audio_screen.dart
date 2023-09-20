@@ -100,6 +100,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   void play() {
+    _init();
     _audioPlayer.play();
   }
 
@@ -157,13 +158,10 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     ),
                   ),
                   onTap: () {
-                    //print(quranProvider.suraList[index].suraNumber);
                     setState(() {
                       selectedSuraIndex = index;
                       _audioPlayer.dispose();
-                      _init();
                       play();
-                      //buttonNotifier.value = ButtonState.playing;
                     });
                   },
                   tileColor:
