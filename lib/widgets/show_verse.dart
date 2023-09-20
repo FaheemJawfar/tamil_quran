@@ -60,8 +60,10 @@ class _ShowVerseState extends State<ShowVerse> {
                           ),
                         ),
                         TextSpan(
-                          text: QuranHelper.getVerseEndSymbol(widget.verseModel.ayaNumber),
-                          // No font applied to this portion
+                          text: suraStartsWithBismillah
+                              ? ''
+                              : QuranHelper.getVerseEndSymbol(
+                                  widget.verseModel.ayaNumber),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
                         ),

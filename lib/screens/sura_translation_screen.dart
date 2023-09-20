@@ -34,21 +34,27 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
     scrollToVerse();
   }
 
+  void scrollToVerse() {
+      if (widget.goToVerse > 0) {
+        int index = widget.goToVerse;
+        int suraNumber =
+            Provider.of<QuranProvider>(context, listen: false).selectedSura;
+        if (suraNumber == 1 || suraNumber == 9) {
+          index--;
+        }
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          scrollController.scrollTo(
+            index: index,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        });
+      }
+  }
+
   void _updateLastSeen(int suraNumber, int verseNumber) {
     AppPreferences.setInt('lastSeenSura', suraNumber);
     AppPreferences.setInt('lastSeenVerse', verseNumber);
-  }
-
-  void scrollToVerse() {
-    if (widget.goToVerse > 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        scrollController.scrollTo(
-          index: widget.goToVerse,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      });
-    }
   }
 
   @override
