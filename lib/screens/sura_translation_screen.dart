@@ -35,7 +35,6 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   }
 
   void scrollToVerse() {
-    if (widget.goToVerse > 0) {
       if (widget.goToVerse > 0) {
         int index = widget.goToVerse;
         int suraNumber =
@@ -51,7 +50,6 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
           );
         });
       }
-    }
   }
 
   void _updateLastSeen(int suraNumber, int verseNumber) {
