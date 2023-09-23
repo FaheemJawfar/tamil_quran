@@ -125,12 +125,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leadingIcon: Icons.record_voice_over,
               title: 'குர்ஆன் - கிராஅத் (ஓதுபவர்)',
               subtitle:
-                  settingsProvider.getSelectedReciterDetails.englishName,
+                  settingsProvider.selectedReciterDetails.name,
               onTap: () => _showPopup(
                 child: ReciterSelectorPopup(
                   reciters: settingsProvider.allReciters,
                   selectedReciter:
-                      settingsProvider.getSelectedReciterDetails.identifier,
+                      settingsProvider.selectedReciterDetails.identifier,
                   onSelected: (value) {
                     settingsProvider.selectedReciter = value;
                   },

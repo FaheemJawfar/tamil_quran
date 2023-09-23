@@ -50,7 +50,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     _audioPlayer = AudioPlayer();
     try {
       await _audioPlayer.setUrl(QuranHelper.getAudioURLBySurah(
-          settingsProvider.selectedReciter, selectedSuraIndex + 1));
+          settingsProvider.selectedReciterDetails, selectedSuraIndex + 1));
 
       _audioPlayer.playerStateStream.listen((playerState) {
         final isPlaying = playerState.playing;
@@ -120,7 +120,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         title: FittedBox(
             fit: BoxFit.contain,
             child: Text(
-                'கிராஅத் - ${settingsProvider.getSelectedReciterDetails.englishName}')),
+                settingsProvider.selectedReciterDetails.name)),
         actions: [
           IconButton(
               onPressed: () {
@@ -130,7 +130,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     return ReciterSelectorPopup(
                       reciters: settingsProvider.allReciters,
                       selectedReciter:
-                          settingsProvider.getSelectedReciterDetails.identifier,
+                          settingsProvider.selectedReciterDetails.identifier,
                       onSelected: (value) {
                         settingsProvider.selectedReciter = value;
                       },

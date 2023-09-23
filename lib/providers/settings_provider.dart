@@ -58,7 +58,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _selectedReciter = 'ar.alafasy';
+  String _selectedReciter = 'alafasy-pj';
 
   String get selectedReciter =>
       AppPreferences.getString('selectedReciter') ?? _selectedReciter;
@@ -75,7 +75,7 @@ class SettingsProvider extends ChangeNotifier {
         .toList();
   }
 
-  Reciter get getSelectedReciterDetails {
+  Reciter get selectedReciterDetails {
     return allReciters
         .firstWhere((reciter) => reciter.identifier == selectedReciter);
   }
@@ -87,7 +87,7 @@ class SettingsProvider extends ChangeNotifier {
     _tamilFontSize = 18;
     _arabicFontSize = 20;
     _selectedTranslation = 'mJohn';
-    _selectedReciter = 'ar.alafasy';
+    _selectedReciter = 'alafasy-pj';
     notifyListeners();
   }
 }
