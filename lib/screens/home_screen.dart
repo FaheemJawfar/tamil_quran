@@ -7,6 +7,8 @@ import 'package:tamil_quran/screens/sura_list_tamil_screen.dart';
 import 'package:tamil_quran/widgets/sura_verse_picker.dart';
 import 'package:tamil_quran/widgets/home_popup_menu.dart';
 
+import '../widgets/quran_drawer.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -69,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: FittedBox(fit: BoxFit.contain, child: Text(_appBarTitle)),
         actions: [
           IconButton(
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen>
                       builder: (context) => const QuranAudioPlayerScreen()));
             },
             icon: const ImageIcon(
-              AssetImage('assets/images/audio-book.png'),
+              AssetImage('assets/images/quran-audio.png'),
             ),),
 
           IconButton(
@@ -124,6 +125,8 @@ class _HomeScreenState extends State<HomeScreen>
           ],
         ),
       ),
+
+      drawer: const CustomDrawer(),
       body: TabBarView(
         controller: _tabController,
         children: const [

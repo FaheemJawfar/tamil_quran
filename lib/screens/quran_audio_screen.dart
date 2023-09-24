@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
+import 'package:tamil_quran/helpers/check_connection.dart';
 import 'package:tamil_quran/helpers/quran_helper.dart';
+import 'package:tamil_quran/helpers/show_toast.dart';
 import 'package:tamil_quran/models/sura_details.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/providers/settings_provider.dart';
@@ -96,6 +98,16 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       });
     } catch (e) {
       debugPrint('Error: ${e.toString()}!');
+      checkInternetConnection();
+    }
+  }
+
+  Future<void> checkInternetConnection() async {
+    bool connected = await CheckConnection.checkInternetConnection();
+
+    if(!connected){
+      if(!mounted) return;
+      ShowToast.showToast(context, 'Please check your Internet connection!');
     }
   }
 
@@ -226,6 +238,8 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       ),
     );
   }
+
+
 }
 
 class ProgressBarState {
