@@ -84,19 +84,19 @@ class CustomDrawer extends StatelessWidget {
             context,
             () => _showVersePicker(context),
           ),
+          _buildListTiles(const Icon(Icons.settings), 'அமைப்புகள்', context,
+              const SettingsScreen()),
           _buildActionListTiles(
               const Icon(Icons.share), 'செயலியைப் பகிர்க', context, () {
             Share.share(
                 'திருக்குர்ஆன் தமிழாக்கம் Android App இனை இப்போதே Playstore இலிருந்து பதிவிறக்கம் செய்து பயன் படுத்துங்கள்: \nhttps://play.google.com/store/apps/details?id=com.faheemapps.tamil_quran');
           }),
-          _buildListTiles(
-              const Icon(Icons.settings), 'அமைப்புகள்', context, const SettingsScreen()),
           _buildActionListTiles(const Icon(Icons.rate_review_outlined),
               'செயலியைத் தரப்படுத்துக', context, () {
             _showRating(context);
           }),
-          _buildListTiles(
-              const Icon(Icons.info), 'எம்மைப்பற்றி', context, const AboutUsScreen()),
+          _buildListTiles(const Icon(Icons.info), 'எம்மைப்பற்றி', context,
+              const AboutUsScreen()),
         ],
       ),
     );
