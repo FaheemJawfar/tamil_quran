@@ -35,6 +35,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// LISTEN TAMIL QURAN AUDIOS ON YOUR MOBILE:
-// Download Tamil Quran for Android : https://bit.ly/TamilQuran

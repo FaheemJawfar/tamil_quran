@@ -39,6 +39,15 @@ class Launcher {
     }
   }
 
+
+  static void launchWebpage(String url) async {
+    try {
+      await launchUrlString(url);
+    } catch (e) {
+      throw 'Could not launch ${e.toString()}';
+    }
+  }
+
   void openWhatsApp() async {
     const phoneNumber = '94774106399';
 

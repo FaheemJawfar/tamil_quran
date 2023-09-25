@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/screens/about_us.dart';
+import 'package:tamil_quran/screens/donation_screen.dart';
 import 'package:tamil_quran/widgets/rate_app.dart';
 
 import '../screens/settings_screen.dart';
@@ -22,20 +23,29 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
-              child: getPopupMenuItem(Icons.settings, 'Settings'),
+              child: getPopupMenuItem(const Icon(Icons.settings), 'Settings'),
             ),
             PopupMenuItem<String>(
               value: 'share_app',
-              child: getPopupMenuItem(Icons.share, 'Share this App'),
+              child:
+                  getPopupMenuItem(const Icon(Icons.share), 'Share this App'),
             ),
             PopupMenuItem<String>(
               value: 'rate_app',
-              child:
-                  getPopupMenuItem(Icons.rate_review_outlined, 'Rate this App'),
+              child: getPopupMenuItem(
+                  const Icon(Icons.rate_review_outlined), 'Rate this App'),
             ),
             PopupMenuItem<String>(
               value: 'about_us',
-              child: getPopupMenuItem(Icons.info, 'About us'),
+              child: getPopupMenuItem(const Icon(Icons.info), 'About us'),
+            ),
+            PopupMenuItem<String>(
+              value: 'donate_us',
+              child: getPopupMenuItem(
+                  const ImageIcon(
+                    AssetImage('assets/images/heart.png'),
+                  ),
+                  'Donate us'),
             ),
           ],
           onSelected: (String value) {
@@ -54,7 +64,11 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
               case 'about_us':
                 Navigator.push(context,
                     MaterialPageRoute(builder: (_) => const AboutUsScreen()));
+                break;
 
+              case 'donate_us':
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const DonationScreen()));
                 break;
             }
           },
@@ -62,11 +76,11 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
         ));
   }
 
-  Widget getPopupMenuItem(IconData icon, String title) {
+  Widget getPopupMenuItem(Widget icon, String title) {
     return ListTile(
       iconColor: Colors.green.shade700,
       contentPadding: EdgeInsets.zero,
-      leading: Icon(icon),
+      leading: icon,
       title: Text(title),
     );
   }

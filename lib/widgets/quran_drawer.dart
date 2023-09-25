@@ -6,6 +6,7 @@ import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/screens/settings_screen.dart';
 
+import '../screens/donation_screen.dart';
 import '../screens/quran_audio_screen.dart';
 import 'rate_app.dart';
 import 'sura_verse_picker.dart';
@@ -97,14 +98,18 @@ class CustomDrawer extends StatelessWidget {
           }),
           _buildListTiles(const Icon(Icons.info), 'எம்மைப்பற்றி', context,
               const AboutUsScreen()),
+
+
+          _buildListTiles( _buildImageIcon('assets/images/heart.png'), 'நன்கொடைகள்', context,
+              const DonationScreen()),
         ],
       ),
     );
   }
 
   Widget _buildImageIcon(String imagePath) {
-    return const ImageIcon(
-      AssetImage('assets/images/quran-audio.png'),
+    return ImageIcon(
+      AssetImage(imagePath),
     );
   }
 
