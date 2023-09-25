@@ -15,17 +15,24 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 
   @override
   void initState() {
-    getVersion();
+    getVersionNumber();
     super.initState();
   }
 
 
-  void getVersion() async{
+  void getVersionNumber() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    List<String> versionParts = packageInfo.version.split('.');
+
+    if (versionParts.length > 1) {
+      versionParts.removeLast();
+    }
+
     setState(() {
-      appVersion = packageInfo.version;
+      appVersion = versionParts.join('.');
     });
   }
+
 
 
   @override
