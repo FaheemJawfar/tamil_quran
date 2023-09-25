@@ -3,37 +3,38 @@ import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/helpers/show_toast.dart';
-import 'package:tamil_quran/models/sura_details.dart';
-import 'package:tamil_quran/models/quran_aya.dart';
-import '../providers/settings_provider.dart';
+
+import '../config/app_config.dart';
+import '../models/quran_aya.dart';
+import '../models/sura_details.dart';
 
 class VerseHelper {
   static Future<void> copyToClipboard(
-    String text,
-    BuildContext context,
-  ) async {
+      String text,
+      BuildContext context,
+      ) async {
     final clipboardData = ClipboardData(text: text);
-    ShowToast.showToast(context, 'வசனம் பிரதி செய்யப்பட்டது!');
+    ShowToast.showToast(context, 'Verse copied successfully!');
     await Clipboard.setData(clipboardData);
   }
 
-  static String getVerseCopy(QuranAya selectedVerse, String option) {
+  static String getVerseCopy( QuranAya arabic, QuranAya translation, int suraNumber, String option) {
     switch (option) {
       case 'copy':
         String verseCopy =
-            '${getArabicVerse(selectedVerse)}\n\n${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraNumber}:${selectedVerse.ayaNumber})\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )';
+            '${getArabicVerse(arabic)}\n\n${translation.text}\n\n- (Holy Qur’ān $suraNumber:${arabic.ayaIndex})\n\n( Al Kitāb for Android: ${AppConfig.appShortUrl} )';
 
         return verseCopy;
 
       case 'copy_arabic':
         String verseCopy =
-            '${getArabicVerse(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraNumber}:${selectedVerse.ayaNumber})';
+            '${getArabicVerse(arabic)}\n\n- (Holy Qur’ān $suraNumber:${arabic.ayaIndex})';
 
         return verseCopy;
 
-      case 'copy_tamil':
+      case 'copy_translation':
         String verseCopy =
-            '${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraNumber}:${selectedVerse.ayaNumber})';
+            '${translation.text}\n\n- (Holy Qur’ān $suraNumber:${arabic.ayaIndex})';
         return verseCopy;
 
       default:
@@ -45,42 +46,48 @@ class VerseHelper {
     Share.share(verse);
   }
 
+  static String getArabicVerse(QuranAya verse) {
+    return '${verse.text}${QuranHelper.getVerseEndSymbol(verse.ayaIndex)}';
+  }
+
   static Future<void> copySura(
-      List<QuranAya> sura, BuildContext context, SuraDetails suraModel) async {
+      List<QuranAya> suraArabic, List<QuranAya> suraTranslation, int suraNumber, BuildContext context,) async {
+
+    SuraDetails suraDetails = SuraDetails.suraList[suraNumber-1];
     try {
       StringBuffer suraTextBuffer = StringBuffer();
 
       String header =
-          '${suraModel.tamilName}${suraModel.tamilMeaning != null ? ' - ( ${suraModel.tamilMeaning} )' : ''}';
+          '${suraDetails.tamilName} - ( ${suraDetails.tamilMeaning} )';
 
       suraTextBuffer.write('$header\n${'-' * header.length}\n');
 
-      int loopLimit = sura.length < 100 ? sura.length : 100;
+      int loopLimit = suraArabic.length < 100 ? suraArabic.length : 100;
 
       for (int i = 0; i < loopLimit; i++) {
-        final verse = sura[i];
+        final arabicVerse = suraArabic[i];
+        final translationOfVerse = suraTranslation[i];
 
-        bool suraStartsWithBismillah =
-            verse.index == 1 && verse.suraNumber == 1 && suraModel.suraNumber != 1;
+        bool suraStartsWithBismillah = arabicVerse.ayaIndex == 0;
 
         String verseText =
-            '\n\n${verse.arabic}${suraStartsWithBismillah ? '' : QuranHelper.getVerseEndSymbol(verse.ayaNumber)}'
-            '\n${suraStartsWithBismillah ? '' : '${verse.ayaNumber.toString()}. '}${getTamilTranslation(verse)}';
+            '\n\n${arabicVerse.text}${suraStartsWithBismillah ? '' : QuranHelper.getVerseEndSymbol(arabicVerse.ayaIndex)}'
+            '\n${suraStartsWithBismillah ? '' : '${translationOfVerse.ayaIndex.toString()}. '}${translationOfVerse.text}';
 
         suraTextBuffer.write(verseText);
       }
 
-      if (sura.length > 100) {
+      if (suraArabic.length > 100) {
         suraTextBuffer.write(
-            '\n\n*****\n( மீதமுள்ள வசனங்கள்: ${sura.length - 100} )\n\nஅத்தியாயத்தை முழுமையாக வாசிக்க எமது Tamil Quran அப்ளிகேஷனை Download செய்யவும்:');
+            '\n\n*****\n( The rest of the verses: ${suraArabic.length - 100} )\n\nDownload Al Kitāb app to read the complete chapter:');
       }
 
       suraTextBuffer.write(
-          '\n\nதிருக்குர்ஆன்:\nஅத்தியாயம்:${suraModel.suraNumber} - வசனங்கள்: ${suraModel.verseCount}\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )');
+          '\n\nHoly Qur’ān:\nChapter:${suraDetails.suraNumber} - Total verses: ${suraDetails.verseCount}\n\n( Al Kitāb for Android: ${AppConfig.appShortUrl} )');
       String suraText = suraTextBuffer.toString();
 
       final clipboardData = ClipboardData(text: suraText);
-      ShowToast.showToast(context, 'அத்தியாயம் பிரதி செய்யப்பட்டது!');
+      ShowToast.showToast(context, 'Chapter copied successfully!');
       await Clipboard.setData(
         clipboardData,
       );
@@ -89,27 +96,136 @@ class VerseHelper {
     }
   }
 
-  static String getArabicVerse(QuranAya verse) {
-    return '${verse.arabic}${QuranHelper.getVerseEndSymbol(verse.ayaNumber)}';
-  }
 
-  static String getTamilTranslation(QuranAya verse) {
-    String selectedTranslation = SettingsProvider().selectedTranslation;
-
-    switch (selectedTranslation) {
-      case 'mJohn':
-        return verse.mJohn;
-      case 'kingFahd':
-        return verse.kingFahd;
-
-      case 'ift':
-        return verse.ift;
-
-      case 'abdulHameed':
-        return verse.abdulHameed;
-
-      default:
-        return verse.mJohn;
-    }
-  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/services.dart';
+// import 'package:share_plus/share_plus.dart';
+// import 'package:tamil_quran/helpers/quran_helper.dart';
+// import 'package:tamil_quran/helpers/show_toast.dart';
+// import 'package:tamil_quran/models/sura_details.dart';
+// import 'package:tamil_quran/models/quran_aya.dart';
+// import '../providers/settings_provider.dart';
+//
+// class VerseHelper {
+//   static Future<void> copyToClipboard(
+//     String text,
+//     BuildContext context,
+//   ) async {
+//     final clipboardData = ClipboardData(text: text);
+//     ShowToast.showToast(context, 'வசனம் பிரதி செய்யப்பட்டது!');
+//     await Clipboard.setData(clipboardData);
+//   }
+//
+//   static String getVerseCopy(QuranAya selectedVerse, String option) {
+//     switch (option) {
+//       case 'copy':
+//         String verseCopy =
+//             '${getArabicVerse(selectedVerse)}\n\n${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraIndex}:${selectedVerse.ayaIndex})\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )';
+//
+//         return verseCopy;
+//
+//       case 'copy_arabic':
+//         String verseCopy =
+//             '${getArabicVerse(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraIndex}:${selectedVerse.ayaIndex})';
+//
+//         return verseCopy;
+//
+//       case 'copy_tamil':
+//         String verseCopy =
+//             '${getTamilTranslation(selectedVerse)}\n\n- (திருக்குர்ஆன் ${selectedVerse.suraIndex}:${selectedVerse.ayaIndex})';
+//         return verseCopy;
+//
+//       default:
+//         return '';
+//     }
+//   }
+//
+//   static void shareVerse(String verse) {
+//     Share.share(verse);
+//   }
+//
+//   static Future<void> copySura(
+//       List<QuranAya> sura, BuildContext context, SuraDetails suraModel) async {
+//     try {
+//       // StringBuffer suraTextBuffer = StringBuffer();
+//       //
+//       // String header =
+//       //     '${suraModel.tamilName}${suraModel.tamilMeaning != null ? ' - ( ${suraModel.tamilMeaning} )' : ''}';
+//       //
+//       // suraTextBuffer.write('$header\n${'-' * header.length}\n');
+//       //
+//       // int loopLimit = sura.length < 100 ? sura.length : 100;
+//       //
+//       // for (int i = 0; i < loopLimit; i++) {
+//       //   final verse = sura[i];
+//       //
+//       //   bool suraStartsWithBismillah =
+//       //       verse.ayaIndex == 1 && verse.suraIndex == 1 && suraModel.suraNumber != 1;
+//       //
+//       //   String verseText =
+//       //       '\n\n${verse.arabic}${suraStartsWithBismillah ? '' : QuranHelper.getVerseEndSymbol(verse.ayaNumber)}'
+//       //       '\n${suraStartsWithBismillah ? '' : '${verse.ayaNumber.toString()}. '}${getTamilTranslation(verse)}';
+//       //
+//       //   suraTextBuffer.write(verseText);
+//       // }
+//       //
+//       // if (sura.length > 100) {
+//       //   suraTextBuffer.write(
+//       //       '\n\n*****\n( மீதமுள்ள வசனங்கள்: ${sura.length - 100} )\n\nஅத்தியாயத்தை முழுமையாக வாசிக்க எமது Tamil Quran அப்ளிகேஷனை Download செய்யவும்:');
+//       // }
+//       //
+//       // suraTextBuffer.write(
+//       //     '\n\nதிருக்குர்ஆன்:\nஅத்தியாயம்:${suraModel.suraNumber} - வசனங்கள்: ${suraModel.verseCount}\n\n( Tamil Quran for Android: https://bit.ly/TamilQuran )');
+//       // String suraText = suraTextBuffer.toString();
+//       //
+//       // final clipboardData = ClipboardData(text: suraText);
+//       // ShowToast.showToast(context, 'அத்தியாயம் பிரதி செய்யப்பட்டது!');
+//       // await Clipboard.setData(
+//       //   clipboardData,
+//       // );
+//     } catch (e) {
+//       rethrow;
+//     }
+//   }
+//
+//   static String getArabicVerse(QuranAya verse) {
+//     //return '${verse.arabic}${QuranHelper.getVerseEndSymbol(verse.ayaNumber)}';
+//     return '';
+//   }
+//
+//   static String getTamilTranslation(QuranAya verse) {
+//     String selectedTranslation = SettingsProvider().selectedTranslation;
+//
+//     return '';
+//     // switch (selectedTranslation) {
+//     //   case 'mJohn':
+//     //     return verse.mJohn;
+//     //   case 'kingFahd':
+//     //     return verse.kingFahd;
+//     //
+//     //   case 'ift':
+//     //     return verse.ift;
+//     //
+//     //   case 'abdulHameed':
+//     //     return verse.abdulHameed;
+//     //
+//     //   default:
+//     //     return verse.mJohn;
+//     // }
+//   }
+// }
+
+

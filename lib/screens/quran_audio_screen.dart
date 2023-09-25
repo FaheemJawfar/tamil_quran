@@ -8,7 +8,6 @@ import 'package:tamil_quran/helpers/quran_helper.dart';
 import 'package:tamil_quran/helpers/show_toast.dart';
 import 'package:tamil_quran/models/sura_details.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/providers/settings_provider.dart';
 import 'package:tamil_quran/widgets/reciter_selector_popup.dart';
 import '../widgets/home_popup_menu.dart';
 
@@ -21,8 +20,6 @@ class QuranAudioPlayerScreen extends StatefulWidget {
 
 class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
-  late final settingsProvider =
-      Provider.of<SettingsProvider>(context, listen: true);
   late AudioPlayer _audioPlayer;
   int selectedSuraIndex = 0;
 
@@ -52,7 +49,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     _audioPlayer = AudioPlayer();
     try {
       await _audioPlayer.setUrl(QuranHelper.getAudioURLBySurah(
-          settingsProvider.selectedReciterDetails, selectedSuraIndex + 1));
+          quranProvider.selectedReciterDetails, selectedSuraIndex + 1));
 
       _audioPlayer.playerStateStream.listen((playerState) {
         final isPlaying = playerState.playing;
@@ -132,7 +129,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         title: FittedBox(
             fit: BoxFit.contain,
             child: Text(
-                settingsProvider.selectedReciterDetails.name)),
+                quranProvider.selectedReciterDetails.name)),
         actions: [
           IconButton(
               onPressed: () {
@@ -140,11 +137,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return ReciterSelectorPopup(
-                      reciters: settingsProvider.allReciters,
+                      reciters: quranProvider.allReciters,
                       selectedReciter:
-                          settingsProvider.selectedReciterDetails.identifier,
+                          quranProvider.selectedReciterDetails.identifier,
                       onSelected: (value) {
-                        settingsProvider.selectedReciter = value;
+                        quranProvider.selectedReciter = value;
                       },
                     );
                   },

@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/helpers/bookmark_helper.dart';
-import 'package:tamil_quran/helpers/quran_helper.dart';
-import 'package:tamil_quran/helpers/verse_helper.dart';
-import 'package:tamil_quran/models/bookmark.dart';
-import 'package:tamil_quran/models/quran_aya.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/providers/settings_provider.dart';
+import '../helpers/bookmark_helper.dart';
+import '../helpers/quran_helper.dart';
+import '../helpers/verse_helper.dart';
+import '../models/bookmark.dart';
+import '../models/quran_aya.dart';
+import '../providers/quran_provider.dart';
 
 class ShowVerse extends StatefulWidget {
-  final QuranAya verseModel;
+  final QuranAya quranAyaArabic;
+  final QuranAya quranAyaTranslation;
 
-  const ShowVerse({required this.verseModel, Key? key}) : super(key: key);
+  const ShowVerse(
+      {required this.quranAyaArabic,
+        required this.quranAyaTranslation,
+        Key? key})
+      : super(key: key);
 
   @override
   State<ShowVerse> createState() => _ShowVerseState();
 }
 
 class _ShowVerseState extends State<ShowVerse> {
-  late final settingsProvider =
-      Provider.of<SettingsProvider>(context, listen: true);
+
   late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
-    bool suraStartsWithBismillah = (widget.verseModel.index == 1 &&
-        widget.verseModel.suraNumber == 1 &&
-        quranProvider.selectedSura != 1);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child:
-              suraStartsWithBismillah ? const SizedBox() : _buildOptionsRow(),
+          child: widget.quranAyaArabic.ayaIndex == 0
+              ? const SizedBox()
+              : _buildOptionsRow(),
         ),
         const SizedBox(
           height: 12,
@@ -52,18 +52,19 @@ class _ShowVerseState extends State<ShowVerse> {
                       // style: TextStyle(color: Colors.black),
                       children: [
                         TextSpan(
-                          text: widget.verseModel.arabic,
+                          text: widget.quranAyaArabic.text,
                           style: TextStyle(
-                            fontSize: settingsProvider.arabicFontSize,
-                            fontFamily: settingsProvider.arabicFont,
+                            fontSize: quranProvider.arabicFontSize,
+                            fontFamily: quranProvider.arabicFont,
                             color: Colors.black,
                           ),
                         ),
                         TextSpan(
-                          text: suraStartsWithBismillah
+                          text: widget.quranAyaArabic.ayaIndex == 0
                               ? ''
                               : QuranHelper.getVerseEndSymbol(
-                                  widget.verseModel.ayaNumber),
+                              widget.quranAyaArabic.ayaIndex),
+                          // No font applied to this portion
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
                         ),
@@ -72,12 +73,10 @@ class _ShowVerseState extends State<ShowVerse> {
                   )),
               const SizedBox(height: 8),
               Text(
-                VerseHelper.getTamilTranslation(
-                  widget.verseModel,
-                ),
+                widget.quranAyaTranslation.text,
                 style: TextStyle(
-                  fontSize: settingsProvider.tamilFontSize,
-                  fontFamily: settingsProvider.tamilFont,
+                  fontSize: quranProvider.tamilFontSize,
+                  fontFamily: quranProvider.tamilFont,
                 ),
               ),
             ],
@@ -101,7 +100,7 @@ class _ShowVerseState extends State<ShowVerse> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '${widget.verseModel.ayaNumber}. ',
+          '${widget.quranAyaTranslation.ayaIndex}. ',
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         PopupMenuButton<String>(
@@ -110,7 +109,11 @@ class _ShowVerseState extends State<ShowVerse> {
             PopupMenuItem<String>(
               onTap: () {
                 VerseHelper.shareVerse(
-                    VerseHelper.getVerseCopy(widget.verseModel, 'copy'));
+                    VerseHelper.getVerseCopy(
+                    widget.quranAyaArabic,
+                    widget.quranAyaTranslation,
+                    quranProvider.selectedSuraNumber,
+                    'copy'));
               },
               child: getPopupMenuItem(Icons.share, 'Share'),
             ),
@@ -118,28 +121,36 @@ class _ShowVerseState extends State<ShowVerse> {
               onTap: () {
                 BookmarkHelper.addBookmark(
                   Bookmark(
-                    suraNumber: widget.verseModel.suraNumber.toString(),
-                    verseNumber: widget.verseModel.ayaNumber.toString(),
+                    suraNumber: quranProvider.selectedSuraNumber.toString(),
+                    verseNumber: widget.quranAyaTranslation.ayaIndex.toString(),
                   ),
                   context,
                 );
               },
               child:
-                  getPopupMenuItem(Icons.bookmark_add_outlined, 'Add Bookmark'),
+              getPopupMenuItem(Icons.bookmark_add_outlined, 'Add Bookmark'),
             ),
             PopupMenuItem<String>(
               value: 'copy',
               onTap: () {
                 VerseHelper.copyToClipboard(
-                    VerseHelper.getVerseCopy(widget.verseModel, 'copy'),
+                    VerseHelper.getVerseCopy(
+                        widget.quranAyaArabic,
+                        widget.quranAyaTranslation,
+                        quranProvider.selectedSuraNumber,
+                        'copy'),
                     context);
               },
-              child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
+              child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Translation'),
             ),
             PopupMenuItem<String>(
               onTap: () {
                 VerseHelper.copyToClipboard(
-                    VerseHelper.getVerseCopy(widget.verseModel, 'copy_arabic'),
+                    VerseHelper.getVerseCopy(
+                        widget.quranAyaArabic,
+                        widget.quranAyaTranslation,
+                        quranProvider.selectedSuraNumber,
+                        'copy_arabic'),
                     context);
               },
               child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
@@ -147,10 +158,14 @@ class _ShowVerseState extends State<ShowVerse> {
             PopupMenuItem<String>(
               onTap: () {
                 VerseHelper.copyToClipboard(
-                    VerseHelper.getVerseCopy(widget.verseModel, 'copy_tamil'),
+                    VerseHelper.getVerseCopy(
+                        widget.quranAyaArabic,
+                        widget.quranAyaTranslation,
+                        quranProvider.selectedSuraNumber,
+                        'copy_translation'),
                     context);
               },
-              child: getPopupMenuItem(Icons.copy, 'Copy Tamil'),
+              child: getPopupMenuItem(Icons.copy, 'Copy Translation'),
             ),
           ],
           child: const Icon(Icons.more_vert),

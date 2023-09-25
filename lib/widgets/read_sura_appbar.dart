@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tamil_quran/widgets/read_sura_popup_menu.dart';
+import '../models/sura_details.dart';
 import '../providers/quran_provider.dart';
 
 class ReadSuraAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -27,9 +28,9 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
 
   void _navigateSura(int increment) {
-    final newSura = quranProvider.selectedSura + increment;
+    final newSura = quranProvider.selectedSuraNumber + increment;
     if (newSura >= 1 && newSura <= 114) {
-      quranProvider.selectedSura = newSura;
+      quranProvider.selectedSuraNumber = newSura;
 
       if (widget.arabicOnly) {
         scrollToStartArabic();
@@ -56,7 +57,7 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(quranProvider.selectedSuraName),
+      title: Text(SuraDetails.suraList[quranProvider.selectedSuraNumber-1].tamilName),
       automaticallyImplyLeading: true,
       actions: [
         IconButton(

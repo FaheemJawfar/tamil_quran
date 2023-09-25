@@ -6,7 +6,6 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../config/color_config.dart';
 import '../helpers/shared_preferences.dart';
 import '../providers/quran_provider.dart';
-import '../providers/settings_provider.dart';
 import '../widgets/show_verse.dart';
 
 class SuraTranslationScreen extends StatefulWidget {
@@ -23,8 +22,6 @@ class SuraTranslationScreen extends StatefulWidget {
 
 class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
-  late final settingsProvider =
-      Provider.of<SettingsProvider>(context, listen: true);
 
   final scrollController = ItemScrollController();
 
@@ -38,7 +35,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
       if (widget.goToVerse > 0) {
         int index = widget.goToVerse;
         int suraNumber =
-            Provider.of<QuranProvider>(context, listen: false).selectedSura;
+            Provider.of<QuranProvider>(context, listen: false).selectedSuraNumber;
         if (suraNumber == 1 || suraNumber == 9) {
           index--;
         }
@@ -73,14 +70,16 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
                 separatorBuilder: (context, index) =>
                     Divider(color: ColorConfig.primaryColor),
                 itemScrollController: scrollController,
-                itemCount: quranProvider.selectedSuraContent.length,
+                itemCount: quranProvider.selectedSuraArabic.length,
                 itemBuilder: (BuildContext context, int index) {
                   return VisibilityDetector(
                     key: Key(index.toString()),
                     onVisibilityChanged: (info) =>
-                        _updateLastSeen(quranProvider.selectedSura, index),
+                        _updateLastSeen(quranProvider.selectedSuraNumber, index),
                     child: ShowVerse(
-                      verseModel: quranProvider.selectedSuraContent[index],
+                      quranAyaArabic: quranProvider.selectedSuraArabic[index],
+                      quranAyaTranslation: quranProvider.selectedSuraTranslation[index],
+
                     ),
                   );
                 },

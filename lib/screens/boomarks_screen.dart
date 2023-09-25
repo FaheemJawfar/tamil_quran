@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/helpers/bookmark_helper.dart';
-import 'package:tamil_quran/helpers/verse_helper.dart';
-import 'package:tamil_quran/models/bookmark.dart';
 import 'package:tamil_quran/screens/sura_translation_screen.dart';
-import '../models/sura_details.dart';
+import '../config/color_config.dart';
+import '../helpers/bookmark_helper.dart';
+import '../models/bookmark.dart';
 import '../providers/quran_provider.dart';
 
 class BookmarksScreen extends StatefulWidget {
@@ -16,7 +14,7 @@ class BookmarksScreen extends StatefulWidget {
 }
 
 class _BookmarksScreenState extends State<BookmarksScreen> {
-  late final quranProvider = context.read<QuranProvider>();
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
   List<Bookmark> bookmarkList = [];
 
   @override
@@ -37,65 +35,69 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
       backgroundColor: ColorConfig.backgroundColor,
       body: bookmarkList.isEmpty
           ? const Center(
-              child: Text(
-                'நீங்கள் Bookmark செய்த வசனங்களை இங்கே காணலாம்!',
-                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-                textAlign: TextAlign.center,
-              ),
-            )
+        child: Text(
+          'Your bookmarks will appear here!',
+          style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+          textAlign: TextAlign.center,
+        ),
+      )
           : ListView.separated(
-              itemCount: bookmarkList.length,
-              separatorBuilder: (context, index) => Divider(
-                thickness: 1,
-                color: ColorConfig.primaryColor,
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
+        itemCount: bookmarkList.length,
+        separatorBuilder: (context, index) => Divider(
+          thickness: 1,
+          color: ColorConfig.primaryColor,
+        ),
+        itemBuilder: (context, index) {
+          Bookmark currentBookmark = bookmarkList[index];
+          return ListTile(
+            onTap: () => onBookmarkSelected(
+              int.parse(currentBookmark.suraNumber),
+              int.parse(currentBookmark.verseNumber),
+            ),
+            leading: CircleAvatar(
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text(
+                      '${currentBookmark.suraNumber}:${currentBookmark.verseNumber}'),
+                ),
               ),
-              itemBuilder: (context, index) {
-                Bookmark currentBookmark = bookmarkList[index];
-                return ListTile(
-                  onTap: () => onBookmarkSelected(
-                    int.parse(currentBookmark.suraNumber),
-                    int.parse(currentBookmark.verseNumber),
-                  ),
-                  leading: CircleAvatar(
-                    child: Text(
-                        '${currentBookmark.suraNumber}:${currentBookmark.verseNumber}'),
-                  ),
-                  title: Text(getSuraName(currentBookmark.suraNumber)),
-                  subtitle: Text(getVerse(
-                      currentBookmark.suraNumber, currentBookmark.verseNumber)),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      BookmarkHelper.deleteBookmark(
-                          Bookmark(
-                              suraNumber: currentBookmark.suraNumber,
-                              verseNumber: currentBookmark.verseNumber),
-                          context);
-                      getBookmarks();
-                    },
-                  ),
-                );
+            ),
+            title: Text(quranProvider.filterOneAyaArabic(
+                int.parse(currentBookmark.suraNumber), int.parse(currentBookmark.verseNumber)).text,
+              textDirection: TextDirection.rtl,
+              style: TextStyle(fontFamily: quranProvider.arabicFont),
+            ),
+            subtitle: Text(quranProvider.filterOneAyaTranslation(
+                int.parse(currentBookmark.suraNumber), int.parse(currentBookmark.verseNumber)).text),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                BookmarkHelper.deleteBookmark(
+                    Bookmark(
+                        suraNumber: currentBookmark.suraNumber,
+                        verseNumber: currentBookmark.verseNumber),
+                    context);
+                getBookmarks();
               },
             ),
+          );
+        },
+      ),
     );
   }
 
-  getSuraName(String suraNumber) {
-    return SuraDetails.suraList[int.parse(suraNumber) - 1].tamilName;
-  }
 
-  getVerse(String suraNumber, String verseNumber) {
-    return VerseHelper.getTamilTranslation(quranProvider.filterOneVerse(
-        int.parse(suraNumber), int.parse(verseNumber)));
-  }
 
   void onBookmarkSelected(int selectedSura, int selectedVerse) {
-    quranProvider.selectedSura = selectedSura;
+    quranProvider.selectedSuraNumber = selectedSura;
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => SuraTranslationScreen(
-                  goToVerse: selectedVerse,
-                )));
+              goToVerse: selectedVerse,
+            )));
   }
 }

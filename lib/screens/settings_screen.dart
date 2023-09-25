@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
-import '../providers/settings_provider.dart';
+import 'package:tamil_quran/providers/quran_provider.dart';
 import '../widgets/reciter_selector_popup.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -12,14 +12,14 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  late final settingsProvider =
-      Provider.of<SettingsProvider>(context, listen: true);
+  late final quranProvider =
+      Provider.of<QuranProvider>(context, listen: true);
 
   Map<String, String> translations = {
-    'mJohn': 'முஹம்மது ஜான் தமிழாக்கம்',
-    'kingFahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா',
+    'm_john': 'முஹம்மது ஜான் தமிழாக்கம்',
+    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா',
     'ift': 'இஸ்லாமிய நிறுவனம் ட்ரஸ்ட்',
-    'abdulHameed': 'அப்துல் ஹமீது பாகவி',
+    'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
   };
 
   @override
@@ -36,13 +36,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildListTile(
               leadingIcon: Icons.language,
               title: 'தமிழ் மொழிபெயர்ப்பு',
-              subtitle: translations[settingsProvider.selectedTranslation]!,
+              subtitle: translations[quranProvider.selectedTranslation]!,
               onTap: () => _showPopup(
                 child: ShowTranslationSelector(
                   translations: translations,
-                  selectedTranslation: settingsProvider.selectedTranslation,
+                  selectedTranslation: quranProvider.selectedTranslation,
                   onSelected: (value) =>
-                      settingsProvider.selectedTranslation = value,
+                      quranProvider.selectedTranslation = value,
                 ),
               ),
             ),
@@ -52,10 +52,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const ImageIcon(AssetImage('assets/images/tamil.png')),
               title: 'தமிழ் எழுத்துரு ( Tamil Font )',
               subtitle: 'அல்லாஹ்வின் திருப் பெயரால் ...',
-              selectedFont: settingsProvider.tamilFont,
+              selectedFont: quranProvider.tamilFont,
               onTap: () => _showPopup(
                 child: ShowFontSelector(
-                  selectedFont: settingsProvider.tamilFont,
+                  selectedFont: quranProvider.tamilFont,
                   tamilFonts: const [
                     'MUktaMalar',
                     'HindMadurai',
@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'MeeraInimai'
                   ],
                   label: 'அல்லாஹ்வின் திருப் பெயரால் ...',
-                  onSelected: (value) => settingsProvider.tamilFont = value,
+                  onSelected: (value) => quranProvider.tamilFont = value,
                 ),
               ),
             ),
@@ -73,10 +73,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const ImageIcon(AssetImage('assets/images/arabic.png')),
               title: 'அரபு எழுத்துரு (Arabic Font)',
               subtitle: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
-              selectedFont: settingsProvider.arabicFont,
+              selectedFont: quranProvider.arabicFont,
               onTap: () => _showPopup(
                 child: ShowFontSelector(
-                  selectedFont: settingsProvider.arabicFont,
+                  selectedFont: quranProvider.arabicFont,
                   tamilFonts: const [
                     'AlQalam',
                     'PDMS_Saleem',
@@ -86,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'UthmanicScript'
                   ],
                   label: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                  onSelected: (value) => settingsProvider.arabicFont = value,
+                  onSelected: (value) => quranProvider.arabicFont = value,
                 ),
               ),
             ),
@@ -94,14 +94,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildListTile(
               leadingIcon: Icons.text_fields,
               title: 'தமிழ் எழுத்து அளவு (Tamil Font Size)',
-              subtitle: settingsProvider.tamilFontSize.floor().toString(),
+              subtitle: quranProvider.tamilFontSize.floor().toString(),
               onTap: () => _showPopup(
                   child: FontSizeSelector(
-                fontSize: settingsProvider.tamilFontSize,
+                fontSize: quranProvider.tamilFontSize,
                 text: 'அல்லாஹ்வின் திருப் பெயரால் ...',
-                fontFamily: settingsProvider.tamilFont,
+                fontFamily: quranProvider.tamilFont,
                 onChanged: (value) {
-                  settingsProvider.tamilFontSize = value;
+                  quranProvider.tamilFontSize = value;
                 },
               )),
             ),
@@ -109,14 +109,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildListTile(
               leadingIcon: Icons.text_fields,
               title: 'அரபு எழுத்து அளவு (Arabic Font Size)',
-              subtitle: settingsProvider.arabicFontSize.floor().toString(),
+              subtitle: quranProvider.arabicFontSize.floor().toString(),
               onTap: () => _showPopup(
                   child: FontSizeSelector(
-                fontSize: settingsProvider.arabicFontSize,
-                fontFamily: settingsProvider.arabicFont,
+                fontSize: quranProvider.arabicFontSize,
+                fontFamily: quranProvider.arabicFont,
                 text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
                 onChanged: (value) {
-                  settingsProvider.arabicFontSize = value;
+                  quranProvider.arabicFontSize = value;
                 },
               )),
             ),
@@ -125,14 +125,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leadingIcon: Icons.record_voice_over,
               title: 'குர்ஆன் - கிராஅத் (ஓதுபவர்)',
               subtitle:
-                  settingsProvider.selectedReciterDetails.name,
+                  quranProvider.selectedReciterDetails.name,
               onTap: () => _showPopup(
                 child: ReciterSelectorPopup(
-                  reciters: settingsProvider.allReciters,
+                  reciters: quranProvider.allReciters,
                   selectedReciter:
-                      settingsProvider.selectedReciterDetails.identifier,
+                      quranProvider.selectedReciterDetails.identifier,
                   onSelected: (value) {
-                    settingsProvider.selectedReciter = value;
+                    quranProvider.selectedReciter = value;
                   },
                 ),
               ),
@@ -160,7 +160,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ElevatedButton(
                       child: const Text('ஆம்!'),
                       onPressed: () {
-                        settingsProvider.clearSettings();
+                        quranProvider.clearSettings();
                         Navigator.of(context).pop();
                       },
                     ),

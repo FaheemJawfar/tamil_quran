@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/helpers/quran_helper.dart';
-import 'package:tamil_quran/providers/settings_provider.dart';
-import 'package:tamil_quran/widgets/read_sura_appbar.dart';
+import '../config/color_config.dart';
+import '../helpers/quran_helper.dart';
 import '../providers/quran_provider.dart';
+import '../widgets/read_sura_appbar.dart';
 
 class SuraArabicScreen extends StatefulWidget {
   const SuraArabicScreen({Key? key}) : super(key: key);
@@ -39,8 +38,8 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                if (quranProvider.selectedSura != 1 &&
-                    quranProvider.selectedSura != 9)
+                if (quranProvider.selectedSuraNumber != 1 &&
+                    quranProvider.selectedSuraNumber != 9)
                   Image.asset(
                     'assets/images/bismillah.png',
                     height: 40,
@@ -75,19 +74,19 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
   TextSpan _buildRichTextSpan() {
     List<InlineSpan> inlineSpans = [];
 
-    for (var verse in quranProvider.selectedSuraContent) {
+    for (var verse in quranProvider.selectedSuraArabic) {
       inlineSpans.add(TextSpan(
-        text: verse.arabic,
+        text: verse.text,
         style: TextStyle(
           fontSize: 20,
           fontFamily:
-              Provider.of<SettingsProvider>(context, listen: true).arabicFont,
+          quranProvider.arabicFont,
           color: Colors.black,
         ),
       ));
 
       inlineSpans.add(TextSpan(
-        text: '${QuranHelper.getVerseEndSymbol(verse.ayaNumber)} ',
+        text: '${QuranHelper.getVerseEndSymbol(verse.ayaIndex)} ',
         style: const TextStyle(
           fontSize: 20,
           color: Colors.black,

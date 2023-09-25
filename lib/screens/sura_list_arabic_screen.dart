@@ -51,7 +51,7 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                       'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
                       color: Colors.black),
                   onTap: () {
-                    quranProvider.selectedSura = sura.suraNumber;
+                    quranProvider.selectedSuraNumber = sura.suraNumber;
                     Navigator.push(
                       context,
                       MaterialPageRoute(

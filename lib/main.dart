@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/helpers/shared_preferences.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/providers/settings_provider.dart';
 import 'package:tamil_quran/screens/splash_screen.dart';
 
 Future<void> main() async {
@@ -19,7 +18,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => QuranProvider()),
-        ChangeNotifierProvider(create: (_) => SettingsProvider()),
       ],
       child: MaterialApp(
         title: 'Tamil Quran',

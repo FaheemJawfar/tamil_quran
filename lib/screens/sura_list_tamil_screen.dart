@@ -36,7 +36,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
           int? sura = AppPreferences.getInt('lastSeenSura');
           int? verse = AppPreferences.getInt('lastSeenVerse');
 
-          quranProvider.selectedSura = sura!;
+          quranProvider.selectedSuraNumber = sura!;
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -90,7 +90,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
                 'assets/images/sura_headers/Surah_${suraDetails.suraNumber}.png',
                 color: Colors.black),
             onTap: () {
-              quranProvider.selectedSura = suraDetails.suraNumber;
+              quranProvider.selectedSuraNumber = suraDetails.suraNumber;
               Navigator.push(
                 context,
                 MaterialPageRoute(
