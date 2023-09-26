@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:xml/xml.dart' as xml;
-
 import '../models/quran_aya.dart';
 import '../models/quran_sura.dart';
-import '../models/sura_details.dart';
 
 class DataParser {
   // static Future<List<SuraDetails>> loadQuranMetaData() async {

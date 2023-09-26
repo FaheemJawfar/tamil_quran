@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/helpers/verse_helper.dart';
-import 'package:tamil_quran/models/sura_details.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/widgets/sura_verse_picker.dart';

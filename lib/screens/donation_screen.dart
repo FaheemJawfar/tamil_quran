@@ -22,6 +22,7 @@ class _DonationScreenState extends State<DonationScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 40,),
               Image.asset(
                 'assets/images/donation.png',
                 width: 100,
@@ -51,7 +52,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   label: const Text(
                     'Donate us!',
                   )),
-              Divider(),
+              const Divider(),
               const SizedBox(
                 height: 10,
               ),

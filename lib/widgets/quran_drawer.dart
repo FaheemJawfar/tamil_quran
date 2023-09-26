@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/screens/about_us.dart';
-import 'package:tamil_quran/screens/boomarks_screen.dart';
 import 'package:tamil_quran/screens/search_screen.dart';
 import 'package:tamil_quran/screens/settings_screen.dart';
-
 import '../screens/donation_screen.dart';
 import '../screens/quran_audio_screen.dart';
 import 'rate_app.dart';

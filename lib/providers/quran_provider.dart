@@ -162,7 +162,7 @@ class QuranProvider extends ChangeNotifier {
     _arabicFont = 'AlQalam';
     _tamilFontSize = 18;
     _arabicFontSize = 20;
-    _selectedTranslation = 'mJohn';
+    _selectedTranslation = 'm_john';
     _selectedReciter = 'alafasy-pj';
     notifyListeners();
   }
