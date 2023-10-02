@@ -14,7 +14,7 @@ class VerseHelper {
       BuildContext context,
       ) async {
     final clipboardData = ClipboardData(text: text);
-    ShowToast.showToast(context, 'Verse copied successfully!');
+    ShowToast.showToast(context, 'வசனம் பிரதி செய்யப்பட்டது!');
     await Clipboard.setData(clipboardData);
   }
 
@@ -22,19 +22,19 @@ class VerseHelper {
     switch (option) {
       case 'copy':
         String verseCopy =
-            '${getArabicVerse(arabic)}\n\n${translation.text}\n\n- (Holy Qur’ān $suraNumber:${arabic.ayaIndex})\n\n( Al Kitāb for Android: ${AppConfig.appShortUrl} )';
+            '${getArabicVerse(arabic)}\n\n${translation.text}\n\n- (திருக்குர்ஆன் $suraNumber:${arabic.ayaIndex})\n\n( Tamil Quran for Android: ${AppConfig.appShortUrl} )';
 
         return verseCopy;
 
       case 'copy_arabic':
         String verseCopy =
-            '${getArabicVerse(arabic)}\n\n- (Holy Qur’ān $suraNumber:${arabic.ayaIndex})';
+            '${getArabicVerse(arabic)}\n\n- (திருக்குர்ஆன் $suraNumber:${arabic.ayaIndex})';
 
         return verseCopy;
 
       case 'copy_translation':
         String verseCopy =
-            '${translation.text}\n\n- (Holy Qur’ān $suraNumber:${arabic.ayaIndex})';
+            '${translation.text}\n\n- (திருக்குர்ஆன் $suraNumber:${arabic.ayaIndex})';
         return verseCopy;
 
       default:
@@ -51,7 +51,7 @@ class VerseHelper {
   }
 
   static Future<void> copySura(
-      List<QuranAya> suraArabic, List<QuranAya> suraTranslation, int suraNumber, BuildContext context,) async {
+      List<QuranAya> suraArabic, List<QuranAya> suraTranslation, int suraNumber, String selectedTranslationName, BuildContext context,) async {
 
     SuraDetails suraDetails = SuraDetails.suraList[suraNumber-1];
     try {
@@ -64,7 +64,7 @@ class VerseHelper {
 
       int loopLimit = suraArabic.length < 100 ? suraArabic.length : 100;
 
-      for (int i = 0; i < loopLimit; i++) {
+      for (int i = 0; i <= loopLimit; i++) {
         final arabicVerse = suraArabic[i];
         final translationOfVerse = suraTranslation[i];
 
@@ -77,17 +77,17 @@ class VerseHelper {
         suraTextBuffer.write(verseText);
       }
 
-      if (suraArabic.length > 100) {
+      if (suraArabic.length > loopLimit) {
         suraTextBuffer.write(
-            '\n\n*****\n( The rest of the verses: ${suraArabic.length - 100} )\n\nDownload Al Kitāb app to read the complete chapter:');
+            '\n\n*****\n(மீதமுள்ள வசனங்கள்: ${(suraArabic.length - 1)  - loopLimit})\n\nஅத்தியாயத்தை முழுமையாக வாசிக்க Tamil Quran App இனை Download செய்யவும்.');
       }
 
       suraTextBuffer.write(
-          '\n\nHoly Qur’ān:\nChapter:${suraDetails.suraNumber} - Total verses: ${suraDetails.verseCount}\n\n( Al Kitāb for Android: ${AppConfig.appShortUrl} )');
+          '\n\nதிருக்குர்ஆன் தமிழாக்கம்\nமொழிபெயர்ப்பு:$selectedTranslationName\nஅத்தியாயம்:${suraDetails.suraNumber}\nமொத்த வசனங்கள்: ${suraDetails.verseCount}\n\n(Tamil Quran for Android: ${AppConfig.appShortUrl})');
       String suraText = suraTextBuffer.toString();
 
       final clipboardData = ClipboardData(text: suraText);
-      ShowToast.showToast(context, 'Chapter copied successfully!');
+      ShowToast.showToast(context, 'அத்தியாயம் பிரதி செய்யப்பட்டது!');
       await Clipboard.setData(
         clipboardData,
       );

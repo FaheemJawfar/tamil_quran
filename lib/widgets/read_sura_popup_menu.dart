@@ -55,6 +55,7 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
                     quranProvider.selectedSuraArabic,
                     quranProvider.selectedSuraTranslation,
                     quranProvider.selectedSuraNumber,
+                    quranProvider.selectedTranslationName,
                     context);
                 break;
               case 'search':

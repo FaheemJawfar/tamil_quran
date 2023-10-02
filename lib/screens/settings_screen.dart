@@ -15,12 +15,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late final quranProvider =
       Provider.of<QuranProvider>(context, listen: true);
 
-  Map<String, String> translations = {
-    'm_john': 'முஹம்மது ஜான் தமிழாக்கம்',
-    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா',
-    'ift': 'இஸ்லாமிய நிறுவனம் ட்ரஸ்ட்',
-    'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
-  };
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +31,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildListTile(
               leadingIcon: Icons.language,
               title: 'தமிழ் மொழிபெயர்ப்பு',
-              subtitle: translations[quranProvider.selectedTranslation]!,
+              subtitle: quranProvider.selectedTranslationName,
               onTap: () => _showPopup(
                 child: ShowTranslationSelector(
-                  translations: translations,
+                  translations: quranProvider.translations,
                   selectedTranslation: quranProvider.selectedTranslation,
                   onSelected: (value) =>
                       quranProvider.selectedTranslation = value,

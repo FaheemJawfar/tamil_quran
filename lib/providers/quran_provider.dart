@@ -10,6 +10,13 @@ class QuranProvider extends ChangeNotifier {
 
   String _selectedTranslation = 'm_john';
 
+  Map<String, String> translations = {
+    'm_john': 'முஹம்மது ஜான் தமிழாக்கம்',
+    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா',
+    'ift': 'இஸ்லாமிய நிறுவனம் ட்ரஸ்ட்',
+    'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
+  };
+
   String get selectedTranslation =>
       AppPreferences.getString('selectedTranslation') ?? _selectedTranslation;
 
@@ -19,6 +26,8 @@ class QuranProvider extends ChangeNotifier {
     loadTranslation();
     notifyListeners();
   }
+
+  String get selectedTranslationName => translations[selectedTranslation] ?? '';
 
 
   List<QuranSura> _allSurasTranslation = [];
@@ -111,7 +120,7 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  double _tamilFontSize = 18;
+  double _tamilFontSize = 20;
 
   double get tamilFontSize =>
       AppPreferences.getDouble('tamilFontSize') ?? _tamilFontSize;
@@ -122,7 +131,7 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  double _arabicFontSize = 20;
+  double _arabicFontSize = 22;
 
   double get arabicFontSize =>
       AppPreferences.getDouble('arabicFontSize') ?? _arabicFontSize;
@@ -160,8 +169,8 @@ class QuranProvider extends ChangeNotifier {
     AppPreferences.clear();
     _tamilFont = 'MUktaMalar';
     _arabicFont = 'AlQalam';
-    _tamilFontSize = 18;
-    _arabicFontSize = 20;
+    _tamilFontSize = 20;
+    _arabicFontSize = 22;
     _selectedTranslation = 'm_john';
     _selectedReciter = 'alafasy-pj';
     notifyListeners();
