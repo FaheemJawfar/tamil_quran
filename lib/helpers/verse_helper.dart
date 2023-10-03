@@ -55,16 +55,16 @@ class VerseHelper {
 
     SuraDetails suraDetails = SuraDetails.suraList[suraNumber-1];
     try {
-      StringBuffer suraTextBuffer = StringBuffer();
+      StringBuffer suraFullText = StringBuffer();
 
       String header =
-          '${suraDetails.tamilName} - ( ${suraDetails.tamilMeaning} )';
+          '${suraDetails.tamilName}${suraDetails.tamilMeaning != null ? ' - (${suraDetails.tamilMeaning})': ''}';
 
-      suraTextBuffer.write('$header\n${'-' * header.length}\n');
+      suraFullText.write('$header\n${'-' * header.length}\n');
 
       int loopLimit = suraArabic.length < 100 ? suraArabic.length : 100;
 
-      for (int i = 0; i <= loopLimit; i++) {
+      for (int i = 0; i < loopLimit; i++) {
         final arabicVerse = suraArabic[i];
         final translationOfVerse = suraTranslation[i];
 
@@ -74,17 +74,23 @@ class VerseHelper {
             '\n\n${arabicVerse.text}${suraStartsWithBismillah ? '' : QuranHelper.getVerseEndSymbol(arabicVerse.ayaIndex)}'
             '\n${suraStartsWithBismillah ? '' : '${translationOfVerse.ayaIndex.toString()}. '}${translationOfVerse.text}';
 
-        suraTextBuffer.write(verseText);
+        suraFullText.write(verseText);
       }
 
       if (suraArabic.length > loopLimit) {
-        suraTextBuffer.write(
-            '\n\n*****\n(மீதமுள்ள வசனங்கள்: ${(suraArabic.length - 1)  - loopLimit})\n\nஅத்தியாயத்தை முழுமையாக வாசிக்க Tamil Quran App இனை Download செய்யவும்.');
+        suraFullText.write(
+            '\n\n*****\n(மீதமுள்ள வசனங்கள்: ${(suraArabic.length - 1)  - loopLimit})');
+        suraFullText.write('\n\nஅத்தியாயத்தை முழுமையாக வாசிக்க Tamil Quran (திருக்குர்ஆன்) அப்ளிகேஷனை Download செய்யவும்.');
       }
 
-      suraTextBuffer.write(
-          '\n\nதிருக்குர்ஆன் தமிழாக்கம்\nமொழிபெயர்ப்பு:$selectedTranslationName\nஅத்தியாயம்:${suraDetails.suraNumber}\nமொத்த வசனங்கள்: ${suraDetails.verseCount}\n\n(Tamil Quran for Android: ${AppConfig.appShortUrl})');
-      String suraText = suraTextBuffer.toString();
+      suraFullText.write('\n\n------------');
+      suraFullText.write('\nதிருக்குர்ஆன் தமிழாக்கம்');
+      suraFullText.write('\nஅத்தியாயம்:${suraDetails.suraNumber}');
+      suraFullText.write('\nமொத்த வசனங்கள்: ${suraDetails.verseCount}');
+      suraFullText.write('\nமொழிபெயர்ப்பு: $selectedTranslationName');
+      suraFullText.write('\n\n(Tamil Quran for Android: ${AppConfig.appShortUrl} )');
+
+      String suraText = suraFullText.toString();
 
       final clipboardData = ClipboardData(text: suraText);
       ShowToast.showToast(context, 'அத்தியாயம் பிரதி செய்யப்பட்டது!');

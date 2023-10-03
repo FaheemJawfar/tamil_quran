@@ -120,7 +120,7 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  double _tamilFontSize = 20;
+  double _tamilFontSize = 19;
 
   double get tamilFontSize =>
       AppPreferences.getDouble('tamilFontSize') ?? _tamilFontSize;
@@ -169,7 +169,7 @@ class QuranProvider extends ChangeNotifier {
     AppPreferences.clear();
     _tamilFont = 'MUktaMalar';
     _arabicFont = 'AlQalam';
-    _tamilFontSize = 20;
+    _tamilFontSize = 19;
     _arabicFontSize = 22;
     _selectedTranslation = 'm_john';
     _selectedReciter = 'alafasy-pj';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamil_quran/config/app_config.dart';
 import 'package:tamil_quran/helpers/launcher.dart';
 
 class DonationScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _DonationScreenState extends State<DonationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('எங்களை ஆதரியுங்கள்!'),
+        title: const Text('நன்கொடைகள் அனுப்ப...'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -34,7 +35,7 @@ class _DonationScreenState extends State<DonationScreen> {
               const Text(
                 'எமது இந்த திருக்குர்ஆன் தமிழாக்கம் அப்ளிகேசனை நாம் இலவசமாக வழங்கி வருகிறோம். இதில் நாம் விளம்பரங்கள் எதையும் காட்சிப் படுத்துவதில்லை. \n\nஎங்களுக்கு ஏதாவது உதவிகளை வழங்க வேண்டும் என்று நீங்கள் விரும்பினால் கீழே உள்ள முறைகளில் உங்கள் நன்கொடைகளை அனுப்பலாம்.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 18),
               ),
               const SizedBox(
                 height: 20,
@@ -45,12 +46,11 @@ class _DonationScreenState extends State<DonationScreen> {
               ),
               ElevatedButton.icon(
                   onPressed: () {
-                    Launcher.launchWebpage(
-                        'https://www.buymeacoffee.com/faheemj');
+                    Launcher.launchWebpage(AppConfig.buyMeACoffee);
                   },
                   icon: const ImageIcon(AssetImage('assets/images/heart.png')),
                   label: const Text(
-                    'Support us!',
+                    'Donate us!',
                   )),
               const Divider(),
               const SizedBox(
@@ -74,23 +74,23 @@ class _DonationScreenState extends State<DonationScreen> {
                           children: [
                             Text(
                               'Name: J. Faheem',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 18),
                             ),
                             Text(
                               'Account Number: 231020082879',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 18),
                             ),
                             Text(
                               'Bank: Hatton National Bank (HNB)',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 18),
                             ),
                             Text(
                               'Branch: Kekirawa',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 18),
                             ),
                             Text(
                               'Swift Code: HBLILKLX',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 18),
                             ),
                             // Add more details as needed
                           ],

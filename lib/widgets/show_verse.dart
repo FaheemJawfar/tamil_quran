@@ -13,8 +13,8 @@ class ShowVerse extends StatefulWidget {
 
   const ShowVerse(
       {required this.quranAyaArabic,
-        required this.quranAyaTranslation,
-        Key? key})
+      required this.quranAyaTranslation,
+      Key? key})
       : super(key: key);
 
   @override
@@ -22,7 +22,6 @@ class ShowVerse extends StatefulWidget {
 }
 
 class _ShowVerseState extends State<ShowVerse> {
-
   late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
 
   @override
@@ -63,7 +62,7 @@ class _ShowVerseState extends State<ShowVerse> {
                           text: widget.quranAyaArabic.ayaIndex == 0
                               ? ''
                               : QuranHelper.getVerseEndSymbol(
-                              widget.quranAyaArabic.ayaIndex),
+                                  widget.quranAyaArabic.ayaIndex),
                           // No font applied to this portion
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
@@ -105,20 +104,16 @@ class _ShowVerseState extends State<ShowVerse> {
         ),
         PopupMenuButton<String>(
           color: Colors.green.shade100,
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-            PopupMenuItem<String>(
-              onTap: () {
-                VerseHelper.shareVerse(
-                    VerseHelper.getVerseCopy(
+          onSelected: (String value) {
+            switch (value) {
+              case 'shareVerse':
+                VerseHelper.shareVerse(VerseHelper.getVerseCopy(
                     widget.quranAyaArabic,
                     widget.quranAyaTranslation,
                     quranProvider.selectedSuraNumber,
                     'copy'));
-              },
-              child: getPopupMenuItem(Icons.share, 'Share'),
-            ),
-            PopupMenuItem<String>(
-              onTap: () {
+                break;
+              case 'addBookmark':
                 BookmarkHelper.addBookmark(
                   Bookmark(
                     suraNumber: quranProvider.selectedSuraNumber.toString(),
@@ -126,13 +121,8 @@ class _ShowVerseState extends State<ShowVerse> {
                   ),
                   context,
                 );
-              },
-              child:
-              getPopupMenuItem(Icons.bookmark_add_outlined, 'Add Bookmark'),
-            ),
-            PopupMenuItem<String>(
-              value: 'copy',
-              onTap: () {
+                break;
+              case 'copy':
                 VerseHelper.copyToClipboard(
                     VerseHelper.getVerseCopy(
                         widget.quranAyaArabic,
@@ -140,11 +130,8 @@ class _ShowVerseState extends State<ShowVerse> {
                         quranProvider.selectedSuraNumber,
                         'copy'),
                     context);
-              },
-              child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Translation'),
-            ),
-            PopupMenuItem<String>(
-              onTap: () {
+                break;
+              case 'copy_arabic':
                 VerseHelper.copyToClipboard(
                     VerseHelper.getVerseCopy(
                         widget.quranAyaArabic,
@@ -152,11 +139,9 @@ class _ShowVerseState extends State<ShowVerse> {
                         quranProvider.selectedSuraNumber,
                         'copy_arabic'),
                     context);
-              },
-              child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
-            ),
-            PopupMenuItem<String>(
-              onTap: () {
+
+                break;
+              case 'copy_translation':
                 VerseHelper.copyToClipboard(
                     VerseHelper.getVerseCopy(
                         widget.quranAyaArabic,
@@ -164,8 +149,30 @@ class _ShowVerseState extends State<ShowVerse> {
                         quranProvider.selectedSuraNumber,
                         'copy_translation'),
                     context);
-              },
-              child: getPopupMenuItem(Icons.copy, 'Copy Translation'),
+                break;
+            }
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              value: 'shareVerse',
+              child: getPopupMenuItem(Icons.share, 'Share'),
+            ),
+            PopupMenuItem<String>(
+              value: 'addBookmark',
+              child:
+                  getPopupMenuItem(Icons.bookmark_add_outlined, 'Add Bookmark'),
+            ),
+            PopupMenuItem<String>(
+              value: 'copy',
+              child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
+            ),
+            PopupMenuItem<String>(
+              value: 'copy_arabic',
+              child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
+            ),
+            PopupMenuItem<String>(
+              value: 'copy_translation',
+              child: getPopupMenuItem(Icons.copy, 'Copy Tamil'),
             ),
           ],
           child: const Icon(Icons.more_vert),
