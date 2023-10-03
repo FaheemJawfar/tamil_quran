@@ -1,6 +1,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import 'package:tamil_quran/helpers/check_connection.dart';
@@ -48,8 +49,16 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   void _init() async {
     _audioPlayer = AudioPlayer();
     try {
-      await _audioPlayer.setUrl(QuranHelper.getAudioURLBySurah(
-          quranProvider.selectedReciterDetails, selectedSuraIndex + 1));
+
+      await _audioPlayer.setAudioSource(AudioSource.uri(
+        Uri.parse(QuranHelper.getAudioURLBySurah(quranProvider.selectedReciterDetails, selectedSuraIndex + 1)),
+        tag: MediaItem(
+          id: 'Some unique ID',
+          title: 'Song title',
+          album: 'Song album',
+          artUri: Uri.parse('https://example.com/art.jpg'),
+        ),
+      ));
 
       _audioPlayer.playerStateStream.listen((playerState) {
         final isPlaying = playerState.playing;
@@ -109,7 +118,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   void play() {
-    _init();
     _audioPlayer.play();
   }
 
@@ -170,6 +178,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     setState(() {
                       selectedSuraIndex = index;
                       _audioPlayer.dispose();
+                      _init();
                       play();
                     });
                   },
