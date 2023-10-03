@@ -42,12 +42,10 @@ dependencies:
   shared_preferences: ^2.0.15
   visibility_detector: ^0.4.0+2
   provider: ^6.0.5
-  just_audio: ^0.9.34
-  just_audio_background: ^0.0.1-beta.10
-  audio_video_progress_bar: ^0.9.0
   custom_cupertino_picker: ^2.0.3
   package_info_plus: ^4.1.0
   http: ^1.1.0
+  audioplayers: ^5.2.0
 
 
 

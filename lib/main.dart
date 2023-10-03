@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.green,
           brightness: Brightness.light,
           fontFamily: 'MuktaMalar',
+          //useMaterial3: false,
         ),
         home: const SplashScreen(),
       ),
