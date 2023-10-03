@@ -24,7 +24,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   int selectedSuraIndex = 0;
   late AudioPlayer audioPlayer;
 
-
   bool isPlaying = false;
   bool isLoading = false;
   Duration duration = const Duration();
@@ -48,6 +47,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   void playAudio() {
+    checkInternetConnection();
     setState(() {
       isLoading = true;
     });
@@ -55,13 +55,12 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     audioPlayer.play(UrlSource(QuranHelper.getAudioURLBySurah(
         quranProvider.selectedReciterDetails, selectedSuraIndex + 1)));
     audioPlayer.onPlayerStateChanged.listen((event) {
+      if (!mounted) return;
+
       setState(() {
         isLoading = false;
+        isPlaying = true;
       });
-    });
-
-    setState(() {
-      isPlaying = true;
     });
   }
 
@@ -77,22 +76,21 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   void playNext() {
-    setState(() {
-      selectedSuraIndex++;
+    if (selectedSuraIndex != 113) {
+      setState(() {
+        selectedSuraIndex++;
+      });
       playAudio();
-    });
+    }
   }
 
   void playPrevious() {
-    setState(() {
-      selectedSuraIndex--;
+    if (selectedSuraIndex != 0) {
+      setState(() {
+        selectedSuraIndex--;
+      });
       playAudio();
-    });
-  }
-
-  void playSelectedSura() {
-    audioPlayer.dispose();
-    playAudio();
+    }
   }
 
   @override
@@ -114,7 +112,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     String hours =
-    (duration.inHours > 0) ? '${twoDigits(duration.inHours)}:' : '';
+        (duration.inHours > 0) ? '${twoDigits(duration.inHours)}:' : '';
     String minutes = twoDigits(duration.inMinutes.remainder(60));
     String seconds = twoDigits(duration.inSeconds.remainder(60));
 
@@ -138,7 +136,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     return ReciterSelectorPopup(
                       reciters: quranProvider.allReciters,
                       selectedReciter:
-                      quranProvider.selectedReciterDetails.identifier,
+                          quranProvider.selectedReciterDetails.identifier,
                       onSelected: (value) {
                         quranProvider.selectedReciter = value;
                       },
@@ -150,35 +148,40 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
           const HomeScreenPopupMenu(),
         ],
       ),
-      body: Stack(children: [
-        ListView.builder(
-          itemCount: SuraDetails.suraList.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(
-                '${SuraDetails.suraList[index].suraNumber}. ${SuraDetails
-                    .suraList[index].tamilName}',
-                style: TextStyle(
-                  color:
-                  selectedSuraIndex == index ? Colors.white : Colors.black,
+      body: Column(children: [
+        Expanded(
+          child: ListView.separated(
+            separatorBuilder: (context, index) => const Divider(),
+            itemCount: SuraDetails.suraList.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(
+                  '${SuraDetails.suraList[index].suraNumber}. ${SuraDetails.suraList[index].tamilName}',
+                  style: TextStyle(
+                      color: selectedSuraIndex == index
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 20),
                 ),
-              ),
-              onTap: () {
-                setState(() {
-                  selectedSuraIndex = index;
-                });
-                playAudio();
-              },
-              tileColor: selectedSuraIndex == index ? Colors.green[300] : null,
-            );
-          },
+                onTap: () {
+                  setState(() {
+                    selectedSuraIndex = index;
+                  });
+                  playAudio();
+                },
+                tileColor:
+                    selectedSuraIndex == index ? Colors.green[300] : null,
+              );
+            },
+          ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
             width: double.infinity,
             margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(20.0),
+            padding:
+                const EdgeInsets.only(top: 15, bottom: 15, left: 5, right: 5),
             decoration: BoxDecoration(
               color: Colors.green[100],
               borderRadius: const BorderRadius.all(
@@ -195,10 +198,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     Expanded(
                       child: Text(
                         isLoading ? '--:--' : formatDuration(position),
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
                     Expanded(
-                      flex: 6,
+                      flex: 5,
                       child: Slider(
                         value: position.inSeconds.toDouble(),
                         min: 0.0,
@@ -211,6 +215,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     Expanded(
                       child: Text(
                         isLoading ? '--:--' : formatDuration(duration),
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
                   ],
@@ -222,28 +227,28 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     IconButton(
                       icon: const Icon(
                         Icons.skip_previous,
-                        size: 30,
+                        size: 40,
                       ),
                       onPressed: playPrevious,
                     ),
                     isLoading
                         ? LoadingIndicator(
-                      size: 30,
-                      color: ColorConfig.primaryColor,
-                    )
+                            size: 40,
+                            color: ColorConfig.primaryColor,
+                          )
                         : IconButton(
-                      icon: isPlaying
-                          ? const Icon(
-                        Icons.pause,
-                        size: 30,
-                      )
-                          : const Icon(Icons.play_arrow, size: 30),
-                      onPressed: isPlaying ? pauseAudio : playAudio,
-                    ),
+                            icon: isPlaying
+                                ? const Icon(
+                                    Icons.pause,
+                                    size: 40,
+                                  )
+                                : const Icon(Icons.play_arrow, size: 40),
+                            onPressed: isPlaying ? pauseAudio : playAudio,
+                          ),
                     IconButton(
                       icon: const Icon(
                         Icons.skip_next,
-                        size: 30,
+                        size: 40,
                       ),
                       onPressed: playNext,
                     ),
