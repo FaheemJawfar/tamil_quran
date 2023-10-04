@@ -3,7 +3,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/widgets/loading_indicator.dart';
-
 import '../config/color_config.dart';
 import '../helpers/check_connection.dart';
 import '../helpers/quran_helper.dart';

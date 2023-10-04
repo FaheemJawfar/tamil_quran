@@ -43,7 +43,7 @@ class Launcher {
   static void launchWebpage(String url) async {
     final stringUrl = Uri.parse(url);
     try {
-      await launchUrl(stringUrl, mode: LaunchMode.platformDefault);
+      await launchUrl(stringUrl, mode: LaunchMode.externalApplication);
     } catch (e) {
       throw 'Could not launch ${e.toString()}';
     }
