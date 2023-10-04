@@ -50,18 +50,26 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     checkInternetConnection();
     setState(() {
       isLoading = true;
+      position = Duration.zero;
     });
 
     audioPlayer.play(UrlSource(QuranHelper.getAudioURLBySurah(
         quranProvider.selectedReciterDetails, selectedSuraIndex + 1)));
+
+    setState(() {
+      isPlaying = true;
+    });
+
+
+
     audioPlayer.onPlayerStateChanged.listen((event) {
-      if (!mounted) return;
+    //  if (!mounted) return;
 
       setState(() {
         isLoading = false;
-        isPlaying = true;
       });
     });
+
   }
 
   void pauseAudio() {
@@ -181,7 +189,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
             width: double.infinity,
             margin: const EdgeInsets.all(5),
             padding:
-                const EdgeInsets.only(top: 15, bottom: 15, left: 5, right: 5),
+                const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: Colors.green[100],
               borderRadius: const BorderRadius.all(
@@ -192,31 +200,25 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Slider(
+                  value: position.inSeconds.toDouble(),
+                  min: 0.0,
+                  max: duration.inSeconds.toDouble(),
+                  onChanged: (double value) {
+                    seekAudio(Duration(seconds: value.toInt()));
+                  },
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Text(
-                        isLoading ? '--:--' : formatDuration(position),
-                        style: TextStyle(fontSize: 16),
-                      ),
+                    Text(
+                      isLoading ? '--:--' : formatDuration(position),
+                      style: const TextStyle(fontSize: 18),
                     ),
-                    Expanded(
-                      flex: 5,
-                      child: Slider(
-                        value: position.inSeconds.toDouble(),
-                        min: 0.0,
-                        max: duration.inSeconds.toDouble(),
-                        onChanged: (double value) {
-                          seekAudio(Duration(seconds: value.toInt()));
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        isLoading ? '--:--' : formatDuration(duration),
-                        style: TextStyle(fontSize: 16),
-                      ),
+
+                    Text(
+                      isLoading ? '--:--' : formatDuration(duration),
+                      style: const TextStyle(fontSize: 18),
                     ),
                   ],
                 ),
