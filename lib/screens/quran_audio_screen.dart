@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/widgets/loading_indicator.dart';
 import '../config/color_config.dart';
 import '../helpers/check_connection.dart';
 import '../helpers/quran_helper.dart';
@@ -25,8 +24,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   late AudioPlayer audioPlayer;
 
   bool isPlaying = false;
-
-  //bool isLoading = false;
   Duration duration = const Duration();
   Duration position = const Duration();
   String currentUrl = '';
@@ -129,6 +126,15 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     return "$hours$minutes:$seconds";
   }
 
+  String getSuraName(int index) {
+    SuraDetails selectedSura = SuraDetails.suraList[index];
+
+    if (selectedSura.tamilMeaning != null) {
+      return '${selectedSura.tamilName} - (${selectedSura.tamilMeaning!})';
+    }
+    return selectedSura.tamilName;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,12 +172,12 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(
-                  '${SuraDetails.suraList[index].suraNumber}. ${SuraDetails.suraList[index].tamilName}',
+                  '${SuraDetails.suraList[index].suraNumber}. ${getSuraName(index)}',
                   style: TextStyle(
                       color: selectedSuraIndex == index
                           ? Colors.white
                           : Colors.black,
-                      fontSize: 20),
+                      fontSize: 18),
                 ),
                 onTap: () {
                   setState(() {
@@ -201,6 +207,14 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Flexible(
+                  child: Text(
+                    getSuraName(selectedSuraIndex),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 Slider(
                   value: position.inSeconds.toDouble(),
                   min: 0.0,
