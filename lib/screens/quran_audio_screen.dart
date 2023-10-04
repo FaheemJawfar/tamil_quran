@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'package:tamil_quran/widgets/loading_indicator.dart';
@@ -21,54 +21,58 @@ class QuranAudioPlayerScreen extends StatefulWidget {
 class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
   int selectedSuraIndex = 0;
+
   late AudioPlayer audioPlayer;
 
   bool isPlaying = false;
-  bool isLoading = false;
+
+  //bool isLoading = false;
   Duration duration = const Duration();
   Duration position = const Duration();
+  String currentUrl = '';
 
   @override
   void initState() {
     super.initState();
     audioPlayer = AudioPlayer();
-    audioPlayer.onDurationChanged.listen((updatedDuration) {
+    audioPlayer.durationStream.listen((updatedDuration) {
       setState(() {
-        duration = updatedDuration;
+        duration = updatedDuration!;
       });
     });
 
-    audioPlayer.onPositionChanged.listen((updatedPosition) {
+    audioPlayer.positionStream.listen((updatedPosition) {
       setState(() {
         position = updatedPosition;
       });
     });
   }
 
-  void playAudio() {
-    checkInternetConnection();
-    setState(() {
-      isLoading = true;
-      position = Duration.zero;
-    });
+  Future<void> playAudio() async {
+    await checkInternetConnection();
 
-    audioPlayer.play(UrlSource(QuranHelper.getAudioURLBySurah(
-        quranProvider.selectedReciterDetails, selectedSuraIndex + 1)));
+    try {
+      String newUrl = QuranHelper.getAudioURLBySurah(
+        quranProvider.selectedReciterDetails,
+        selectedSuraIndex + 1,
+      );
 
-    setState(() {
-      isPlaying = true;
-    });
-
-
-
-    audioPlayer.onPlayerStateChanged.listen((event) {
-    //  if (!mounted) return;
+      if (currentUrl == newUrl) {
+        await audioPlayer.seek(position);
+      } else {
+        await audioPlayer.setUrl(newUrl);
+        currentUrl = newUrl;
+        position = Duration.zero;
+      }
 
       setState(() {
-        isLoading = false;
+        isPlaying = true;
       });
-    });
 
+      audioPlayer.play();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   void pauseAudio() {
@@ -102,7 +106,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
 
   @override
   void dispose() {
-    audioPlayer.release();
     audioPlayer.dispose();
     super.dispose();
   }
@@ -187,8 +190,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
           child: Container(
             width: double.infinity,
             margin: const EdgeInsets.all(5),
-            padding:
-                const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: Colors.green[100],
               borderRadius: const BorderRadius.all(
@@ -211,12 +213,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      isLoading ? '--:--' : formatDuration(position),
+                      formatDuration(position),
                       style: const TextStyle(fontSize: 18),
                     ),
-
                     Text(
-                      isLoading ? '--:--' : formatDuration(duration),
+                      formatDuration(duration),
                       style: const TextStyle(fontSize: 18),
                     ),
                   ],
@@ -232,20 +233,15 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                       ),
                       onPressed: playPrevious,
                     ),
-                    isLoading
-                        ? LoadingIndicator(
-                            size: 40,
-                            color: ColorConfig.primaryColor,
-                          )
-                        : IconButton(
-                            icon: isPlaying
-                                ? const Icon(
-                                    Icons.pause,
-                                    size: 40,
-                                  )
-                                : const Icon(Icons.play_arrow, size: 40),
-                            onPressed: isPlaying ? pauseAudio : playAudio,
-                          ),
+                    IconButton(
+                      icon: isPlaying
+                          ? const Icon(
+                              Icons.pause,
+                              size: 40,
+                            )
+                          : const Icon(Icons.play_arrow, size: 40),
+                      onPressed: isPlaying ? pauseAudio : playAudio,
+                    ),
                     IconButton(
                       icon: const Icon(
                         Icons.skip_next,
