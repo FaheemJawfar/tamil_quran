@@ -35,12 +35,14 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     super.initState();
     audioPlayer = AudioPlayer();
     audioPlayer.durationStream.listen((updatedDuration) {
+      if(!mounted) return;
       setState(() {
         duration = updatedDuration!;
       });
     });
 
     audioPlayer.positionStream.listen((updatedPosition) {
+      if(!mounted) return;
       setState(() {
         position = updatedPosition;
       });
