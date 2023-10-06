@@ -74,7 +74,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
   TextSpan _buildRichTextSpan() {
     List<InlineSpan> inlineSpans = [];
 
-    for (var verse in quranProvider.selectedSuraArabic) {
+    for (var verse in quranProvider.selectedSuraArabicForArabicOnlyScreen) {
       inlineSpans.add(TextSpan(
         text: verse.text,
         style: TextStyle(

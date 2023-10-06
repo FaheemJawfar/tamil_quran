@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
+import 'package:tamil_quran/widgets/loading_indicator.dart';
 import '../config/color_config.dart';
 import '../helpers/check_connection.dart';
 import '../helpers/quran_helper.dart';
@@ -24,6 +25,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   late AudioPlayer audioPlayer;
 
   bool isPlaying = false;
+  bool isLoading = false;
   Duration duration = const Duration();
   Duration position = const Duration();
   String currentUrl = '';
@@ -46,6 +48,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   Future<void> playAudio() async {
+    setState(() {
+      isLoading = true;
+    });
     await checkInternetConnection();
 
     try {
@@ -70,6 +75,10 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     } catch (e) {
       debugPrint(e.toString());
     }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void pauseAudio() {
@@ -231,7 +240,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                       style: const TextStyle(fontSize: 18),
                     ),
                     Text(
-                      formatDuration(duration),
+                      isLoading? formatDuration(Duration.zero): formatDuration(duration),
                       style: const TextStyle(fontSize: 18),
                     ),
                   ],
@@ -248,7 +257,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                       onPressed: playPrevious,
                     ),
                     IconButton(
-                      icon: isPlaying
+                      icon: isLoading ? LoadingIndicator(color: ColorConfig.primaryColor,): isPlaying
                           ? const Icon(
                               Icons.pause,
                               size: 40,

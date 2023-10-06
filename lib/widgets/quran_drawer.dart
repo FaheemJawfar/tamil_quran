@@ -98,7 +98,7 @@ class CustomDrawer extends StatelessWidget {
               const AboutUsScreen()),
 
 
-          _buildListTiles( _buildImageIcon('assets/images/heart.png'), 'நன்கொடைகள்', context,
+          _buildListTiles( _buildImageIcon('assets/images/heart.png'), 'நன்கொடை வழங்குக', context,
               const DonationScreen()),
         ],
       ),

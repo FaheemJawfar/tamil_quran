@@ -36,7 +36,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
       body: bookmarkList.isEmpty
           ? const Center(
         child: Text(
-          'Your bookmarks will appear here!',
+          'நீங்கள் பதிவு செய்த Bookmark களை இங்கே காணலாம்!',
           style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
           textAlign: TextAlign.center,
         ),

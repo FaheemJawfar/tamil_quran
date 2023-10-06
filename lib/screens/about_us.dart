@@ -40,7 +40,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text('About Us.'),
+        title: const Text('எம்மைப்பற்றி'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -57,7 +57,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ),
               const SizedBox(height: 20),
               const Text(
-                'திருக்குர்ஆன் - தமிழாக்கம்',
+                'Tamil Quran (திருக்குர்ஆன்)',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -66,13 +66,13 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 'Version $appVersion',
                 style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
               ),
-              const SizedBox(height: 10),
+
               Divider(
                 color: ColorConfig.primaryColor,
               ),
               const Text(
                 'இறைவன் மனித சமுதாயத்துக்கு வழங்கிய இறுதி வேதமாகிய திருக்குர்ஆனைப் பொருளுணர்ந்து வாசிப்பதும், அதன் போதனைகளை முஸ்லிம்கள் மற்றும் முஸ்லிம் அல்லாத மக்களுக்கும் எடுத்துச் சொல்வதும் நம்மீது கடமையாக இருக்கின்றது. \nஇந்த இறைப்பணியில் ஒரு சிறு முயற்சியாகத் தான் இந்த அப்ளிகேசன் உருவாக்கப் பட்டுள்ளது. இதன் மூலம் நீங்களும் பயனடைந்து பிறரையும் பயனடையச் செய்வீர்கள் என்று நம்புகிறேன்.',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -94,7 +94,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ),
               const Text(
                 'இந்த App பற்றிய உங்கள் கருத்துக்களையும் விமர்சனங்களையும் எமக்குத் தெரிவியுங்கள்:',
-                style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),

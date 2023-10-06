@@ -14,7 +14,7 @@ class _DonationScreenState extends State<DonationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('நன்கொடைகள் அனுப்ப...'),
+        title: const Text('நன்கொடை வழங்குங்கள்...'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -33,7 +33,7 @@ class _DonationScreenState extends State<DonationScreen> {
                 height: 50,
               ),
               const Text(
-                'எமது இந்த திருக்குர்ஆன் தமிழாக்கம் அப்ளிகேசனை நாம் இலவசமாக வழங்கி வருகிறோம். இதில் நாம் விளம்பரங்கள் எதையும் காட்சிப் படுத்துவதில்லை. \n\nஎங்களுக்கு ஏதாவது உதவிகளை வழங்க வேண்டும் என்று நீங்கள் விரும்பினால் கீழே உள்ள முறைகளில் உங்கள் நன்கொடைகளை அனுப்பலாம்.',
+                'எமது இந்த திருக்குர்ஆன் தமிழாக்கம் அப்ளிகேசனை நாம் இலவசமாக வெளியிட்டு இருக்கிறோம். இதில் நாம் விளம்பரங்கள் எதையும் காட்சிப் படுத்துவதில்லை. \n\nஎங்களுக்கு ஏதாவது உதவிகளை வழங்க வேண்டும் என்று நீங்கள் விரும்பினால் கீழே உள்ள முறைகளில் உங்களது நன்கொடைகளை வழங்கலாம்.',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18),
               ),

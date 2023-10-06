@@ -46,7 +46,7 @@ class Reciter {
     {
       "identifier": "abdur-rahman-qiraath-and-tamil",
       "language": "ta",
-      "name": "பேராசிரியர் அப்துர் ரஹ்மான்",
+      "name": "தீருவை அப்துர் ரஹ்மான்",
       "englishName": "Professor Abdur Rahman",
       "format": "audio",
       "type": "surahbysurah"
@@ -62,7 +62,7 @@ class Reciter {
     {
       "identifier": "abdur-rahman-tamil-only",
       "language": "ta",
-      "name": "பேராசிரியர் அப்துர் ரஹ்மான் - தமிழில் மட்டும்",
+      "name": "தீருவை அப்துர் ரஹ்மான் - தமிழில் மட்டும்",
       "englishName": "Professor Abdur Rahman",
       "format": "audio",
       "type": "surahbysurah"

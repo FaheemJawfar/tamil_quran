@@ -30,16 +30,16 @@ class QuranProvider extends ChangeNotifier {
   String get selectedTranslationName => translations[selectedTranslation] ?? '';
 
 
-  List<QuranSura> _allSurasTranslation = [];
+  List<QuranSura> _allSurasTamil = [];
 
-  get allSuras => _allSurasTranslation;
+  get allSurasTamil => _allSurasTamil;
 
   List<QuranSura> _allSurasArabic = [];
 
   get allSurasArabic => _allSurasArabic;
 
   loadTranslation() async {
-    _allSurasTranslation = await DataParser.loadXmlFromAssets(
+    _allSurasTamil = await DataParser.loadXmlFromAssets(
         'assets/quran_db/$selectedTranslation.xml');
     notifyListeners();
   }
@@ -66,7 +66,7 @@ class QuranProvider extends ChangeNotifier {
 
   QuranAya get bismillahTranslation {
     QuranAya bismillah =
-    QuranAya(0, 0, _allSurasTranslation[0].listOfAyas[0].text);
+    QuranAya(0, 0, _allSurasTamil[0].listOfAyas[0].text);
     return bismillah;
   }
 
@@ -75,7 +75,7 @@ class QuranProvider extends ChangeNotifier {
     if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9) {
       content.add(bismillahTranslation);
     }
-    content.addAll(_allSurasTranslation[_selectedSuraNumber - 1].listOfAyas);
+    content.addAll(_allSurasTamil[_selectedSuraNumber - 1].listOfAyas);
     return content;
   }
 
@@ -88,12 +88,19 @@ class QuranProvider extends ChangeNotifier {
     return content;
   }
 
+  List<QuranAya> get selectedSuraArabicForArabicOnlyScreen {
+    List<QuranAya> content = [];
+
+    content.addAll(_allSurasArabic[_selectedSuraNumber - 1].listOfAyas);
+    return content;
+  }
+
   QuranAya filterOneAyaArabic(int sura, int aya) {
     return _allSurasArabic[sura - 1].listOfAyas[aya - 1];
   }
 
   QuranAya filterOneAyaTranslation(int sura, int aya) {
-    return _allSurasTranslation[sura - 1].listOfAyas[aya - 1];
+    return _allSurasTamil[sura - 1].listOfAyas[aya - 1];
   }
 
 

@@ -32,9 +32,10 @@ class _SearchScreenState extends State<SearchScreen> {
     _filteredVerses.clear();
 
     if (query.isNotEmpty) {
-      for( var sura in quranProvider.allSuras){
+      for( var sura in quranProvider.allSurasTamil){
         _filteredVerses.addAll(sura.searchWord(query));
       }
+
     }
   }
 
@@ -43,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text('Search in Quran'),
+        title: const Text('திருக்குர்ஆனில் தேடுக'),
       ),
       body: GestureDetector(
         onTap: () {
@@ -61,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   });
                 },
                 decoration: const InputDecoration(
-                    hintText: 'Please type here...',
+                    hintText: 'தேட வேண்டிய சொல்லை உள்ளிடவும்...',
                     prefixIcon: Icon(Icons.search)),
               ),
             ),
