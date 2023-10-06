@@ -48,10 +48,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   Future<void> playAudio() async {
+    await checkInternetConnection();
+
     setState(() {
       isLoading = true;
     });
-    await checkInternetConnection();
 
     try {
       String newUrl = QuranHelper.getAudioURLBySurah(
@@ -59,9 +60,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         selectedSuraIndex + 1,
       );
 
-      if (currentUrl == newUrl) {
-        await audioPlayer.seek(position);
-      } else {
+      if(currentUrl != newUrl) {
         await audioPlayer.setUrl(newUrl);
         currentUrl = newUrl;
         position = Duration.zero;
