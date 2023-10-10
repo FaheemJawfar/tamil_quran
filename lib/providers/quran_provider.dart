@@ -11,9 +11,9 @@ class QuranProvider extends ChangeNotifier {
   String _selectedTranslation = 'm_john';
 
   Map<String, String> translations = {
-    'm_john': 'முஹம்மது ஜான் தமிழாக்கம்',
-    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா',
-    'ift': 'இஸ்லாமிய நிறுவனம் ட்ரஸ்ட்',
+    'm_john': 'முஹம்மது ஜான் டிரஸ்ட் (John Trust)',
+    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி',
+    'ift': 'இஸ்லாமிய நிறுவனம் டிரஸ்ட் (IFT)',
     'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
   };
 
