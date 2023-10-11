@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:tamil_quran/widgets/read_sura_popup_menu.dart';
+import '../widgets/read_sura_popup_menu.dart';
 import '../models/sura_details.dart';
 import '../providers/quran_provider.dart';
 
@@ -57,7 +57,8 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(SuraDetails.suraList[quranProvider.selectedSuraNumber-1].tamilName),
+      title: Text(
+          SuraDetails.suraList[quranProvider.selectedSuraNumber - 1].tamilName),
       automaticallyImplyLeading: true,
       actions: [
         IconButton(

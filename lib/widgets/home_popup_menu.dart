@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tamil_quran/screens/about_us.dart';
-import 'package:tamil_quran/screens/donation_screen.dart';
-import 'package:tamil_quran/widgets/rate_app.dart';
-
+import '../app_texts/app_widgets_texts.dart';
+import '../screens/about_us.dart';
+import '../screens/donation_screen.dart';
+import '../widgets/rate_app.dart';
 import '../screens/settings_screen.dart';
 
 class HomeScreenPopupMenu extends StatefulWidget {
@@ -23,21 +23,23 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
-              child: getPopupMenuItem(const Icon(Icons.settings), 'Settings'),
+              child: getPopupMenuItem(
+                  const Icon(Icons.settings), AppWidgetsTexts.settingsTranslation),
             ),
             PopupMenuItem<String>(
               value: 'share_app',
-              child:
-                  getPopupMenuItem(const Icon(Icons.share), 'Share this App'),
+              child: getPopupMenuItem(
+                  const Icon(Icons.share), AppWidgetsTexts.shareThisApp),
             ),
             PopupMenuItem<String>(
               value: 'rate_app',
-              child: getPopupMenuItem(
-                  const Icon(Icons.rate_review_outlined), 'Rate this App'),
+              child: getPopupMenuItem(const Icon(Icons.rate_review_outlined),
+                  AppWidgetsTexts.rateThisApp),
             ),
             PopupMenuItem<String>(
               value: 'about_us',
-              child: getPopupMenuItem(const Icon(Icons.info), 'About us'),
+              child: getPopupMenuItem(
+                  const Icon(Icons.info), AppWidgetsTexts.aboutUs),
             ),
             PopupMenuItem<String>(
               value: 'donate_us',
@@ -45,7 +47,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
                   const ImageIcon(
                     AssetImage('assets/images/heart.png'),
                   ),
-                  'Donate us'),
+                  AppWidgetsTexts.donateUs),
             ),
           ],
           onSelected: (String value) {
@@ -58,8 +60,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
                 _showRating(context);
                 break;
               case 'share_app':
-                Share.share(
-                    'திருக்குர்ஆன் தமிழாக்கம் Android App இனை இப்போதே Playstore இலிருந்து பதிவிறக்கம் செய்து பயன் படுத்துங்கள்: \nhttps://play.google.com/store/apps/details?id=com.faheemapps.tamil_quran');
+                Share.share(AppWidgetsTexts.shareAppText);
                 break;
               case 'about_us':
                 Navigator.push(context,

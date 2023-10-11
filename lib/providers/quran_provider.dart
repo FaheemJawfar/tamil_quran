@@ -17,6 +17,22 @@ class QuranProvider extends ChangeNotifier {
     'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
   };
 
+  List<String> languageFontsList = const [
+    'MUktaMalar',
+    'HindMadurai',
+    'NotoSansTamil',
+    'MeeraInimai'
+  ];
+
+  List<String> arabicFontsList = const [
+    'AlQalam',
+    'PDMS_Saleem',
+    'Arabic',
+    'MeezanUni',
+    'Uthmani',
+    'UthmanicScript'
+  ];
+
   String get selectedTranslation =>
       AppPreferences.getString('selectedTranslation') ?? _selectedTranslation;
 

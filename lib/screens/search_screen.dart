@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/screens/sura_translation_screen.dart';
+import 'package:tamil_quran/app_texts/app_screen_texts.dart';
+import '../screens/sura_translation_screen.dart';
 import '../config/color_config.dart';
 import '../helpers/bookmark_helper.dart';
 import '../helpers/quran_helper.dart';
@@ -21,7 +22,6 @@ class _SearchScreenState extends State<SearchScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
   final List<QuranAya> _filteredVerses = [];
 
-
   @override
   void dispose() {
     _searchController.dispose();
@@ -32,10 +32,9 @@ class _SearchScreenState extends State<SearchScreen> {
     _filteredVerses.clear();
 
     if (query.isNotEmpty) {
-      for( var sura in quranProvider.allSurasTamil){
+      for (var sura in quranProvider.allSurasTamil) {
         _filteredVerses.addAll(sura.searchWord(query));
       }
-
     }
   }
 
@@ -44,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text('திருக்குர்ஆனில் தேடுக'),
+        title: const Text(AppScreenTexts.searchInQuran),
       ),
       body: GestureDetector(
         onTap: () {
@@ -62,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   });
                 },
                 decoration: const InputDecoration(
-                    hintText: 'தேட வேண்டிய சொல்லை உள்ளிடவும்...',
+                    hintText: AppScreenTexts.enterWordToSearch,
                     prefixIcon: Icon(Icons.search)),
               ),
             ),
@@ -82,8 +81,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     regExp.allMatches(translation.text).forEach((match) {
                       if (currentIndex < match.start) {
                         textSpans.add(TextSpan(
-                          text:
-                          translation.text.substring(currentIndex, match.start),
+                          text: translation.text
+                              .substring(currentIndex, match.start),
                           style: const TextStyle(
                             color: Colors.black,
                           ),
@@ -92,7 +91,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
                       textSpans.add(
                         TextSpan(
-                          text: translation.text.substring(match.start, match.end),
+                          text: translation.text
+                              .substring(match.start, match.end),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.red,
@@ -130,24 +130,37 @@ class _SearchScreenState extends State<SearchScreen> {
                                 onSelected: (String value) {
                                   switch (value) {
                                     case 'goToVerse':
-                                      quranProvider.selectedSuraNumber = translation.suraIndex;
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SuraTranslationScreen(
-                                        goToVerse: translation.ayaIndex,
-                                      )));
+                                      quranProvider.selectedSuraNumber =
+                                          translation.suraIndex;
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SuraTranslationScreen(
+                                                    goToVerse:
+                                                        translation.ayaIndex,
+                                                  )));
                                       break;
                                     case 'shareVerse':
-                                      VerseHelper.shareVerse(VerseHelper.getVerseCopy(
-                                          quranProvider.filterOneAyaArabic(translation.suraIndex, translation.ayaIndex),
-                                          quranProvider.filterOneAyaTranslation(translation.suraIndex, translation.ayaIndex),
-                                          translation.suraIndex,
-                                          'copy'
-                                      ));
+                                      VerseHelper.shareVerse(
+                                          VerseHelper.getVerseCopy(
+                                              quranProvider.filterOneAyaArabic(
+                                                  translation.suraIndex,
+                                                  translation.ayaIndex),
+                                              quranProvider
+                                                  .filterOneAyaTranslation(
+                                                      translation.suraIndex,
+                                                      translation.ayaIndex),
+                                              translation.suraIndex,
+                                              'copy'));
                                       break;
                                     case 'addBookmark':
                                       BookmarkHelper.addBookmark(
                                         Bookmark(
-                                          suraNumber: translation.suraIndex.toString(),
-                                          verseNumber: translation.ayaIndex.toString(),
+                                          suraNumber:
+                                              translation.suraIndex.toString(),
+                                          verseNumber:
+                                              translation.ayaIndex.toString(),
                                         ),
                                         context,
                                       );
@@ -155,19 +168,28 @@ class _SearchScreenState extends State<SearchScreen> {
                                     case 'copy':
                                       VerseHelper.copyToClipboard(
                                         VerseHelper.getVerseCopy(
-                                            quranProvider.filterOneAyaArabic(translation.suraIndex, translation.ayaIndex),
-                                            quranProvider.filterOneAyaTranslation(translation.suraIndex, translation.ayaIndex),
+                                            quranProvider.filterOneAyaArabic(
+                                                translation.suraIndex,
+                                                translation.ayaIndex),
+                                            quranProvider
+                                                .filterOneAyaTranslation(
+                                                    translation.suraIndex,
+                                                    translation.ayaIndex),
                                             translation.suraIndex,
-                                            'copy'
-                                        ),
+                                            'copy'),
                                         context,
                                       );
                                       break;
                                     case 'copy_arabic':
                                       VerseHelper.copyToClipboard(
                                           VerseHelper.getVerseCopy(
-                                              quranProvider.filterOneAyaArabic(translation.suraIndex, translation.ayaIndex),
-                                              quranProvider.filterOneAyaTranslation(translation.suraIndex, translation.ayaIndex),
+                                              quranProvider.filterOneAyaArabic(
+                                                  translation.suraIndex,
+                                                  translation.ayaIndex),
+                                              quranProvider
+                                                  .filterOneAyaTranslation(
+                                                      translation.suraIndex,
+                                                      translation.ayaIndex),
                                               translation.suraIndex,
                                               'copy_arabic'),
                                           context);
@@ -176,43 +198,58 @@ class _SearchScreenState extends State<SearchScreen> {
                                     case 'copy_translation':
                                       VerseHelper.copyToClipboard(
                                           VerseHelper.getVerseCopy(
-                                              quranProvider.filterOneAyaArabic(translation.suraIndex, translation.ayaIndex),
-                                              quranProvider.filterOneAyaTranslation(translation.suraIndex, translation.ayaIndex),
+                                              quranProvider.filterOneAyaArabic(
+                                                  translation.suraIndex,
+                                                  translation.ayaIndex),
+                                              quranProvider
+                                                  .filterOneAyaTranslation(
+                                                      translation.suraIndex,
+                                                      translation.ayaIndex),
                                               translation.suraIndex,
                                               'copy_translation'),
                                           context);
                                       break;
                                   }
                                 },
-                                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                itemBuilder: (BuildContext context) =>
+                                    <PopupMenuEntry<String>>[
                                   PopupMenuItem<String>(
                                     value: 'goToVerse',
-                                    child: getPopupMenuItem(Icons.navigation_outlined, 'Go to Verse'),
+                                    child: getPopupMenuItem(
+                                        Icons.navigation_outlined,
+                                        'Go to Verse'),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'shareVerse',
-                                    child: getPopupMenuItem(Icons.share, 'Share'),
+                                    child: getPopupMenuItem(
+                                        Icons.share, AppScreenTexts.popUpShare),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'addBookmark',
-                                    child: getPopupMenuItem(Icons.bookmark_add_outlined, 'Add Bookmark'),
+                                    child: getPopupMenuItem(
+                                        Icons.bookmark_add_outlined,
+                                        AppScreenTexts.popUpAddBookmark),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy',
-                                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic + Tamil'),
+                                    child: getPopupMenuItem(
+                                        Icons.copy,
+                                        AppScreenTexts
+                                            .popUpCopyArabicAndTranslation),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy_arabic',
-                                    child: getPopupMenuItem(Icons.copy, 'Copy Arabic'),
+                                    child: getPopupMenuItem(
+                                        Icons.copy, AppScreenTexts.popUpCopyArabic),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy_translation',
-                                    child: getPopupMenuItem(Icons.copy, 'Copy Tamil'),
+                                    child: getPopupMenuItem(Icons.copy,
+                                        AppScreenTexts.popUpCopyTranslation),
                                   ),
                                 ],
                                 child: const Icon(Icons.more_vert),
                               )
-
                             ],
                           ),
                         ),
@@ -225,41 +262,42 @@ class _SearchScreenState extends State<SearchScreen> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               RichText(
-
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: quranProvider.filterOneAyaArabic(translation.suraIndex, translation.ayaIndex).text,
+                                      text: quranProvider
+                                          .filterOneAyaArabic(
+                                              translation.suraIndex,
+                                              translation.ayaIndex)
+                                          .text,
                                       style: TextStyle(
                                         fontSize: quranProvider.arabicFontSize,
                                         fontFamily: quranProvider.arabicFont,
-
                                         color: Colors.black,
                                       ),
                                     ),
                                     TextSpan(
-                                        text: QuranHelper.getVerseEndSymbol(translation.ayaIndex,),
-
+                                        text: QuranHelper.getVerseEndSymbol(
+                                          translation.ayaIndex,
+                                        ),
                                         style: TextStyle(
-                                          fontSize: quranProvider.arabicFontSize,
-                                          color: Colors.black,)
-                                    ),
+                                          fontSize:
+                                              quranProvider.arabicFontSize,
+                                          color: Colors.black,
+                                        )),
                                   ],
                                 ),
                                 textAlign: TextAlign.right,
                               ),
-
                               const SizedBox(height: 8),
                               RichText(
                                 text: TextSpan(
-                                    children: textSpans,
+                                  children: textSpans,
                                   style: TextStyle(
                                     fontSize: quranProvider.tamilFontSize,
                                     fontFamily: quranProvider.tamilFont,
-
                                   ),
                                 ),
-
                               ),
                             ],
                           ),

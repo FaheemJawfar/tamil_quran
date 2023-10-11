@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/models/sura_details.dart';
-import 'package:tamil_quran/screens/sura_arabic_screen.dart';
+import '../app_texts/app_screen_texts.dart';
+import '../config/color_config.dart';
+import '../models/sura_details.dart';
+import '../screens/sura_arabic_screen.dart';
 import '../providers/quran_provider.dart';
 
 class SuraListArabicScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                       fontSize: 17,
                     ),
                   ),
-                  subtitle: Text('வசனங்கள்: ${sura.verseCount}'),
+                  subtitle: Text('${AppScreenTexts.verseCount} ${sura.verseCount}'),
                   trailing: Image.asset(
                       'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
                       color: Colors.black),

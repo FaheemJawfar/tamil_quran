@@ -1,8 +1,9 @@
 import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/models/sura_details.dart';
-import 'package:tamil_quran/screens/sura_translation_screen.dart';
+import '../app_texts/app_widgets_texts.dart';
+import '../models/sura_details.dart';
+import '../screens/sura_translation_screen.dart';
 import '../config/color_config.dart';
 import '../providers/quran_provider.dart';
 
@@ -27,7 +28,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
       title: const Padding(
         padding: EdgeInsets.only(bottom: 5.0),
         child: Text(
-          'வசனத்திற்குச் செல்க...',
+          AppWidgetsTexts.goToVerseHeader,
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
         ),

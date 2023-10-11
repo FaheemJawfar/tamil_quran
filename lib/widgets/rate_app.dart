@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tamil_quran/helpers/show_toast.dart';
-
+import '../app_texts/app_widgets_texts.dart';
+import '../helpers/show_toast.dart';
 import '../helpers/launcher.dart';
 
 class RateApp extends StatefulWidget {
@@ -14,17 +14,16 @@ class _RateAppState extends State<RateApp> {
   int selectedRating = 0;
   final feedbackController = TextEditingController();
 
-
-
   void _showFeedbackDialog() {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Feedback'),
+          title: const Text(AppWidgetsTexts.feedback),
           content: TextField(
             controller: feedbackController,
-            decoration: const InputDecoration(hintText: 'Enter your feedback here'),
+            decoration:
+                const InputDecoration(hintText: AppWidgetsTexts.enterFeedback),
             maxLines: 3,
           ),
           actions: [
@@ -32,18 +31,19 @@ class _RateAppState extends State<RateApp> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
+              child: const Text(AppWidgetsTexts.ratingCancel),
             ),
             TextButton(
               onPressed: () {
-                if(feedbackController.text.isNotEmpty) {
+                if (feedbackController.text.isNotEmpty) {
                   Launcher.launchEmail(feedbackController.text);
                   Navigator.of(context).pop();
                 } else {
-                  ShowToast.showToast(context, 'Please enter your feedback to submit!');
+                  ShowToast.showToast(
+                      context, AppWidgetsTexts.pleaseEnterFeedback);
                 }
               },
-              child: const Text('Submit'),
+              child: const Text(AppWidgetsTexts.ratingSubmit),
             ),
           ],
         );
@@ -51,18 +51,16 @@ class _RateAppState extends State<RateApp> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Feedback'),
+      title: const Text(AppWidgetsTexts.feedback),
       actions: [
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Cancel'),
+          child: const Text(AppWidgetsTexts.ratingCancel),
         ),
         TextButton(
           onPressed: () {
@@ -73,7 +71,7 @@ class _RateAppState extends State<RateApp> {
               _showFeedbackDialog();
             }
           },
-          child: const Text('Submit'),
+          child: const Text(AppWidgetsTexts.ratingSubmit),
         ),
       ],
       content: Column(
@@ -97,9 +95,10 @@ class _RateAppState extends State<RateApp> {
             }),
           ),
           Text(
-            selectedRating == 5 ? 'Rate us 5 stars on Play Store!' : 'Please give your feedback',
-            style: const TextStyle(
-                fontWeight: FontWeight.bold),
+            selectedRating == 5
+                ? AppWidgetsTexts.rate5Starts
+                : AppWidgetsTexts.pleaseGiveFeedback,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ],
       ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/helpers/shared_preferences.dart';
-import 'package:tamil_quran/models/sura_details.dart';
-import 'package:tamil_quran/screens/sura_translation_screen.dart';
+import '../app_texts/app_screen_texts.dart';
+import '../config/color_config.dart';
+import '../helpers/shared_preferences.dart';
+import '../models/sura_details.dart';
+import '../screens/sura_translation_screen.dart';
 import '../providers/quran_provider.dart';
 
 class SuraListTamilScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
           side: const BorderSide(color: Colors.green),
         ),
         child: Text(
-          'வாசிப்பைத் தொடர்க...',
+          AppScreenTexts.continueReading,
           style: TextStyle(
             color: Colors.green[900],
           ),
@@ -85,7 +86,8 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
                 fontSize: 17,
               ),
             ),
-            subtitle: Text('வசனங்கள்: ${suraDetails.verseCount}'),
+            subtitle:
+                Text('${AppScreenTexts.verseCount} ${suraDetails.verseCount}'),
             trailing: Image.asset(
                 'assets/images/sura_headers/Surah_${suraDetails.suraNumber}.png',
                 color: Colors.black),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/helpers/verse_helper.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/screens/search_screen.dart';
-import 'package:tamil_quran/widgets/sura_verse_picker.dart';
+import '../app_texts/app_widgets_texts.dart';
+import '../helpers/verse_helper.dart';
+import '../providers/quran_provider.dart';
+import '../screens/search_screen.dart';
+import '../widgets/sura_verse_picker.dart';
 import '../screens/settings_screen.dart';
 
 class ReadSuraPopupMenu extends StatefulWidget {
@@ -25,20 +26,23 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
-              child: getPopupMenuItem(Icons.settings, 'அமைப்புகள்'),
+              child: getPopupMenuItem(
+                  Icons.settings, AppWidgetsTexts.settingsTranslation),
             ),
             PopupMenuItem<String>(
               value: 'go_to_verse',
-              child: getPopupMenuItem(Icons.shuffle, 'வசனத்திற்குச் செல்க'),
+              child: getPopupMenuItem(
+                  Icons.shuffle, AppWidgetsTexts.goToVerseTranslation),
             ),
             PopupMenuItem<String>(
               value: 'share_sura',
               child: getPopupMenuItem(
-                  Icons.mobile_screen_share, 'அத்தியாயத்தைப் பகிர்க'),
+                  Icons.mobile_screen_share, AppWidgetsTexts.shareThisChapter),
             ),
             PopupMenuItem<String>(
               value: 'search',
-              child: getPopupMenuItem(Icons.search, 'திருக்குர்ஆனில் தேடுக'),
+              child: getPopupMenuItem(
+                  Icons.search, AppWidgetsTexts.searchInQuranTranslation),
             ),
           ],
           onSelected: (String value) {

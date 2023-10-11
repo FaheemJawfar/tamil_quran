@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tamil_quran/screens/boomarks_screen.dart';
-import 'package:tamil_quran/screens/quran_audio_screen.dart';
-import 'package:tamil_quran/screens/search_screen.dart';
-import 'package:tamil_quran/screens/sura_list_arabic_screen.dart';
-import 'package:tamil_quran/screens/sura_list_tamil_screen.dart';
-import 'package:tamil_quran/widgets/sura_verse_picker.dart';
-import 'package:tamil_quran/widgets/home_popup_menu.dart';
-
-import '../widgets/quran_drawer.dart';
+import 'package:tamil_quran/app_texts/app_screen_texts.dart';
+import '../screens/bookmarks_screen.dart';
+import '../screens/quran_audio_screen.dart';
+import '../screens/search_screen.dart';
+import '../screens/sura_list_arabic_screen.dart';
+import '../screens/sura_list_tamil_screen.dart';
+import '../widgets/sura_verse_picker.dart';
+import '../widgets/home_popup_menu.dart';
+import '../widgets/quran_app_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late final _tabController = TabController(length: 3, vsync: this);
   late String _appBarTitle = getAppbarTitle();
-
 
   @override
   void initState() {
@@ -44,13 +43,13 @@ class _HomeScreenState extends State<HomeScreen>
   String getAppbarTitle() {
     switch (_tabController.index) {
       case 0:
-        return 'மொழிபெயர்ப்பு';
+        return AppScreenTexts.translation;
 
       case 1:
-        return 'அரபு மூலம்';
+        return AppScreenTexts.onlyArabic;
 
       case 2:
-        return 'புத்தகக்குறிகள்';
+        return AppScreenTexts.bookmarks;
 
       default:
         return '';
@@ -66,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,8 +79,6 @@ class _HomeScreenState extends State<HomeScreen>
                         builder: (context) => const SearchScreen()));
               },
               icon: const Icon(Icons.search_sharp)),
-
-
           IconButton(
             onPressed: () {
               Navigator.push(
@@ -92,15 +88,13 @@ class _HomeScreenState extends State<HomeScreen>
             },
             icon: const ImageIcon(
               AssetImage('assets/images/quran-audio.png'),
-            ),),
-
+            ),
+          ),
           IconButton(
               onPressed: () {
                 _showVersePicker(context);
               },
               icon: const Icon(Icons.shuffle_sharp)),
-
-
           const HomeScreenPopupMenu(),
         ],
         bottom: TabBar(
@@ -116,17 +110,11 @@ class _HomeScreenState extends State<HomeScreen>
                 AssetImage('assets/images/read_quran.png'),
               ),
             ),
-            // Tab(
-            //   icon: ImageIcon(
-            //     AssetImage('assets/images/audio-book.png'),
-            //   ),
-            // ),
             Tab(icon: Icon(Icons.bookmarks)),
           ],
         ),
       ),
-
-      drawer: const CustomDrawer(),
+      drawer: const QuranAppDrawer(),
       body: TabBarView(
         controller: _tabController,
         children: const [
@@ -137,5 +125,4 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
   }
-
 }

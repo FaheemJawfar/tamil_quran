@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/widgets/loading_indicator.dart';
+import 'package:tamil_quran/app_texts/app_screen_texts.dart';
+import '../providers/quran_provider.dart';
+import '../widgets/loading_indicator.dart';
 import '../config/color_config.dart';
 import '../helpers/check_connection.dart';
 import '../helpers/quran_helper.dart';
@@ -35,14 +36,14 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     super.initState();
     audioPlayer = AudioPlayer();
     audioPlayer.durationStream.listen((updatedDuration) {
-      if(!mounted) return;
+      if (!mounted) return;
       setState(() {
         duration = updatedDuration!;
       });
     });
 
     audioPlayer.positionStream.listen((updatedPosition) {
-      if(!mounted) return;
+      if (!mounted) return;
       setState(() {
         position = updatedPosition;
       });
@@ -62,7 +63,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         selectedSuraIndex + 1,
       );
 
-      if(currentUrl != newUrl) {
+      if (currentUrl != newUrl) {
         await audioPlayer.setUrl(newUrl);
         currentUrl = newUrl;
         position = Duration.zero;
@@ -122,7 +123,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
 
     if (!connected) {
       if (!mounted) return;
-      ShowToast.showToast(context, 'Please check your Internet connection!');
+      ShowToast.showToast(context, AppScreenTexts.checkInternetConnection);
     }
   }
 
@@ -241,7 +242,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                       style: const TextStyle(fontSize: 18),
                     ),
                     Text(
-                      isLoading? formatDuration(Duration.zero): formatDuration(duration),
+                      isLoading
+                          ? formatDuration(Duration.zero)
+                          : formatDuration(duration),
                       style: const TextStyle(fontSize: 18),
                     ),
                   ],
@@ -258,12 +261,16 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                       onPressed: playPrevious,
                     ),
                     IconButton(
-                      icon: isLoading ? LoadingIndicator(color: ColorConfig.primaryColor,): isPlaying
-                          ? const Icon(
-                              Icons.pause,
-                              size: 40,
+                      icon: isLoading
+                          ? LoadingIndicator(
+                              color: ColorConfig.primaryColor,
                             )
-                          : const Icon(Icons.play_arrow, size: 40),
+                          : isPlaying
+                              ? const Icon(
+                                  Icons.pause,
+                                  size: 40,
+                                )
+                              : const Icon(Icons.play_arrow, size: 40),
                       onPressed: isPlaying ? pauseAudio : playAudio,
                     ),
                     IconButton(

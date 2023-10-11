@@ -1,3 +1,5 @@
+import 'package:tamil_quran/app_texts/app_helpers_texts.dart';
+import 'package:tamil_quran/config/app_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -14,9 +16,9 @@ class Launcher {
 
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: 'faheemjawfar@gmail.com',
+      path: AppHelpersTexts.mailTo,
       query: encodeQueryParameters(<String, String>{
-        'subject': 'Tamil Quran App - Feedback',
+        'subject': AppHelpersTexts.mailSubject,
         'body': body,
       }),
     );
@@ -30,7 +32,7 @@ class Launcher {
 
 
   static void launchPlayStore() async {
-    const appId = 'com.faheemapps.tamil_quran';
+    const appId = AppConfig.appId;
 
     try {
       await launchUrlString("market://details?id=$appId");
@@ -50,7 +52,7 @@ class Launcher {
   }
 
   void openWhatsApp() async {
-    const phoneNumber = '94774106399';
+    const phoneNumber = AppConfig.whatsAppContactNumber;
 
     try {
       await launchUrlString('whatsapp://send?phone=$phoneNumber');

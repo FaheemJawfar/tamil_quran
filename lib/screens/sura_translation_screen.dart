@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:tamil_quran/widgets/read_sura_appbar.dart';
+import '../widgets/read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../config/color_config.dart';
 import '../helpers/shared_preferences.dart';
@@ -32,21 +32,21 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   }
 
   void scrollToVerse() {
-      if (widget.goToVerse > 0) {
-        int index = widget.goToVerse;
-        int suraNumber =
-            Provider.of<QuranProvider>(context, listen: false).selectedSuraNumber;
-        if (suraNumber == 1 || suraNumber == 9) {
-          index--;
-        }
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          scrollController.scrollTo(
-            index: index,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-          );
-        });
+    if (widget.goToVerse > 0) {
+      int index = widget.goToVerse;
+      int suraNumber =
+          Provider.of<QuranProvider>(context, listen: false).selectedSuraNumber;
+      if (suraNumber == 1 || suraNumber == 9) {
+        index--;
       }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        scrollController.scrollTo(
+          index: index,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      });
+    }
   }
 
   void _updateLastSeen(int suraNumber, int verseNumber) {
@@ -74,12 +74,12 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return VisibilityDetector(
                     key: Key(index.toString()),
-                    onVisibilityChanged: (info) =>
-                        _updateLastSeen(quranProvider.selectedSuraNumber, index),
+                    onVisibilityChanged: (info) => _updateLastSeen(
+                        quranProvider.selectedSuraNumber, index),
                     child: ShowVerse(
                       quranAyaArabic: quranProvider.selectedSuraArabic[index],
-                      quranAyaTranslation: quranProvider.selectedSuraTranslation[index],
-
+                      quranAyaTranslation:
+                          quranProvider.selectedSuraTranslation[index],
                     ),
                   );
                 },

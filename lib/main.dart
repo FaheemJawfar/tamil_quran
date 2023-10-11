@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/helpers/shared_preferences.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
-import 'package:tamil_quran/screens/splash_screen.dart';
+import 'config/app_config.dart';
+import '../helpers/shared_preferences.dart';
+import '../providers/quran_provider.dart';
+import '../screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,14 +21,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => QuranProvider()),
       ],
       child: MaterialApp(
-        title: 'Tamil Quran',
+        title: AppConfig.appName,
         debugShowCheckedModeBanner: false,
-
         theme: ThemeData(
           primarySwatch: Colors.green,
           brightness: Brightness.light,
-          fontFamily: 'MuktaMalar',
-          //useMaterial3: false,
+          fontFamily: AppConfig.appDefaultFont,
         ),
         home: const SplashScreen(),
       ),

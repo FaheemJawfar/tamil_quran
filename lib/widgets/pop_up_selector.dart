@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamil_quran/app_texts/app_widgets_texts.dart';
 
 class PopupSelector<T> extends StatefulWidget {
   final List<T> listOfItems;
@@ -12,7 +13,7 @@ class PopupSelector<T> extends StatefulWidget {
     required this.selectedItem,
     required this.onSelected,
     required this.displayNameExtractor,
-    this.title = 'Select an item',
+    this.title = AppWidgetsTexts.selectAnItem,
     Key? key,
   }) : super(key: key);
 
@@ -53,13 +54,13 @@ class _PopupSelectorState<T> extends State<PopupSelector<T>> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: const Text(AppWidgetsTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         ElevatedButton(
-          child: const Text('Select'),
+          child: const Text(AppWidgetsTexts.popUpSelect),
           onPressed: () {
             widget.onSelected(selectedItem);
             Navigator.of(context).pop();

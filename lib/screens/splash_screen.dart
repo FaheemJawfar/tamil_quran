@@ -2,9 +2,11 @@ import 'dart:math';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/models/quran_hadith_about_quran.dart';
-import 'package:tamil_quran/widgets/loading_indicator.dart';
+import 'package:tamil_quran/app_texts/app_screen_texts.dart';
+import 'package:tamil_quran/config/app_config.dart';
+import '../config/color_config.dart';
+import '../models/quran_hadith_about_quran.dart';
+import '../widgets/loading_indicator.dart';
 import '../providers/quran_provider.dart';
 import 'home_screen.dart';
 
@@ -16,8 +18,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-
   bool isLoading = false;
   late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
   int selectedQuoteNumber = 0;
@@ -54,7 +54,6 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -64,78 +63,76 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-
   Widget _buildSplash() {
     return Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              ColorConfig.backgroundColor,
-              ColorConfig.primaryColor,
-              Colors.green.shade600,
-              Colors.green.shade900,
-            ],
-          ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            ColorConfig.backgroundColor,
+            ColorConfig.primaryColor,
+            Colors.green.shade600,
+            Colors.green.shade900,
+          ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/icon/quran_icon.png',
-                width: 150,
-                height: 150,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
+        child: Column(
+          children: [
+            Image.asset(
+              AppConfig.appLogoPath,
+              width: 150,
+              height: 150,
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              AppScreenTexts.theHolyQuran,
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 20),
-              const Text(
-                'திருக்குர்ஆன்',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              AppScreenTexts.arabicAndTranslation,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'அரபு மூலம் மற்றும் மொழிபெயர்ப்பு',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+            ),
+            const Divider(),
+            const Spacer(),
+            Text(
+              QuranHadithAboutQuran
+                  .listOfVersesAndHadhiths[selectedQuoteNumber].quote,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
               ),
-              const Divider(),
-              const Spacer(),
-              Text(
-                QuranHadithAboutQuran
-                    .listOfVersesAndHadhiths[selectedQuoteNumber].quote,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              QuranHadithAboutQuran
+                  .listOfVersesAndHadhiths[selectedQuoteNumber].reference,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                QuranHadithAboutQuran
-                    .listOfVersesAndHadhiths[selectedQuoteNumber].reference,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const Spacer(),
-              const LoadingIndicator(
-                size: 25,
-              ),
-            ],
-          ),
+              textAlign: TextAlign.center,
+            ),
+            const Spacer(),
+            const LoadingIndicator(
+              size: 25,
+            ),
+          ],
         ),
-      
+      ),
     );
   }
 }

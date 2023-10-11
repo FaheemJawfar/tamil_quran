@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/helpers/launcher.dart';
+import '../app_texts/app_screen_texts.dart';
+import '../config/app_config.dart';
+import '../config/color_config.dart';
+import '../helpers/launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutUsScreen extends StatefulWidget {
@@ -40,7 +42,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text('எம்மைப்பற்றி'),
+        title: const Text(AppScreenTexts.aboutUs),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -53,11 +55,11 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               CircleAvatar(
                 radius: 40,
                 backgroundColor: ColorConfig.backgroundColor,
-                backgroundImage: const AssetImage('assets/icon/quran_icon.png'),
+                backgroundImage: const AssetImage(AppConfig.appLogoPath),
               ),
               const SizedBox(height: 20),
               const Text(
-                'Tamil Quran (திருக்குர்ஆன்)',
+                AppScreenTexts.appNameWithTranslation,
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -71,7 +73,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 color: ColorConfig.primaryColor,
               ),
               const Text(
-                'இறைவன் மனித சமுதாயத்துக்கு வழங்கிய இறுதி வேதமாகிய திருக்குர்ஆனைப் பொருளுணர்ந்து வாசிப்பதும், அதன் போதனைகளை முஸ்லிம்கள் மற்றும் முஸ்லிம் அல்லாத மக்களுக்கும் எடுத்துச் சொல்வதும் நம்மீது கடமையாக இருக்கின்றது. \nஇந்த இறைப்பணியில் ஒரு சிறு முயற்சியாகத் தான் இந்த அப்ளிகேசன் உருவாக்கப் பட்டுள்ளது. இதன் மூலம் நீங்களும் பயனடைந்து பிறரையும் பயனடையச் செய்வீர்கள் என்று நம்புகிறேன்.',
+                AppScreenTexts.aboutUsContent,
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
@@ -80,12 +82,12 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ),
 
               const Text(
-                'App designed & developed by:',
+                AppScreenTexts.developedBy,
                 style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
               const Text(
-                '- J. பஹீம்',
+                AppScreenTexts.developerName,
                 style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -93,7 +95,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 color: ColorConfig.primaryColor,
               ),
               const Text(
-                'இந்த App பற்றிய உங்கள் கருத்துக்களையும் விமர்சனங்களையும் எமக்குத் தெரிவியுங்கள்:',
+                AppScreenTexts.sendFeedback,
                 style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
@@ -103,7 +105,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                   Launcher.launchEmail('');
                 },
                 icon: const Icon(Icons.mail),
-                label: const Text('Email Us.'),
+                label: const Text(AppScreenTexts.emailUs),
               ),
             ],
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../app_texts/app_widgets_texts.dart';
 import '../models/reciter.dart';
-
 
 class ReciterSelectorPopup extends StatefulWidget {
   final List<Reciter> reciters;
@@ -30,7 +30,7 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('ஓதுபவரைத் தேர்வு செய்க...'),
+      title: const Text(AppWidgetsTexts.chooseReciter),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView(
@@ -51,13 +51,13 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: const Text(AppWidgetsTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         ElevatedButton(
-          child: const Text('Select'),
+          child: const Text(AppWidgetsTexts.popUpSelect),
           onPressed: () {
             widget.onSelected(selectedReciter);
             Navigator.of(context).pop();

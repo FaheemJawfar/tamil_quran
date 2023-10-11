@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/providers/quran_provider.dart';
+import '../app_texts/app_screen_texts.dart';
+import '../config/color_config.dart';
+import '../providers/quran_provider.dart';
 import '../widgets/reciter_selector_popup.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -12,17 +13,14 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  late final quranProvider =
-      Provider.of<QuranProvider>(context, listen: true);
-
-
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: const Text(AppScreenTexts.settings),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -30,7 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             _buildListTile(
               leadingIcon: Icons.language,
-              title: 'தமிழ் மொழிபெயர்ப்பு',
+              title: AppScreenTexts.languageTranslation,
               subtitle: quranProvider.selectedTranslationName,
               onTap: () => _showPopup(
                 child: ShowTranslationSelector(
@@ -44,20 +42,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildImageIconListTile(
               leadingIcon:
-                  const ImageIcon(AssetImage('assets/images/tamil.png')),
-              title: 'தமிழ் எழுத்துரு ( Tamil Font )',
-              subtitle: 'அல்லாஹ்வின் திருப் பெயரால் ...',
+                  const ImageIcon(AssetImage(AppScreenTexts.translationIconPath)),
+              title: AppScreenTexts.translationFont,
+              subtitle: AppScreenTexts.bismillahTranslation,
               selectedFont: quranProvider.tamilFont,
               onTap: () => _showPopup(
                 child: ShowFontSelector(
                   selectedFont: quranProvider.tamilFont,
-                  tamilFonts: const [
-                    'MUktaMalar',
-                    'HindMadurai',
-                    'NotoSansTamil',
-                    'MeeraInimai'
-                  ],
-                  label: 'அல்லாஹ்வின் திருப் பெயரால் ...',
+                  translationFonts: quranProvider.languageFontsList,
+                  label: AppScreenTexts.bismillahTranslation,
                   onSelected: (value) => quranProvider.tamilFont = value,
                 ),
               ),
@@ -65,22 +58,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildImageIconListTile(
               leadingIcon:
-                  const ImageIcon(AssetImage('assets/images/arabic.png')),
-              title: 'அரபு எழுத்துரு (Arabic Font)',
-              subtitle: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                  const ImageIcon(AssetImage(AppScreenTexts.arabicIconPath)),
+              title: AppScreenTexts.arabicFont,
+              subtitle: AppScreenTexts.bismillahInArabic,
               selectedFont: quranProvider.arabicFont,
               onTap: () => _showPopup(
                 child: ShowFontSelector(
                   selectedFont: quranProvider.arabicFont,
-                  tamilFonts: const [
-                    'AlQalam',
-                    'PDMS_Saleem',
-                    'Arabic',
-                    'MeezanUni',
-                    'Uthmani',
-                    'UthmanicScript'
-                  ],
-                  label: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                  translationFonts: quranProvider.arabicFontsList,
+                  label: AppScreenTexts.bismillahInArabic,
                   onSelected: (value) => quranProvider.arabicFont = value,
                 ),
               ),
@@ -88,12 +74,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.text_fields,
-              title: 'தமிழ் எழுத்து அளவு (Tamil Font Size)',
+              title: AppScreenTexts.translationFontSize,
               subtitle: quranProvider.tamilFontSize.floor().toString(),
               onTap: () => _showPopup(
                   child: FontSizeSelector(
                 fontSize: quranProvider.tamilFontSize,
-                text: 'அல்லாஹ்வின் திருப் பெயரால் ...',
+                text: AppScreenTexts.bismillahTranslation,
                 fontFamily: quranProvider.tamilFont,
                 onChanged: (value) {
                   quranProvider.tamilFontSize = value;
@@ -103,13 +89,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.text_fields,
-              title: 'அரபு எழுத்து அளவு (Arabic Font Size)',
+              title: AppScreenTexts.arabicFontSize,
               subtitle: quranProvider.arabicFontSize.floor().toString(),
               onTap: () => _showPopup(
                   child: FontSizeSelector(
                 fontSize: quranProvider.arabicFontSize,
                 fontFamily: quranProvider.arabicFont,
-                text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                text: AppScreenTexts.bismillahInArabic,
                 onChanged: (value) {
                   quranProvider.arabicFontSize = value;
                 },
@@ -118,9 +104,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.record_voice_over,
-              title: 'குர்ஆன் - கிராஅத் (ஓதுபவர்)',
-              subtitle:
-                  quranProvider.selectedReciterDetails.name,
+              title: AppScreenTexts.quranReciter,
+              subtitle: quranProvider.selectedReciterDetails.name,
               onTap: () => _showPopup(
                 child: ReciterSelectorPopup(
                   reciters: quranProvider.allReciters,
@@ -135,25 +120,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.restore,
-              title: 'அமைப்புக்களை மீளமைத்தல்',
-              subtitle: 'Reset Settings to Default',
+              title: AppScreenTexts.resetSettings,
+              subtitle: AppScreenTexts.resetSettingsInfo,
               onTap: () => _showPopup(
                 child: AlertDialog(
-                  title: const Text('Reset Settings?'),
-                  
+                  title: const Text(AppScreenTexts.resetConfirmation),
                   content: const SizedBox(
                     width: double.maxFinite,
-                    child: Text('அமைப்புகளை மீளமைக்க வேண்டுமா?'),
+                    child: Text(AppScreenTexts.resetConfirmationTranslation),
                   ),
                   actions: <Widget>[
                     TextButton(
-                      child: const Text('இல்லை'),
+                      child: const Text(AppScreenTexts.no),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
                     ElevatedButton(
-                      child: const Text('ஆம்!'),
+                      child: const Text(AppScreenTexts.yes),
                       onPressed: () {
                         quranProvider.clearSettings();
                         Navigator.of(context).pop();
@@ -163,7 +147,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-
             _buildDivider(),
           ],
         ),
@@ -179,8 +162,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return ListTile(
       dense: true,
       leading: Icon(leadingIcon),
-      title: Text(title, style: const TextStyle(fontSize: 16),),
-      subtitle: Text(subtitle, style: const TextStyle(fontSize: 15),),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 16),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: const TextStyle(fontSize: 15),
+      ),
       onTap: onTap,
     );
   }
@@ -189,13 +178,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       {required ImageIcon leadingIcon,
       required String title,
       required String subtitle,
-        required String selectedFont,
+      required String selectedFont,
       required Function() onTap}) {
     return ListTile(
       dense: true,
       leading: leadingIcon,
-      title: Text(title, style: const TextStyle(fontSize: 16),),
-      subtitle: Text(subtitle, style: TextStyle(fontFamily: selectedFont, fontSize: 15),),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 16),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: TextStyle(fontFamily: selectedFont, fontSize: 15),
+      ),
       onTap: onTap,
     );
   }
@@ -239,7 +234,7 @@ class _ShowTranslationSelectorState extends State<ShowTranslationSelector> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('ஓதுபவரைத் தேர்வு செய்க...'),
+      title: const Text(AppScreenTexts.selectReciter),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView(
@@ -260,13 +255,13 @@ class _ShowTranslationSelectorState extends State<ShowTranslationSelector> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: const Text(AppScreenTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         ElevatedButton(
-          child: const Text('Select'),
+          child: const Text(AppScreenTexts.popUpSelect),
           onPressed: () {
             widget.onSelected(selectedTranslation);
             Navigator.of(context).pop();
@@ -278,13 +273,13 @@ class _ShowTranslationSelectorState extends State<ShowTranslationSelector> {
 }
 
 class ShowFontSelector extends StatefulWidget {
-  final List<String> tamilFonts;
+  final List<String> translationFonts;
   final String selectedFont;
   final String label;
   final ValueChanged<String> onSelected;
 
   const ShowFontSelector(
-      {required this.tamilFonts,
+      {required this.translationFonts,
       required this.selectedFont,
       required this.label,
       required this.onSelected,
@@ -300,12 +295,12 @@ class _ShowFontSelectorState extends State<ShowFontSelector> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('எழுத்துருவைத் தேர்வு செய்க'),
+      title: const Text(AppScreenTexts.selectFont),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView(
           shrinkWrap: true,
-          children: widget.tamilFonts.map((String font) {
+          children: widget.translationFonts.map((String font) {
             return RadioListTile(
               title: Text(
                 widget.label,
@@ -324,13 +319,13 @@ class _ShowFontSelectorState extends State<ShowFontSelector> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: const Text(AppScreenTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         ElevatedButton(
-          child: const Text('Select'),
+          child: const Text(AppScreenTexts.popUpSelect),
           onPressed: () {
             widget.onSelected(selectedFont);
             Navigator.of(context).pop();
@@ -391,13 +386,13 @@ class _FontSizeSelectorState extends State<FontSizeSelector> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: const Text(AppScreenTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         ElevatedButton(
-          child: const Text('Select'),
+          child: const Text(AppScreenTexts.popUpSelect),
           onPressed: () {
             widget.onChanged(fontSize);
             Navigator.of(context).pop();

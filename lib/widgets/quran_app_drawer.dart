@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import 'package:tamil_quran/screens/about_us.dart';
-import 'package:tamil_quran/screens/search_screen.dart';
-import 'package:tamil_quran/screens/settings_screen.dart';
+import '../app_texts/app_widgets_texts.dart';
+import '../config/app_config.dart';
+import '../config/color_config.dart';
+import '../screens/about_us.dart';
+import '../screens/search_screen.dart';
+import '../screens/settings_screen.dart';
 import '../screens/donation_screen.dart';
 import '../screens/quran_audio_screen.dart';
 import 'rate_app.dart';
 import 'sura_verse_picker.dart';
 
-class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key});
+class QuranAppDrawer extends StatelessWidget {
+  const QuranAppDrawer({super.key});
 
   ListTile _buildListTiles(
       Widget icon, String title, BuildContext context, Widget screen) {
@@ -55,14 +57,14 @@ class CustomDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Tamil Quran',
+                    AppConfig.appName,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
                     ),
                   ),
                   Text(
-                    '(திருக்குர்ஆன் தமிழாக்கம்)',
+                    AppWidgetsTexts.appNameSubtitle,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -73,32 +75,41 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
-          _buildListTiles(_buildImageIcon('assets/images/quran-audio.png'),
-              'திருக்குர்ஆன் - ஆடியோ', context, const QuranAudioPlayerScreen()),
-          _buildListTiles(const Icon(Icons.search), 'திருக்குர்ஆனில் தேடுக',
-              context, const SearchScreen()),
+          _buildListTiles(
+              _buildImageIcon('assets/images/quran-audio.png'),
+              AppWidgetsTexts.quranAudio,
+              context,
+              const QuranAudioPlayerScreen()),
+          _buildListTiles(const Icon(Icons.search),
+              AppWidgetsTexts.searchInQuran, context, const SearchScreen()),
           _buildActionListTiles(
             const Icon(Icons.shuffle_sharp),
-            ('வசனத்திற்குச் செல்க'),
+            (AppWidgetsTexts.goToVerse),
             context,
             () => _showVersePicker(context),
           ),
-          _buildListTiles(const Icon(Icons.settings), 'அமைப்புகள்', context,
+          _buildListTiles(
+              const Icon(Icons.settings),
+              AppWidgetsTexts.settingsTranslation,
+              context,
               const SettingsScreen()),
-          _buildActionListTiles(
-              const Icon(Icons.share), 'செயலியைப் பகிர்க', context, () {
-            Share.share(
-                'திருக்குர்ஆன் தமிழாக்கம் Android App இனை இப்போதே Playstore இலிருந்து பதிவிறக்கம் செய்து பயன் படுத்துங்கள்: \nhttps://play.google.com/store/apps/details?id=com.faheemapps.tamil_quran');
+          _buildActionListTiles(const Icon(Icons.share),
+              AppWidgetsTexts.shareThisAppTranslation, context, () {
+            Share.share(AppWidgetsTexts.shareAppText);
           }),
           _buildActionListTiles(const Icon(Icons.rate_review_outlined),
-              'செயலியைத் தரப்படுத்துக', context, () {
+              AppWidgetsTexts.rateAppTranslation, context, () {
             _showRating(context);
           }),
-          _buildListTiles(const Icon(Icons.info), 'எம்மைப்பற்றி', context,
+          _buildListTiles(
+              const Icon(Icons.info),
+              AppWidgetsTexts.aboutUsTranslation,
+              context,
               const AboutUsScreen()),
-
-
-          _buildListTiles( _buildImageIcon('assets/images/heart.png'), 'நன்கொடை வழங்குக', context,
+          _buildListTiles(
+              _buildImageIcon('assets/images/heart.png'),
+              AppWidgetsTexts.donateUsTranslation,
+              context,
               const DonationScreen()),
         ],
       ),

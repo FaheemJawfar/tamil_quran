@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:tamil_quran/helpers/shared_preferences.dart';
-import 'package:tamil_quran/helpers/show_toast.dart';
-
+import 'package:flutter/material.dart';
+import '../app_texts/app_helpers_texts.dart';
+import '../helpers/shared_preferences.dart';
+import '../helpers/show_toast.dart';
 import '../models/bookmark.dart';
 
 class BookmarkHelper {
@@ -9,7 +9,8 @@ class BookmarkHelper {
 
   // Add a bookmark to the list
   static void addBookmark(Bookmark bookmark, BuildContext context) {
-    final List<String> bookmarkList = AppPreferences.getStringList(_bookmarkKey) ?? [];
+    final List<String> bookmarkList =
+        AppPreferences.getStringList(_bookmarkKey) ?? [];
     final String newBookmark = '${bookmark.suraNumber}:${bookmark.verseNumber}';
 
     if (!bookmarkList.contains(newBookmark)) {
@@ -17,24 +18,25 @@ class BookmarkHelper {
       AppPreferences.setStringList(_bookmarkKey, bookmarkList);
     }
 
-    ShowToast.showToast(context, 'Bookmark added successfully!');
+    ShowToast.showToast(context, AppHelpersTexts.bookmarkAdded);
   }
-
 
   // Delete a bookmark from the list
   static void deleteBookmark(Bookmark bookmark, BuildContext context) {
-    final List<String>? bookmarkList = AppPreferences.getStringList(_bookmarkKey);
+    final List<String>? bookmarkList =
+        AppPreferences.getStringList(_bookmarkKey);
 
     if (bookmarkList != null) {
       bookmarkList.remove('${bookmark.suraNumber}:${bookmark.verseNumber}');
-     AppPreferences.setStringList(_bookmarkKey, bookmarkList);
+      AppPreferences.setStringList(_bookmarkKey, bookmarkList);
     }
-    ShowToast.showToast(context, 'Bookmark deleted successfully!');
+    ShowToast.showToast(context, AppHelpersTexts.bookmarkDeleted);
   }
 
   // Get the list of bookmarks
   static List<Bookmark> getBookmarkList() {
-   final List<String> bookmarkList = AppPreferences.getStringList(_bookmarkKey) ?? [];
+    final List<String> bookmarkList =
+        AppPreferences.getStringList(_bookmarkKey) ?? [];
 
     return bookmarkList.map((bookmarkString) {
       final parts = bookmarkString.split(':');
