@@ -17,14 +17,14 @@ class ReadSuraPopupMenu extends StatefulWidget {
 }
 
 class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
-  late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(right: 12.0),
         child: PopupMenuButton<String>(
-          color: AppConfig.isDarkMode ? null : Colors.green.shade100,
+          color: quranProvider.isDarkMode ? null : Colors.green.shade100,
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
@@ -76,7 +76,7 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
 
   Widget getPopupMenuItem(IconData icon, String title) {
     return ListTile(
-      iconColor: AppConfig.isDarkMode ? null : ColorConfig.buttonColor,
+      iconColor: quranProvider.isDarkMode ? null : ColorConfig.buttonColor,
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon),
       title: Text(title),

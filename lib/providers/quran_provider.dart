@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tamil_quran/config/color_config.dart';
-import '../config/app_config.dart';
 import '../helpers/data_parser.dart';
 import '../helpers/shared_preferences.dart';
 import '../models/quran_sura.dart';

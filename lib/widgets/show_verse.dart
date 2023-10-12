@@ -56,7 +56,7 @@ class _ShowVerseState extends State<ShowVerse> {
                           style: TextStyle(
                             fontSize: quranProvider.arabicFontSize,
                             fontFamily: quranProvider.arabicFont,
-                            color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+                            color: quranProvider.isDarkMode ? Colors.white : Colors.black,
                           ),
                         ),
                         TextSpan(
@@ -67,7 +67,7 @@ class _ShowVerseState extends State<ShowVerse> {
 
                           style: TextStyle(
                               fontSize: 18,
-                              color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+                              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
                           ),
                         ),
                       ],
@@ -90,7 +90,7 @@ class _ShowVerseState extends State<ShowVerse> {
 
   Widget getPopupMenuItem(IconData icon, String title) {
     return ListTile(
-      iconColor: AppConfig.isDarkMode ? null : Colors.green.shade700,
+      iconColor: quranProvider.isDarkMode ? null : Colors.green.shade700,
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon),
       title: Text(title),
@@ -106,7 +106,7 @@ class _ShowVerseState extends State<ShowVerse> {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         PopupMenuButton<String>(
-          color: AppConfig.isDarkMode ? null : Colors.green.shade100,
+          color: quranProvider.isDarkMode ? null : Colors.green.shade100,
           onSelected: (String value) {
             switch (value) {
               case 'shareVerse':

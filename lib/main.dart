@@ -9,8 +9,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPreferences.initialize();
   runApp(const MyApp());
-
-  //AppPreferences.setBool('isDarkMode', true);
 }
 
 class MyApp extends StatelessWidget {

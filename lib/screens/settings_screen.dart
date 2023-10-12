@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
+      backgroundColor: quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       appBar: AppBar(
         title: const Text(AppScreenTexts.settings),
       ),

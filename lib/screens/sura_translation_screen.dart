@@ -58,7 +58,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
+      backgroundColor: quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       appBar: ReadSuraAppBar(
         tamilScrollController: scrollController,
       ),
@@ -69,7 +69,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
               padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: ScrollablePositionedList.separated(
                 separatorBuilder: (context, index) =>
-                    Divider(color: AppConfig.isDarkMode ? null : ColorConfig.primaryColor),
+                    Divider(color: quranProvider.isDarkMode ? null : ColorConfig.primaryColor),
                 itemScrollController: scrollController,
                 itemCount: quranProvider.selectedSuraArabic.length,
                 itemBuilder: (BuildContext context, int index) {
