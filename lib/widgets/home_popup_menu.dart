@@ -29,7 +29,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
             PopupMenuItem<String>(
               value: 'settings',
               child: getPopupMenuItem(const Icon(Icons.settings),
-                  AppWidgetsTexts.settingsTranslation),
+                  AppWidgetsTexts.settings),
             ),
             PopupMenuItem<String>(
               value: 'share_app',

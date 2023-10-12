@@ -32,6 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.dark_mode),
               title: const Text(AppScreenTexts.darkMode),
               trailing: Switch(
+                activeColor: quranProvider.isDarkMode ? Colors.grey: ColorConfig.primaryColor,
                   value: quranProvider.isDarkMode,
                   onChanged: (value) {
                     quranProvider.isDarkMode = value;

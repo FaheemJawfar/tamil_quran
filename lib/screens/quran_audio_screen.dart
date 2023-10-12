@@ -21,7 +21,7 @@ class QuranAudioPlayerScreen extends StatefulWidget {
 }
 
 class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
-  late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
   int selectedSuraIndex = 0;
 
   late AudioPlayer audioPlayer;
@@ -151,7 +151,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
+      backgroundColor: quranProvider.isDarkMode ? null: ColorConfig.backgroundColor,
       appBar: AppBar(
         title: FittedBox(
             fit: BoxFit.contain,
@@ -189,7 +189,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   style: TextStyle(
                       color: selectedSuraIndex == index
                           ? Colors.white
-                          : AppConfig.isDarkMode ? Colors.white70: Colors.black,
+                          : quranProvider.isDarkMode ? Colors.white70: Colors.black,
                       fontSize: 18),
                 ),
                 onTap: () {
@@ -199,7 +199,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   playAudio();
                 },
                 tileColor:
-                    selectedSuraIndex == index ? AppConfig.isDarkMode ? Colors.black45: Colors.green[300] : null,
+                    selectedSuraIndex == index ? quranProvider.isDarkMode ? Colors.black45: Colors.green[300] : null,
               );
             },
           ),
@@ -211,7 +211,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: AppConfig.isDarkMode ? Colors.black45: Colors.green[100],
+              color: quranProvider.isDarkMode ? Colors.black45: Colors.green[100],
               borderRadius: const BorderRadius.all(
                 Radius.circular(15),
               ),
@@ -265,7 +265,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     IconButton(
                       icon: isLoading
                           ? LoadingIndicator(
-                              color: quranProvider.isDarkMode ? Colors.white: ColorConfig.primaryColor,
+                              color: quranProvider.isDarkMode ? Colors.grey: ColorConfig.primaryColor,
                             )
                           : audioPlayer.playing
                               ? const Icon(

@@ -58,7 +58,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               const SizedBox(height: 20),
               CircleAvatar(
                 radius: 40,
-                backgroundColor: quranProvider.isDarkMode ? null: ColorConfig.backgroundColor,
+                backgroundColor: quranProvider.isDarkMode ? Colors.transparent: ColorConfig.backgroundColor,
                 backgroundImage: const AssetImage(AppConfig.appLogoPath),
               ),
               const SizedBox(height: 20),

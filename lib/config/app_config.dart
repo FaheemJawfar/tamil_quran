@@ -12,7 +12,6 @@ class AppConfig {
 
 
   static const String appDefaultFont = 'MuktaMalar';
-  static bool isDarkMode = AppPreferences.getBool('isDarkMode') ?? false;
 
 
 

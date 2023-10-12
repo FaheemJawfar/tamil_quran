@@ -39,14 +39,14 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                     '${sura.suraNumber}. ',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 22,
                         color: Colors.grey),
                   ),
                   title: Text(
                     sura.tamilName,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 17,
+                      fontSize: 18,
                     ),
                   ),
                   subtitle:
