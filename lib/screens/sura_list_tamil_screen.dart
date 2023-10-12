@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamil_quran/config/app_config.dart';
 import '../app_texts/app_screen_texts.dart';
 import '../config/color_config.dart';
 import '../helpers/shared_preferences.dart';
@@ -20,7 +21,8 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConfig.backgroundColor,
+      backgroundColor:
+          AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
       body: Column(
         children: [
           _buildContinueReadingButton(),
@@ -45,13 +47,13 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
                         goToVerse: verse!,
                       )));
         },
-        style: OutlinedButton.styleFrom(
+        style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : OutlinedButton.styleFrom(
           side: const BorderSide(color: Colors.green),
         ),
         child: Text(
           AppScreenTexts.continueReading,
           style: TextStyle(
-            color: Colors.green[900],
+            color: AppConfig.isDarkMode ? Colors.white : ColorConfig.primaryColor,
           ),
         ),
       );
@@ -65,7 +67,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
         itemCount: SuraDetails.suraList.length,
         separatorBuilder: (context, index) => Divider(
           thickness: 1,
-          color: ColorConfig.primaryColor,
+          color: AppConfig.isDarkMode ? null : ColorConfig.primaryColor,
         ),
         itemBuilder: (BuildContext context, int index) {
           final suraDetails = SuraDetails.suraList[index];
@@ -89,8 +91,9 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
             subtitle:
                 Text('${AppScreenTexts.verseCount} ${suraDetails.verseCount}'),
             trailing: Image.asset(
-                'assets/images/sura_headers/Surah_${suraDetails.suraNumber}.png',
-                color: Colors.black),
+              'assets/images/sura_headers/Surah_${suraDetails.suraNumber}.png',
+              color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+            ),
             onTap: () {
               quranProvider.selectedSuraNumber = suraDetails.suraNumber;
               Navigator.push(

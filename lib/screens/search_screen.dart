@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_texts/app_screen_texts.dart';
+import '../config/app_config.dart';
 import '../screens/sura_translation_screen.dart';
 import '../config/color_config.dart';
 import '../helpers/bookmark_helper.dart';
@@ -41,7 +42,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConfig.backgroundColor,
+      backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
       appBar: AppBar(
         title: const Text(AppScreenTexts.searchInQuran),
       ),
@@ -67,7 +68,8 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             if (_searchController.text.isNotEmpty)
               Expanded(
-                child: ListView.builder(
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => const Divider(),
                   itemCount: _filteredVerses.length,
                   itemBuilder: (context, index) {
                     QuranAya translation = _filteredVerses[index];
@@ -83,8 +85,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         textSpans.add(TextSpan(
                           text: translation.text
                               .substring(currentIndex, match.start),
-                          style: const TextStyle(
-                            color: Colors.black,
+                          style: TextStyle(
+                            color: AppConfig.isDarkMode ? Colors.white : Colors.black,
                           ),
                         ));
                       }
@@ -106,8 +108,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     if (currentIndex < translation.text.length) {
                       textSpans.add(TextSpan(
                         text: translation.text.substring(currentIndex),
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                        color: AppConfig.isDarkMode ? Colors.white :Colors.black,
                         ),
                       ));
                     }
@@ -126,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                               PopupMenuButton<String>(
-                                color: Colors.green.shade100,
+                                color: AppConfig.isDarkMode ? null: Colors.green.shade100,
                                 onSelected: (String value) {
                                   switch (value) {
                                     case 'goToVerse':
@@ -259,35 +261,38 @@ class _SearchScreenState extends State<SearchScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 15),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: quranProvider
-                                          .filterOneAyaArabic(
-                                              translation.suraIndex,
-                                              translation.ayaIndex)
-                                          .text,
-                                      style: TextStyle(
-                                        fontSize: quranProvider.arabicFontSize,
-                                        fontFamily: quranProvider.arabicFont,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                        text: QuranHelper.getVerseEndSymbol(
-                                          translation.ayaIndex,
-                                        ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: quranProvider
+                                            .filterOneAyaArabic(
+                                                translation.suraIndex,
+                                                translation.ayaIndex)
+                                            .text,
                                         style: TextStyle(
-                                          fontSize:
-                                              quranProvider.arabicFontSize,
-                                          color: Colors.black,
-                                        )),
-                                  ],
+                                          fontSize: quranProvider.arabicFontSize,
+                                          fontFamily: quranProvider.arabicFont,
+                                          color: AppConfig.isDarkMode ? Colors.white :Colors.black,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                          text: QuranHelper.getVerseEndSymbol(
+                                            translation.ayaIndex,
+                                          ),
+                                          style: TextStyle(
+                                            fontSize:
+                                                quranProvider.arabicFontSize,
+                                            color: AppConfig.isDarkMode ? Colors.white :Colors.black,
+                                          )),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.right,
                                 ),
-                                textAlign: TextAlign.right,
                               ),
                               const SizedBox(height: 8),
                               RichText(
@@ -302,9 +307,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             ],
                           ),
                         ),
-                        const Divider(
-                          color: Colors.black,
-                        ),
                       ],
                     );
                   },
@@ -318,7 +320,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget getPopupMenuItem(IconData icon, String title) {
     return ListTile(
-      iconColor: Colors.green.shade700,
+      iconColor: AppConfig.isDarkMode ? null: ColorConfig.buttonColor,
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon),
       title: Text(title),

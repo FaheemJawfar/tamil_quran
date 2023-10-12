@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamil_quran/config/color_config.dart';
 import '../app_texts/app_widgets_texts.dart';
+import '../config/app_config.dart';
 import '../helpers/verse_helper.dart';
 import '../providers/quran_provider.dart';
 import '../screens/search_screen.dart';
@@ -22,7 +24,7 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
     return Padding(
         padding: const EdgeInsets.only(right: 12.0),
         child: PopupMenuButton<String>(
-          color: Colors.green.shade100,
+          color: AppConfig.isDarkMode ? null : Colors.green.shade100,
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
@@ -74,7 +76,7 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
 
   Widget getPopupMenuItem(IconData icon, String title) {
     return ListTile(
-      iconColor: Colors.green.shade700,
+      iconColor: AppConfig.isDarkMode ? null : ColorConfig.buttonColor,
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon),
       title: Text(title),

@@ -9,6 +9,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPreferences.initialize();
   runApp(const MyApp());
+
+  AppPreferences.setBool('isDarkMode', true);
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.green,
-          brightness: Brightness.light,
+          brightness: AppConfig.isDarkMode ? Brightness.dark: Brightness.light,
           fontFamily: AppConfig.appDefaultFont,
         ),
         home: const SplashScreen(),

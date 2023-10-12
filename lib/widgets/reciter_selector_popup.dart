@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app_texts/app_widgets_texts.dart';
+import '../config/app_config.dart';
+import '../config/color_config.dart';
 import '../models/reciter.dart';
 
 class ReciterSelectorPopup extends StatefulWidget {
@@ -51,17 +53,20 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text(AppWidgetsTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
+
+          style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+          child: const Text(AppWidgetsTexts.popUpCancel),
         ),
         ElevatedButton(
-          child: const Text(AppWidgetsTexts.popUpSelect),
           onPressed: () {
             widget.onSelected(selectedReciter);
             Navigator.of(context).pop();
           },
+          style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+          child: const Text(AppWidgetsTexts.popUpSelect),
         ),
       ],
     );

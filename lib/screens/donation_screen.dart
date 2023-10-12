@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tamil_quran/app_texts/app_screen_texts.dart';
+import 'package:tamil_quran/config/color_config.dart';
 import '../config/app_config.dart';
 import '../helpers/launcher.dart';
 
@@ -11,6 +12,10 @@ class DonationScreen extends StatefulWidget {
 }
 
 class _DonationScreenState extends State<DonationScreen> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +53,7 @@ class _DonationScreenState extends State<DonationScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               ElevatedButton.icon(
+                  style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
                   onPressed: () {
                     Launcher.launchWebpage(AppConfig.buyMeACoffee);
                   },
@@ -64,8 +70,8 @@ class _DonationScreenState extends State<DonationScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               ElevatedButton.icon(
+                style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
                 onPressed: () {
-                  // Show bank account details popup
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -103,6 +109,7 @@ class _DonationScreenState extends State<DonationScreen> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
+                            style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
                             child: const Text('Close'),
                           ),
                         ],

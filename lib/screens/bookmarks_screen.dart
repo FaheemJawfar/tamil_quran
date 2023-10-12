@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamil_quran/config/app_config.dart';
 import '../app_texts/app_screen_texts.dart';
 import '../screens/sura_translation_screen.dart';
 import '../config/color_config.dart';
@@ -33,7 +34,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConfig.backgroundColor,
+      backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
       body: bookmarkList.isEmpty
           ? const Center(
               child: Text(
@@ -47,7 +48,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
               itemCount: bookmarkList.length,
               separatorBuilder: (context, index) => Divider(
                 thickness: 1,
-                color: ColorConfig.primaryColor,
+                color: AppConfig.isDarkMode ? null: ColorConfig.primaryColor,
               ),
               itemBuilder: (context, index) {
                 Bookmark currentBookmark = bookmarkList[index];

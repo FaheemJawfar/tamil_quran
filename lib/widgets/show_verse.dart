@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_widgets_texts.dart';
+import '../config/app_config.dart';
 import '../helpers/bookmark_helper.dart';
 import '../helpers/quran_helper.dart';
 import '../helpers/verse_helper.dart';
@@ -49,14 +50,13 @@ class _ShowVerseState extends State<ShowVerse> {
                   child: RichText(
                     textAlign: TextAlign.right,
                     text: TextSpan(
-                      // style: TextStyle(color: Colors.black),
                       children: [
                         TextSpan(
                           text: widget.quranAyaArabic.text,
                           style: TextStyle(
                             fontSize: quranProvider.arabicFontSize,
                             fontFamily: quranProvider.arabicFont,
-                            color: Colors.black,
+                            color: AppConfig.isDarkMode ? Colors.white : Colors.black,
                           ),
                         ),
                         TextSpan(
@@ -64,9 +64,11 @@ class _ShowVerseState extends State<ShowVerse> {
                               ? ''
                               : QuranHelper.getVerseEndSymbol(
                                   widget.quranAyaArabic.ayaIndex),
-                          // No font applied to this portion
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.black),
+
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+                          ),
                         ),
                       ],
                     ),
@@ -88,7 +90,7 @@ class _ShowVerseState extends State<ShowVerse> {
 
   Widget getPopupMenuItem(IconData icon, String title) {
     return ListTile(
-      iconColor: Colors.green.shade700,
+      iconColor: AppConfig.isDarkMode ? null : Colors.green.shade700,
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon),
       title: Text(title),
@@ -104,7 +106,7 @@ class _ShowVerseState extends State<ShowVerse> {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         PopupMenuButton<String>(
-          color: Colors.green.shade100,
+          color: AppConfig.isDarkMode ? null : Colors.green.shade100,
           onSelected: (String value) {
             switch (value) {
               case 'shareVerse':

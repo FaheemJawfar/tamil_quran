@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_screen_texts.dart';
+import '../config/app_config.dart';
 import '../config/color_config.dart';
 import '../models/sura_details.dart';
 import '../screens/sura_arabic_screen.dart';
@@ -19,7 +20,8 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConfig.backgroundColor,
+      backgroundColor:
+          AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
       body: Column(
         children: [
           Expanded(
@@ -27,7 +29,7 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
               itemCount: SuraDetails.suraList.length,
               separatorBuilder: (context, index) => Divider(
                 thickness: 1,
-                color: ColorConfig.primaryColor,
+                color: AppConfig.isDarkMode ? null : ColorConfig.primaryColor,
               ),
               itemBuilder: (BuildContext context, int index) {
                 final sura = SuraDetails.suraList[index];
@@ -47,10 +49,12 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                       fontSize: 17,
                     ),
                   ),
-                  subtitle: Text('${AppScreenTexts.verseCount} ${sura.verseCount}'),
+                  subtitle:
+                      Text('${AppScreenTexts.verseCount} ${sura.verseCount}'),
                   trailing: Image.asset(
-                      'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
-                      color: Colors.black),
+                    'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
+                    color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+                  ),
                   onTap: () {
                     quranProvider.selectedSuraNumber = sura.suraNumber;
                     Navigator.push(

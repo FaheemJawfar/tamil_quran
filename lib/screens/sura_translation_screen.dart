@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../config/app_config.dart';
 import '../widgets/read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../config/color_config.dart';
@@ -57,7 +58,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConfig.backgroundColor,
+      backgroundColor: AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
       appBar: ReadSuraAppBar(
         tamilScrollController: scrollController,
       ),
@@ -68,7 +69,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
               padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: ScrollablePositionedList.separated(
                 separatorBuilder: (context, index) =>
-                    Divider(color: ColorConfig.primaryColor),
+                    Divider(color: AppConfig.isDarkMode ? null : ColorConfig.primaryColor),
                 itemScrollController: scrollController,
                 itemCount: quranProvider.selectedSuraArabic.length,
                 itemBuilder: (BuildContext context, int index) {

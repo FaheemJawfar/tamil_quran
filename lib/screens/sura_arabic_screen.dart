@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_config.dart';
 import '../config/color_config.dart';
 import '../helpers/quran_helper.dart';
 import '../providers/quran_provider.dart';
@@ -30,9 +31,10 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
           controller: scrollController,
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: ColorConfig.primaryColor, width: 2),
+              border: Border.all(color: AppConfig.isDarkMode ? Colors.white : ColorConfig.primaryColor,
+                  width: 2),
               borderRadius: BorderRadius.circular(10),
-              color: ColorConfig.backgroundColor,
+              color: AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
             ),
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -44,6 +46,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
                     'assets/images/bismillah.png',
                     height: 40,
                     width: double.infinity,
+                    color: AppConfig.isDarkMode ? Colors.white : Colors.black,
                   ),
                 const SizedBox(
                   height: 10,
@@ -81,15 +84,15 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
           fontSize: 20,
           fontFamily:
           quranProvider.arabicFont,
-          color: Colors.black,
+          color: AppConfig.isDarkMode ? Colors.white :Colors.black,
         ),
       ));
 
       inlineSpans.add(TextSpan(
         text: '${QuranHelper.getVerseEndSymbol(verse.ayaIndex)} ',
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 20,
-          color: Colors.black,
+          color: AppConfig.isDarkMode ? Colors.white :Colors.black,
         ),
       ));
     }

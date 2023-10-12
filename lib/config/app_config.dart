@@ -1,3 +1,5 @@
+import 'package:tamil_quran/helpers/shared_preferences.dart';
+
 class AppConfig {
 
   static const String appName = 'Tamil Quran';
@@ -7,7 +9,10 @@ class AppConfig {
   static const String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.faheemapps.tamil_quran';
   static const String buyMeACoffee = 'https://www.buymeacoffee.com/faheemj';
   static const String whatsAppContactNumber = '94774106399';
+
+
   static const String appDefaultFont = 'MuktaMalar';
+  static bool isDarkMode = AppPreferences.getBool('isDarkMode') ?? false;
 
 
 

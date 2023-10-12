@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app_texts/app_widgets_texts.dart';
+import '../config/app_config.dart';
+import '../config/color_config.dart';
 import '../helpers/show_toast.dart';
 import '../helpers/launcher.dart';
 
@@ -56,13 +58,15 @@ class _RateAppState extends State<RateApp> {
     return AlertDialog(
       title: const Text(AppWidgetsTexts.feedback),
       actions: [
-        TextButton(
+        OutlinedButton(
+          style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
           onPressed: () {
             Navigator.of(context).pop();
           },
           child: const Text(AppWidgetsTexts.ratingCancel),
         ),
-        TextButton(
+        OutlinedButton(
+          style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
           onPressed: () {
             Navigator.of(context).pop();
             if (selectedRating == 5) {

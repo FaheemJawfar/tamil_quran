@@ -44,13 +44,13 @@ class QuranAppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: ColorConfig.backgroundColor,
+      backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: ColorConfig.primaryColor,
+              color: AppConfig.isDarkMode ? null: ColorConfig.primaryColor,
             ),
             child: const Center(
               child: Column(
