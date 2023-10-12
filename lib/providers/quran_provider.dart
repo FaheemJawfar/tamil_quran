@@ -197,13 +197,21 @@ class QuranProvider extends ChangeNotifier {
   }
 
   void clearSettings() {
-    AppPreferences.clear();
+    AppPreferences.setString('tamilFont', 'MUktaMalar');
     _tamilFont = 'MUktaMalar';
+    AppPreferences.setString('arabicFont', 'AlQalam');
     _arabicFont = 'AlQalam';
+    AppPreferences.setDouble('tamilFontSize', 19);
     _tamilFontSize = 19;
+    AppPreferences.setDouble('arabicFontSize', 23);
     _arabicFontSize = 23;
+    AppPreferences.setString('selectedTranslation', 'm_john');
     _selectedTranslation = 'm_john';
+    AppPreferences.setString('selectedReciter', 'alafasy-pj');
     _selectedReciter = 'alafasy-pj';
+    AppPreferences.setBool('isDarkMode', false);
+    _isDarkMode = false;
+
     notifyListeners();
   }
 }
