@@ -1,10 +1,11 @@
 class QuranAya {
-  final int ayaIndex;
   final int suraIndex;
+  final int ayaIndex;
   final String text;
 
-  QuranAya(
-      this.ayaIndex,
-      this.suraIndex,
-      this.text);
+  QuranAya({
+    required this.suraIndex,
+    required this.ayaIndex,
+    required this.text,
+  });
 }

@@ -6,7 +6,7 @@ import '../models/quran_sura.dart';
 class DataParser {
 
   static Future<List<QuranSura>> loadXmlFromAssets(String xmlFilePath) async {
-    List<QuranSura> suras = [];
+    List<QuranSura> listOfAllSuras = [];
 
     final xmlString = await rootBundle.loadString(xmlFilePath);
     final document = xml.XmlDocument.parse(xmlString);
@@ -17,14 +17,13 @@ class DataParser {
 
       for (var ayaElement in suraElement.findElements('aya')) {
         final ayaIndex = int.parse(ayaElement.getAttribute('index')!);
-        final sura = suraIndex;
         final ayaText = ayaElement.getAttribute('text');
-        ayas.add(QuranAya(ayaIndex, sura, ayaText!));
+        ayas.add(QuranAya(suraIndex: suraIndex, ayaIndex: ayaIndex, text: ayaText!));
       }
 
-      suras.add(QuranSura(suraIndex, ayas));
+      listOfAllSuras.add(QuranSura(suraIndex, ayas));
     }
 
-    return suras;
+    return listOfAllSuras;
   }
 }

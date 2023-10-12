@@ -1,11 +1,11 @@
-class QuranHadithAboutQuran {
+class AboutQuranReferences {
   final String quote;
   final String reference;
 
-  QuranHadithAboutQuran({required this.quote, required this.reference});
+  AboutQuranReferences({required this.quote, required this.reference});
 
-  factory QuranHadithAboutQuran.fromJson(Map<String, dynamic> json) {
-    return QuranHadithAboutQuran(
+  factory AboutQuranReferences.fromJson(Map<String, dynamic> json) {
+    return AboutQuranReferences(
       quote: json['verse'] as String,
       reference: json['resource'] as String,
     );
@@ -18,113 +18,113 @@ class QuranHadithAboutQuran {
     };
   }
 
-  static List<QuranHadithAboutQuran> listOfVersesAndHadhiths = [
-    QuranHadithAboutQuran(
+  static List<AboutQuranReferences> listOfVersesAndHadhiths = [
+    AboutQuranReferences(
       quote:
           "இந்தக் குர்ஆன் நேரானதற்கு வழி காட்டுகிறது. “நம்பிக்கை கொண்டு நல்லறங்கள் செய்வோருக்கு பெரிய கூலி உள்ளது” என்று நற்செய்தியும் கூறுகிறது.",
       reference: "(அல்குர்ஆன் 17:9)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "(பொய்யையும் உண்மையையும்) பிரித்துக் காட்டும் வழி முறையை அகிலத்தாருக்கு எச்சரிக்கை செய்யக் கூடியதாக தனது அடியார் மீது அருளியவன் பாக்கியமானவன்.",
       reference: "(அல்குர்ஆன் 25:1)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "குர்ஆன் ஓதப்படும் போது அதைச் செவிமடுங்கள்! வாய் மூடுங்கள்! நீங்கள் அருள் செய்யப் படுவீர்கள்!",
       reference: "(அல்குர்ஆன் 7:204)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "நிச்சயமாக இக்குர்ஆனை நன்கு நினைவு படுத்திக் கொள்ளும் பொருட்டே எளிதாக்கி வைத்திருக்கின்றோம்; எனவே இதிலிருந்து நல்லுணர்வு பெறுவோர் உண்டா?",
       reference: "(அல்குர்ஆன் 54:32)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "மேலும் அவர்கள் இந்தக் குர்ஆனை ஆராய்ந்து பார்க்க வேண்டாமா? அல்லது அவர்கள் இருதயங்கள் (இருக்கின்றனவே) அவற்றின் மீது பூட்டுப் போடப்பட்டு விட்டனவா?",
       reference: "(அல்குர்ஆன் 47:24)",
     ),
 
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "இன்னும், நாம் முஃமின்களுக்கு ரஹ்மத்தாகவும், அருமருந்தாகவும் உள்ளவற்றையே குர்ஆனில் (படிப்படியாக) இறக்கிவைத்தோம் ஆனால் அக்கிரமக் காரர்களுக்கோ இழப்பைத் தவிர வேறெதையும் (இது) அதிகமாக்குவதில்லை.",
       reference: "(அல்குர்ஆன் 17:82)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "இது அகிலத்தாரின் இறைவனிடமிருந்து அருளப்பட்டது. சில சொற்களை இவர் (முஹம்மது) நம்மீது இட்டுக்கட்டியிருந்தால் வலது கையால் இவரைத் தண்டித்திருப்போம். பின்னர் அவரது நாடி நரம்பைத் துண்டித்திருப்போம்.",
       reference: "(திருக்குர்ஆன் 69:43-46)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "உயிருடன் உள்ளவரை எச்சரிப்பதற்காகவும், (நம்மை) மறுப்போருக்கு எதிரான கட்டளை உறுதியாவதற்காகவும் (இதை அருளினோம்).",
       reference: "(திருக்குர்ஆன் 6:70)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "குர்ஆனை ஓதும் போது விரட்டப்பட்ட ஷைத்தானை விட்டும் அல்லாஹ்விடம் பாதுகாப்புத் தேடிக்கொள்வீராக!",
       reference: "(திருக்குர்ஆன் 16:98)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "நிச்சயமாக நாம் தான் (நினைவூட்டும்) இவ்வேதத்தை (உம்மீது) இறக்கி வைத்தோம்; நிச்சயமாக நாமே அதன் பாதுகாவலனாகவும் இருக்கின்றோம்.",
       reference: "(திருக்குர்ஆன் 15:9)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "(ஏகஇறைவனை) மறுப்போர் வெறுத்த போதும் நீங்கள் வணக்கத்தை அல்லாஹ்வுக்கே தூய எண்ணத்துடன் உரித்தாக்கி அவனிடமே பிரார்த்தியுங்கள்!",
       reference: "(திருக்குர்ஆன் 40:14)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote: "மேலும் குர்ஆனைத் தெளிவாகவும் நிறுத்தி நிதானமாகவும் ஓதுவீராக!",
       reference: "(திருக்குர்ஆன் 73:4)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "அலிஃப், லாம், ரா. மனிதர்களை அவர்களது இறைவனின் விருப்பப்படி இருள்களிலிருந்து வெளிச்சத்திற்கும், புகழுக்குரிய மிகைத்தவனின் பாதைக்கும் நீர் கொண்டு செல்வதற்காக உமக்கு இவ்வேதத்தை அருளினோம்.",
       reference: "(திருக்குர்ஆன் 14:1)",
     ),
 
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
       quote:
           "\"நீங்கள் குர்ஆனை ஓதுங்கள். நிச்சயமாக அது மறுமை நாளில் அதைச் சார்ந்தவருக்குப் பரிந்துரையாக வரும்\". \n- முஹம்மது நபி (ஸல்)",
       reference: "(நூல் : முஸ்லிம்-1470)",
     ),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "உங்களில் சிறந்தவர் யார் என்றால், யார் குர்ஆனைத் தானும் கற்று, பிறருக்கும் கற்றுக் கொடுக்கின்றாரோ அவர் தான்.\n- முஹம்மது நபி (ஸல்)",
         reference: "(ஆதாரம் : புகாரி-5027)"),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "\"உங்கள் வீடுகளை மண்ணறைகளாக ஆக்கி விடாதீர்கள். எந்த வீட்டில் சூரத்துல் பகரா ஓதப்படுகின்றதோ அந்த வீட்டை விட்டு ஷைத்தான் விரண்டு ஓடுகின்றான்\".\n- முஹம்மது நபி (ஸல்)",
         reference: "(ஆதாரம் : முஸ்லிம்-1430)"),
 
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "நபி(ஸல்) அவர்களுக்கு ஒவ்வொரு வருடமும் ரமலானில் ஒரு தடவை குர்ஆனை ஓதிக் காண்பிக்கப்பட்டது. அவர்கள் மரணிக்கும் வருடம் இரண்டு தடவை ஓதிக் காண்பிக்கப்பட்டது.\n- அறிவிப்பவர்: அபூஹுரைரா(ரலி)",
         reference: "(ஆதாரம் : புகாரி)"),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "\"குர்ஆனின் விஷயத்தில் தர்க்கம் புரிவது இறை மறுப்புச் செயலாகும்\".\n- முஹம்மது நபி (ஸல்)",
         reference: "(ஆதாரம் : அபூதாவூத்)"),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "\"இவ்வேதத்தைக் கொண்டே அல்லாஹ் சில கூட்டத்தாரை உயர்த்துகிறான். மற்றோரு கூட்டத்தினரை இதனைக் கொண்டே தாழ்த்துகிறான். சமுதாய உயர்வு, தாழ்வுக்கு காரணம் குர்ஆனே\".\n- முஹம்மது நபி (ஸல்)",
         reference: "(ஆதாரம் : முஸ்லிம்)"),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "\"எவரது உள்ளத்தில் குர்ஆனின் சிறு பகுதியேனும் மனனம் இல்லையோ அவரது உள்ளம் பாழடைந்த வீட்டைப் போன்றதாகும்\".\n- முஹம்மது நபி (ஸல்)",
         reference: "(ஆதாரம் : திர்மிதி)"),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "\"நபியவர்கள் மஃரிப் தொழுகையில் அத்தூர் அத்தியாயத்தை ஓதிடக் கேட்டேன். நபியவர்களை விட அழகிய குரலுடைய ஒருவரை அல்லது அழகாக ஓதுபவரை நான் கேட்டதில்லை\"\n- அறிவிப்பவர்: ஜுபைர் பின் முத்இம் (ரலி)",
         reference: "(புகாரி, முஸ்லிம்)"),
 
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "\"நீங்கள் படுக்கைக்குச் செல்லும் போது ஆயத்துல் குர்ஸியை ஓதுங்கள். உங்களுடன் ஒரு பாதுகாவலர் (வானவர்) இருந்து கொண்டே இருப்பார். காலை வரை ஷைத்தான் உங்களை நெருங்க மாட்டான்\".\n- முஹம்மது நபி (ஸல்)",
         reference: "(ஆதாரம் : புஹாரி 3275)"),
-    QuranHadithAboutQuran(
+    AboutQuranReferences(
         quote:
             "\"ஒவ்வொரு இறைத் தூதரும் அற்புதங்களுடன் அனுப்பப்பட்டனர். எனக்கு வழங்கப்பட்ட அற்புதம் திருக்குர்ஆன்\".\n- முஹம்மது நபி (ஸல்)",
         reference: "(ஆதாரம் : புகாரி 4981,7274)")

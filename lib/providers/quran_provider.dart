@@ -76,13 +76,13 @@ class QuranProvider extends ChangeNotifier {
   }
 
   QuranAya get bismillahArabic {
-    QuranAya bismillah = QuranAya(0, 0, _allSurasArabic[0].listOfAyas[0].text);
+    QuranAya bismillah = QuranAya(suraIndex: 0, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text);
     return bismillah;
   }
 
   QuranAya get bismillahTranslation {
     QuranAya bismillah =
-    QuranAya(0, 0, _allSurasTamil[0].listOfAyas[0].text);
+    QuranAya(suraIndex: 0, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text);
     return bismillah;
   }
 

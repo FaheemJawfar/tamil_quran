@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   getRandomQuote() {
     selectedQuoteNumber =
-        Random().nextInt(QuranHadithAboutQuran.listOfVersesAndHadhiths.length);
+        Random().nextInt(AboutQuranReferences.listOfVersesAndHadhiths.length);
   }
 
   void checkQuranDb() {
@@ -106,7 +106,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const Divider(),
             const Spacer(),
             Text(
-              QuranHadithAboutQuran
+              AboutQuranReferences
                   .listOfVersesAndHadhiths[selectedQuoteNumber].quote,
               style: const TextStyle(
                 color: Colors.white,
@@ -118,7 +118,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 20,
             ),
             Text(
-              QuranHadithAboutQuran
+              AboutQuranReferences
                   .listOfVersesAndHadhiths[selectedQuoteNumber].reference,
               style: const TextStyle(
                 color: Colors.white,

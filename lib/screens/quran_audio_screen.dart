@@ -51,7 +51,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   Future<void> playAudio() async {
-    await checkInternetConnection();
+   bool hasInternet =  await checkInternetConnection();
+
+   if(!hasInternet){
+     return;
+   }
 
     setState(() {
       isLoading = true;
@@ -118,13 +122,15 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     super.dispose();
   }
 
-  Future<void> checkInternetConnection() async {
+  Future<bool> checkInternetConnection() async {
     bool connected = await CheckConnection.checkInternetConnection();
-
     if (!connected) {
-      if (!mounted) return;
-      ShowToast.showToast(context, AppScreenTexts.checkInternetConnection);
+      if(mounted){
+        ShowToast.showToast(context, AppScreenTexts.checkInternetConnection);
+      }
+      return false;
     }
+    return true;
   }
 
   String formatDuration(Duration duration) {
