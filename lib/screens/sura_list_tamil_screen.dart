@@ -87,9 +87,10 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
             ),
             title: Text(
               '${suraDetails.tamilName} ${suraDetails.tamilMeaning != null ? '\n(${suraDetails.tamilMeaning})' : ''}',
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
+                color: quranProvider.isDarkMode ? Colors.white : Colors.black,
               ),
             ),
             subtitle:

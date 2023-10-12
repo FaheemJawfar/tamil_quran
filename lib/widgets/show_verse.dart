@@ -23,7 +23,7 @@ class ShowVerse extends StatefulWidget {
 }
 
 class _ShowVerseState extends State<ShowVerse> {
-  late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,9 @@ class _ShowVerseState extends State<ShowVerse> {
                           style: TextStyle(
                             fontSize: quranProvider.arabicFontSize,
                             fontFamily: quranProvider.arabicFont,
-                            color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+                            color: quranProvider.isDarkMode
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ),
                         TextSpan(
@@ -63,10 +65,11 @@ class _ShowVerseState extends State<ShowVerse> {
                               ? ''
                               : QuranHelper.getVerseEndSymbol(
                                   widget.quranAyaArabic.ayaIndex),
-
                           style: TextStyle(
-                              fontSize: 18,
-                              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+                            fontSize: 18,
+                            color: quranProvider.isDarkMode
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ),
                       ],
@@ -78,6 +81,7 @@ class _ShowVerseState extends State<ShowVerse> {
                 style: TextStyle(
                   fontSize: quranProvider.tamilFontSize,
                   fontFamily: quranProvider.tamilFont,
+                  color: quranProvider.isDarkMode ? Colors.white : Colors.black,
                 ),
               ),
             ],
@@ -102,7 +106,11 @@ class _ShowVerseState extends State<ShowVerse> {
       children: [
         Text(
           '${widget.quranAyaTranslation.ayaIndex}. ',
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+          ),
         ),
         PopupMenuButton<String>(
           color: quranProvider.isDarkMode ? null : Colors.green.shade100,

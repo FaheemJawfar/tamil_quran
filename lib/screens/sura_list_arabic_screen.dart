@@ -14,7 +14,8 @@ class SuraListArabicScreen extends StatefulWidget {
 }
 
 class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
-  late final quranProvider = context.read<QuranProvider>();
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +38,18 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                 return ListTile(
                   leading: Text(
                     '${sura.suraNumber}. ',
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
-                        color: Colors.grey),
+                      color: quranProvider.isDarkMode ? Colors.white: Colors.black45,
+                    ),
                   ),
                   title: Text(
                     sura.tamilName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
+                      color: quranProvider.isDarkMode ? Colors.white : Colors.black,
                     ),
                   ),
                   subtitle:
