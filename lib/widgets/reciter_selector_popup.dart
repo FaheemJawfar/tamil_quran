@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../app_texts/app_widgets_texts.dart';
-import '../config/app_config.dart';
 import '../config/color_config.dart';
 import '../models/reciter.dart';
+import '../providers/quran_provider.dart';
 
 class ReciterSelectorPopup extends StatefulWidget {
   final List<Reciter> reciters;
@@ -22,6 +23,7 @@ class ReciterSelectorPopup extends StatefulWidget {
 
 class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
   late String selectedReciter;
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   @override
   void initState() {
@@ -56,8 +58,8 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-
-          style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+          style:
+              quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
           child: const Text(AppWidgetsTexts.popUpCancel),
         ),
         ElevatedButton(
@@ -65,7 +67,8 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
             widget.onSelected(selectedReciter);
             Navigator.of(context).pop();
           },
-          style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+          style:
+              quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
           child: const Text(AppWidgetsTexts.popUpSelect),
         ),
       ],

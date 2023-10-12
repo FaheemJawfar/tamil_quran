@@ -2,7 +2,6 @@ import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_widgets_texts.dart';
-import '../config/app_config.dart';
 import '../models/sura_details.dart';
 import '../screens/sura_translation_screen.dart';
 import '../config/color_config.dart';
@@ -25,7 +24,8 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
-      backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.primaryColor,
+      backgroundColor:
+          quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
       title: const Padding(
         padding: EdgeInsets.only(bottom: 5.0),
         child: Text(
@@ -37,7 +37,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
       content: Container(
           height: 400,
           width: double.infinity,
-          color: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
+          color: quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -47,11 +47,15 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                   highlighterBorder: Border(
                     top: BorderSide(
                       width: 2.0,
-                      color: AppConfig.isDarkMode ? Colors.white: Colors.green,
+                      color: quranProvider.isDarkMode
+                          ? Colors.white
+                          : Colors.green,
                     ),
                     bottom: BorderSide(
                       width: 2.0,
-                      color: AppConfig.isDarkMode ? Colors.white: Colors.green,
+                      color: quranProvider.isDarkMode
+                          ? Colors.white
+                          : Colors.green,
                     ),
                   ),
                   highlighterBorderWidth: 60,
@@ -84,11 +88,15 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                   highlighterBorder: Border(
                     top: BorderSide(
                       width: 1.0,
-                      color: AppConfig.isDarkMode ? Colors.white: Colors.green,
+                      color: quranProvider.isDarkMode
+                          ? Colors.white
+                          : Colors.green,
                     ),
                     bottom: BorderSide(
                       width: 1.0,
-                      color: AppConfig.isDarkMode ? Colors.white: Colors.green,
+                      color: quranProvider.isDarkMode
+                          ? Colors.white
+                          : Colors.green,
                     ),
                   ),
                   highlighterBorderWidth: 60,
@@ -126,11 +134,11 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
   Widget showVersePickupButton(String label, void Function()? onPressed) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+      style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
       child: Text(
         label,
         style: TextStyle(
-          color: AppConfig.isDarkMode ? null: ColorConfig.primaryColor,
+          color: quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
           fontWeight: FontWeight.bold,
         ),
       ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_texts/app_screen_texts.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import '../config/app_config.dart';
 import '../helpers/launcher.dart';
+import '../providers/quran_provider.dart';
 
 class DonationScreen extends StatefulWidget {
   const DonationScreen({super.key});
@@ -13,7 +15,7 @@ class DonationScreen extends StatefulWidget {
 
 class _DonationScreenState extends State<DonationScreen> {
 
-
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
 
   @override
@@ -53,7 +55,9 @@ class _DonationScreenState extends State<DonationScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               ElevatedButton.icon(
-                  style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+                  style: quranProvider.isDarkMode
+                      ? ColorConfig.darkModeButtonStyle
+                      : null,
                   onPressed: () {
                     Launcher.launchWebpage(AppConfig.buyMeACoffee);
                   },
@@ -70,7 +74,9 @@ class _DonationScreenState extends State<DonationScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               ElevatedButton.icon(
-                style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+                style: quranProvider.isDarkMode
+                    ? ColorConfig.darkModeButtonStyle
+                    : null,
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -109,7 +115,9 @@ class _DonationScreenState extends State<DonationScreen> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+                            style: quranProvider.isDarkMode
+                                ? ColorConfig.darkModeButtonStyle
+                                : null,
                             child: const Text('Close'),
                           ),
                         ],

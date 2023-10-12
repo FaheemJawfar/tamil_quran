@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../app_texts/app_widgets_texts.dart';
-import '../config/app_config.dart';
 import '../config/color_config.dart';
 import '../helpers/show_toast.dart';
 import '../helpers/launcher.dart';
+import '../providers/quran_provider.dart';
 
 class RateApp extends StatefulWidget {
   const RateApp({super.key});
@@ -15,6 +16,7 @@ class RateApp extends StatefulWidget {
 class _RateAppState extends State<RateApp> {
   int selectedRating = 0;
   final feedbackController = TextEditingController();
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   void _showFeedbackDialog() {
     showDialog(
@@ -59,14 +61,16 @@ class _RateAppState extends State<RateApp> {
       title: const Text(AppWidgetsTexts.feedback),
       actions: [
         OutlinedButton(
-          style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+          style:
+              quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
           onPressed: () {
             Navigator.of(context).pop();
           },
           child: const Text(AppWidgetsTexts.ratingCancel),
         ),
         OutlinedButton(
-          style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+          style:
+              quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
           onPressed: () {
             Navigator.of(context).pop();
             if (selectedRating == 5) {

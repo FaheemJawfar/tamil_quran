@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/config/app_config.dart';
 import '../app_texts/app_screen_texts.dart';
 import '../config/color_config.dart';
 import '../helpers/shared_preferences.dart';
@@ -16,13 +15,14 @@ class SuraListTamilScreen extends StatefulWidget {
 }
 
 class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
-  late final quranProvider = context.read<QuranProvider>();
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
+          quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       body: Column(
         children: [
           _buildContinueReadingButton(),
@@ -47,13 +47,17 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
                         goToVerse: verse!,
                       )));
         },
-        style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : OutlinedButton.styleFrom(
-          side: const BorderSide(color: Colors.green),
-        ),
+        style: quranProvider.isDarkMode
+            ? ColorConfig.darkModeButtonStyle
+            : OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.green),
+              ),
         child: Text(
           AppScreenTexts.continueReading,
           style: TextStyle(
-            color: AppConfig.isDarkMode ? Colors.white : ColorConfig.primaryColor,
+            color: quranProvider.isDarkMode
+                ? Colors.white
+                : ColorConfig.primaryColor,
           ),
         ),
       );
@@ -67,7 +71,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
         itemCount: SuraDetails.suraList.length,
         separatorBuilder: (context, index) => Divider(
           thickness: 1,
-          color: AppConfig.isDarkMode ? null : ColorConfig.primaryColor,
+          color: quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
         ),
         itemBuilder: (BuildContext context, int index) {
           final suraDetails = SuraDetails.suraList[index];
@@ -75,24 +79,24 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
           return ListTile(
             leading: Text(
               '${suraDetails.suraNumber}.',
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.grey,
+                fontSize: 22,
+                color: quranProvider.isDarkMode ? Colors.white: Colors.black45,
               ),
             ),
             title: Text(
-              '${suraDetails.tamilName} ${suraDetails.tamilMeaning != null ? '(${suraDetails.tamilMeaning})' : ''}',
+              '${suraDetails.tamilName} ${suraDetails.tamilMeaning != null ? '\n(${suraDetails.tamilMeaning})' : ''}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 17,
+                fontSize: 18,
               ),
             ),
             subtitle:
                 Text('${AppScreenTexts.verseCount} ${suraDetails.verseCount}'),
             trailing: Image.asset(
               'assets/images/sura_headers/Surah_${suraDetails.suraNumber}.png',
-              color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
             ),
             onTap: () {
               quranProvider.selectedSuraNumber = suraDetails.suraNumber;

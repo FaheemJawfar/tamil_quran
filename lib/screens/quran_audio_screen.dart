@@ -265,7 +265,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     IconButton(
                       icon: isLoading
                           ? LoadingIndicator(
-                              color: ColorConfig.primaryColor,
+                              color: quranProvider.isDarkMode ? Colors.white: ColorConfig.primaryColor,
                             )
                           : audioPlayer.playing
                               ? const Icon(

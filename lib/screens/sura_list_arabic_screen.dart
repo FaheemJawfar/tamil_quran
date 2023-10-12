@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_screen_texts.dart';
-import '../config/app_config.dart';
 import '../config/color_config.dart';
 import '../models/sura_details.dart';
 import '../screens/sura_arabic_screen.dart';
@@ -21,7 +20,7 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
+          quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       body: Column(
         children: [
           Expanded(
@@ -29,7 +28,8 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
               itemCount: SuraDetails.suraList.length,
               separatorBuilder: (context, index) => Divider(
                 thickness: 1,
-                color: AppConfig.isDarkMode ? null : ColorConfig.primaryColor,
+                color:
+                    quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
               ),
               itemBuilder: (BuildContext context, int index) {
                 final sura = SuraDetails.suraList[index];
@@ -53,7 +53,8 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                       Text('${AppScreenTexts.verseCount} ${sura.verseCount}'),
                   trailing: Image.asset(
                     'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
-                    color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+                    color:
+                        quranProvider.isDarkMode ? Colors.white : Colors.black,
                   ),
                   onTap: () {
                     quranProvider.selectedSuraNumber = sura.suraNumber;

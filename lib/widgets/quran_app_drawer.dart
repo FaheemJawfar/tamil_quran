@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../app_texts/app_widgets_texts.dart';
 import '../config/app_config.dart';
 import '../config/color_config.dart';
+import '../providers/quran_provider.dart';
 import '../screens/about_us.dart';
 import '../screens/search_screen.dart';
 import '../screens/settings_screen.dart';
@@ -11,8 +13,15 @@ import '../screens/quran_audio_screen.dart';
 import 'rate_app.dart';
 import 'sura_verse_picker.dart';
 
-class QuranAppDrawer extends StatelessWidget {
+class QuranAppDrawer extends StatefulWidget {
   const QuranAppDrawer({super.key});
+
+  @override
+  State<QuranAppDrawer> createState() => _QuranAppDrawerState();
+}
+
+class _QuranAppDrawerState extends State<QuranAppDrawer> {
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   ListTile _buildListTiles(
       Widget icon, String title, BuildContext context, Widget screen) {
@@ -44,13 +53,14 @@ class QuranAppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
+      backgroundColor:
+          quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: AppConfig.isDarkMode ? null: ColorConfig.primaryColor,
+              color: quranProvider.isDarkMode ? Colors.black45 : ColorConfig.primaryColor,
             ),
             child: const Center(
               child: Column(

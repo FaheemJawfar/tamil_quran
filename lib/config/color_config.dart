@@ -31,4 +31,10 @@ class ColorConfig {
     brightness: Brightness.light,
     fontFamily: AppConfig.appDefaultFont,
   );
+
+  static ThemeData quranDarkTheme = ThemeData(
+    primarySwatch: Colors.grey,
+    brightness: Brightness.dark,
+    fontFamily: AppConfig.appDefaultFont,
+  );
 }

@@ -70,10 +70,14 @@ class _SplashScreenState extends State<SplashScreen> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            AppConfig.isDarkMode ? Colors.black12 : ColorConfig.backgroundColor,
-            AppConfig.isDarkMode ? Colors.black45: ColorConfig.primaryColor,
-            AppConfig.isDarkMode ? Colors.black54 :Colors.green.shade600,
-            AppConfig.isDarkMode ? Colors.black :Colors.green.shade900,
+            quranProvider.isDarkMode
+                ? Colors.black12
+                : ColorConfig.backgroundColor,
+            quranProvider.isDarkMode
+                ? Colors.black45
+                : ColorConfig.primaryColor,
+            quranProvider.isDarkMode ? Colors.black54 : Colors.green.shade600,
+            quranProvider.isDarkMode ? Colors.black : Colors.green.shade900,
           ],
         ),
       ),

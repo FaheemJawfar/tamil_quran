@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/config/color_config.dart';
 import '../app_texts/app_widgets_texts.dart';
-import '../config/app_config.dart';
+import '../providers/quran_provider.dart';
 import '../screens/about_us.dart';
 import '../screens/donation_screen.dart';
 import '../widgets/rate_app.dart';
@@ -16,17 +17,19 @@ class HomeScreenPopupMenu extends StatefulWidget {
 }
 
 class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(right: 12.0),
         child: PopupMenuButton<String>(
-          color: AppConfig.isDarkMode ? null: Colors.green.shade100,
+          color: quranProvider.isDarkMode ? null : Colors.green.shade100,
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
-              child: getPopupMenuItem(
-                  const Icon(Icons.settings), AppWidgetsTexts.settingsTranslation),
+              child: getPopupMenuItem(const Icon(Icons.settings),
+                  AppWidgetsTexts.settingsTranslation),
             ),
             PopupMenuItem<String>(
               value: 'share_app',
@@ -81,7 +84,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
 
   Widget getPopupMenuItem(Widget icon, String title) {
     return ListTile(
-      iconColor: AppConfig.isDarkMode ? null: ColorConfig.buttonColor,
+      iconColor: quranProvider.isDarkMode ? null : ColorConfig.buttonColor,
       contentPadding: EdgeInsets.zero,
       leading: icon,
       title: Text(title),

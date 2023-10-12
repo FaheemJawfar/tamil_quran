@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import '../config/app_config.dart';
 import '../widgets/read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../config/color_config.dart';

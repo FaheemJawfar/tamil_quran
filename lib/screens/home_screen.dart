@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: FittedBox(fit: BoxFit.contain, child: Text(_appBarTitle)),
+        title: FittedBox(fit: BoxFit.contain, child: Text(_appBarTitle, style: TextStyle(fontSize: 16),)),
         actions: [
           IconButton(
               onPressed: () {

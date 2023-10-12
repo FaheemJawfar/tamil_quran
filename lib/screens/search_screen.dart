@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_texts/app_screen_texts.dart';
-import '../config/app_config.dart';
 import '../screens/sura_translation_screen.dart';
 import '../config/color_config.dart';
 import '../helpers/bookmark_helper.dart';
@@ -42,7 +41,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
+      backgroundColor:
+          quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       appBar: AppBar(
         title: const Text(AppScreenTexts.searchInQuran),
       ),
@@ -86,7 +86,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           text: translation.text
                               .substring(currentIndex, match.start),
                           style: TextStyle(
-                            color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+                            color: quranProvider.isDarkMode
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ));
                       }
@@ -109,7 +111,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       textSpans.add(TextSpan(
                         text: translation.text.substring(currentIndex),
                         style: TextStyle(
-                        color: AppConfig.isDarkMode ? Colors.white :Colors.black,
+                          color: quranProvider.isDarkMode
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       ));
                     }
@@ -128,7 +132,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                               PopupMenuButton<String>(
-                                color: AppConfig.isDarkMode ? null: Colors.green.shade100,
+                                color: quranProvider.isDarkMode
+                                    ? null
+                                    : Colors.green.shade100,
                                 onSelected: (String value) {
                                   switch (value) {
                                     case 'goToVerse':
@@ -241,8 +247,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy_arabic',
-                                    child: getPopupMenuItem(
-                                        Icons.copy, AppScreenTexts.popUpCopyArabic),
+                                    child: getPopupMenuItem(Icons.copy,
+                                        AppScreenTexts.popUpCopyArabic),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy_translation',
@@ -275,9 +281,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 translation.ayaIndex)
                                             .text,
                                         style: TextStyle(
-                                          fontSize: quranProvider.arabicFontSize,
+                                          fontSize:
+                                              quranProvider.arabicFontSize,
                                           fontFamily: quranProvider.arabicFont,
-                                          color: AppConfig.isDarkMode ? Colors.white :Colors.black,
+                                          color: quranProvider.isDarkMode
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
                                       ),
                                       TextSpan(
@@ -287,7 +296,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                           style: TextStyle(
                                             fontSize:
                                                 quranProvider.arabicFontSize,
-                                            color: AppConfig.isDarkMode ? Colors.white :Colors.black,
+                                            color: quranProvider.isDarkMode
+                                                ? Colors.white
+                                                : Colors.black,
                                           )),
                                     ],
                                   ),
@@ -320,7 +331,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget getPopupMenuItem(IconData icon, String title) {
     return ListTile(
-      iconColor: AppConfig.isDarkMode ? null: ColorConfig.buttonColor,
+      iconColor: quranProvider.isDarkMode ? null : ColorConfig.buttonColor,
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon),
       title: Text(title),

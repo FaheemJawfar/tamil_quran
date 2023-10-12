@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../config/app_config.dart';
 import '../config/color_config.dart';
 import '../helpers/quran_helper.dart';
 import '../providers/quran_provider.dart';
@@ -23,7 +22,6 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
       appBar: ReadSuraAppBar(
         arabicOnly: true,
         arabicScrollController: scrollController,
-
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -31,10 +29,14 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
           controller: scrollController,
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: AppConfig.isDarkMode ? Colors.white : ColorConfig.primaryColor,
+              border: Border.all(
+                  color: quranProvider.isDarkMode
+                      ? Colors.white
+                      : ColorConfig.primaryColor,
                   width: 2),
               borderRadius: BorderRadius.circular(10),
-              color: AppConfig.isDarkMode ? null : ColorConfig.backgroundColor,
+              color:
+                  quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
             ),
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -46,7 +48,8 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
                     'assets/images/bismillah.png',
                     height: 40,
                     width: double.infinity,
-                    color: AppConfig.isDarkMode ? Colors.white : Colors.black,
+                    color:
+                        quranProvider.isDarkMode ? Colors.white : Colors.black,
                   ),
                 const SizedBox(
                   height: 10,
@@ -66,8 +69,6 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
     );
   }
 
-
-
   @override
   void dispose() {
     scrollController.dispose();
@@ -82,9 +83,8 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
         text: verse.text,
         style: TextStyle(
           fontSize: 20,
-          fontFamily:
-          quranProvider.arabicFont,
-          color: AppConfig.isDarkMode ? Colors.white :Colors.black,
+          fontFamily: quranProvider.arabicFont,
+          color: quranProvider.isDarkMode ? Colors.white : Colors.black,
         ),
       ));
 
@@ -92,7 +92,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
         text: '${QuranHelper.getVerseEndSymbol(verse.ayaIndex)} ',
         style: TextStyle(
           fontSize: 20,
-          color: AppConfig.isDarkMode ? Colors.white :Colors.black,
+          color: quranProvider.isDarkMode ? Colors.white : Colors.black,
         ),
       ));
     }

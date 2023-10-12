@@ -18,7 +18,7 @@ class QuranProvider extends ChangeNotifier {
   }
 
   ThemeData get quranTheme =>
-      isDarkMode ? ThemeData.dark() : ColorConfig.quranLightTheme;
+      isDarkMode ? ColorConfig.quranDarkTheme : ColorConfig.quranLightTheme;
 
   String _selectedTranslation = 'm_john';
 

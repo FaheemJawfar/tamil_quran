@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../app_texts/app_screen_texts.dart';
 import '../config/app_config.dart';
 import '../config/color_config.dart';
 import '../helpers/launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+import '../providers/quran_provider.dart';
 
 class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({super.key});
@@ -14,6 +17,7 @@ class AboutUsScreen extends StatefulWidget {
 
 class _AboutUsScreenState extends State<AboutUsScreen> {
   String appVersion = '1.0';
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   @override
   void initState() {
@@ -40,7 +44,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
+      backgroundColor: quranProvider.isDarkMode ? null: ColorConfig.backgroundColor,
       appBar: AppBar(
         title: const Text(AppScreenTexts.aboutUs),
         centerTitle: true,
@@ -54,7 +58,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               const SizedBox(height: 20),
               CircleAvatar(
                 radius: 40,
-                backgroundColor: AppConfig.isDarkMode ? null: ColorConfig.backgroundColor,
+                backgroundColor: quranProvider.isDarkMode ? null: ColorConfig.backgroundColor,
                 backgroundImage: const AssetImage(AppConfig.appLogoPath),
               ),
               const SizedBox(height: 20),
@@ -66,11 +70,11 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               const SizedBox(height: 5),
               Text(
                 'Version $appVersion',
-                style: TextStyle(fontSize: 18, color: AppConfig.isDarkMode ? Colors.white70: Colors.grey.shade700),
+                style: TextStyle(fontSize: 18, color: quranProvider.isDarkMode ? Colors.white70: Colors.grey.shade700),
               ),
 
               Divider(
-                color: AppConfig.isDarkMode ? null: ColorConfig.primaryColor,
+                color: quranProvider.isDarkMode ? null: ColorConfig.primaryColor,
               ),
               const Text(
                 AppScreenTexts.aboutUsContent,
@@ -92,7 +96,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 textAlign: TextAlign.center,
               ),
               Divider(
-                color: AppConfig.isDarkMode ? null: ColorConfig.primaryColor,
+                color: quranProvider.isDarkMode ? null: ColorConfig.primaryColor,
               ),
               const Text(
                 AppScreenTexts.sendFeedback,
@@ -107,7 +111,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 icon: const Icon(Icons.mail),
                 label: const Text(AppScreenTexts.emailUs),
 
-                style: AppConfig.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+                style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
               ),
             ],
           ),
