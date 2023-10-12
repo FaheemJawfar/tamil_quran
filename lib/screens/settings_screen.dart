@@ -20,6 +20,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,15 +36,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.dark_mode),
               title: const Text(AppScreenTexts.darkMode),
               trailing: Switch(
-                value: AppConfig.isDarkMode,
-                onChanged: (value) {
-                  AppPreferences.setBool('isDarkMode', value);
-
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => SplashScreen()),
-                        (route) => false,
-                  );
-                },
+                  value: quranProvider.isDarkMode,
+                  onChanged: (value) {
+                    quranProvider.isDarkMode = value;
+                  }
               ),
             ),
 

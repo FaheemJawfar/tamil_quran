@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tamil_quran/config/color_config.dart';
+import '../config/app_config.dart';
 import '../helpers/data_parser.dart';
 import '../helpers/shared_preferences.dart';
 import '../models/quran_sura.dart';
@@ -7,6 +9,17 @@ import '../models/reciter.dart';
 
 class QuranProvider extends ChangeNotifier {
 
+  bool _isDarkMode = false;
+  bool get isDarkMode => AppPreferences.getBool('isDarkMode') ?? _isDarkMode;
+
+  set isDarkMode(bool value) {
+    AppPreferences.setBool('isDarkMode', value);
+    _isDarkMode = value;
+    notifyListeners();
+  }
+
+  ThemeData get quranTheme =>
+      isDarkMode ? ThemeData.dark() : ColorConfig.quranLightTheme;
 
   String _selectedTranslation = 'm_john';
 
@@ -45,7 +58,6 @@ class QuranProvider extends ChangeNotifier {
 
   String get selectedTranslationName => translations[selectedTranslation] ?? '';
 
-
   List<QuranSura> _allSurasTamil = [];
 
   get allSurasTamil => _allSurasTamil;
@@ -62,7 +74,7 @@ class QuranProvider extends ChangeNotifier {
 
   loadQuranArabic() async {
     _allSurasArabic =
-    await DataParser.loadXmlFromAssets('assets/quran_db/quran.xml');
+        await DataParser.loadXmlFromAssets('assets/quran_db/quran.xml');
     notifyListeners();
   }
 
@@ -76,13 +88,14 @@ class QuranProvider extends ChangeNotifier {
   }
 
   QuranAya get bismillahArabic {
-    QuranAya bismillah = QuranAya(suraIndex: 0, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text);
+    QuranAya bismillah = QuranAya(
+        suraIndex: 0, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text);
     return bismillah;
   }
 
   QuranAya get bismillahTranslation {
-    QuranAya bismillah =
-    QuranAya(suraIndex: 0, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text);
+    QuranAya bismillah = QuranAya(
+        suraIndex: 0, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text);
     return bismillah;
   }
 
@@ -118,9 +131,6 @@ class QuranProvider extends ChangeNotifier {
   QuranAya filterOneAyaTranslation(int sura, int aya) {
     return _allSurasTamil[sura - 1].listOfAyas[aya - 1];
   }
-
-
-
 
   String _tamilFont = 'MUktaMalar';
 
@@ -165,7 +175,6 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   String _selectedReciter = 'alafasy-pj';
 
   String get selectedReciter =>
@@ -198,5 +207,4 @@ class QuranProvider extends ChangeNotifier {
     _selectedReciter = 'alafasy-pj';
     notifyListeners();
   }
-
 }

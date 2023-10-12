@@ -10,7 +10,7 @@ Future<void> main() async {
   await AppPreferences.initialize();
   runApp(const MyApp());
 
-  AppPreferences.setBool('isDarkMode', true);
+  //AppPreferences.setBool('isDarkMode', true);
 }
 
 class MyApp extends StatelessWidget {
@@ -22,15 +22,16 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => QuranProvider()),
       ],
-      child: MaterialApp(
-        title: AppConfig.appName,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          brightness: AppConfig.isDarkMode ? Brightness.dark: Brightness.light,
-          fontFamily: AppConfig.appDefaultFont,
-        ),
-        home: const SplashScreen(),
+
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            title: AppConfig.appName,
+            debugShowCheckedModeBanner: false,
+            theme: context.watch<QuranProvider>().quranTheme,
+            home: const SplashScreen(),
+          );
+        }
       ),
     );
   }

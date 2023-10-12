@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_config.dart';
+
 class ColorConfig {
 
   static Color primaryColor = Colors.green;
@@ -21,5 +23,12 @@ class ColorConfig {
       }
       return Colors.transparent;
     }),
+  );
+
+
+  static ThemeData quranLightTheme = ThemeData(
+    primarySwatch: Colors.green,
+    brightness: Brightness.light,
+    fontFamily: AppConfig.appDefaultFont,
   );
 }
