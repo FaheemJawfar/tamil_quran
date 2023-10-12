@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/app_texts/app_screen_texts.dart';
+import '../app_texts/app_screen_texts.dart';
 import '../providers/quran_provider.dart';
 import '../widgets/loading_indicator.dart';
 import '../config/color_config.dart';
@@ -24,8 +24,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   int selectedSuraIndex = 0;
 
   late AudioPlayer audioPlayer;
-
-  bool isPlaying = false;
   bool isLoading = false;
   Duration duration = const Duration();
   Duration position = const Duration();
@@ -51,17 +49,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   Future<void> playAudio() async {
-   bool hasInternet =  await checkInternetConnection();
-
-   if(!hasInternet){
-     return;
-   }
-
-    setState(() {
-      isLoading = true;
-    });
-
     try {
+      setState(() {
+        isLoading = true;
+      });
+
       String newUrl = QuranHelper.getAudioURLBySurah(
         quranProvider.selectedReciterDetails,
         selectedSuraIndex + 1,
@@ -74,23 +66,26 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       }
 
       setState(() {
-        isPlaying = true;
+        audioPlayer.playing;
       });
 
       audioPlayer.play();
+      setState(() {
+        isLoading = false;
+      });
     } catch (e) {
       debugPrint(e.toString());
+      bool hasInternet = await checkInternetConnection();
+      if (!hasInternet) {
+        return;
+      }
     }
-
-    setState(() {
-      isLoading = false;
-    });
   }
 
   void pauseAudio() {
     audioPlayer.pause();
     setState(() {
-      isPlaying = false;
+      audioPlayer.playing;
     });
   }
 
@@ -125,7 +120,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   Future<bool> checkInternetConnection() async {
     bool connected = await CheckConnection.checkInternetConnection();
     if (!connected) {
-      if(mounted){
+      if (mounted) {
         ShowToast.showToast(context, AppScreenTexts.checkInternetConnection);
       }
       return false;
@@ -271,13 +266,13 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                           ? LoadingIndicator(
                               color: ColorConfig.primaryColor,
                             )
-                          : isPlaying
+                          : audioPlayer.playing
                               ? const Icon(
                                   Icons.pause,
                                   size: 40,
                                 )
                               : const Icon(Icons.play_arrow, size: 40),
-                      onPressed: isPlaying ? pauseAudio : playAudio,
+                      onPressed: audioPlayer.playing ? pauseAudio : playAudio,
                     ),
                     IconButton(
                       icon: const Icon(
