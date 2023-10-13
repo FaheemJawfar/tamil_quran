@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/config/color_config.dart';
+import '../app_config/color_config.dart';
 import '../app_texts/app_widgets_texts.dart';
-import '../helpers/verse_helper.dart';
+import 'verse_helper.dart';
 import '../providers/quran_provider.dart';
-import '../screens/search_screen.dart';
-import '../widgets/sura_verse_picker.dart';
-import '../screens/settings_screen.dart';
+import '../search/search_screen.dart';
+import '../home/sura_verse_picker.dart';
+import '../settings/settings_screen.dart';
 
 class ReadSuraPopupMenu extends StatefulWidget {
   const ReadSuraPopupMenu({super.key});

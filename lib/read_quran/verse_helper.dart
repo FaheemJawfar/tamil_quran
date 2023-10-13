@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import '../app_texts/app_helpers_texts.dart';
-import '../helpers/quran_helper.dart';
-import '../helpers/show_toast.dart';
-import '../config/app_config.dart';
-import '../models/quran_aya.dart';
-import '../models/sura_details.dart';
+import 'quran_helper.dart';
+import '../common_widgets/show_toast.dart';
+import '../app_config/app_config.dart';
+import 'quran_aya.dart';
+import 'sura_details.dart';
 
 class VerseHelper {
   static Future<void> copyToClipboard(

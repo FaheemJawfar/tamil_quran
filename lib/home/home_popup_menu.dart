@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tamil_quran/config/color_config.dart';
+import '../app_config/color_config.dart';
 import '../app_texts/app_widgets_texts.dart';
 import '../providers/quran_provider.dart';
-import '../screens/about_us.dart';
-import '../screens/donation_screen.dart';
-import '../widgets/rate_app.dart';
-import '../screens/settings_screen.dart';
+import '../about/about_us.dart';
+import '../donations/donation_screen.dart';
+import 'rate_app.dart';
+import '../settings/settings_screen.dart';
 
 class HomeScreenPopupMenu extends StatefulWidget {
   const HomeScreenPopupMenu({super.key});

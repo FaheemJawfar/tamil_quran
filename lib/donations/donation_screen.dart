@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/app_texts/app_screen_texts.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import '../config/app_config.dart';
-import '../helpers/launcher.dart';
+import '../app_texts/app_screen_texts.dart';
+import '../app_config/color_config.dart';
+import '../app_config/app_config.dart';
+import '../utils/launcher.dart';
 import '../providers/quran_provider.dart';
 
 class DonationScreen extends StatefulWidget {
@@ -14,9 +14,7 @@ class DonationScreen extends StatefulWidget {
 }
 
 class _DonationScreenState extends State<DonationScreen> {
-
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
-
 
   @override
   Widget build(BuildContext context) {

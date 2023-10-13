@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_screen_texts.dart';
-import '../config/color_config.dart';
-import '../helpers/shared_preferences.dart';
-import '../models/sura_details.dart';
-import '../screens/sura_translation_screen.dart';
+import '../app_config/color_config.dart';
+import '../utils/shared_preferences.dart';
+import '../read_quran/sura_details.dart';
+import '../read_quran/sura_translation_screen.dart';
 import '../providers/quran_provider.dart';
 
 class SuraListTamilScreen extends StatefulWidget {

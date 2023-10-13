@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../config/color_config.dart';
-import '../helpers/quran_helper.dart';
+import '../app_config/color_config.dart';
+import 'quran_helper.dart';
 import '../providers/quran_provider.dart';
-import '../widgets/read_sura_appbar.dart';
+import 'read_sura_appbar.dart';
 
 class SuraArabicScreen extends StatefulWidget {
   const SuraArabicScreen({Key? key}) : super(key: key);

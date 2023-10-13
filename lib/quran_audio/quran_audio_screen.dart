@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_screen_texts.dart';
-import '../config/app_config.dart';
 import '../providers/quran_provider.dart';
-import '../widgets/loading_indicator.dart';
-import '../config/color_config.dart';
-import '../helpers/check_connection.dart';
-import '../helpers/quran_helper.dart';
-import '../helpers/show_toast.dart';
-import '../models/sura_details.dart';
-import '../widgets/home_popup_menu.dart';
-import '../widgets/reciter_selector_popup.dart';
+import '../common_widgets/loading_indicator.dart';
+import '../app_config/color_config.dart';
+import '../utils/check_connection.dart';
+import '../read_quran/quran_helper.dart';
+import '../common_widgets/show_toast.dart';
+import '../read_quran/sura_details.dart';
+import '../home/home_popup_menu.dart';
+import 'reciter_selector_popup.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
   const QuranAudioPlayerScreen({super.key});

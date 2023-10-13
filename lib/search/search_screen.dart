@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/app_texts/app_screen_texts.dart';
-import '../screens/sura_translation_screen.dart';
-import '../config/color_config.dart';
-import '../helpers/bookmark_helper.dart';
-import '../helpers/quran_helper.dart';
-import '../helpers/verse_helper.dart';
-import '../models/bookmark.dart';
-import '../models/quran_aya.dart';
+import '../app_texts/app_screen_texts.dart';
+import '../read_quran/sura_translation_screen.dart';
+import '../app_config/color_config.dart';
+import '../bookmarks/bookmark_helper.dart';
+import '../read_quran/quran_helper.dart';
+import '../read_quran/verse_helper.dart';
+import '../bookmarks/bookmark.dart';
+import '../read_quran/quran_aya.dart';
 import '../providers/quran_provider.dart';
 
 class SearchScreen extends StatefulWidget {

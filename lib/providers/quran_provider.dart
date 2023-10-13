@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tamil_quran/config/color_config.dart';
-import '../helpers/data_parser.dart';
-import '../helpers/shared_preferences.dart';
-import '../models/quran_sura.dart';
-import '../models/quran_aya.dart';
-import '../models/reciter.dart';
+import '../app_config/color_config.dart';
+import '../utils/data_parser.dart';
+import '../utils/shared_preferences.dart';
+import '../read_quran/quran_sura.dart';
+import '../read_quran/quran_aya.dart';
+import '../quran_audio/reciter.dart';
 
 class QuranProvider extends ChangeNotifier {
 

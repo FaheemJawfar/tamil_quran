@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tamil_quran/app_texts/app_screen_texts.dart';
-import '../screens/bookmarks_screen.dart';
-import '../screens/quran_audio_screen.dart';
-import '../screens/search_screen.dart';
-import '../screens/sura_list_arabic_screen.dart';
-import '../screens/sura_list_tamil_screen.dart';
-import '../widgets/sura_verse_picker.dart';
-import '../widgets/home_popup_menu.dart';
-import '../widgets/quran_app_drawer.dart';
+import '../app_texts/app_screen_texts.dart';
+import '../bookmarks/bookmarks_screen.dart';
+import '../quran_audio/quran_audio_screen.dart';
+import '../search/search_screen.dart';
+import 'sura_list_arabic_screen.dart';
+import 'sura_list_tamil_screen.dart';
+import 'sura_verse_picker.dart';
+import 'home_popup_menu.dart';
+import 'quran_app_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -69,7 +69,12 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: FittedBox(fit: BoxFit.contain, child: Text(_appBarTitle, style: TextStyle(fontSize: 16),)),
+        title: FittedBox(
+            fit: BoxFit.contain,
+            child: Text(
+              _appBarTitle,
+              style: TextStyle(fontSize: 16),
+            )),
         actions: [
           IconButton(
               onPressed: () {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../app_texts/app_helpers_texts.dart';
-import '../helpers/shared_preferences.dart';
-import '../helpers/show_toast.dart';
-import '../models/bookmark.dart';
+import '../utils/shared_preferences.dart';
+import '../common_widgets/show_toast.dart';
+import 'bookmark.dart';
 
 class BookmarkHelper {
   static const String _bookmarkKey = 'bookmarkList';

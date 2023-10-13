@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_widgets_texts.dart';
-import '../config/color_config.dart';
-import '../helpers/show_toast.dart';
-import '../helpers/launcher.dart';
+import '../app_config/color_config.dart';
+import '../common_widgets/show_toast.dart';
+import '../utils/launcher.dart';
 import '../providers/quran_provider.dart';
 
 class RateApp extends StatefulWidget {

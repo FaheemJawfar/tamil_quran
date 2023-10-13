@@ -1,4 +1,4 @@
-import 'package:tamil_quran/config/app_config.dart';
+import '../app_config/app_config.dart';
 
 class AppWidgetsTexts {
 // Home Screen PopUp

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tamil_quran/app_texts/app_widgets_texts.dart';
+import '../app_texts/app_widgets_texts.dart';
 
 class PopupSelector<T> extends StatefulWidget {
   final List<T> listOfItems;

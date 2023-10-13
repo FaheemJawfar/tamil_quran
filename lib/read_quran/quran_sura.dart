@@ -1,4 +1,4 @@
-import '../models/quran_aya.dart';
+import 'quran_aya.dart';
 
 class QuranSura {
   final int index;

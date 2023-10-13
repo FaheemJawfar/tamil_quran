@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'config/app_config.dart';
-import '../helpers/shared_preferences.dart';
+import 'app_config/app_config.dart';
+import 'utils/shared_preferences.dart';
 import '../providers/quran_provider.dart';
-import '../screens/splash_screen.dart';
+import 'home/splash_screen.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

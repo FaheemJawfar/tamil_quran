@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import '../widgets/read_sura_appbar.dart';
+import 'read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import '../config/color_config.dart';
-import '../helpers/shared_preferences.dart';
+import '../app_config/color_config.dart';
+import '../utils/shared_preferences.dart';
 import '../providers/quran_provider.dart';
-import '../widgets/show_verse.dart';
+import 'show_verse.dart';
 
 class SuraTranslationScreen extends StatefulWidget {
   final int goToVerse;

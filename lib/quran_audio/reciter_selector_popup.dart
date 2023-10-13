@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_widgets_texts.dart';
-import '../config/color_config.dart';
-import '../models/reciter.dart';
+import '../app_config/color_config.dart';
+import 'reciter.dart';
 import '../providers/quran_provider.dart';
 
 class ReciterSelectorPopup extends StatefulWidget {

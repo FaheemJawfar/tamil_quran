@@ -2,11 +2,11 @@ import 'dart:math';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/app_texts/app_screen_texts.dart';
-import 'package:tamil_quran/config/app_config.dart';
-import '../config/color_config.dart';
-import '../models/quran_hadith_about_quran.dart';
-import '../widgets/loading_indicator.dart';
+import '../app_texts/app_screen_texts.dart';
+import '../app_config/app_config.dart';
+import '../app_config/color_config.dart';
+import 'quran_hadith_about_quran.dart';
+import '../common_widgets/loading_indicator.dart';
 import '../providers/quran_provider.dart';
 import 'home_screen.dart';
 

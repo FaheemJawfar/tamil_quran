@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_screen_texts.dart';
-import '../screens/sura_translation_screen.dart';
-import '../config/color_config.dart';
-import '../helpers/bookmark_helper.dart';
-import '../models/bookmark.dart';
+import '../read_quran/sura_translation_screen.dart';
+import '../app_config/color_config.dart';
+import 'bookmark_helper.dart';
+import '../bookmarks/bookmark.dart';
 import '../providers/quran_provider.dart';
 
 class BookmarksScreen extends StatefulWidget {

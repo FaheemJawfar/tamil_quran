@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/app_screen_texts.dart';
-import '../config/color_config.dart';
+import '../app_config/color_config.dart';
 import '../providers/quran_provider.dart';
-import '../widgets/reciter_selector_popup.dart';
+import '../quran_audio/reciter_selector_popup.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

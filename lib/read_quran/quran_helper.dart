@@ -1,5 +1,5 @@
 import '../app_texts/app_helpers_texts.dart';
-import '../models/reciter.dart';
+import '../quran_audio/reciter.dart';
 
 class QuranHelper {
   static String getVerseEndSymbol(int verseNumber,
