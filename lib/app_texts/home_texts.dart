@@ -23,7 +23,7 @@ class HomeTexts {
   static const String shareThisApp = 'Share this App';
   static const String rateThisApp = 'Rate this App';
   static const String aboutUs = 'About us';
-  static const String donateUs = 'Donate us';
+  static const String supportUs = 'Support us!';
   static const String shareAppText =
       'திருக்குர்ஆன் தமிழாக்கம் Android App இனை இப்போதே Playstore இலிருந்து பதிவிறக்கம் செய்து பயன் படுத்துங்கள்: \n${AppConfig.playStoreUrl}';
 

@@ -47,12 +47,12 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
                   getPopupMenuItem(const Icon(Icons.info), HomeTexts.aboutUs),
             ),
             PopupMenuItem<String>(
-              value: 'donate_us',
+              value: 'support_us',
               child: getPopupMenuItem(
                   const ImageIcon(
-                    AssetImage('assets/images/heart.png'),
+                    AssetImage('assets/images/donation.png'),
                   ),
-                  HomeTexts.donateUs),
+                  HomeTexts.supportUs),
             ),
           ],
           onSelected: (String value) {
@@ -72,7 +72,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
                     MaterialPageRoute(builder: (_) => const AboutUsScreen()));
                 break;
 
-              case 'donate_us':
+              case 'support_us':
                 Navigator.push(context,
                     MaterialPageRoute(builder: (_) => const SupportUsScreen()));
                 break;
