@@ -1,5 +1,5 @@
-import 'package:tamil_quran/app_texts/app_helpers_texts.dart';
-import 'package:tamil_quran/config/app_config.dart';
+import '../app_texts/app_helpers_texts.dart';
+import '../app_config/app_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 

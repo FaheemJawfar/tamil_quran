@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:xml/xml.dart' as xml;
-import '../models/quran_aya.dart';
-import '../models/quran_sura.dart';
+import '../read_quran/quran_aya.dart';
+import '../read_quran/quran_sura.dart';
 
 class DataParser {
 
