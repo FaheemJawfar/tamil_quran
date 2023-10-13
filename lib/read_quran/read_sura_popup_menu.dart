@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../app_texts/common_widget_texts.dart';
+import '../app_texts/read_quran_texts.dart';
 import '../app_config/color_config.dart';
-import '../app_texts/app_widgets_texts.dart';
 import 'verse_helper.dart';
 import '../providers/quran_provider.dart';
 import '../search/search_screen.dart';
@@ -28,22 +29,22 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
             PopupMenuItem<String>(
               value: 'settings',
               child: getPopupMenuItem(
-                  Icons.settings, AppWidgetsTexts.settingsTranslation),
+                  Icons.settings, CommonWidgetTexts.settingsTranslation),
             ),
             PopupMenuItem<String>(
               value: 'go_to_verse',
               child: getPopupMenuItem(
-                  Icons.shuffle, AppWidgetsTexts.goToVerseTranslation),
+                  Icons.shuffle, ReadQuranTexts.goToVerseTranslation),
             ),
             PopupMenuItem<String>(
               value: 'share_sura',
               child: getPopupMenuItem(
-                  Icons.mobile_screen_share, AppWidgetsTexts.shareThisChapter),
+                  Icons.mobile_screen_share, ReadQuranTexts.shareThisChapter),
             ),
             PopupMenuItem<String>(
               value: 'search',
               child: getPopupMenuItem(
-                  Icons.search, AppWidgetsTexts.searchInQuranTranslation),
+                  Icons.search, ReadQuranTexts.searchInQuranTranslation),
             ),
           ],
           onSelected: (String value) {

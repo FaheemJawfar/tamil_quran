@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_widgets_texts.dart';
+import '../app_texts/read_quran_texts.dart';
 import '../bookmarks/bookmark_helper.dart';
 import 'quran_helper.dart';
 import 'verse_helper.dart';
@@ -165,26 +165,26 @@ class _ShowVerseState extends State<ShowVerse> {
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'shareVerse',
-              child: getPopupMenuItem(Icons.share, AppWidgetsTexts.share),
+              child: getPopupMenuItem(Icons.share, ReadQuranTexts.share),
             ),
             PopupMenuItem<String>(
               value: 'addBookmark',
               child: getPopupMenuItem(
-                  Icons.bookmark_add_outlined, AppWidgetsTexts.addBookmark),
+                  Icons.bookmark_add_outlined, ReadQuranTexts.addBookmark),
             ),
             PopupMenuItem<String>(
               value: 'copy',
               child: getPopupMenuItem(
-                  Icons.copy, AppWidgetsTexts.copyArabicAndTranslation),
+                  Icons.copy, ReadQuranTexts.copyArabicAndTranslation),
             ),
             PopupMenuItem<String>(
               value: 'copy_arabic',
-              child: getPopupMenuItem(Icons.copy, AppWidgetsTexts.copyArabic),
+              child: getPopupMenuItem(Icons.copy, ReadQuranTexts.copyArabic),
             ),
             PopupMenuItem<String>(
               value: 'copy_translation',
               child:
-                  getPopupMenuItem(Icons.copy, AppWidgetsTexts.copyTranslation),
+                  getPopupMenuItem(Icons.copy, ReadQuranTexts.copyTranslation),
             ),
           ],
           child: const Icon(Icons.more_vert),

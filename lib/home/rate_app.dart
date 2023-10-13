@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_widgets_texts.dart';
+import '../app_texts/home_texts.dart';
 import '../app_config/color_config.dart';
 import '../common_widgets/show_toast.dart';
 import '../utils/launcher.dart';
@@ -23,11 +23,11 @@ class _RateAppState extends State<RateApp> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(AppWidgetsTexts.feedback),
+          title: const Text(HomeTexts.feedback),
           content: TextField(
             controller: feedbackController,
             decoration:
-                const InputDecoration(hintText: AppWidgetsTexts.enterFeedback),
+                const InputDecoration(hintText: HomeTexts.enterFeedback),
             maxLines: 3,
           ),
           actions: [
@@ -35,7 +35,7 @@ class _RateAppState extends State<RateApp> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text(AppWidgetsTexts.ratingCancel),
+              child: const Text(HomeTexts.ratingCancel),
             ),
             TextButton(
               onPressed: () {
@@ -43,11 +43,10 @@ class _RateAppState extends State<RateApp> {
                   Launcher.launchEmail(feedbackController.text);
                   Navigator.of(context).pop();
                 } else {
-                  ShowToast.showToast(
-                      context, AppWidgetsTexts.pleaseEnterFeedback);
+                  ShowToast.showToast(context, HomeTexts.pleaseEnterFeedback);
                 }
               },
-              child: const Text(AppWidgetsTexts.ratingSubmit),
+              child: const Text(HomeTexts.ratingSubmit),
             ),
           ],
         );
@@ -58,7 +57,7 @@ class _RateAppState extends State<RateApp> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppWidgetsTexts.feedback),
+      title: const Text(HomeTexts.feedback),
       actions: [
         OutlinedButton(
           style:
@@ -66,7 +65,7 @@ class _RateAppState extends State<RateApp> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text(AppWidgetsTexts.ratingCancel),
+          child: const Text(HomeTexts.ratingCancel),
         ),
         OutlinedButton(
           style:
@@ -79,7 +78,7 @@ class _RateAppState extends State<RateApp> {
               _showFeedbackDialog();
             }
           },
-          child: const Text(AppWidgetsTexts.ratingSubmit),
+          child: const Text(HomeTexts.ratingSubmit),
         ),
       ],
       content: Column(
@@ -104,8 +103,8 @@ class _RateAppState extends State<RateApp> {
           ),
           Text(
             selectedRating == 5
-                ? AppWidgetsTexts.rate5Starts
-                : AppWidgetsTexts.pleaseGiveFeedback,
+                ? HomeTexts.rate5Starts
+                : HomeTexts.pleaseGiveFeedback,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
+import '../app_texts/about.dart';
 import '../app_config/app_config.dart';
 import '../app_config/color_config.dart';
 import '../utils/launcher.dart';
@@ -46,7 +46,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     return Scaffold(
       backgroundColor: quranProvider.isDarkMode ? null: ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text(AppScreenTexts.aboutUs),
+        title: const Text(AboutTexts.aboutUs),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -63,7 +63,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ),
               const SizedBox(height: 20),
               const Text(
-                AppScreenTexts.appNameWithTranslation,
+                AboutTexts.appNameWithTranslation,
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -77,7 +77,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 color: quranProvider.isDarkMode ? null: ColorConfig.primaryColor,
               ),
               const Text(
-                AppScreenTexts.aboutUsContent,
+                AboutTexts.aboutUsContent,
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
@@ -86,12 +86,12 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ),
 
               const Text(
-                AppScreenTexts.developedBy,
+                AboutTexts.developedBy,
                 style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
               const Text(
-                AppScreenTexts.developerName,
+                AboutTexts.developerName,
                 style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -99,7 +99,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 color: quranProvider.isDarkMode ? null: ColorConfig.primaryColor,
               ),
               const Text(
-                AppScreenTexts.sendFeedback,
+                AboutTexts.sendFeedback,
                 style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
@@ -109,7 +109,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                   Launcher.launchEmail('');
                 },
                 icon: const Icon(Icons.mail),
-                label: const Text(AppScreenTexts.emailUs),
+                label: const Text(AboutTexts.emailUs),
 
                 style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
               ),

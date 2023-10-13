@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../app_texts/app_helpers_texts.dart';
+import '../app_texts/bookmarks.dart';
 import '../utils/shared_preferences.dart';
 import '../common_widgets/show_toast.dart';
 import 'bookmark.dart';
@@ -18,7 +18,7 @@ class BookmarkHelper {
       AppPreferences.setStringList(_bookmarkKey, bookmarkList);
     }
 
-    ShowToast.showToast(context, AppHelpersTexts.bookmarkAdded);
+    ShowToast.showToast(context, BookmarksTexts.bookmarkAdded);
   }
 
   // Delete a bookmark from the list
@@ -30,7 +30,7 @@ class BookmarkHelper {
       bookmarkList.remove('${bookmark.suraNumber}:${bookmark.verseNumber}');
       AppPreferences.setStringList(_bookmarkKey, bookmarkList);
     }
-    ShowToast.showToast(context, AppHelpersTexts.bookmarkDeleted);
+    ShowToast.showToast(context, BookmarksTexts.bookmarkDeleted);
   }
 
   // Get the list of bookmarks

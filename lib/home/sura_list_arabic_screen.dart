@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
 import '../app_config/color_config.dart';
+import '../app_texts/home_texts.dart';
 import '../read_quran/sura_details.dart';
 import '../read_quran/sura_arabic_screen.dart';
 import '../providers/quran_provider.dart';
@@ -53,7 +53,7 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                     ),
                   ),
                   subtitle:
-                      Text('${AppScreenTexts.verseCount} ${sura.verseCount}'),
+                      Text('${HomeTexts.verseCount} ${sura.verseCount}'),
                   trailing: Image.asset(
                     'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
                     color:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
 import '../app_config/color_config.dart';
+import '../app_texts/home_texts.dart';
 import '../utils/shared_preferences.dart';
 import '../read_quran/sura_details.dart';
 import '../read_quran/sura_translation_screen.dart';
@@ -53,7 +53,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
                 side: const BorderSide(color: Colors.green),
               ),
         child: Text(
-          AppScreenTexts.continueReading,
+          HomeTexts.continueReading,
           style: TextStyle(
             color: quranProvider.isDarkMode
                 ? Colors.white
@@ -94,7 +94,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
               ),
             ),
             subtitle:
-                Text('${AppScreenTexts.verseCount} ${suraDetails.verseCount}'),
+                Text('${HomeTexts.verseCount} ${suraDetails.verseCount}'),
             trailing: Image.asset(
               'assets/images/sura_headers/Surah_${suraDetails.suraNumber}.png',
               color: quranProvider.isDarkMode ? Colors.white : Colors.black,

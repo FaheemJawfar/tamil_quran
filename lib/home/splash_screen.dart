@@ -2,9 +2,9 @@ import 'dart:math';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
 import '../app_config/app_config.dart';
 import '../app_config/color_config.dart';
+import '../app_texts/home_texts.dart';
 import 'quran_hadith_about_quran.dart';
 import '../common_widgets/loading_indicator.dart';
 import '../providers/quran_provider.dart';
@@ -92,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 20),
             const Text(
-              AppScreenTexts.theHolyQuran,
+              HomeTexts.theHolyQuran,
               style: TextStyle(
                 fontSize: 24,
                 color: Colors.white,
@@ -101,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 10),
             const Text(
-              AppScreenTexts.arabicAndTranslation,
+              HomeTexts.arabicAndTranslation,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,

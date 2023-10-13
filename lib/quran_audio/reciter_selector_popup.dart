@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_widgets_texts.dart';
+import '../app_texts/common_widget_texts.dart';
+import '../app_texts/quran_audio_texts.dart';
 import '../app_config/color_config.dart';
 import 'reciter.dart';
 import '../providers/quran_provider.dart';
@@ -34,7 +35,7 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppWidgetsTexts.chooseReciter),
+      title: const Text(QuranAudioTexts.chooseReciter),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView(
@@ -60,7 +61,7 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
           },
           style:
               quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
-          child: const Text(AppWidgetsTexts.popUpCancel),
+          child: const Text(CommonWidgetTexts.popUpCancel),
         ),
         ElevatedButton(
           onPressed: () {
@@ -69,7 +70,7 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
           },
           style:
               quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
-          child: const Text(AppWidgetsTexts.popUpSelect),
+          child: const Text(CommonWidgetTexts.popUpSelect),
         ),
       ],
     );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import '../app_texts/app_widgets_texts.dart';
+import '../app_texts/common_widget_texts.dart';
+import '../app_texts/home_texts.dart';
 import '../app_config/app_config.dart';
 import '../app_config/color_config.dart';
 import '../utils/launcher.dart';
@@ -9,7 +10,7 @@ import '../providers/quran_provider.dart';
 import '../about/about_us.dart';
 import '../search/search_screen.dart';
 import '../settings/settings_screen.dart';
-import '../donations/donation_screen.dart';
+import '../support_us/support_screen.dart';
 import '../quran_audio/quran_audio_screen.dart';
 import 'rate_app.dart';
 import 'sura_verse_picker.dart';
@@ -61,7 +62,9 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: quranProvider.isDarkMode ? Colors.black45 : ColorConfig.primaryColor,
+              color: quranProvider.isDarkMode
+                  ? Colors.black45
+                  : ColorConfig.primaryColor,
             ),
             child: const Center(
               child: Column(
@@ -75,7 +78,7 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
                     ),
                   ),
                   Text(
-                    AppWidgetsTexts.appNameSubtitle,
+                    CommonWidgetTexts.appNameSubtitle,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -88,45 +91,44 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
           ),
           _buildListTiles(
               _buildImageIcon('assets/images/quran-audio.png'),
-              AppWidgetsTexts.quranAudio,
+              CommonWidgetTexts.quranAudio,
               context,
               const QuranAudioPlayerScreen()),
           _buildListTiles(const Icon(Icons.search),
-              AppWidgetsTexts.searchInQuran, context, const SearchScreen()),
+              CommonWidgetTexts.searchInQuran, context, const SearchScreen()),
           _buildActionListTiles(
             const Icon(Icons.shuffle_sharp),
-            (AppWidgetsTexts.goToVerse),
+            (CommonWidgetTexts.goToVerse),
             context,
             () => _showVersePicker(context),
           ),
           _buildListTiles(
               const Icon(Icons.settings),
-              AppWidgetsTexts.settingsTranslation,
+              CommonWidgetTexts.settingsTranslation,
               context,
               const SettingsScreen()),
           _buildActionListTiles(const Icon(Icons.share),
-              AppWidgetsTexts.shareThisAppTranslation, context, () {
-            Share.share(AppWidgetsTexts.shareAppText);
+              CommonWidgetTexts.shareThisAppTranslation, context, () {
+            Share.share(HomeTexts.shareAppText);
           }),
           _buildActionListTiles(const Icon(Icons.rate_review_outlined),
-              AppWidgetsTexts.rateAppTranslation, context, () {
+              CommonWidgetTexts.rateAppTranslation, context, () {
             _showRating(context);
           }),
           _buildListTiles(
               const Icon(Icons.info),
-              AppWidgetsTexts.aboutUsTranslation,
+              CommonWidgetTexts.aboutUsTranslation,
               context,
               const AboutUsScreen()),
           _buildListTiles(
               _buildImageIcon('assets/images/heart.png'),
-              AppWidgetsTexts.donateUsTranslation,
+              CommonWidgetTexts.donateUsTranslation,
               context,
-              const DonationScreen()),
-
+              const SupportScreen()),
           _buildActionListTiles(const Icon(Icons.update),
-              AppWidgetsTexts.checkForUpdates, context, () {
-                Launcher.launchPlayStore();
-              }),
+              CommonWidgetTexts.checkForUpdates, context, () {
+            Launcher.launchPlayStore();
+          }),
         ],
       ),
     );

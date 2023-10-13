@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
+import '../app_texts/donation_texts.dart';
 import '../app_config/color_config.dart';
 import '../app_config/app_config.dart';
 import '../utils/launcher.dart';
 import '../providers/quran_provider.dart';
 
-class DonationScreen extends StatefulWidget {
-  const DonationScreen({super.key});
+class SupportScreen extends StatefulWidget {
+  const SupportScreen({super.key});
 
   @override
-  State<DonationScreen> createState() => _DonationScreenState();
+  State<SupportScreen> createState() => _SupportScreenState();
 }
 
-class _DonationScreenState extends State<DonationScreen> {
+class _SupportScreenState extends State<SupportScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppScreenTexts.donateUs),
+        title: const Text(DonationTexts.donateUs),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -41,7 +41,7 @@ class _DonationScreenState extends State<DonationScreen> {
                 height: 50,
               ),
               const Text(
-                AppScreenTexts.donationScreenContent,
+                DonationTexts.donationScreenContent,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18),
               ),
@@ -49,7 +49,7 @@ class _DonationScreenState extends State<DonationScreen> {
                 height: 20,
               ),
               const Text(
-                AppScreenTexts.sendUsingCreditDebitCards,
+                DonationTexts.sendUsingCreditDebitCards,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               ElevatedButton.icon(
@@ -61,14 +61,14 @@ class _DonationScreenState extends State<DonationScreen> {
                   },
                   icon: const ImageIcon(AssetImage('assets/images/heart.png')),
                   label: const Text(
-                    AppScreenTexts.donateUsButtonLabel,
+                    DonationTexts.donateUsButtonLabel,
                   )),
               const Divider(),
               const SizedBox(
                 height: 10,
               ),
               const Text(
-                AppScreenTexts.sendViaBankTransfer,
+                DonationTexts.sendViaBankTransfer,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               ElevatedButton.icon(
@@ -80,29 +80,29 @@ class _DonationScreenState extends State<DonationScreen> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text(AppScreenTexts.bankAccountDetails),
+                        title: const Text(DonationTexts.bankAccountDetails),
                         content: const Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              AppScreenTexts.bankAccName,
+                              DonationTexts.bankAccName,
                               style: TextStyle(fontSize: 18),
                             ),
                             Text(
-                              AppScreenTexts.bankAccNumber,
+                              DonationTexts.bankAccNumber,
                               style: TextStyle(fontSize: 18),
                             ),
                             Text(
-                              AppScreenTexts.bankName,
+                              DonationTexts.bankName,
                               style: TextStyle(fontSize: 18),
                             ),
                             Text(
-                              AppScreenTexts.bankBranchName,
+                              DonationTexts.bankBranchName,
                               style: TextStyle(fontSize: 18),
                             ),
                             Text(
-                              AppScreenTexts.bankSwiftCode,
+                              DonationTexts.bankSwiftCode,
                               style: TextStyle(fontSize: 18),
                             ),
                             // Add more details as needed
@@ -124,7 +124,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   );
                 },
                 icon: const Icon(Icons.list),
-                label: const Text(AppScreenTexts.bankAccountDetailsTranslation),
+                label: const Text(DonationTexts.bankAccountDetailsTranslation),
               ),
             ],
           ),

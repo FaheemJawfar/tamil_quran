@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../app_texts/app_widgets_texts.dart';
+import '../app_texts/common_widget_texts.dart';
 
 class PopupSelector<T> extends StatefulWidget {
   final List<T> listOfItems;
@@ -13,7 +13,7 @@ class PopupSelector<T> extends StatefulWidget {
     required this.selectedItem,
     required this.onSelected,
     required this.displayNameExtractor,
-    this.title = AppWidgetsTexts.selectAnItem,
+    this.title = CommonWidgetTexts.selectAnItem,
     Key? key,
   }) : super(key: key);
 
@@ -54,13 +54,13 @@ class _PopupSelectorState<T> extends State<PopupSelector<T>> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text(AppWidgetsTexts.popUpCancel),
+          child: const Text(CommonWidgetTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         ElevatedButton(
-          child: const Text(AppWidgetsTexts.popUpSelect),
+          child: const Text(CommonWidgetTexts.popUpSelect),
           onPressed: () {
             widget.onSelected(selectedItem);
             Navigator.of(context).pop();

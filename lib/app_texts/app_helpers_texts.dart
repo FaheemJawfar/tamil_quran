@@ -1,7 +1,5 @@
 class AppHelpersTexts {
-// Bookmark Helper
-  static const String bookmarkAdded = 'Bookmark added successfully!';
-  static const String bookmarkDeleted = 'Bookmark deleted successfully!';
+
 
 // Launcher
   static const String mailTo = 'faheemjawfar@gmail.com';

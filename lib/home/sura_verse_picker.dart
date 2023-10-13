@@ -1,7 +1,7 @@
 import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_widgets_texts.dart';
+import '../app_texts/home_texts.dart';
 import '../read_quran/sura_details.dart';
 import '../read_quran/sura_translation_screen.dart';
 import '../app_config/color_config.dart';
@@ -29,7 +29,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
       title: const Padding(
         padding: EdgeInsets.only(bottom: 5.0),
         child: Text(
-          AppWidgetsTexts.goToVerseHeader,
+          HomeTexts.goToVerseHeader,
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
         ),

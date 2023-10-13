@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
+import 'package:tamil_quran/app_texts/quran_audio_texts.dart';
 import '../providers/quran_provider.dart';
 import '../common_widgets/loading_indicator.dart';
 import '../app_config/color_config.dart';
@@ -121,7 +121,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     bool connected = await CheckConnection.checkInternetConnection();
     if (!connected) {
       if (mounted) {
-        ShowToast.showToast(context, AppScreenTexts.checkInternetConnection);
+        ShowToast.showToast(context, QuranAudioTexts.checkInternetConnection);
       }
       return false;
     }
@@ -150,7 +150,8 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: quranProvider.isDarkMode ? null: ColorConfig.backgroundColor,
+      backgroundColor:
+          quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       appBar: AppBar(
         title: FittedBox(
             fit: BoxFit.contain,
@@ -188,7 +189,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   style: TextStyle(
                       color: selectedSuraIndex == index
                           ? Colors.white
-                          : quranProvider.isDarkMode ? Colors.white70: Colors.black,
+                          : quranProvider.isDarkMode
+                              ? Colors.white70
+                              : Colors.black,
                       fontSize: 18),
                 ),
                 onTap: () {
@@ -197,8 +200,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   });
                   playAudio();
                 },
-                tileColor:
-                    selectedSuraIndex == index ? quranProvider.isDarkMode ? Colors.black45: Colors.green[300] : null,
+                tileColor: selectedSuraIndex == index
+                    ? quranProvider.isDarkMode
+                        ? Colors.black45
+                        : Colors.green[300]
+                    : null,
               );
             },
           ),
@@ -210,7 +216,8 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: quranProvider.isDarkMode ? Colors.black45: Colors.green[100],
+              color:
+                  quranProvider.isDarkMode ? Colors.black45 : Colors.green[100],
               borderRadius: const BorderRadius.all(
                 Radius.circular(15),
               ),
@@ -264,7 +271,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                     IconButton(
                       icon: isLoading
                           ? LoadingIndicator(
-                              color: quranProvider.isDarkMode ? Colors.grey: ColorConfig.primaryColor,
+                              color: quranProvider.isDarkMode
+                                  ? Colors.grey
+                                  : ColorConfig.primaryColor,
                             )
                           : audioPlayer.playing
                               ? const Icon(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import '../app_texts/home_texts.dart';
 import '../app_config/color_config.dart';
-import '../app_texts/app_widgets_texts.dart';
 import '../providers/quran_provider.dart';
 import '../about/about_us.dart';
-import '../donations/donation_screen.dart';
+import '../support_us/support_screen.dart';
 import 'rate_app.dart';
 import '../settings/settings_screen.dart';
 
@@ -28,23 +28,23 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
-              child: getPopupMenuItem(const Icon(Icons.settings),
-                  AppWidgetsTexts.settings),
+              child: getPopupMenuItem(
+                  const Icon(Icons.settings), HomeTexts.settings),
             ),
             PopupMenuItem<String>(
               value: 'share_app',
               child: getPopupMenuItem(
-                  const Icon(Icons.share), AppWidgetsTexts.shareThisApp),
+                  const Icon(Icons.share), HomeTexts.shareThisApp),
             ),
             PopupMenuItem<String>(
               value: 'rate_app',
               child: getPopupMenuItem(const Icon(Icons.rate_review_outlined),
-                  AppWidgetsTexts.rateThisApp),
+                  HomeTexts.rateThisApp),
             ),
             PopupMenuItem<String>(
               value: 'about_us',
-              child: getPopupMenuItem(
-                  const Icon(Icons.info), AppWidgetsTexts.aboutUs),
+              child:
+                  getPopupMenuItem(const Icon(Icons.info), HomeTexts.aboutUs),
             ),
             PopupMenuItem<String>(
               value: 'donate_us',
@@ -52,7 +52,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
                   const ImageIcon(
                     AssetImage('assets/images/heart.png'),
                   ),
-                  AppWidgetsTexts.donateUs),
+                  HomeTexts.donateUs),
             ),
           ],
           onSelected: (String value) {
@@ -65,7 +65,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
                 _showRating(context);
                 break;
               case 'share_app':
-                Share.share(AppWidgetsTexts.shareAppText);
+                Share.share(HomeTexts.shareAppText);
                 break;
               case 'about_us':
                 Navigator.push(context,
@@ -74,7 +74,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
 
               case 'donate_us':
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const DonationScreen()));
+                    MaterialPageRoute(builder: (_) => const SupportScreen()));
                 break;
             }
           },

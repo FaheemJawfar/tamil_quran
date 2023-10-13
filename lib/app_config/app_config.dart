@@ -1,4 +1,3 @@
-import '../utils/shared_preferences.dart';
 
 class AppConfig {
   static const String appName = 'Tamil Quran';

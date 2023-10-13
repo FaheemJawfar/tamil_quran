@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
+import '../app_texts/bookmarks.dart';
 import '../read_quran/sura_translation_screen.dart';
 import '../app_config/color_config.dart';
 import 'bookmark_helper.dart';
@@ -38,7 +38,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
       body: bookmarkList.isEmpty
           ? const Center(
               child: Text(
-                AppScreenTexts.bookmarksWillAppearHere,
+                BookmarksTexts.bookmarksWillAppearHere,
                 style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),

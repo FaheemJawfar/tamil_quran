@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../app_texts/app_screen_texts.dart';
+import '../app_texts/home_texts.dart';
 import '../bookmarks/bookmarks_screen.dart';
 import '../quran_audio/quran_audio_screen.dart';
 import '../search/search_screen.dart';
@@ -43,13 +43,13 @@ class _HomeScreenState extends State<HomeScreen>
   String getAppbarTitle() {
     switch (_tabController.index) {
       case 0:
-        return AppScreenTexts.translation;
+        return HomeTexts.translation;
 
       case 1:
-        return AppScreenTexts.onlyArabic;
+        return HomeTexts.onlyArabic;
 
       case 2:
-        return AppScreenTexts.bookmarks;
+        return HomeTexts.bookmarks;
 
       default:
         return '';
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen>
             fit: BoxFit.contain,
             child: Text(
               _appBarTitle,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             )),
         actions: [
           IconButton(
