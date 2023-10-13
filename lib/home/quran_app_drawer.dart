@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import '../app_texts/common_widget_texts.dart';
 import '../app_texts/home_texts.dart';
 import '../app_config/app_config.dart';
 import '../app_config/color_config.dart';
@@ -78,7 +77,7 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
                     ),
                   ),
                   Text(
-                    CommonWidgetTexts.appNameSubtitle,
+                    HomeTexts.appNameSubtitle,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -91,43 +90,43 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
           ),
           _buildListTiles(
               _buildImageIcon('assets/images/quran-audio.png'),
-              CommonWidgetTexts.quranAudio,
+              HomeTexts.quranAudio,
               context,
               const QuranAudioPlayerScreen()),
           _buildListTiles(const Icon(Icons.search),
-              CommonWidgetTexts.searchInQuran, context, const SearchScreen()),
+              HomeTexts.searchInQuran, context, const SearchScreen()),
           _buildActionListTiles(
             const Icon(Icons.shuffle_sharp),
-            (CommonWidgetTexts.goToVerse),
+            (HomeTexts.goToVerse),
             context,
             () => _showVersePicker(context),
           ),
           _buildListTiles(
               const Icon(Icons.settings),
-              CommonWidgetTexts.settingsTranslation,
+              HomeTexts.settingsTranslation,
               context,
               const SettingsScreen()),
           _buildActionListTiles(const Icon(Icons.share),
-              CommonWidgetTexts.shareThisAppTranslation, context, () {
+              HomeTexts.shareThisAppTranslation, context, () {
             Share.share(HomeTexts.shareAppText);
           }),
           _buildActionListTiles(const Icon(Icons.rate_review_outlined),
-              CommonWidgetTexts.rateAppTranslation, context, () {
+              HomeTexts.rateAppTranslation, context, () {
             _showRating(context);
           }),
           _buildListTiles(
               const Icon(Icons.info),
-              CommonWidgetTexts.aboutUsTranslation,
+              HomeTexts.aboutUsTranslation,
               context,
               const AboutUsScreen()),
           _buildListTiles(
-              _buildImageIcon('assets/images/heart.png'),
-              CommonWidgetTexts.donateUsTranslation,
+              _buildImageIcon('assets/images/donation.png'),
+              HomeTexts.donateUsTranslation,
               context,
-              const SupportScreen()),
+              const SupportUsScreen()),
           _buildActionListTiles(const Icon(Icons.update),
-              CommonWidgetTexts.checkForUpdates, context, () {
-            Launcher.launchPlayStore();
+              HomeTexts.checkForUpdates, context, () {
+            Launcher.findDeviceModelAndLaunchAppStore();
           }),
         ],
       ),

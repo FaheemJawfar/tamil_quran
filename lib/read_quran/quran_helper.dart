@@ -1,4 +1,4 @@
-import '../app_texts/app_helpers_texts.dart';
+import 'package:tamil_quran/app_texts/read_quran_texts.dart';
 import '../quran_audio/reciter.dart';
 
 class QuranHelper {
@@ -30,7 +30,7 @@ class QuranHelper {
   }
 
   static String getAudioURLBySurah(Reciter reciter, int suraNumber) {
-    if (reciter.language == AppHelpersTexts.languageCode) {
+    if (reciter.language == ReadQuranTexts.languageCode) {
       return "https://archive.org/download/${reciter.identifier}/sura-$suraNumber.mp3";
     }
 

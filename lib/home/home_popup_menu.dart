@@ -74,7 +74,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
 
               case 'donate_us':
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const SupportScreen()));
+                    MaterialPageRoute(builder: (_) => const SupportUsScreen()));
                 break;
             }
           },

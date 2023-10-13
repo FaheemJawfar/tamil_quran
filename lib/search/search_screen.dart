@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
+import '../app_texts/search_texts.dart';
 import '../read_quran/sura_translation_screen.dart';
 import '../app_config/color_config.dart';
 import '../bookmarks/bookmark_helper.dart';
@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor:
           quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text(AppScreenTexts.searchInQuran),
+        title: const Text(SearchTexts.searchInQuran),
       ),
       body: GestureDetector(
         onTap: () {
@@ -62,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   });
                 },
                 decoration: const InputDecoration(
-                    hintText: AppScreenTexts.enterWordToSearch,
+                    hintText: SearchTexts.enterWordToSearch,
                     prefixIcon: Icon(Icons.search)),
               ),
             ),
@@ -230,30 +230,30 @@ class _SearchScreenState extends State<SearchScreen> {
                                   PopupMenuItem<String>(
                                     value: 'shareVerse',
                                     child: getPopupMenuItem(
-                                        Icons.share, AppScreenTexts.popUpShare),
+                                        Icons.share, SearchTexts.popUpShare),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'addBookmark',
                                     child: getPopupMenuItem(
                                         Icons.bookmark_add_outlined,
-                                        AppScreenTexts.popUpAddBookmark),
+                                        SearchTexts.popUpAddBookmark),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy',
                                     child: getPopupMenuItem(
                                         Icons.copy,
-                                        AppScreenTexts
+                                        SearchTexts
                                             .popUpCopyArabicAndTranslation),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy_arabic',
                                     child: getPopupMenuItem(Icons.copy,
-                                        AppScreenTexts.popUpCopyArabic),
+                                        SearchTexts.popUpCopyArabic),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'copy_translation',
                                     child: getPopupMenuItem(Icons.copy,
-                                        AppScreenTexts.popUpCopyTranslation),
+                                        SearchTexts.popUpCopyTranslation),
                                   ),
                                 ],
                                 child: const Icon(Icons.more_vert),

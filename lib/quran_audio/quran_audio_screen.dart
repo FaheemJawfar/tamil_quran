@@ -32,20 +32,28 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   @override
   void initState() {
     super.initState();
-    audioPlayer = AudioPlayer();
-    audioPlayer.durationStream.listen((updatedDuration) {
-      if (!mounted) return;
-      setState(() {
-        duration = updatedDuration!;
-      });
-    });
+    initAudioPlayer();
+  }
 
-    audioPlayer.positionStream.listen((updatedPosition) {
-      if (!mounted) return;
-      setState(() {
-        position = updatedPosition;
-      });
-    });
+  initAudioPlayer(){
+   try {
+     audioPlayer = AudioPlayer();
+     audioPlayer.durationStream.listen((updatedDuration) {
+       if (!mounted) return;
+       setState(() {
+         duration = updatedDuration ?? Duration.zero;
+       });
+     });
+
+     audioPlayer.positionStream.listen((updatedPosition) {
+       if (!mounted) return;
+       setState(() {
+         position = updatedPosition;
+       });
+     });
+   } catch (e){
+     debugPrint(e.toString());
+   }
   }
 
   Future<void> playAudio() async {
@@ -120,6 +128,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   Future<bool> checkInternetConnection() async {
     bool connected = await CheckConnection.checkInternetConnection();
     if (!connected) {
+      setState(() {
+        isLoading = false;
+      });
       if (mounted) {
         ShowToast.showToast(context, QuranAudioTexts.checkInternetConnection);
       }

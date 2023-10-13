@@ -1,4 +1,8 @@
-import '../app_texts/app_helpers_texts.dart';
+import 'dart:io';
+
+import 'package:tamil_quran/utils/device_information.dart';
+
+import '../app_texts/utils_texts.dart';
 import '../app_config/app_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -16,9 +20,9 @@ class Launcher {
 
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: AppHelpersTexts.mailTo,
+      path: UtilsTexts.mailTo,
       query: encodeQueryParameters(<String, String>{
-        'subject': AppHelpersTexts.mailSubject,
+        'subject': UtilsTexts.mailSubject,
         'body': body,
       }),
     );
@@ -31,9 +35,8 @@ class Launcher {
   }
 
 
-  static void launchPlayStore() async {
+  static void launchPlayStoreAppPage() async {
     const appId = AppConfig.appId;
-
     try {
       await launchUrlString("market://details?id=$appId");
     } catch (e) {
@@ -58,6 +61,20 @@ class Launcher {
       await launchUrlString('whatsapp://send?phone=$phoneNumber');
     } catch (e) {
      rethrow;
+    }
+  }
+
+
+  static Future<void> findDeviceModelAndLaunchAppStore() async {
+    if (Platform.isAndroid) {
+      bool isHuawei = await DeviceInformation.checkIfHuaweiDevice();
+      if(isHuawei){
+        launchWebpage(AppConfig.huaweiAppGalleryUrl);
+      } else {
+        launchPlayStoreAppPage();
+      }
+  }
+    else if (Platform.isIOS){
     }
   }
 }

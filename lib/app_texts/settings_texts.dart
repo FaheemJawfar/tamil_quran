@@ -1,20 +1,4 @@
-class AppScreenTexts {
-
-
-
-
-
-
-
-// Search Screen
-  static const String searchInQuran = 'திருக்குர்ஆனில் தேடுக';
-  static const String enterWordToSearch = 'தேட வேண்டிய சொல்லை உள்ளிடவும்...';
-  static const String popUpShare = 'Share';
-  static const String popUpAddBookmark = 'Add Bookmark';
-  static const String popUpCopyArabicAndTranslation = 'Copy Arabic + Tamil';
-  static const String popUpCopyArabic = 'Copy Arabic';
-  static const String popUpCopyTranslation = 'Copy Tamil';
-
+class SettingsTexts {
 // Settings Screen
   static const String settings = 'Settings';
   static const String darkMode = 'Dark Mode';
@@ -41,6 +25,4 @@ class AppScreenTexts {
   static const String popUpCancel = 'Cancel';
   static const String popUpSelect = 'Select';
   static const String selectFont = 'எழுத்துருவைத் தேர்வு செய்க';
-
-
 }

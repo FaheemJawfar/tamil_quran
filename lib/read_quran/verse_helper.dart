@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
-import '../app_texts/app_helpers_texts.dart';
+import 'package:tamil_quran/app_texts/read_quran_texts.dart';
 import 'quran_helper.dart';
 import '../common_widgets/show_toast.dart';
 import '../app_config/app_config.dart';
@@ -14,7 +14,7 @@ class VerseHelper {
     BuildContext context,
   ) async {
     final clipboardData = ClipboardData(text: text);
-    ShowToast.showToast(context, AppHelpersTexts.verseCopied);
+    ShowToast.showToast(context, ReadQuranTexts.verseCopied);
     await Clipboard.setData(clipboardData);
   }
 
@@ -23,19 +23,19 @@ class VerseHelper {
     switch (option) {
       case 'copy':
         String verseCopy =
-            '${getArabicVerse(arabic)}\n\n${translation.text}\n\n- (${AppHelpersTexts.holyQuran} $suraNumber:${arabic.ayaIndex})\n\n( ${AppHelpersTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )';
+            '${getArabicVerse(arabic)}\n\n${translation.text}\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${arabic.ayaIndex})\n\n( ${ReadQuranTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )';
 
         return verseCopy;
 
       case 'copy_arabic':
         String verseCopy =
-            '${getArabicVerse(arabic)}\n\n- (${AppHelpersTexts.holyQuran} $suraNumber:${arabic.ayaIndex})';
+            '${getArabicVerse(arabic)}\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${arabic.ayaIndex})';
 
         return verseCopy;
 
       case 'copy_translation':
         String verseCopy =
-            '${translation.text}\n\n- (${AppHelpersTexts.holyQuran} $suraNumber:${arabic.ayaIndex})';
+            '${translation.text}\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${arabic.ayaIndex})';
         return verseCopy;
 
       default:
@@ -84,25 +84,25 @@ class VerseHelper {
 
       if (suraArabic.length > loopLimit) {
         suraFullText.write(
-            '\n\n*****\n(${AppHelpersTexts.balancedVerseCount}: ${(suraArabic.length - 1) - loopLimit})');
-        suraFullText.write('\n\n${AppHelpersTexts.downloadQuranApp}');
+            '\n\n*****\n(${ReadQuranTexts.balancedVerseCount}: ${(suraArabic.length - 1) - loopLimit})');
+        suraFullText.write('\n\n${ReadQuranTexts.downloadQuranApp}');
       }
 
       suraFullText.write('\n\n------------');
-      suraFullText.write('\n${AppHelpersTexts.quranTranslation}');
+      suraFullText.write('\n${ReadQuranTexts.quranTranslation}');
       suraFullText
-          .write('\n${AppHelpersTexts.chapter}:${suraDetails.suraNumber}');
+          .write('\n${ReadQuranTexts.chapter}:${suraDetails.suraNumber}');
       suraFullText.write(
-          '\n${AppHelpersTexts.totalVerseCount}: ${suraDetails.verseCount}');
+          '\n${ReadQuranTexts.totalVerseCount}: ${suraDetails.verseCount}');
       suraFullText
-          .write('\n${AppHelpersTexts.translatedBy}: $selectedTranslationName');
+          .write('\n${ReadQuranTexts.translatedBy}: $selectedTranslationName');
       suraFullText.write(
-          '\n\n(${AppHelpersTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )');
+          '\n\n(${ReadQuranTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )');
 
       String suraText = suraFullText.toString();
 
       final clipboardData = ClipboardData(text: suraText);
-      ShowToast.showToast(context, AppHelpersTexts.chapterCopied);
+      ShowToast.showToast(context, ReadQuranTexts.chapterCopied);
       await Clipboard.setData(
         clipboardData,
       );

@@ -52,5 +52,5 @@ class HomeTexts {
   static const String rateAppTranslation = 'செயலியைத் தரப்படுத்துக';
   static const String checkForUpdates = 'Check for Updates';
   static const String aboutUsTranslation = 'எம்மைப்பற்றி';
-  static const String donateUsTranslation = 'நன்கொடை வழங்குக';
+  static const String donateUsTranslation = 'எமக்கு உதவுங்கள்!';
 }

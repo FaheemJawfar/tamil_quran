@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_texts/app_screen_texts.dart';
+import 'package:tamil_quran/app_texts/settings_texts.dart';
 import '../app_config/color_config.dart';
 import '../providers/quran_provider.dart';
 import '../quran_audio/reciter_selector_popup.dart';
@@ -22,7 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       backgroundColor:
           quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       appBar: AppBar(
-        title: const Text(AppScreenTexts.settings),
+        title: const Text(SettingsTexts.settings),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -30,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             ListTile(
               leading: const Icon(Icons.dark_mode),
-              title: const Text(AppScreenTexts.darkMode),
+              title: const Text(SettingsTexts.darkMode),
               trailing: Switch(
                 activeColor: quranProvider.isDarkMode ? Colors.grey: ColorConfig.primaryColor,
                   value: quranProvider.isDarkMode,
@@ -41,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.language,
-              title: AppScreenTexts.languageTranslation,
+              title: SettingsTexts.languageTranslation,
               subtitle: quranProvider.selectedTranslationName,
               onTap: () => _showPopup(
                 child: ShowTranslationSelector(
@@ -55,15 +55,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildImageIconListTile(
               leadingIcon: const ImageIcon(
-                  AssetImage(AppScreenTexts.translationIconPath)),
-              title: AppScreenTexts.translationFont,
-              subtitle: AppScreenTexts.bismillahTranslation,
+                  AssetImage(SettingsTexts.translationIconPath)),
+              title: SettingsTexts.translationFont,
+              subtitle: SettingsTexts.bismillahTranslation,
               selectedFont: quranProvider.tamilFont,
               onTap: () => _showPopup(
                 child: ShowFontSelector(
                   selectedFont: quranProvider.tamilFont,
                   translationFonts: quranProvider.languageFontsList,
-                  label: AppScreenTexts.bismillahTranslation,
+                  label: SettingsTexts.bismillahTranslation,
                   onSelected: (value) => quranProvider.tamilFont = value,
                 ),
               ),
@@ -71,15 +71,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildImageIconListTile(
               leadingIcon:
-                  const ImageIcon(AssetImage(AppScreenTexts.arabicIconPath)),
-              title: AppScreenTexts.arabicFont,
-              subtitle: AppScreenTexts.bismillahInArabic,
+                  const ImageIcon(AssetImage(SettingsTexts.arabicIconPath)),
+              title: SettingsTexts.arabicFont,
+              subtitle: SettingsTexts.bismillahInArabic,
               selectedFont: quranProvider.arabicFont,
               onTap: () => _showPopup(
                 child: ShowFontSelector(
                   selectedFont: quranProvider.arabicFont,
                   translationFonts: quranProvider.arabicFontsList,
-                  label: AppScreenTexts.bismillahInArabic,
+                  label: SettingsTexts.bismillahInArabic,
                   onSelected: (value) => quranProvider.arabicFont = value,
                 ),
               ),
@@ -87,12 +87,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.text_fields,
-              title: AppScreenTexts.translationFontSize,
+              title: SettingsTexts.translationFontSize,
               subtitle: quranProvider.tamilFontSize.floor().toString(),
               onTap: () => _showPopup(
                   child: FontSizeSelector(
                 fontSize: quranProvider.tamilFontSize,
-                text: AppScreenTexts.bismillahTranslation,
+                text: SettingsTexts.bismillahTranslation,
                 fontFamily: quranProvider.tamilFont,
                 onChanged: (value) {
                   quranProvider.tamilFontSize = value;
@@ -102,13 +102,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.text_fields,
-              title: AppScreenTexts.arabicFontSize,
+              title: SettingsTexts.arabicFontSize,
               subtitle: quranProvider.arabicFontSize.floor().toString(),
               onTap: () => _showPopup(
                   child: FontSizeSelector(
                 fontSize: quranProvider.arabicFontSize,
                 fontFamily: quranProvider.arabicFont,
-                text: AppScreenTexts.bismillahInArabic,
+                text: SettingsTexts.bismillahInArabic,
                 onChanged: (value) {
                   quranProvider.arabicFontSize = value;
                 },
@@ -117,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.record_voice_over,
-              title: AppScreenTexts.quranReciter,
+              title: SettingsTexts.quranReciter,
               subtitle: quranProvider.selectedReciterDetails.name,
               onTap: () => _showPopup(
                 child: ReciterSelectorPopup(
@@ -133,21 +133,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildListTile(
               leadingIcon: Icons.restore,
-              title: AppScreenTexts.resetSettings,
-              subtitle: AppScreenTexts.resetSettingsInfo,
+              title: SettingsTexts.resetSettings,
+              subtitle: SettingsTexts.resetSettingsInfo,
               onTap: () => _showPopup(
                 child: AlertDialog(
-                  title: const Text(AppScreenTexts.resetConfirmation),
+                  title: const Text(SettingsTexts.resetConfirmation),
                   content: const SizedBox(
                     width: double.maxFinite,
-                    child: Text(AppScreenTexts.resetConfirmationTranslation),
+                    child: Text(SettingsTexts.resetConfirmationTranslation),
                   ),
                   actions: <Widget>[
                     TextButton(
                       style: quranProvider.isDarkMode
                           ? ColorConfig.darkModeButtonStyle
                           : null,
-                      child: const Text(AppScreenTexts.no),
+                      child: const Text(SettingsTexts.no),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -156,7 +156,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       style: quranProvider.isDarkMode
                           ? ColorConfig.darkModeButtonStyle
                           : null,
-                      child: const Text(AppScreenTexts.yes),
+                      child: const Text(SettingsTexts.yes),
                       onPressed: () {
                         quranProvider.clearSettings();
                         Navigator.of(context).pop();
@@ -254,7 +254,7 @@ class _ShowTranslationSelectorState extends State<ShowTranslationSelector> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppScreenTexts.selectTranslation),
+      title: const Text(SettingsTexts.selectTranslation),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView(
@@ -277,7 +277,7 @@ class _ShowTranslationSelectorState extends State<ShowTranslationSelector> {
         TextButton(
           style:
               quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
-          child: const Text(AppScreenTexts.popUpCancel),
+          child: const Text(SettingsTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -285,7 +285,7 @@ class _ShowTranslationSelectorState extends State<ShowTranslationSelector> {
         ElevatedButton(
           style:
               quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
-          child: const Text(AppScreenTexts.popUpSelect),
+          child: const Text(SettingsTexts.popUpSelect),
           onPressed: () {
             widget.onSelected(selectedTranslation);
             Navigator.of(context).pop();
@@ -320,7 +320,7 @@ class _ShowFontSelectorState extends State<ShowFontSelector> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppScreenTexts.selectFont),
+      title: const Text(SettingsTexts.selectFont),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView(
@@ -346,7 +346,7 @@ class _ShowFontSelectorState extends State<ShowFontSelector> {
         TextButton(
           style:
               quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
-          child: const Text(AppScreenTexts.popUpCancel),
+          child: const Text(SettingsTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -354,7 +354,7 @@ class _ShowFontSelectorState extends State<ShowFontSelector> {
         ElevatedButton(
           style:
               quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
-          child: const Text(AppScreenTexts.popUpSelect),
+          child: const Text(SettingsTexts.popUpSelect),
           onPressed: () {
             widget.onSelected(selectedFont);
             Navigator.of(context).pop();
@@ -418,7 +418,7 @@ class _FontSizeSelectorState extends State<FontSizeSelector> {
         TextButton(
           style:
               quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
-          child: const Text(AppScreenTexts.popUpCancel),
+          child: const Text(SettingsTexts.popUpCancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -426,7 +426,7 @@ class _FontSizeSelectorState extends State<FontSizeSelector> {
         ElevatedButton(
           style:
               quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
-          child: const Text(AppScreenTexts.popUpSelect),
+          child: const Text(SettingsTexts.popUpSelect),
           onPressed: () {
             widget.onChanged(fontSize);
             Navigator.of(context).pop();

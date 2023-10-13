@@ -73,7 +73,7 @@ class _RateAppState extends State<RateApp> {
           onPressed: () {
             Navigator.of(context).pop();
             if (selectedRating == 5) {
-              Launcher.launchPlayStore();
+              Launcher.findDeviceModelAndLaunchAppStore();
             } else {
               _showFeedbackDialog();
             }

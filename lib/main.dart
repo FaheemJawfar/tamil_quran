@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamil_quran/utils/device_information.dart';
 import 'app_config/app_config.dart';
 import 'utils/shared_preferences.dart';
 import '../providers/quran_provider.dart';
