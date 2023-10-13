@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import '../app_texts/app_widgets_texts.dart';
 import '../config/app_config.dart';
 import '../config/color_config.dart';
+import '../helpers/launcher.dart';
 import '../providers/quran_provider.dart';
 import '../screens/about_us.dart';
 import '../screens/search_screen.dart';
@@ -121,6 +122,11 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
               AppWidgetsTexts.donateUsTranslation,
               context,
               const DonationScreen()),
+
+          _buildActionListTiles(const Icon(Icons.update),
+              AppWidgetsTexts.checkForUpdates, context, () {
+                Launcher.launchPlayStore();
+              }),
         ],
       ),
     );
