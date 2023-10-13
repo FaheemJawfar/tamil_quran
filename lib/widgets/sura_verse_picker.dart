@@ -134,10 +134,11 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
   Widget showVersePickupButton(String label, void Function()? onPressed) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle :
-      ElevatedButton.styleFrom(
-        backgroundColor: ColorConfig.backgroundColor,
-      ),
+      style: quranProvider.isDarkMode
+          ? ColorConfig.darkModeButtonStyle
+          : ElevatedButton.styleFrom(
+              backgroundColor: ColorConfig.backgroundColor,
+            ),
       child: Text(
         label,
         style: TextStyle(
