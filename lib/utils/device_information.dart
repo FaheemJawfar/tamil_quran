@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class DeviceInformation {
 
-  static Future<bool> checkIfHuaweiDevice() async {
+  static Future<bool> isHuaweiDevice() async {
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo;
 

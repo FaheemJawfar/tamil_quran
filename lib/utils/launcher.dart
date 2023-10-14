@@ -67,7 +67,7 @@ class Launcher {
 
   static Future<void> findDeviceModelAndLaunchAppStore() async {
     if (Platform.isAndroid) {
-      bool isHuawei = await DeviceInformation.checkIfHuaweiDevice();
+      bool isHuawei = await DeviceInformation.isHuaweiDevice();
       if(isHuawei){
         launchWebpage(AppConfig.huaweiAppGalleryUrl);
       } else {
