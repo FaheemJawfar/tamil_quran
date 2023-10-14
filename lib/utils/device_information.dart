@@ -1,5 +1,5 @@
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class DeviceInformation {
 
@@ -10,7 +10,6 @@ class DeviceInformation {
     try {
       androidInfo = await deviceInfo.androidInfo;
     } catch (e) {
-      // Handle errors
       debugPrint("Error getting device info: $e");
       return false;
     }
