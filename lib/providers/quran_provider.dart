@@ -67,13 +67,13 @@ class QuranProvider extends ChangeNotifier {
 
   loadTranslation() async {
     _allSurasTamil = await DataParser.loadXmlFromAssets(
-        'assets/quran_db/$selectedTranslation.xml');
+        selectedTranslation);
     notifyListeners();
   }
 
   loadQuranArabic() async {
     _allSurasArabic =
-        await DataParser.loadXmlFromAssets('assets/quran_db/quran.xml');
+        await DataParser.loadXmlFromAssets('quran');
     notifyListeners();
   }
 
