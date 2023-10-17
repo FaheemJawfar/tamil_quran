@@ -20,10 +20,11 @@ class QuranProvider extends ChangeNotifier {
   ThemeData get quranTheme =>
       isDarkMode ? ColorConfig.quranDarkTheme : ColorConfig.quranLightTheme;
 
-  String _selectedTranslation = 'pj';
+  String _selectedTranslation = 'm_john';
 
   Map<String, String> translations = {
     'm_john': 'முஹம்மது ஜான் டிரஸ்ட் (John Trust)',
+    'pj': 'P. ஜெய்னுல் ஆப்தீன்',
     'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி',
     'ift': 'இஸ்லாமிய நிறுவனம் டிரஸ்ட் (IFT)',
     'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
@@ -88,30 +89,30 @@ class QuranProvider extends ChangeNotifier {
 
   QuranAya get bismillahArabic {
     QuranAya bismillah = QuranAya(
-        suraIndex: 0, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text, ayaNumberList: '0');
+        suraIndex: 1, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text, ayaNumberList: '1');
     return bismillah;
   }
 
   QuranAya get bismillahTranslation {
     QuranAya bismillah = QuranAya(
-        suraIndex: 0, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text, ayaNumberList: '0');
+        suraIndex: 1, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text, ayaNumberList: '1');
     return bismillah;
   }
 
   List<QuranAya> get selectedSuraTranslation {
     List<QuranAya> content = [];
-    // if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9) {
-    //   content.add(bismillahTranslation);
-    // }
+    if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9) {
+      content.add(bismillahTranslation);
+    }
     content.addAll(_allSurasTamil[_selectedSuraNumber - 1].listOfAyas);
     return content;
   }
 
   List<QuranAya> get selectedSuraArabic {
     List<QuranAya> content = [];
-    // if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9) {
-    //   content.add(bismillahArabic);
-    // }
+    if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9) {
+      content.add(bismillahArabic);
+    }
     content.addAll(_allSurasArabic[_selectedSuraNumber - 1].listOfAyas);
     return content;
   }
