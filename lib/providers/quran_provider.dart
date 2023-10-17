@@ -20,7 +20,7 @@ class QuranProvider extends ChangeNotifier {
   ThemeData get quranTheme =>
       isDarkMode ? ColorConfig.quranDarkTheme : ColorConfig.quranLightTheme;
 
-  String _selectedTranslation = 'm_john';
+  String _selectedTranslation = 'pj';
 
   Map<String, String> translations = {
     'm_john': 'முஹம்மது ஜான் டிரஸ்ட் (John Trust)',
@@ -88,13 +88,13 @@ class QuranProvider extends ChangeNotifier {
 
   QuranAya get bismillahArabic {
     QuranAya bismillah = QuranAya(
-        suraIndex: 0, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text);
+        suraIndex: 0, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text, ayaNumberList: '');
     return bismillah;
   }
 
   QuranAya get bismillahTranslation {
     QuranAya bismillah = QuranAya(
-        suraIndex: 0, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text);
+        suraIndex: 0, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text, ayaNumberList: '');
     return bismillah;
   }
 

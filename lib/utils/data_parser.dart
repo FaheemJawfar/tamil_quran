@@ -16,10 +16,16 @@ class DataParser {
       final suraIndex = int.parse(suraElement.getAttribute('index')!);
       final ayas = <QuranAya>[];
 
+      int ayaIndex = 1;
+
       for (var ayaElement in suraElement.findElements('aya')) {
-        final ayaIndex = int.parse(ayaElement.getAttribute('index')!);
+        final ayaNumberList = ayaElement.getAttribute('index');
         final ayaText = ayaElement.getAttribute('text');
-        ayas.add(QuranAya(suraIndex: suraIndex, ayaIndex: ayaIndex, text: ayaText!));
+        ayas.add(QuranAya(suraIndex: suraIndex, ayaIndex: ayaIndex, ayaNumberList: ayaNumberList!, text: ayaText!));
+
+        print('aya: $ayaIndex');
+        print(ayaText);
+        ayaIndex++;
       }
 
       listOfAllSuras.add(QuranSura(suraIndex, ayas));
