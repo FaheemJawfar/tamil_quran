@@ -8,22 +8,58 @@ import '../bookmarks/bookmark.dart';
 import 'quran_aya.dart';
 import '../providers/quran_provider.dart';
 
-class ShowVerse extends StatefulWidget {
+class ShowVersePJ extends StatefulWidget {
   final QuranAya quranAyaArabic;
   final QuranAya quranAyaTranslation;
 
-  const ShowVerse(
+  const ShowVersePJ(
       {required this.quranAyaArabic,
-        required this.quranAyaTranslation,
-        Key? key})
+      required this.quranAyaTranslation,
+      Key? key})
       : super(key: key);
 
   @override
-  State<ShowVerse> createState() => _ShowVerseState();
+  State<ShowVersePJ> createState() => _ShowVersePJState();
 }
 
-class _ShowVerseState extends State<ShowVerse> {
+class _ShowVersePJState extends State<ShowVersePJ> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
+
+
+
+  TextSpan getArabicAyaList(QuranAya quranAya) {
+    List<int> intList = quranAya.ayaNumberList.split(',').map((str) => int.parse(str)).toList();
+
+    List<InlineSpan> spans = [];
+
+    for (int ayaNumber in intList) {
+      spans.add(
+        TextSpan(
+          text: quranProvider.filterOneAyaArabic(quranAya.suraIndex, ayaNumber).text,
+          style: TextStyle(
+            fontSize: quranProvider.arabicFontSize,
+            fontFamily: quranProvider.arabicFont,
+            color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+          ),
+        ),
+      );
+
+      if (ayaNumber != 0) {
+        spans.add(
+          TextSpan(
+            text: '${QuranHelper.getVerseEndSymbol(ayaNumber)} ',
+            style: TextStyle(
+              fontSize: 18,
+              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+            ),
+          ),
+        );
+      }
+    }
+
+    return TextSpan(children: spans);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,33 +84,9 @@ class _ShowVerseState extends State<ShowVerse> {
                   alignment: Alignment.topRight,
                   child: RichText(
                     textAlign: TextAlign.right,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: widget.quranAyaArabic.text,
-                          style: TextStyle(
-                            fontSize: quranProvider.arabicFontSize,
-                            fontFamily: quranProvider.arabicFont,
-                            color: quranProvider.isDarkMode
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: widget.quranAyaArabic.ayaIndex == 0
-                              ? ''
-                              : QuranHelper.getVerseEndSymbol(
-                              widget.quranAyaArabic.ayaIndex),
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: quranProvider.isDarkMode
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
+                    text: getArabicAyaList(widget.quranAyaTranslation),
+                  ),
+              ),
               const SizedBox(height: 8),
               Text(
                 widget.quranAyaTranslation.text,
@@ -105,7 +117,7 @@ class _ShowVerseState extends State<ShowVerse> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '${widget.quranAyaTranslation.ayaIndex}. ',
+          '${widget.quranAyaTranslation.ayaNumberList}. ',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
@@ -184,7 +196,7 @@ class _ShowVerseState extends State<ShowVerse> {
             PopupMenuItem<String>(
               value: 'copy_translation',
               child:
-              getPopupMenuItem(Icons.copy, ReadQuranTexts.copyTranslation),
+                  getPopupMenuItem(Icons.copy, ReadQuranTexts.copyTranslation),
             ),
           ],
           child: const Icon(Icons.more_vert),

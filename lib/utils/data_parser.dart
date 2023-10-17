@@ -23,8 +23,6 @@ class DataParser {
         final ayaText = ayaElement.getAttribute('text');
         ayas.add(QuranAya(suraIndex: suraIndex, ayaIndex: ayaIndex, ayaNumberList: ayaNumberList!, text: ayaText!));
 
-        print('aya: $ayaIndex');
-        print(ayaText);
         ayaIndex++;
       }
 

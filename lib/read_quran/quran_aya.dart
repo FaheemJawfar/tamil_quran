@@ -1,3 +1,6 @@
+import 'package:tamil_quran/providers/quran_provider.dart';
+import 'package:tamil_quran/read_quran/quran_helper.dart';
+
 class QuranAya {
   final int suraIndex;
   final int ayaIndex;
@@ -10,4 +13,7 @@ class QuranAya {
     required this.ayaNumberList,
     required this.text,
   });
+
+
+
 }

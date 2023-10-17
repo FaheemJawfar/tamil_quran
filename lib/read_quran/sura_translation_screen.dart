@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:tamil_quran/read_quran/show_verse.dart';
 import 'read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../app_config/color_config.dart';
 import '../utils/shared_preferences.dart';
 import '../providers/quran_provider.dart';
-import 'show_verse.dart';
+import 'show_verse_pj.dart';
 
 class SuraTranslationScreen extends StatefulWidget {
   final int goToVerse;
@@ -70,16 +71,20 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
                 separatorBuilder: (context, index) =>
                     Divider(color: quranProvider.isDarkMode ? null : ColorConfig.primaryColor),
                 itemScrollController: scrollController,
-                itemCount: quranProvider.selectedSuraArabic.length,
+                itemCount: quranProvider.selectedSuraTranslation.length,
                 itemBuilder: (BuildContext context, int index) {
                   return VisibilityDetector(
                     key: Key(index.toString()),
                     onVisibilityChanged: (info) => _updateLastSeen(
                         quranProvider.selectedSuraNumber, index),
-                    child: ShowVerse(
+                    child: quranProvider.selectedTranslation == 'pj' ? ShowVersePJ(
                       quranAyaArabic: quranProvider.selectedSuraArabic[index],
                       quranAyaTranslation:
                           quranProvider.selectedSuraTranslation[index],
+                    ): ShowVerse(
+                      quranAyaArabic: quranProvider.selectedSuraArabic[index],
+                      quranAyaTranslation:
+                      quranProvider.selectedSuraTranslation[index],
                     ),
                   );
                 },
