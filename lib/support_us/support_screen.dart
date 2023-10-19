@@ -56,7 +56,7 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
               InkWell(
                 radius: 100,
                 onTap: () {
-              Launcher.launchWebpage(AppConfig.buyMeACoffee);
+                  Launcher.launchWebpage(AppConfig.buyMeACoffee);
                 },
                 child: Ink.image(
                   image: const AssetImage('assets/images/bmc-button.png'),
@@ -81,31 +81,82 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text(SupportUsTexts.bankAccountDetails),
-                        content: const Column(
+                        title: const Text('Bank Account Details'),
+                        content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              SupportUsTexts.bankAccName,
-                              style: TextStyle(fontSize: 18),
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Name: ',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  TextSpan(
+                                    text: 'J. Faheem',
+                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              SupportUsTexts.bankAccNumber,
-                              style: TextStyle(fontSize: 18),
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Account Number: ',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  TextSpan(
+                                    text: '231020082879',
+                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              SupportUsTexts.bankName,
-                              style: TextStyle(fontSize: 18),
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Bank: ',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  TextSpan(
+                                    text: 'Hatton National Bank (HNB)',
+                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              SupportUsTexts.bankBranchName,
-                              style: TextStyle(fontSize: 18),
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Branch: ',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  TextSpan(
+                                    text: 'Kekirawa',
+                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              SupportUsTexts.bankSwiftCode,
-                              style: TextStyle(fontSize: 18),
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Swift Code: ',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  TextSpan(
+                                    text: 'HBLILKLX',
+                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                  ),
+                                ],
+                              ),
                             ),
+
                             // Add more details as needed
                           ],
                         ),
@@ -114,9 +165,6 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            style: quranProvider.isDarkMode
-                                ? ColorConfig.darkModeButtonStyle
-                                : null,
                             child: const Text('Close'),
                           ),
                         ],
@@ -125,7 +173,10 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                   );
                 },
                 icon: const Icon(Icons.list),
-                label: const Text(SupportUsTexts.bankAccountDetailsTranslation, style: TextStyle(fontSize: 16),),
+                label: const Text(
+                  SupportUsTexts.bankAccountDetailsTranslation,
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
               const Divider(),
               const Text(

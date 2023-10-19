@@ -24,10 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    super.initState();
+    getRandomQuoteNumber();
     loadQuranData();
-    getRandomQuote();
-    checkQuranDb();
+    super.initState();
   }
 
   void loadQuranData() async {
@@ -36,23 +35,18 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     await quranProvider.loadQuranArabic();
     await quranProvider.loadTranslation();
-    isLoading = false;
+    await Future.delayed(const Duration(seconds: 5));
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
-  getRandomQuote() {
+  getRandomQuoteNumber() {
     selectedQuoteNumber =
         Random().nextInt(AboutQuranReferences.listOfVersesAndHadhiths.length);
   }
 
-  void checkQuranDb() {
-    Timer(const Duration(seconds: 5), () {
-      if (isLoading) {
-        checkQuranDb();
-      } else {
-        setState(() {});
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

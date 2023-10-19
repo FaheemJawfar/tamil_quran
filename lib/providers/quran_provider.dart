@@ -89,19 +89,22 @@ class QuranProvider extends ChangeNotifier {
 
   QuranAya get bismillahArabic {
     QuranAya bismillah = QuranAya(
-        suraIndex: 1, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text, ayaNumberList: '1');
+        suraIndex: 0, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text, ayaNumberList: '0');
     return bismillah;
   }
 
   QuranAya get bismillahTranslation {
     QuranAya bismillah = QuranAya(
-        suraIndex: 1, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text, ayaNumberList: '1');
+        suraIndex: 0, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text, ayaNumberList: '0');
     return bismillah;
   }
 
+
+  bool get isPJMode => selectedTranslation == 'pj';
+
   List<QuranAya> get selectedSuraTranslation {
     List<QuranAya> content = [];
-    if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9) {
+    if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9 ) {
       content.add(bismillahTranslation);
     }
     content.addAll(_allSurasTamil[_selectedSuraNumber - 1].listOfAyas);

@@ -77,7 +77,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
                     key: Key(index.toString()),
                     onVisibilityChanged: (info) => _updateLastSeen(
                         quranProvider.selectedSuraNumber, index),
-                    child: quranProvider.selectedTranslation == 'pj' ? ShowVersePJ(
+                    child: quranProvider.isPJMode ?  ShowVersePJ(
                       quranAyaArabic: quranProvider.selectedSuraArabic[index],
                       quranAyaTranslation:
                           quranProvider.selectedSuraTranslation[index],
