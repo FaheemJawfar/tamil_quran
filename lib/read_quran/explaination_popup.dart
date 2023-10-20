@@ -30,6 +30,7 @@ class ExplanationPopup extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                   ),
+
                 ),
               ),
             ),
