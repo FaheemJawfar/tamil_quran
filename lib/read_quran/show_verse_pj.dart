@@ -1,7 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/app_config/color_config.dart';
 import 'package:tamil_quran/read_quran/explaination_popup.dart';
 import 'package:tamil_quran/read_quran/pj_vilakkam.dart';
 import '../app_texts/read_quran_texts.dart';
@@ -94,19 +92,19 @@ class _ShowVersePJState extends State<ShowVersePJ> {
                 style: TextStyle(
                     fontSize: quranProvider.tamilFontSize * 0.8,
                     // Adjust the size as needed
-                    fontFamily: quranProvider.tamilFont,
+                    fontFamily: 'NotoSansTamil',
                     color: Colors.green.shade800,
                    // fontWeight: FontWeight.bold,
                 ),
               ),
               Positioned(
-                top: -quranProvider.tamilFontSize * 0.4,
+                top: - quranProvider.tamilFontSize * 0.4,
                 // Adjust the position as needed
                 child: GestureDetector(
                   child: Container(
                     color: Colors.transparent,
-                    width: 50.0, // Adjust the width as needed
-                    height: 50.0, // Adjust the height as needed
+                    width: 150.0, // Adjust the width as needed
+                    height: 150.0, // Adjust the height as needed
                   ),
                   onTap: () {
                     int tappedNumber =

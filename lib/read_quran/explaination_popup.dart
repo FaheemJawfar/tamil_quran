@@ -9,9 +9,9 @@ class ExplanationPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: const EdgeInsets.all(25),
       child: Container(
-        padding: const EdgeInsets.all(16),
-        width: 300,
+        padding: const EdgeInsets.all(12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -21,6 +21,7 @@ class ExplanationPopup extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -28,7 +29,7 @@ class ExplanationPopup extends StatelessWidget {
                 child: Text(
                   bodyText,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
 
                 ),
