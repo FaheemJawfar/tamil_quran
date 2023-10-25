@@ -160,7 +160,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                       translation.suraIndex,
                                                       translation.ayaIndex),
                                               translation.suraIndex,
-                                              'copy'));
+                                              'copy', context));
                                       break;
                                     case 'addBookmark':
                                       BookmarkHelper.addBookmark(
@@ -184,7 +184,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     translation.suraIndex,
                                                     translation.ayaIndex),
                                             translation.suraIndex,
-                                            'copy'),
+                                            'copy', context),
                                         context,
                                       );
                                       break;
@@ -199,7 +199,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                       translation.suraIndex,
                                                       translation.ayaIndex),
                                               translation.suraIndex,
-                                              'copy_arabic'),
+                                              'copy_arabic', context),
                                           context);
 
                                       break;
@@ -214,7 +214,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                       translation.suraIndex,
                                                       translation.ayaIndex),
                                               translation.suraIndex,
-                                              'copy_translation'),
+                                              'copy_translation', context),
                                           context);
                                       break;
                                   }

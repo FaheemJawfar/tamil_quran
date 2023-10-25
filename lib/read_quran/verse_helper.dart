@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/app_texts/read_quran_texts.dart';
+import 'package:tamil_quran/providers/quran_provider.dart';
 import 'quran_helper.dart';
 import '../common_widgets/show_toast.dart';
 import '../app_config/app_config.dart';
@@ -18,24 +20,54 @@ class VerseHelper {
     await Clipboard.setData(clipboardData);
   }
 
-  static String getVerseCopy(
-      QuranAya arabic, QuranAya translation, int suraNumber, String option) {
+  static String getVerseCopy(QuranAya arabic, QuranAya translationAya,
+      int suraNumber, String option, BuildContext context) {
+    String arabicText = '';
+    String translationText = '';
+    final quranProvider = Provider.of<QuranProvider>(context, listen: false);
+    List<int> intList = translationAya.ayaNumberList
+        .split(',')
+        .map((str) => int.parse(str))
+        .toList();
+
+    for (int ayaNumber in intList) {
+      arabicText +=
+          quranProvider.filterOneAyaArabic(arabic.suraIndex, ayaNumber).text;
+      arabicText += '${QuranHelper.getVerseEndSymbol(ayaNumber)} ';
+    }
+
+    final regex = RegExp(r'\d+');
+    final matches = regex.allMatches(translationAya.text);
+    int previousMatchEnd = 0;
+
+    for (final match in matches) {
+      if (match.start > previousMatchEnd) {
+        translationText +=
+            translationAya.text.substring(previousMatchEnd, match.start);
+      }
+      previousMatchEnd = match.end;
+    }
+
+    if (previousMatchEnd < translationAya.text.length) {
+      translationText += translationAya.text.substring(previousMatchEnd);
+    }
+
     switch (option) {
       case 'copy':
         String verseCopy =
-            '${getArabicVerse(arabic)}\n\n${translation.text}\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${arabic.ayaIndex})\n\n( ${ReadQuranTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )';
+            '$arabicText\n\n$translationText\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${translationAya.ayaNumberList})\n\n( ${ReadQuranTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )';
 
         return verseCopy;
 
       case 'copy_arabic':
         String verseCopy =
-            '${getArabicVerse(arabic)}\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${arabic.ayaIndex})';
+            '$arabicText\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${translationAya.ayaNumberList})';
 
         return verseCopy;
 
       case 'copy_translation':
         String verseCopy =
-            '${translation.text}\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${arabic.ayaIndex})';
+            '$translationText\n\n- (${ReadQuranTexts.holyQuran} $suraNumber:${translationAya.ayaNumberList})';
         return verseCopy;
 
       default:
@@ -45,10 +77,6 @@ class VerseHelper {
 
   static void shareVerse(String verse) {
     Share.share(verse);
-  }
-
-  static String getArabicVerse(QuranAya verse) {
-    return '${verse.text}${QuranHelper.getVerseEndSymbol(verse.ayaIndex)}';
   }
 
   static Future<void> copySura(

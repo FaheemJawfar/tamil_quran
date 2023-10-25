@@ -20,10 +20,10 @@ class QuranProvider extends ChangeNotifier {
   ThemeData get quranTheme =>
       isDarkMode ? ColorConfig.quranDarkTheme : ColorConfig.quranLightTheme;
 
-  String _selectedTranslation = 'm_john';
+  String _selectedTranslation = 'john_trust';
 
   Map<String, String> translations = {
-    'm_john': 'முஹம்மது ஜான் டிரஸ்ட் (John Trust)',
+    'john_trust': 'முஹம்மது ஜான் டிரஸ்ட் (John Trust)',
     'pj': 'P. ஜெய்னுல் ஆப்தீன்',
     'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி',
     'ift': 'இஸ்லாமிய நிறுவனம் டிரஸ்ட் (IFT)',
@@ -209,8 +209,8 @@ class QuranProvider extends ChangeNotifier {
     _tamilFontSize = 19;
     AppPreferences.setDouble('arabicFontSize', 23);
     _arabicFontSize = 23;
-    AppPreferences.setString('selectedTranslation', 'm_john');
-    _selectedTranslation = 'm_john';
+    AppPreferences.setString('selectedTranslation', 'john_trust');
+    _selectedTranslation = 'john_trust';
     AppPreferences.setString('selectedReciter', 'alafasy-pj');
     _selectedReciter = 'alafasy-pj';
     AppPreferences.setBool('isDarkMode', false);

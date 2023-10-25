@@ -9,7 +9,23 @@ import 'home/splash_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPreferences.initialize();
+  updatePreferencesForUsersUpdatingFromV1();
   runApp(const MyApp());
+}
+
+
+void updatePreferencesForUsersUpdatingFromV1(){
+  String? selectedTranslation = AppPreferences.getString('selectedTranslation');
+
+  if(selectedTranslation == 'mJohn' || selectedTranslation == 'm_john'){
+    AppPreferences.setString('selectedTranslation', 'john_trust');
+  }
+  else if(selectedTranslation == 'kingFahd'){
+    AppPreferences.setString('selectedTranslation', 'king_fahd');
+  }
+  else if(selectedTranslation == 'abdulHameed'){
+    AppPreferences.setString('selectedTranslation', 'abdul_hameed');
+  }
 }
 
 class MyApp extends StatelessWidget {
