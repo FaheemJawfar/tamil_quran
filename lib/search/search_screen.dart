@@ -152,14 +152,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                     case 'shareVerse':
                                       VerseHelper.shareVerse(
                                           VerseHelper.getVerseCopy(
-                                              quranProvider.filterOneAyaArabic(
-                                                  translation.suraIndex,
-                                                  translation.ayaIndex),
                                               quranProvider
                                                   .filterOneAyaTranslation(
                                                       translation.suraIndex,
                                                       translation.ayaIndex),
-                                              translation.suraIndex,
                                               'copy', context));
                                       break;
                                     case 'addBookmark':
@@ -176,14 +172,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                     case 'copy':
                                       VerseHelper.copyToClipboard(
                                         VerseHelper.getVerseCopy(
-                                            quranProvider.filterOneAyaArabic(
-                                                translation.suraIndex,
-                                                translation.ayaIndex),
                                             quranProvider
                                                 .filterOneAyaTranslation(
                                                     translation.suraIndex,
                                                     translation.ayaIndex),
-                                            translation.suraIndex,
                                             'copy', context),
                                         context,
                                       );
@@ -191,14 +183,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                     case 'copy_arabic':
                                       VerseHelper.copyToClipboard(
                                           VerseHelper.getVerseCopy(
-                                              quranProvider.filterOneAyaArabic(
-                                                  translation.suraIndex,
-                                                  translation.ayaIndex),
                                               quranProvider
                                                   .filterOneAyaTranslation(
                                                       translation.suraIndex,
                                                       translation.ayaIndex),
-                                              translation.suraIndex,
                                               'copy_arabic', context),
                                           context);
 
@@ -206,14 +194,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                     case 'copy_translation':
                                       VerseHelper.copyToClipboard(
                                           VerseHelper.getVerseCopy(
-                                              quranProvider.filterOneAyaArabic(
-                                                  translation.suraIndex,
-                                                  translation.ayaIndex),
                                               quranProvider
                                                   .filterOneAyaTranslation(
                                                       translation.suraIndex,
                                                       translation.ayaIndex),
-                                              translation.suraIndex,
                                               'copy_translation', context),
                                           context);
                                       break;

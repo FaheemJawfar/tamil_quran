@@ -58,10 +58,7 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
                 break;
               case 'share_sura':
                 VerseHelper.copySura(
-                    quranProvider.selectedSuraArabic,
-                    quranProvider.selectedSuraTranslation,
                     quranProvider.selectedSuraNumber,
-                    quranProvider.selectedTranslationName,
                     context);
                 break;
               case 'search':

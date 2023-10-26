@@ -225,9 +225,7 @@ class _ShowVerseState extends State<ShowVerse> {
             switch (value) {
               case 'shareVerse':
                 VerseHelper.shareVerse(VerseHelper.getVerseCopy(
-                    widget.quranAyaArabic,
                     widget.quranAyaTranslation,
-                    quranProvider.selectedSuraNumber,
                     'copy', context));
 
                 break;
@@ -243,18 +241,14 @@ class _ShowVerseState extends State<ShowVerse> {
               case 'copy':
                 VerseHelper.copyToClipboard(
                     VerseHelper.getVerseCopy(
-                        widget.quranAyaArabic,
                         widget.quranAyaTranslation,
-                        quranProvider.selectedSuraNumber,
                         'copy', context),
                     context);
                 break;
               case 'copy_arabic':
                 VerseHelper.copyToClipboard(
                     VerseHelper.getVerseCopy(
-                        widget.quranAyaArabic,
                         widget.quranAyaTranslation,
-                        quranProvider.selectedSuraNumber,
                         'copy_arabic', context),
                     context);
 
@@ -262,9 +256,7 @@ class _ShowVerseState extends State<ShowVerse> {
               case 'copy_translation':
                 VerseHelper.copyToClipboard(
                     VerseHelper.getVerseCopy(
-                        widget.quranAyaArabic,
                         widget.quranAyaTranslation,
-                        quranProvider.selectedSuraNumber,
                         'copy_translation', context),
                     context);
                 break;
