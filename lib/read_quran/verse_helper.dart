@@ -69,25 +69,25 @@ class VerseHelper {
 
       suraFullText.write('$header\n${'-' * header.length}\n');
 
+      if(suraNumber != 1 && suraNumber != 9){
+        suraFullText.write('\n\n${quranProvider.bismillahArabic.text}');
+        suraFullText.write('\n${quranProvider.bismillahTranslation.text}');
+      }
+
       int loopLimit = suraDetails.verseCount < 100 ? suraDetails.verseCount : 100;
 
       for (int i = 1; i < loopLimit; i++) {
-       // final arabicVerse = suraArabic[i];
-        print(i);
         final translationAya = quranProvider.filterOneAyaTranslation(suraNumber, i);
-
-        bool suraStartsWithBismillah = translationAya.ayaIndex == 0;
-
         String verseText =
             '\n\n${getArabicAyaList(translationAya, context)}'
-            '\n${suraStartsWithBismillah ? '' : '${translationAya.ayaNumberList}. '}${getTamilTranslationList(translationAya, context)}';
+            '\n${'${translationAya.ayaNumberList}. '}${getTamilTranslationList(translationAya, context)}';
 
         suraFullText.write(verseText);
       }
 
       if (suraDetails.verseCount > loopLimit) {
         suraFullText.write(
-            '\n\n*****\n(${ReadQuranTexts.balancedVerseCount}: ${(suraDetails.verseCount - 1) - loopLimit})');
+            '\n\n*****');
         suraFullText.write('\n\n${ReadQuranTexts.downloadQuranApp}');
       }
 
