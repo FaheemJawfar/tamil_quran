@@ -2,6 +2,7 @@ import 'package:custom_cupertino_picker/custom_cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/home_texts.dart';
+import '../read_quran/quran_aya.dart';
 import '../read_quran/sura_details.dart';
 import '../read_quran/sura_translation_screen.dart';
 import '../app_config/color_config.dart';
@@ -18,7 +19,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
   late final quranProvider = context.read<QuranProvider>();
 
   int selectedSura = 1;
-  int selectedVerse = 1;
+  int selectedAyaNumber = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +67,10 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                   onSelectedItemChanged: (value) {
                     setState(() {
                       selectedSura = value + 1;
+
+                      if (selectedAyaNumber > SuraDetails.suraList[selectedSura - 1].verseCount) {
+                        selectedAyaNumber = SuraDetails.suraList[selectedSura - 1].verseCount;
+                      }
                     });
                   },
                   children: SuraDetails.suraList
@@ -105,7 +110,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                   ),
                   itemExtent: 40,
                   onSelectedItemChanged: (value) {
-                    selectedVerse = value + 1;
+                    selectedAyaNumber = value + 1;
                   },
                   children: List.generate(
                       SuraDetails.suraList[selectedSura - 1].verseCount,
@@ -119,12 +124,14 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
           Navigator.of(context).pop();
         }),
         showVersePickupButton('OK', () {
+
+          findAyaIndex(selectedSura, selectedAyaNumber);
           quranProvider.selectedSuraNumber = selectedSura;
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) => SuraTranslationScreen(
-                        goToVerse: selectedVerse,
+                        goToVerse: findAyaIndex(selectedSura, selectedAyaNumber),
                       )));
         })
       ],
@@ -147,5 +154,15 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
         ),
       ),
     );
+  }
+
+
+  int findAyaIndex(int selectedSura, int selectedAyaNumber){
+    List<QuranAya> allAyasInSura = quranProvider.allSurasTamil[selectedSura-1].listOfAyas;
+
+    int ayaIndex = allAyasInSura.indexWhere(
+            (element) => element.ayaNumberList.contains(selectedAyaNumber.toString()));
+
+    return ayaIndex + 1;
   }
 }
