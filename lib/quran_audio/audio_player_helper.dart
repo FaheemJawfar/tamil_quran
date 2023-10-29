@@ -3,7 +3,6 @@ import 'package:just_audio/just_audio.dart';
 
 class AudioPlayerHelper {
   final _audioPlayer = AudioPlayer();
-  late void Function() _onAudioFinished;
 
   Future<void> playFromUrl(
       String audioUrl, void Function() onAudioFinished) async {

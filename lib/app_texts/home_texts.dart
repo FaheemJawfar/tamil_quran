@@ -45,6 +45,7 @@ class HomeTexts {
   // Quran App Drawer
   static const String appNameSubtitle = '(திருக்குர்ஆன் தமிழாக்கம்)';
   static const String quranAudio = 'திருக்குர்ஆன் - ஆடியோ';
+  static const String explanation = 'விளக்கக் குறிப்புகள்';
   static const String searchInQuran = 'திருக்குர்ஆனில் தேடுக';
   static const String goToVerse = 'வசனத்திற்குச் செல்க';
   static const String settingsTranslation = 'அமைப்புகள்';

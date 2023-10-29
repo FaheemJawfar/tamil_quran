@@ -47,7 +47,6 @@ dependencies:
   http: ^1.1.0
   just_audio: ^0.9.35
   device_info_plus: ^9.0.3
-  audioplayers: ^5.2.0
 
 
 

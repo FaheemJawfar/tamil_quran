@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tamil_quran/read_quran/thafseer_screen.dart';
 import '../app_texts/home_texts.dart';
 import '../app_config/app_config.dart';
 import '../app_config/color_config.dart';
@@ -93,6 +94,8 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
               HomeTexts.quranAudio,
               context,
               const QuranAudioPlayerScreen()),
+          if(quranProvider.isPJMode) _buildListTiles(const Icon(Icons.notes),
+              HomeTexts.explanation, context, const ThafseerScreen()),
           _buildListTiles(const Icon(Icons.search),
               HomeTexts.searchInQuran, context, const SearchScreen()),
           _buildActionListTiles(

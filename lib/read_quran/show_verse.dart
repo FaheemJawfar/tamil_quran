@@ -32,14 +32,11 @@ class _ShowVerseState extends State<ShowVerse> {
   final AudioPlayerHelper audioPlayer = AudioPlayerHelper();
   bool isPlaying = false;
 
-
-
   @override
   void dispose() {
     audioPlayer.dispose();
     super.dispose();
   }
-
 
   void playAudio() {
     setState(() {
@@ -52,10 +49,10 @@ class _ShowVerseState extends State<ShowVerse> {
         .map((str) => int.parse(str))
         .toList();
 
-    for(var aya in ayaList){
-      listOfAudioSource.add(
-          AudioSource.uri(Uri.parse(QuranHelper.getAudioURLByAya(
-              widget.quranAyaTranslation.suraIndex, aya),)));
+    for (var aya in ayaList) {
+      listOfAudioSource.add(AudioSource.uri(Uri.parse(
+        QuranHelper.getAudioURLByAya(widget.quranAyaTranslation.suraIndex, aya),
+      )));
     }
 
     audioPlayer.playAudioPlayList(listOfAudioSource, () {
@@ -63,7 +60,6 @@ class _ShowVerseState extends State<ShowVerse> {
         isPlaying = false;
       });
     });
-
   }
 
   void pauseAudio() {
@@ -81,9 +77,6 @@ class _ShowVerseState extends State<ShowVerse> {
   void seekTo(Duration position) {
     audioPlayer.seek(position);
   }
-
-
-
 
   TextSpan getArabicAyaList(QuranAya quranAya) {
     if (quranProvider.isPJMode) {
@@ -119,8 +112,7 @@ class _ShowVerseState extends State<ShowVerse> {
       }
 
       return TextSpan(children: spans);
-    }
-    else {
+    } else {
       return TextSpan(
         children: [
           TextSpan(
@@ -144,21 +136,72 @@ class _ShowVerseState extends State<ShowVerse> {
   }
 
   RichText getTranslationWithTappableNumbers(String text) {
+    if (quranProvider.isPJMode) {
+      final regex =
+          RegExp(r'\d+'); // This regex matches one or more digits in the text.
 
-    if(quranProvider.isPJMode){
-    final regex =
-        RegExp(r'\d+'); // This regex matches one or more digits in the text.
+      final matches = regex.allMatches(text);
 
-    final matches = regex.allMatches(text);
+      final spans = <InlineSpan>[];
+      int previousMatchEnd = 0;
 
-    final spans = <InlineSpan>[];
-    int previousMatchEnd = 0;
+      for (final match in matches) {
+        if (match.start > previousMatchEnd) {
+          // Add non-tappable text before the number
+          spans.add(TextSpan(
+            text: text.substring(previousMatchEnd, match.start),
+            style: TextStyle(
+              fontSize: quranProvider.tamilFontSize,
+              fontFamily: quranProvider.tamilFont,
+              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+            ),
+          ));
+        }
 
-    for (final match in matches) {
-      if (match.start > previousMatchEnd) {
-        // Add non-tappable text before the number
+        // Wrap the number and position it above the text using a Stack
+        spans.add(
+          WidgetSpan(
+            child: Stack(
+              children: [
+                Text(
+                  text.substring(match.start, match.end),
+                  style: TextStyle(
+                    fontSize: quranProvider.tamilFontSize * 0.8,
+                    // Adjust the size as needed
+                    fontFamily: 'NotoSansTamil',
+                    color: Colors.green.shade800,
+                    // fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Positioned(
+                  top: -quranProvider.tamilFontSize * 0.4,
+                  // Adjust the position as needed
+                  child: GestureDetector(
+                    child: Container(
+                      color: Colors.transparent,
+                      width: 150.0, // Adjust the width as needed
+                      height: 150.0, // Adjust the height as needed
+                    ),
+                    onTap: () {
+                      int tappedNumber =
+                          int.parse(text.substring(match.start, match.end));
+
+                      showExplanationPopup(context, tappedNumber);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+
+        previousMatchEnd = match.end;
+      }
+
+      // Add any remaining non-tappable text after the last number
+      if (previousMatchEnd < text.length) {
         spans.add(TextSpan(
-          text: text.substring(previousMatchEnd, match.start),
+          text: text.substring(previousMatchEnd),
           style: TextStyle(
             fontSize: quranProvider.tamilFontSize,
             fontFamily: quranProvider.tamilFont,
@@ -167,50 +210,11 @@ class _ShowVerseState extends State<ShowVerse> {
         ));
       }
 
-      // Wrap the number and position it above the text using a Stack
-      spans.add(
-        WidgetSpan(
-          child: Stack(
-            children: [
-              Text(
-                text.substring(match.start, match.end),
-                style: TextStyle(
-                  fontSize: quranProvider.tamilFontSize * 0.8,
-                  // Adjust the size as needed
-                  fontFamily: 'NotoSansTamil',
-                  color: Colors.green.shade800,
-                  // fontWeight: FontWeight.bold,
-                ),
-              ),
-              Positioned(
-                top: -quranProvider.tamilFontSize * 0.4,
-                // Adjust the position as needed
-                child: GestureDetector(
-                  child: Container(
-                    color: Colors.transparent,
-                    width: 150.0, // Adjust the width as needed
-                    height: 150.0, // Adjust the height as needed
-                  ),
-                  onTap: () {
-                    int tappedNumber =
-                        int.parse(text.substring(match.start, match.end));
-
-                    showExplanationPopup(context, tappedNumber);
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-      previousMatchEnd = match.end;
-    }
-
-    // Add any remaining non-tappable text after the last number
-    if (previousMatchEnd < text.length) {
-      spans.add(TextSpan(
-        text: text.substring(previousMatchEnd),
+      return RichText(text: TextSpan(children: spans));
+    } else {
+      return RichText(
+          text: TextSpan(
+        text: widget.quranAyaTranslation.text,
         style: TextStyle(
           fontSize: quranProvider.tamilFontSize,
           fontFamily: quranProvider.tamilFont,
@@ -218,23 +222,7 @@ class _ShowVerseState extends State<ShowVerse> {
         ),
       ));
     }
-
-    return RichText(text: TextSpan(children: spans));
   }
-  else {
-    return RichText(text: TextSpan(
-      text: widget.quranAyaTranslation.text,
-      style: TextStyle(
-        fontSize: quranProvider.tamilFontSize,
-        fontFamily: quranProvider.tamilFont,
-        color: quranProvider.isDarkMode ? Colors.white : Colors.black,
-      ),
-    ));
-    }
-  }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -270,8 +258,7 @@ class _ShowVerseState extends State<ShowVerse> {
             switch (value) {
               case 'shareVerse':
                 VerseHelper.shareVerse(VerseHelper.getVerseCopy(
-                    widget.quranAyaTranslation,
-                    'copy', context));
+                    widget.quranAyaTranslation, 'copy', context));
 
                 break;
               case 'addBookmark':
@@ -286,22 +273,19 @@ class _ShowVerseState extends State<ShowVerse> {
               case 'copy':
                 VerseHelper.copyToClipboard(
                     VerseHelper.getVerseCopy(
-                        widget.quranAyaTranslation,
-                        'copy', context),
+                        widget.quranAyaTranslation, 'copy', context),
                     context);
                 break;
               case 'copy_arabic':
                 VerseHelper.copyToClipboard(
                     VerseHelper.getVerseCopy(
-                        widget.quranAyaTranslation,
-                        'copy_arabic', context),
+                        widget.quranAyaTranslation, 'copy_arabic', context),
                     context);
 
                 break;
               case 'copy_translation':
                 VerseHelper.copyToClipboard(
-                    VerseHelper.getVerseCopy(
-                        widget.quranAyaTranslation,
+                    VerseHelper.getVerseCopy(widget.quranAyaTranslation,
                         'copy_translation', context),
                     context);
                 break;
@@ -351,14 +335,22 @@ class _ShowVerseState extends State<ShowVerse> {
         // ),
         Align(
           alignment: Alignment.topLeft,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 4.0),
-          child: InkWell(
-              onTap: isPlaying ? stopAudio : playAudio,
-              child: isPlaying ? Icon(Icons.stop_circle, color: Colors.red,): Icon(Icons.play_circle, color: ColorConfig.primaryColor,)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 4.0),
+            child: InkWell(
+                onTap: isPlaying ? stopAudio : playAudio,
+                child: isPlaying
+                    ? const Icon(
+                        Icons.stop_circle,
+                        color: Colors.red,
+                      )
+                    : Icon(
+                        Icons.play_circle,
+                        color: ColorConfig.primaryColor,
+                      )),
+          ),
         ),
-        ),
-        
+
         Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: Column(
