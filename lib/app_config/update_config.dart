@@ -3,7 +3,7 @@ import '../utils/shared_preferences.dart';
 class UpdateAppConfig {
 
 
-  static void updatePreferencesForUsersUpdatingFromV1(){
+  static void updatePreferencesFromV1(){
     String? selectedTranslation = AppPreferences.getString('selectedTranslation');
 
     if(selectedTranslation == 'mJohn' || selectedTranslation == 'm_john'){

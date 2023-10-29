@@ -10,7 +10,7 @@ import 'home/splash_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPreferences.initialize();
-  UpdateAppConfig.updatePreferencesForUsersUpdatingFromV1();
+  UpdateAppConfig.updatePreferencesFromV1();
   runApp(const MyApp());
 }
 
