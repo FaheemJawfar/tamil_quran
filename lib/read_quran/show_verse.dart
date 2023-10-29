@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_config/color_config.dart';
 import 'package:tamil_quran/read_quran/explaination_popup.dart';
@@ -30,12 +31,7 @@ class _ShowVerseState extends State<ShowVerse> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
   final AudioPlayerHelper audioPlayer = AudioPlayerHelper();
   bool isPlaying = false;
-  late List<int> ayaList = widget.quranAyaTranslation.ayaNumberList
-      .split(',')
-      .map((str) => int.parse(str))
-      .toList();
 
-  int currentAyaIndexInList = 0;
 
 
   @override
@@ -44,29 +40,30 @@ class _ShowVerseState extends State<ShowVerse> {
     super.dispose();
   }
 
+
   void playAudio() {
     setState(() {
       isPlaying = true;
     });
-    print(QuranHelper.getAudioURLByAya(widget.quranAyaTranslation.suraIndex,
-        ayaList[currentAyaIndexInList]));
-    audioPlayer.playFromUrl(QuranHelper.getAudioURLByAya(widget.quranAyaTranslation.suraIndex,
-        ayaList[currentAyaIndexInList])
 
-      , playNextAya);
+    List<AudioSource> listOfAudioSource = [];
+    List<int> ayaList = widget.quranAyaTranslation.ayaNumberList
+        .split(',')
+        .map((str) => int.parse(str))
+        .toList();
 
-  }
-
-  playNextAya(){
-    currentAyaIndexInList++;
-    if(ayaList.length > currentAyaIndexInList){
-      playAudio();
+    for(var aya in ayaList){
+      listOfAudioSource.add(
+          AudioSource.uri(Uri.parse(QuranHelper.getAudioURLByAya(
+              widget.quranAyaTranslation.suraIndex, aya),)));
     }
-    else {
-      currentAyaIndexInList = 0;
-      audioPlayer.dispose();
-      setState(() {isPlaying = false;});
-    }
+
+    audioPlayer.playAudioPlayList(listOfAudioSource, () {
+      setState(() {
+        isPlaying = false;
+      });
+    });
+
   }
 
   void pauseAudio() {
@@ -77,7 +74,7 @@ class _ShowVerseState extends State<ShowVerse> {
     setState(() {
       isPlaying = false;
     });
-    currentAyaIndexInList = 0;
+
     audioPlayer.stop();
   }
 
