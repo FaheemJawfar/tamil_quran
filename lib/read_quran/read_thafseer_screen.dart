@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tamil_quran/providers/quran_provider.dart';
 
 class ReadThafseerScreen extends StatefulWidget {
   final String header;
@@ -76,7 +78,7 @@ class _ReadThafseerScreenState extends State<ReadThafseerScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             widget.content,
-            style: const TextStyle(fontSize: 16.0),
+            style: TextStyle(fontSize: Provider.of<QuranProvider>(context, listen: false).tamilFontSize),
           ),
         ),
       ),

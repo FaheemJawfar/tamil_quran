@@ -124,8 +124,6 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
           Navigator.of(context).pop();
         }),
         showVersePickupButton('OK', () {
-
-          findAyaIndex(selectedSura, selectedAyaNumber);
           quranProvider.selectedSuraNumber = selectedSura;
           Navigator.pushReplacement(
               context,

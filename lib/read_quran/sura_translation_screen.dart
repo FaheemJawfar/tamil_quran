@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:tamil_quran/read_quran/quran_aya.dart';
+import 'package:tamil_quran/read_quran/verse_helper.dart';
 import 'read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../app_config/color_config.dart';
@@ -51,7 +53,16 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
 
   void _updateLastSeen(int suraNumber, int verseNumber) {
     AppPreferences.setInt('lastSeenSura', suraNumber);
-    AppPreferences.setInt('lastSeenVerse', verseNumber);
+    AppPreferences.setInt('lastSeenVerse', findAyaIndex(suraNumber, verseNumber));
+  }
+
+  int findAyaIndex(int selectedSura, int selectedAyaNumber){
+    List<QuranAya> allAyasInSura = quranProvider.allSurasTamil[selectedSura-1].listOfAyas;
+
+    int ayaIndex = allAyasInSura.indexWhere(
+            (element) => element.ayaNumberList.contains(selectedAyaNumber.toString()));
+
+    return ayaIndex + 1;
   }
 
   @override

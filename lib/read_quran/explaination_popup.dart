@@ -23,7 +23,8 @@ class ExplanationPopup extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
+            Divider(),
+            //const SizedBox(height: 10),
             Expanded(
               child: SingleChildScrollView(
                 child: Text(

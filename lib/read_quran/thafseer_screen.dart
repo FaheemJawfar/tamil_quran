@@ -35,7 +35,7 @@ class _ThafseerScreenState extends State<ThafseerScreen> {
           return Column(
             children: <Widget>[
               ListTile(
-                title: Text(thafseerHeader),
+                title: Text(thafseerHeader, style: const TextStyle(fontSize: 18),),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ReadThafseerScreen(
                     header: thafseerHeader,
