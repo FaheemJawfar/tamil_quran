@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamil_quran/app_config/color_config.dart';
 import 'package:tamil_quran/read_quran/explaination_popup.dart';
-import 'package:tamil_quran/read_quran/pj_vilakkam.dart';
+import 'package:tamil_quran/read_quran/pj_thafseer.dart';
 import '../app_texts/read_quran_texts.dart';
 import '../bookmarks/bookmark_helper.dart';
+import '../quran_audio/audio_player_helper.dart';
 import 'quran_helper.dart';
 import 'verse_helper.dart';
 import '../bookmarks/bookmark.dart';
@@ -26,6 +28,65 @@ class ShowVerse extends StatefulWidget {
 
 class _ShowVerseState extends State<ShowVerse> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
+  final AudioPlayerHelper audioPlayer = AudioPlayerHelper();
+  bool isPlaying = false;
+  late List<int> ayaList = widget.quranAyaTranslation.ayaNumberList
+      .split(',')
+      .map((str) => int.parse(str))
+      .toList();
+
+  int currentAyaIndexInList = 0;
+
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
+  }
+
+  void playAudio() {
+    setState(() {
+      isPlaying = true;
+    });
+    print(QuranHelper.getAudioURLByAya(widget.quranAyaTranslation.suraIndex,
+        ayaList[currentAyaIndexInList]));
+    audioPlayer.playFromUrl(QuranHelper.getAudioURLByAya(widget.quranAyaTranslation.suraIndex,
+        ayaList[currentAyaIndexInList])
+
+      , playNextAya);
+
+  }
+
+  playNextAya(){
+    currentAyaIndexInList++;
+    if(ayaList.length > currentAyaIndexInList){
+      playAudio();
+    }
+    else {
+      currentAyaIndexInList = 0;
+      audioPlayer.dispose();
+      setState(() {isPlaying = false;});
+    }
+  }
+
+  void pauseAudio() {
+    audioPlayer.pause();
+  }
+
+  void stopAudio() {
+    setState(() {
+      isPlaying = false;
+    });
+    currentAyaIndexInList = 0;
+    audioPlayer.stop();
+  }
+
+  void seekTo(Duration position) {
+    audioPlayer.seek(position);
+  }
+
+
+
 
   TextSpan getArabicAyaList(QuranAya quranAya) {
     if (quranProvider.isPJMode) {
@@ -177,19 +238,6 @@ class _ShowVerseState extends State<ShowVerse> {
 
 
 
-  // String extractTextFromTextSpan(TextSpan textSpan) {
-  //   String result = '';
-  //
-  //   if(textSpan.children != null) {
-  //     for (TextSpan childSpan in textSpan.children) {
-  //       if (childSpan.text != null) {
-  //         result += childSpan.text!;
-  //       }
-  //     }
-  //   }
-  //     return result;
-  // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -301,9 +349,19 @@ class _ShowVerseState extends State<ShowVerse> {
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: _buildOptionsRow(),
         ),
-        const SizedBox(
-          height: 12,
+        // const SizedBox(
+        //   height: 12,
+        // ),
+        Align(
+          alignment: Alignment.topLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 4.0),
+          child: InkWell(
+              onTap: isPlaying ? stopAudio : playAudio,
+              child: isPlaying ? Icon(Icons.stop_circle, color: Colors.red,): Icon(Icons.play_circle, color: ColorConfig.primaryColor,)),
         ),
+        ),
+        
         Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: Column(

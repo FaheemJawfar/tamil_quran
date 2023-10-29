@@ -37,8 +37,10 @@ class QuranHelper {
     return "https://cdn.islamic.network/quran/audio-surah/128/${reciter.identifier}/$suraNumber.mp3";
   }
 
-  static String getAudioURLByAya(String reciter, int ayaNumber) {
-    return "https://cdn.islamic.network/quran/audio-surah/128/$reciter/$ayaNumber.mp3";
+  static String getAudioURLByAya(int suraNumber, int ayaNumber) {
+
+    int ayaIndex = getAyaIndex(suraNumber, ayaNumber);
+    return "https://cdn.islamic.network/quran/audio/128/ar.alafasy/$ayaIndex.mp3";
   }
 
   static int getAyaIndex(int suraNumber, int ayaNumber) {
