@@ -68,14 +68,13 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                       ),
                     ),
                   ),
-                  title: Text(
-                    quranProvider
-                        .filterOneAyaArabic(
-                            int.parse(currentBookmark.suraNumber),
-                            int.parse(currentBookmark.verseNumber))
-                        .text,
+                  title: RichText(
+                    text: quranProvider
+                        .getArabicAyaListFromTranslation(quranProvider.filterOneAyaTranslation(
+                        int.parse(currentBookmark.suraNumber),
+                        int.parse(currentBookmark.verseNumber)), 16),
                     textDirection: TextDirection.rtl,
-                    style: TextStyle(fontFamily: quranProvider.arabicFont),
+
                   ),
                   subtitle: Text(quranProvider
                       .filterOneAyaTranslation(

@@ -4,7 +4,6 @@ import '../app_texts/search_texts.dart';
 import '../read_quran/sura_translation_screen.dart';
 import '../app_config/color_config.dart';
 import '../bookmarks/bookmark_helper.dart';
-import '../read_quran/quran_helper.dart';
 import '../read_quran/verse_helper.dart';
 import '../bookmarks/bookmark.dart';
 import '../read_quran/quran_aya.dart';
@@ -127,7 +126,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '${translation.suraIndex}:${translation.ayaIndex}',
+                                '${translation.suraIndex}:${translation.ayaNumberList}',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
                               ),
@@ -256,36 +255,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               Align(
                                 alignment: Alignment.topRight,
                                 child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: quranProvider
-                                            .filterOneAyaArabic(
-                                                translation.suraIndex,
-                                                translation.ayaIndex)
-                                            .text,
-                                        style: TextStyle(
-                                          fontSize:
-                                              quranProvider.arabicFontSize,
-                                          fontFamily: quranProvider.arabicFont,
-                                          color: quranProvider.isDarkMode
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                          text: QuranHelper.getVerseEndSymbol(
-                                            translation.ayaIndex,
-                                          ),
-                                          style: TextStyle(
-                                            fontSize:
-                                                quranProvider.arabicFontSize,
-                                            color: quranProvider.isDarkMode
-                                                ? Colors.white
-                                                : Colors.black,
-                                          )),
-                                    ],
-                                  ),
+                                  text: quranProvider.getArabicAyaListFromTranslation(translation, quranProvider.arabicFontSize),
                                   textAlign: TextAlign.right,
                                 ),
                               ),

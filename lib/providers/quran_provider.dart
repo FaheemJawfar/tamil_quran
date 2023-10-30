@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app_config/color_config.dart';
+import '../read_quran/quran_helper.dart';
 import '../utils/data_parser.dart';
 import '../utils/shared_preferences.dart';
 import '../read_quran/quran_sura.dart';
@@ -134,6 +135,41 @@ class QuranProvider extends ChangeNotifier {
   QuranAya filterOneAyaTranslation(int sura, int aya) {
     return _allSurasTamil[sura - 1].listOfAyas[aya - 1];
   }
+
+
+  TextSpan getArabicAyaListFromTranslation(QuranAya quranAya, double desiredArabicFontSize) {
+      List<int> intList = quranAya.ayaNumberList
+          .split(',')
+          .map((str) => int.parse(str))
+          .toList();
+
+      List<InlineSpan> spans = [];
+
+      for (int ayaNumber in intList) {
+        spans.add(
+          TextSpan(
+            text: filterOneAyaArabic(quranAya.suraIndex, ayaNumber).text,
+            style: TextStyle(
+              fontSize: desiredArabicFontSize,
+              fontFamily: arabicFont,
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
+          ),
+        );
+        spans.add(
+          TextSpan(
+            text: '${QuranHelper.getVerseEndSymbol(ayaNumber)} ',
+            style: TextStyle(
+              fontSize: 18,
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
+          ),
+        );
+      }
+
+      return TextSpan(children: spans);
+  }
+
 
   String _tamilFont = 'MUktaMalar';
 
