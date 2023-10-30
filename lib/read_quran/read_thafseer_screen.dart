@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:tamil_quran/common_widgets/show_toast.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
+import 'package:tamil_quran/read_quran/verse_helper.dart';
 
 class ReadThafseerScreen extends StatefulWidget {
   final String header;
   final String content;
-  final int thaseerNumber;
+  final int thafseerNumber;
 
   const ReadThafseerScreen({
     required this.header,
     required this.content,
-    required this.thaseerNumber,
+    required this.thafseerNumber,
     Key? key,
   }) : super(key: key);
 
@@ -67,10 +68,11 @@ class _ReadThafseerScreenState extends State<ReadThafseerScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
               onPressed: () {
-              String textToShare = '${widget.header}\n${'-' * widget.header.length}\n\n${widget.content}\n\n${'*' * widget.header.length}\nP. ஜைனுலாப்தீன் அவர்கள் மொழிபெயர்த்த திருக்குர்ஆன் தமிழாக்கத்தின் ${widget.thaseerNumber}வது விளக்கக் குறிப்பு.';
-              Share.share(textToShare);
+              String textToShare = '${widget.header}\n${'-' * widget.header.length}\n\n${widget.content}\n\n${'*' * widget.header.length}\nP. ஜைனுலாப்தீன் அவர்கள் மொழிபெயர்த்த திருக்குர்ஆன் தமிழாக்கத்தின் ${widget.thafseerNumber}வது விளக்கக் குறிப்பு.';
+              VerseHelper.copyText(textToShare);
+              ShowToast.showToast(context, 'விளக்கக் குறிப்பு பிரதி செய்யப்பட்டது!');
 
-          }, icon: const Icon(Icons.share)),
+          }, icon: const Icon(Icons.copy_all)),
         ],
       ),
       body: SingleChildScrollView(

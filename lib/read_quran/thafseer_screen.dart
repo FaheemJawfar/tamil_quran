@@ -40,7 +40,7 @@ class _ThafseerScreenState extends State<ThafseerScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ReadThafseerScreen(
                     header: thafseerHeader,
                     content: allThafseer[index].content,
-                    thaseerNumber: index + 1,
+                    thafseerNumber: index + 1,
                   )));
                 },
               ),

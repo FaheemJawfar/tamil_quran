@@ -6,6 +6,7 @@ class ExplanationPopup extends StatelessWidget {
 
   const ExplanationPopup({super.key, required this.headerText, required this.bodyText});
 
+
   @override
   Widget build(BuildContext context) {
     return Dialog(

@@ -20,12 +20,15 @@ class VerseHelper {
     await Clipboard.setData(clipboardData);
   }
 
-  static String getVerseCopy(QuranAya translationAya,
-     String option, BuildContext context) {
+  static Future<void> copyText(String text) async {
+    final clipboardData = ClipboardData(text: text);
+    await Clipboard.setData(clipboardData);
+  }
+
+  static String getVerseCopy(
+      QuranAya translationAya, String option, BuildContext context) {
     String arabicText = getArabicAyaList(translationAya, context);
     String translationText = getTamilTranslationList(translationAya, context);
-
-    
 
     switch (option) {
       case 'copy':
@@ -69,25 +72,25 @@ class VerseHelper {
 
       suraFullText.write('$header\n${'-' * header.length}\n');
 
-      if(suraNumber != 1 && suraNumber != 9){
+      if (suraNumber != 1 && suraNumber != 9) {
         suraFullText.write('\n\n${quranProvider.bismillahArabic.text}');
         suraFullText.write('\n${quranProvider.bismillahTranslation.text}');
       }
 
-      int loopLimit = suraDetails.verseCount < 100 ? suraDetails.verseCount : 100;
+      int loopLimit =
+          suraDetails.verseCount < 100 ? suraDetails.verseCount : 100;
 
       for (int i = 1; i < loopLimit; i++) {
-        final translationAya = quranProvider.filterOneAyaTranslation(suraNumber, i);
-        String verseText =
-            '\n\n${getArabicAyaList(translationAya, context)}'
+        final translationAya =
+            quranProvider.filterOneAyaTranslation(suraNumber, i);
+        String verseText = '\n\n${getArabicAyaList(translationAya, context)}'
             '\n${'${translationAya.ayaNumberList}. '}${getTamilTranslationList(translationAya, context)}';
 
         suraFullText.write(verseText);
       }
 
       if (suraDetails.verseCount > loopLimit) {
-        suraFullText.write(
-            '\n\n*****');
+        suraFullText.write('\n\n*****');
         suraFullText.write('\n\n${ReadQuranTexts.downloadQuranApp}');
       }
 
@@ -97,8 +100,8 @@ class VerseHelper {
           .write('\n${ReadQuranTexts.chapter}:${suraDetails.suraNumber}');
       suraFullText.write(
           '\n${ReadQuranTexts.totalVerseCount}: ${suraDetails.verseCount}');
-      suraFullText
-          .write('\n${ReadQuranTexts.translatedBy}: ${quranProvider.translations[quranProvider.selectedTranslation]}');
+      suraFullText.write(
+          '\n${ReadQuranTexts.translatedBy}: ${quranProvider.translations[quranProvider.selectedTranslation]}');
       suraFullText.write(
           '\n\n(${ReadQuranTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )');
 
@@ -113,9 +116,9 @@ class VerseHelper {
       rethrow;
     }
   }
-  
-  
-  static String getArabicAyaList(QuranAya translationAya, BuildContext context){
+
+  static String getArabicAyaList(
+      QuranAya translationAya, BuildContext context) {
     String arabicText = '';
     final quranProvider = Provider.of<QuranProvider>(context, listen: false);
     List<int> intList = translationAya.ayaNumberList
@@ -124,18 +127,19 @@ class VerseHelper {
         .toList();
 
     for (int ayaNumber in intList) {
-      arabicText +=
-          quranProvider.filterOneAyaArabic(translationAya.suraIndex, ayaNumber).text;
+      arabicText += quranProvider
+          .filterOneAyaArabic(translationAya.suraIndex, ayaNumber)
+          .text;
       arabicText += '${QuranHelper.getVerseEndSymbol(ayaNumber)} ';
     }
-    
+
     return arabicText;
   }
-  
-  
-  static String getTamilTranslationList(QuranAya translationAya, BuildContext context){
+
+  static String getTamilTranslationList(
+      QuranAya translationAya, BuildContext context) {
     String translationText = '';
-    
+
     final regex = RegExp(r'\d+');
     final matches = regex.allMatches(translationAya.text);
     int previousMatchEnd = 0;
@@ -151,7 +155,7 @@ class VerseHelper {
     if (previousMatchEnd < translationAya.text.length) {
       translationText += translationAya.text.substring(previousMatchEnd);
     }
-    
+
     return translationText;
   }
 }

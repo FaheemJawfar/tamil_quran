@@ -169,7 +169,7 @@ class _ShowVerseState extends State<ShowVerse> {
                     fontSize: quranProvider.tamilFontSize * 0.8,
                     // Adjust the size as needed
                     fontFamily: 'NotoSansTamil',
-                    color: Colors.green.shade800,
+                    color: quranProvider.isDarkMode ? Colors.white70 : Colors.green.shade800,
                     // fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -340,13 +340,13 @@ class _ShowVerseState extends State<ShowVerse> {
             child: InkWell(
                 onTap: isPlaying ? stopAudio : playAudio,
                 child: isPlaying
-                    ? const Icon(
+                    ? Icon(
                         Icons.stop_circle,
-                        color: Colors.red,
+                        color: quranProvider.isDarkMode ? Colors.white : Colors.red,
                       )
                     : Icon(
                         Icons.play_circle,
-                        color: ColorConfig.primaryColor,
+                        color: quranProvider.isDarkMode ? Colors.white70 : ColorConfig.primaryColor,
                       )),
           ),
         ),

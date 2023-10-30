@@ -8,8 +8,8 @@ import '../read_quran/quran_aya.dart';
 import '../quran_audio/reciter.dart';
 
 class QuranProvider extends ChangeNotifier {
-
   bool _isDarkMode = false;
+
   bool get isDarkMode => AppPreferences.getBool('isDarkMode') ?? _isDarkMode;
 
   set isDarkMode(bool value) {
@@ -68,14 +68,12 @@ class QuranProvider extends ChangeNotifier {
   get allSurasArabic => _allSurasArabic;
 
   loadTranslation() async {
-    _allSurasTamil = await DataParser.loadXmlFromAssets(
-        selectedTranslation);
+    _allSurasTamil = await DataParser.loadXmlFromAssets(selectedTranslation);
     notifyListeners();
   }
 
   loadQuranArabic() async {
-    _allSurasArabic =
-        await DataParser.loadXmlFromAssets('quran');
+    _allSurasArabic = await DataParser.loadXmlFromAssets('quran');
     notifyListeners();
   }
 
@@ -90,22 +88,34 @@ class QuranProvider extends ChangeNotifier {
 
   QuranAya get bismillahArabic {
     QuranAya bismillah = QuranAya(
-        suraIndex: 0, ayaIndex: 0, text: _allSurasArabic[0].listOfAyas[0].text, ayaNumberList: '0');
+        suraIndex: 0,
+        ayaIndex: 0,
+        text: _allSurasArabic[0].listOfAyas[0].text,
+        ayaNumberList: '0');
     return bismillah;
   }
 
   QuranAya get bismillahTranslation {
     QuranAya bismillah = QuranAya(
-        suraIndex: 0, ayaIndex: 0, text: _allSurasTamil[0].listOfAyas[0].text, ayaNumberList: '0');
+        suraIndex: 0,
+        ayaIndex: 0,
+        text: _allSurasTamil[0].listOfAyas[0].text,
+        ayaNumberList: '0');
     return bismillah;
   }
 
+  bool _isPJMode = false;
 
-  bool get isPJMode => selectedTranslation == 'pj';
+  bool get isPJMode => selectedTranslation == 'pj' ?? _isPJMode;
+
+  set isPJMode(bool value) {
+    _isPJMode = value;
+    notifyListeners();
+  }
 
   List<QuranAya> get selectedSuraTranslation {
     List<QuranAya> content = [];
-    if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9 ) {
+    if (_selectedSuraNumber != 1 && _selectedSuraNumber != 9) {
       content.add(bismillahTranslation);
     }
     content.addAll(_allSurasTamil[_selectedSuraNumber - 1].listOfAyas);
@@ -136,40 +146,37 @@ class QuranProvider extends ChangeNotifier {
     return _allSurasTamil[sura - 1].listOfAyas[aya - 1];
   }
 
+  TextSpan getArabicAyaListFromTranslation(
+      QuranAya quranAya, double desiredArabicFontSize) {
+    List<int> intList =
+        quranAya.ayaNumberList.split(',').map((str) => int.parse(str)).toList();
 
-  TextSpan getArabicAyaListFromTranslation(QuranAya quranAya, double desiredArabicFontSize) {
-      List<int> intList = quranAya.ayaNumberList
-          .split(',')
-          .map((str) => int.parse(str))
-          .toList();
+    List<InlineSpan> spans = [];
 
-      List<InlineSpan> spans = [];
-
-      for (int ayaNumber in intList) {
-        spans.add(
-          TextSpan(
-            text: filterOneAyaArabic(quranAya.suraIndex, ayaNumber).text,
-            style: TextStyle(
-              fontSize: desiredArabicFontSize,
-              fontFamily: arabicFont,
-              color: isDarkMode ? Colors.white : Colors.black,
-            ),
+    for (int ayaNumber in intList) {
+      spans.add(
+        TextSpan(
+          text: filterOneAyaArabic(quranAya.suraIndex, ayaNumber).text,
+          style: TextStyle(
+            fontSize: desiredArabicFontSize,
+            fontFamily: arabicFont,
+            color: isDarkMode ? Colors.white : Colors.black,
           ),
-        );
-        spans.add(
-          TextSpan(
-            text: '${QuranHelper.getVerseEndSymbol(ayaNumber)} ',
-            style: TextStyle(
-              fontSize: 18,
-              color: isDarkMode ? Colors.white : Colors.black,
-            ),
+        ),
+      );
+      spans.add(
+        TextSpan(
+          text: '${QuranHelper.getVerseEndSymbol(ayaNumber)} ',
+          style: TextStyle(
+            fontSize: 18,
+            color: isDarkMode ? Colors.white : Colors.black,
           ),
-        );
-      }
+        ),
+      );
+    }
 
-      return TextSpan(children: spans);
+    return TextSpan(children: spans);
   }
-
 
   String _tamilFont = 'MUktaMalar';
 
@@ -237,21 +244,13 @@ class QuranProvider extends ChangeNotifier {
   }
 
   void clearSettings() {
-    AppPreferences.setString('tamilFont', 'MUktaMalar');
-    _tamilFont = 'MUktaMalar';
-    AppPreferences.setString('arabicFont', 'AlQalam');
-    _arabicFont = 'AlQalam';
-    AppPreferences.setDouble('tamilFontSize', 19);
-    _tamilFontSize = 19;
-    AppPreferences.setDouble('arabicFontSize', 23);
-    _arabicFontSize = 23;
-    AppPreferences.setString('selectedTranslation', 'john_trust');
-    _selectedTranslation = 'john_trust';
-    AppPreferences.setString('selectedReciter', 'alafasy-pj');
-    _selectedReciter = 'alafasy-pj';
-    AppPreferences.setBool('isDarkMode', false);
-    _isDarkMode = false;
-
-    notifyListeners();
+    tamilFont = 'MUktaMalar';
+    arabicFont = 'AlQalam';
+    tamilFontSize = 19;
+    arabicFontSize = 23;
+    selectedTranslation = 'john_trust';
+    selectedReciter = 'alafasy-pj';
+    isDarkMode = false;
+    isPJMode = false;
   }
 }
