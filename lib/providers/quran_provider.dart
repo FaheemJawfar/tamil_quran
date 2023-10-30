@@ -29,6 +29,7 @@ class QuranProvider extends ChangeNotifier {
     'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி',
     'ift': 'இஸ்லாமிய நிறுவனம் டிரஸ்ட் (IFT)',
     'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
+    'tntj': 'தமிழ்நாடு தவ்ஹீத் ஜமாஅத்',
   };
 
   List<String> languageFontsList = const [
@@ -106,7 +107,7 @@ class QuranProvider extends ChangeNotifier {
 
   bool _isPJMode = false;
 
-  bool get isPJMode => selectedTranslation == 'pj' ?? _isPJMode;
+  bool get isPJMode => selectedTranslation == 'pj' || selectedTranslation == 'tntj' ?? _isPJMode;
 
   set isPJMode(bool value) {
     _isPJMode = value;
