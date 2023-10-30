@@ -53,17 +53,10 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
 
   void _updateLastSeen(int suraNumber, int verseNumber) {
     AppPreferences.setInt('lastSeenSura', suraNumber);
-    AppPreferences.setInt('lastSeenVerse', findAyaIndex(suraNumber, verseNumber));
+    AppPreferences.setInt('lastSeenVerse', verseNumber);
+
   }
 
-  int findAyaIndex(int selectedSura, int selectedAyaNumber){
-    List<QuranAya> allAyasInSura = quranProvider.allSurasTamil[selectedSura-1].listOfAyas;
-
-    int ayaIndex = allAyasInSura.indexWhere(
-            (element) => element.ayaNumberList.contains(selectedAyaNumber.toString()));
-
-    return ayaIndex + 1;
-  }
 
   @override
   Widget build(BuildContext context) {

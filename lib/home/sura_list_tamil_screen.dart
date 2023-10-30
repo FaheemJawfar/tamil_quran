@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_config/color_config.dart';
 import '../app_texts/home_texts.dart';
+import '../read_quran/quran_aya.dart';
 import '../utils/shared_preferences.dart';
 import '../read_quran/sura_details.dart';
 import '../read_quran/sura_translation_screen.dart';
@@ -16,6 +17,7 @@ class SuraListTamilScreen extends StatefulWidget {
 
 class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
+
 
 
   @override
@@ -38,7 +40,6 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
         onPressed: () {
           int? sura = AppPreferences.getInt('lastSeenSura');
           int? verse = AppPreferences.getInt('lastSeenVerse');
-
           quranProvider.selectedSuraNumber = sura!;
           Navigator.push(
               context,
