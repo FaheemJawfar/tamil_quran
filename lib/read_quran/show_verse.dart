@@ -376,6 +376,14 @@ class _ShowVerseState extends State<ShowVerse> {
   }
 
   Widget buildBismi() {
+    String bismiArabic = quranProvider.bismillahArabic.text;
+    String bismiTamil =  quranProvider.bismillahTranslation.text;
+
+    if(quranProvider.selectedTranslation == 'tntj'){
+      RegExp numberPattern = RegExp(r'\d+');
+      bismiTamil = bismiTamil.replaceAll(numberPattern, '');
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -387,7 +395,7 @@ class _ShowVerseState extends State<ShowVerse> {
               Align(
                 alignment: Alignment.topRight,
                 child: Text(
-                  quranProvider.bismillahArabic.text,
+                  bismiArabic,
                   style: TextStyle(
                     fontSize: quranProvider.arabicFontSize,
                     fontFamily: quranProvider.arabicFont,
@@ -398,7 +406,7 @@ class _ShowVerseState extends State<ShowVerse> {
               ),
               const SizedBox(height: 8),
               Text(
-                quranProvider.bismillahTranslation.text,
+               bismiTamil,
                 style: TextStyle(
                   fontSize: quranProvider.tamilFontSize,
                   fontFamily: quranProvider.tamilFont,

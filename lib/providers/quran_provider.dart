@@ -24,9 +24,9 @@ class QuranProvider extends ChangeNotifier {
   String _selectedTranslation = 'john_trust';
 
   Map<String, String> translations = {
-    'john_trust': 'முஹம்மது ஜான் டிரஸ்ட் (John Trust)',
+    'john_trust': 'ஜான் டிரஸ்ட் (John Trust)',
     'pj': 'P. ஜெய்னுல் ஆப்தீன்',
-    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி',
+    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா',
     'ift': 'இஸ்லாமிய நிறுவனம் டிரஸ்ட் (IFT)',
     'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
     'tntj': 'தமிழ்நாடு தவ்ஹீத் ஜமாஅத்',
@@ -138,6 +138,11 @@ class QuranProvider extends ChangeNotifier {
 
   QuranAya filterOneAyaTranslation(int sura, int aya) {
     return _allSurasTamil[sura - 1].listOfAyas[aya - 1];
+  }
+
+
+  QuranAya filterOneAyaTranslationFromSearch(int sura, int aya) {
+    return _allSurasTamil[sura - 1].listOfAyas.firstWhere((element) => element.ayaNumberList.split(',').map((str) => int.parse(str)).toList().contains(aya));
   }
 
   TextSpan getArabicAyaListFromTranslation(
