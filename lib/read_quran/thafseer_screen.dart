@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_texts/home_texts.dart';
-import 'package:tamil_quran/read_quran/pj_thafseer.dart';
+import 'package:tamil_quran/providers/quran_provider.dart';
+import 'package:tamil_quran/read_quran/pj_thafseer_content.dart';
 import 'package:tamil_quran/read_quran/read_thafseer_screen.dart';
+import 'package:tamil_quran/read_quran/thafseer.dart';
+import 'package:tamil_quran/read_quran/tntj_thafseer_content.dart';
 
 class ThafseerScreen extends StatefulWidget {
   const ThafseerScreen({Key? key}) : super(key: key);
@@ -11,18 +15,16 @@ class ThafseerScreen extends StatefulWidget {
 }
 
 class _ThafseerScreenState extends State<ThafseerScreen> {
-  // Define a list of titles
-  final List<String> titles = [
-    'Title 1',
-    'Title 2',
-    'Title 3',
-    'Title 4',
-    // Add more titles as needed
-  ];
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
-    List<PJExplanation> allThafseer = PJExplanation.getAllThafseer();
+
+    List allThafseer = quranProvider.selectedTranslation == 'pj'
+        ? Thafseer.getAllThafseer(PJThafseerContent.thafseerList)
+        : quranProvider.selectedTranslation == 'tntj'
+            ?  Thafseer.getAllThafseer(TNTJThafseerContent.thafseerList)
+            : [];
     return Scaffold(
       appBar: AppBar(
         title: const Text(HomeTexts.explanation),
@@ -31,17 +33,23 @@ class _ThafseerScreenState extends State<ThafseerScreen> {
       body: ListView.builder(
         itemCount: allThafseer.length,
         itemBuilder: (context, index) {
-          String thafseerHeader = '${index + 1}. ${allThafseer[index].header}';
+          String thafseerHeader =
+              '${allThafseer[index].index}. ${allThafseer[index].header}';
           return Column(
             children: <Widget>[
               ListTile(
-                title: Text(thafseerHeader, style: const TextStyle(fontSize: 18),),
+                title: Text(
+                  thafseerHeader,
+                  style: const TextStyle(fontSize: 18),
+                ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReadThafseerScreen(
-                    header: thafseerHeader,
-                    content: allThafseer[index].content,
-                    thafseerNumber: index + 1,
-                  )));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ReadThafseerScreen(
+                               selectedThafseer: allThafseer[index],
+                               writtenBy: quranProvider.translations[quranProvider.selectedTranslation]!,
+                              )));
                 },
               ),
               const Divider(

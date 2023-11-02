@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:tamil_quran/read_quran/quran_aya.dart';
-import 'package:tamil_quran/read_quran/verse_helper.dart';
 import 'read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../app_config/color_config.dart';

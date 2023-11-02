@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_config/color_config.dart';
 import '../app_texts/home_texts.dart';
-import '../read_quran/quran_aya.dart';
 import '../utils/shared_preferences.dart';
 import '../read_quran/sura_details.dart';
 import '../read_quran/sura_translation_screen.dart';

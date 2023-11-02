@@ -105,14 +105,7 @@ class QuranProvider extends ChangeNotifier {
     return bismillah;
   }
 
-  bool _isPJMode = false;
-
-  bool get isPJMode => selectedTranslation == 'pj' || selectedTranslation == 'tntj' ?? _isPJMode;
-
-  set isPJMode(bool value) {
-    _isPJMode = value;
-    notifyListeners();
-  }
+  bool get isPJMode => selectedTranslation == 'pj' || selectedTranslation == 'tntj';
 
   List<QuranAya> get selectedSuraTranslation {
     List<QuranAya> content = [];
@@ -252,6 +245,5 @@ class QuranProvider extends ChangeNotifier {
     selectedTranslation = 'john_trust';
     selectedReciter = 'alafasy-pj';
     isDarkMode = false;
-    isPJMode = false;
   }
 }

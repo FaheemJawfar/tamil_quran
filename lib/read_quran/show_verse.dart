@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_config/color_config.dart';
-import 'package:tamil_quran/read_quran/explaination_popup.dart';
-import 'package:tamil_quran/read_quran/pj_thafseer.dart';
+import 'package:tamil_quran/read_quran/pj_thafseer_content.dart';
+import 'package:tamil_quran/read_quran/thafseer.dart';
+import 'package:tamil_quran/read_quran/thafseer_popup.dart';
+import 'package:tamil_quran/read_quran/tntj_thafseer_content.dart';
 import '../app_texts/read_quran_texts.dart';
 import '../bookmarks/bookmark_helper.dart';
 import '../quran_audio/audio_player_helper.dart';
@@ -411,14 +413,17 @@ class _ShowVerseState extends State<ShowVerse> {
   }
 
   void showExplanationPopup(BuildContext context, int tappedNumber) {
-    PJExplanation selectedItem =
-        PJExplanation.getSelectedExplanation(tappedNumber);
+    List thafseerList = quranProvider.selectedTranslation == 'pj'
+        ? PJThafseerContent.thafseerList
+        : quranProvider.selectedTranslation == 'tntj'
+        ? TNTJThafseerContent.thafseerList
+        : [];
+    Thafseer selectedItem = Thafseer.getSelectedExplanation(tappedNumber, thafseerList);
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ExplanationPopup(
-            headerText: '$tappedNumber. ${selectedItem.header}',
-            bodyText: selectedItem.content);
+        return ThafseerPopup(
+        selectedThafseer: selectedItem);
       },
     );
   }
