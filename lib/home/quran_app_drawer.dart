@@ -101,7 +101,7 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
           _buildListTiles(const Icon(Icons.search),
               HomeTexts.searchInQuran, context, const SearchScreen()),
           _buildActionListTiles(
-            const Icon(Icons.shuffle_sharp),
+            _buildImageIcon('assets/images/fast-forward.png'),
             (HomeTexts.goToVerse),
             context,
             () => _showVersePicker(context),

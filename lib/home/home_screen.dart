@@ -99,7 +99,9 @@ class _HomeScreenState extends State<HomeScreen>
               onPressed: () {
                 _showVersePicker(context);
               },
-              icon: const Icon(Icons.shuffle_sharp)),
+              icon: ImageIcon(
+                AssetImage('assets/images/fast-forward.png'),
+              ),),
           const HomeScreenPopupMenu(),
         ],
         bottom: TabBar(

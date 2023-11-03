@@ -158,7 +158,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                               'copy', context));
                                       break;
                                     case 'addBookmark':
-                                      BookmarkHelper.addBookmark(
+                                      quranProvider.addBookmark(
                                         Bookmark(
                                           suraNumber:
                                               translation.suraIndex.toString(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app_config/color_config.dart';
+import '../bookmarks/bookmark.dart';
+import '../bookmarks/bookmark_helper.dart';
 import '../read_quran/quran_helper.dart';
 import '../utils/data_parser.dart';
 import '../utils/shared_preferences.dart';
@@ -26,11 +28,11 @@ class QuranProvider extends ChangeNotifier {
   Map<String, String> translations = {
     'john_trust': 'ஜான் டிரஸ்ட் (John Trust)',
     'pj': 'P. ஜெய்னுல் ஆப்தீன்',
-    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி அரேபியா',
-    'omar_sheriff': 'உமர் ஷரீஃப் காஸிமி',
+    'king_fahd': 'மன்னர் ஃபஹத் வளாகம் - சவூதி',
     'ift': 'இஸ்லாமிய நிறுவனம் டிரஸ்ட் (IFT)',
     'abdul_hameed': 'அப்துல் ஹமீது பாகவி',
     'tntj': 'தமிழ்நாடு தவ்ஹீத் ஜமாஅத்',
+    'omar_sheriff': 'உமர் ஷரீஃப் காஸிமி'
   };
 
   List<String> languageFontsList = const [
@@ -241,6 +243,24 @@ class QuranProvider extends ChangeNotifier {
   Reciter get selectedReciterDetails {
     return allReciters
         .firstWhere((reciter) => reciter.identifier == selectedReciter);
+  }
+
+
+  List<Bookmark> _bookmarkList = BookmarkHelper.getBookmarkList();
+
+  get bookmarkList => _bookmarkList;
+
+  addBookmark(Bookmark bookmark, BuildContext context){
+    BookmarkHelper.addBookmark(bookmark, context);
+    _bookmarkList = BookmarkHelper.getBookmarkList();
+    notifyListeners();
+  }
+
+
+  deleteBookmark(Bookmark bookmark, BuildContext context){
+    BookmarkHelper.deleteBookmark(bookmark, context);
+    _bookmarkList = BookmarkHelper.getBookmarkList();
+    notifyListeners();
   }
 
   void clearSettings() {

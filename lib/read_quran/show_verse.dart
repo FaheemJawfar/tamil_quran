@@ -264,10 +264,10 @@ class _ShowVerseState extends State<ShowVerse> {
 
                 break;
               case 'addBookmark':
-                BookmarkHelper.addBookmark(
+                quranProvider.addBookmark(
                   Bookmark(
                     suraNumber: quranProvider.selectedSuraNumber.toString(),
-                    verseNumber: widget.quranAyaTranslation.ayaIndex.toString(),
+                    verseNumber:getFirstVerseInList( widget.quranAyaTranslation.ayaNumberList).toString(),
                   ),
                   context,
                 );
@@ -434,5 +434,14 @@ class _ShowVerseState extends State<ShowVerse> {
         selectedThafseer: selectedItem);
       },
     );
+  }
+  
+  
+  int getFirstVerseInList(String ayaList){
+    List<int> allVerses = ayaList.split(',')
+        .map((str) => int.parse(str))
+        .toList();
+    
+    return allVerses.first;
   }
 }
