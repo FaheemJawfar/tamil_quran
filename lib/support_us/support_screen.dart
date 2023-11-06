@@ -87,71 +87,116 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             RichText(
-                              text: const TextSpan(
+                              text: TextSpan(
                                 children: [
                                   TextSpan(
                                     text: 'Name: ',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                   TextSpan(
                                     text: 'J. Faheem',
-                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 ],
                               ),
                             ),
                             RichText(
-                              text: const TextSpan(
+                              text: TextSpan(
                                 children: [
                                   TextSpan(
                                     text: 'Account Number: ',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                   TextSpan(
                                     text: '231020082879',
-                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 ],
                               ),
                             ),
                             RichText(
-                              text: const TextSpan(
+                              text: TextSpan(
                                 children: [
                                   TextSpan(
                                     text: 'Bank: ',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                   TextSpan(
                                     text: 'Hatton National Bank (HNB)',
-                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 ],
                               ),
                             ),
                             RichText(
-                              text: const TextSpan(
+                              text: TextSpan(
                                 children: [
                                   TextSpan(
                                     text: 'Branch: ',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                   TextSpan(
                                     text: 'Kekirawa',
-                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 ],
                               ),
                             ),
                             RichText(
-                              text: const TextSpan(
+                              text: TextSpan(
                                 children: [
                                   TextSpan(
                                     text: 'Swift Code: ',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                   TextSpan(
                                     text: 'HBLILKLX',
-                                    style: TextStyle(fontSize: 16, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: quranProvider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 ],
                               ),
@@ -165,6 +210,9 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
+                            style: quranProvider.isDarkMode
+                                ? ColorConfig.darkModeButtonStyle
+                                : null,
                             child: const Text('Close'),
                           ),
                         ],
