@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_config/update_config.dart';
 import 'app_config/app_config.dart';
@@ -11,6 +12,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPreferences.initialize();
   UpdateAppConfig.updatePreferencesFromV1();
+
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+  );
   runApp(const MyApp());
 }
 

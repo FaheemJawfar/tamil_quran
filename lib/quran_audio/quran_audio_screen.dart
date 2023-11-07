@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_texts/quran_audio_texts.dart';
 import '../providers/quran_provider.dart';
@@ -68,7 +69,19 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       );
 
       if (currentUrl != newUrl) {
-        await audioPlayer.setUrl(newUrl);
+      //  await audioPlayer.setUrl(newUrl);
+        
+        await audioPlayer.setAudioSource(AudioSource.uri(
+          Uri.parse(newUrl),
+          tag: MediaItem(
+            // Specify a unique ID for each media item:
+            id: selectedSuraIndex.toString(),
+            // Metadata to display in the notification:
+            album: quranProvider.selectedReciterDetails.name,
+            title: getSuraName(selectedSuraIndex),
+            artUri: Uri.parse('file:///android_asset/flutter_assets/assets/icon/quran_icon.png'),
+          ),
+        ),);
         currentUrl = newUrl;
         position = Duration.zero;
       }

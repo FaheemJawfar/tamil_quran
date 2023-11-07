@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_config/color_config.dart';
+import 'package:tamil_quran/common_widgets/show_toast.dart';
 import 'package:tamil_quran/read_quran/pj_thafseer_content.dart';
 import 'package:tamil_quran/read_quran/thafseer.dart';
 import 'package:tamil_quran/read_quran/thafseer_popup.dart';
 import 'package:tamil_quran/read_quran/tntj_thafseer_content.dart';
+import 'package:tamil_quran/utils/check_connection.dart';
 import '../app_texts/read_quran_texts.dart';
 import '../bookmarks/bookmark_helper.dart';
 import '../quran_audio/audio_player_helper.dart';
@@ -40,28 +42,38 @@ class _ShowVerseState extends State<ShowVerse> {
     super.dispose();
   }
 
-  void playAudio() {
+  Future<void> playAudio() async {
     setState(() {
       isPlaying = true;
     });
 
-    List<AudioSource> listOfAudioSource = [];
-    List<int> ayaList = widget.quranAyaTranslation.ayaNumberList
-        .split(',')
-        .map((str) => int.parse(str))
-        .toList();
+    bool internetConnected = await CheckConnection.checkInternetConnection();
 
-    for (var aya in ayaList) {
-      listOfAudioSource.add(AudioSource.uri(Uri.parse(
-        QuranHelper.getAudioURLByAya(widget.quranAyaTranslation.suraIndex, aya),
-      )));
-    }
+    if(internetConnected){
+      List<AudioSource> listOfAudioSource = [];
+      List<int> ayaList = widget.quranAyaTranslation.ayaNumberList
+          .split(',')
+          .map((str) => int.parse(str))
+          .toList();
 
-    audioPlayer.playAudioPlayList(listOfAudioSource, () {
+      for (var aya in ayaList) {
+        listOfAudioSource.add(AudioSource.uri(Uri.parse(
+          QuranHelper.getAudioURLByAya(widget.quranAyaTranslation.suraIndex, aya),
+        )));
+      }
+
+      audioPlayer.playAudioPlayList(listOfAudioSource, () {
+        setState(() {
+          isPlaying = false;
+        });
+      });
+    } else {
       setState(() {
         isPlaying = false;
       });
-    });
+      if(!mounted) return;
+      ShowToast.showToast(context, 'உங்கள் இணைய இணைப்பை சரிபார்க்கவும்!');
+    }
   }
 
   void pauseAudio() {
