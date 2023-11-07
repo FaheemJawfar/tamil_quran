@@ -26,4 +26,5 @@ class ReadQuranTexts {
   static const String totalVerseCount = 'மொத்த வசனங்கள்';
   static const String translatedBy = 'மொழிபெயர்ப்பு';
   static const String chapterCopied = 'அத்தியாயம் பிரதி செய்யப்பட்டது!';
+  static const String noInternet = 'உங்கள் இணைய இணைப்பை சரிபார்க்கவும்!';
 }

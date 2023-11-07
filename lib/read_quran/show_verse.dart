@@ -9,7 +9,6 @@ import 'package:tamil_quran/read_quran/thafseer_popup.dart';
 import 'package:tamil_quran/read_quran/tntj_thafseer_content.dart';
 import 'package:tamil_quran/utils/check_connection.dart';
 import '../app_texts/read_quran_texts.dart';
-import '../bookmarks/bookmark_helper.dart';
 import '../quran_audio/audio_player_helper.dart';
 import 'quran_helper.dart';
 import 'verse_helper.dart';
@@ -47,9 +46,7 @@ class _ShowVerseState extends State<ShowVerse> {
       isPlaying = true;
     });
 
-    bool internetConnected = await CheckConnection.checkInternetConnection();
-
-    if(internetConnected){
+  try {
       List<AudioSource> listOfAudioSource = [];
       List<int> ayaList = widget.quranAyaTranslation.ayaNumberList
           .split(',')
@@ -67,12 +64,16 @@ class _ShowVerseState extends State<ShowVerse> {
           isPlaying = false;
         });
       });
-    } else {
-      setState(() {
-        isPlaying = false;
-      });
-      if(!mounted) return;
-      ShowToast.showToast(context, 'உங்கள் இணைய இணைப்பை சரிபார்க்கவும்!');
+    } catch (e){
+    debugPrint(e.toString());
+    setState(() {
+      isPlaying = false;
+    });
+    bool internetConnected = await CheckConnection.checkInternetConnection();
+    if(!mounted) return;
+    if(!internetConnected){
+      ShowToast.showToast(context, ReadQuranTexts.noInternet);
+    }
     }
   }
 
