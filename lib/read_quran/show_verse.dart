@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_config/color_config.dart';
-import 'package:tamil_quran/common_widgets/show_toast.dart';
 import 'package:tamil_quran/read_quran/pj_thafseer_content.dart';
 import 'package:tamil_quran/read_quran/thafseer.dart';
 import 'package:tamil_quran/read_quran/thafseer_popup.dart';
 import 'package:tamil_quran/read_quran/tntj_thafseer_content.dart';
-import 'package:tamil_quran/utils/check_connection.dart';
 import '../app_texts/read_quran_texts.dart';
 import '../quran_audio/audio_player_helper.dart';
 import 'quran_helper.dart';
@@ -19,10 +16,18 @@ import '../providers/quran_provider.dart';
 class ShowVerse extends StatefulWidget {
   final QuranAya quranAyaArabic;
   final QuranAya quranAyaTranslation;
+  final Future<void> Function() playAudio;
+  final void Function() stopAudio;
+  final bool isPlaying;
 
   const ShowVerse(
-      {required this.quranAyaArabic,
+      {
+      required this.quranAyaArabic,
       required this.quranAyaTranslation,
+      required this.playAudio,
+      required this.stopAudio,
+      required this.isPlaying,
+
       Key? key})
       : super(key: key);
 
@@ -32,66 +37,11 @@ class ShowVerse extends StatefulWidget {
 
 class _ShowVerseState extends State<ShowVerse> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
-  final AudioPlayerHelper audioPlayer = AudioPlayerHelper();
-  bool isPlaying = false;
 
-  @override
-  void dispose() {
-    audioPlayer.dispose();
-    super.dispose();
-  }
 
-  Future<void> playAudio() async {
-    setState(() {
-      isPlaying = true;
-    });
-
-  try {
-      List<AudioSource> listOfAudioSource = [];
-      List<int> ayaList = widget.quranAyaTranslation.ayaNumberList
-          .split(',')
-          .map((str) => int.parse(str))
-          .toList();
-
-      for (var aya in ayaList) {
-        listOfAudioSource.add(AudioSource.uri(Uri.parse(
-          QuranHelper.getAudioURLByAya(widget.quranAyaTranslation.suraIndex, aya),
-        )));
-      }
-
-      audioPlayer.playAudioPlayList(listOfAudioSource, () {
-        setState(() {
-          isPlaying = false;
-        });
-      });
-    } catch (e){
-    debugPrint(e.toString());
-    setState(() {
-      isPlaying = false;
-    });
-    bool internetConnected = await CheckConnection.checkInternetConnection();
-    if(!mounted) return;
-    if(!internetConnected){
-      ShowToast.showToast(context, ReadQuranTexts.noInternet);
-    }
-    }
-  }
-
-  void pauseAudio() {
-    audioPlayer.pause();
-  }
-
-  void stopAudio() {
-    setState(() {
-      isPlaying = false;
-    });
-
-    audioPlayer.stop();
-  }
-
-  void seekTo(Duration position) {
-    audioPlayer.seek(position);
-  }
+  // void seekTo(Duration position) {
+  //   QuranAudioPlayerHelper.audioPlayer.seek(position);
+  // }
 
   TextSpan getArabicAyaList(QuranAya quranAya) {
     if (quranProvider.isPJMode) {
@@ -353,8 +303,8 @@ class _ShowVerseState extends State<ShowVerse> {
           child: Padding(
             padding: const EdgeInsets.only(left: 4.0),
             child: InkWell(
-                onTap: isPlaying ? stopAudio : playAudio,
-                child: isPlaying
+                onTap: widget.isPlaying ? widget.stopAudio : widget.playAudio,
+                child: widget.isPlaying
                     ? Icon(
                         Icons.stop_circle,
                         color: quranProvider.isDarkMode ? Colors.white : Colors.red,

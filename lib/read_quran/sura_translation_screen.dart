@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:tamil_quran/read_quran/quran_aya.dart';
+import 'package:tamil_quran/read_quran/quran_helper.dart';
+import '../app_texts/read_quran_texts.dart';
+import '../common_widgets/show_toast.dart';
+import '../quran_audio/audio_player_helper.dart';
+import '../utils/check_connection.dart';
 import 'read_sura_appbar.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../app_config/color_config.dart';
@@ -24,6 +32,10 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   final scrollController = ItemScrollController();
+  bool isPlaying = false;
+  int currentPlayingSuraIndex = 0;
+  int currentPlayingAyaIndex = 0;
+
 
   @override
   void initState() {
@@ -82,6 +94,12 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
                       quranAyaArabic: quranProvider.selectedSuraArabic[index],
                       quranAyaTranslation:
                           quranProvider.selectedSuraTranslation[index],
+                      playAudio: () => playAudio(quranProvider.selectedSuraTranslation[index]),
+                      stopAudio: () => stopAudio(),
+                      isPlaying: isPlaying
+                          && currentPlayingSuraIndex == quranProvider.selectedSuraTranslation[index].suraIndex
+                          && currentPlayingAyaIndex == index,
+
                     ),
                   );
                 },
@@ -92,4 +110,73 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
       ),
     );
   }
+
+  Future<void> playAudio(QuranAya translation) async {
+    updateCurrentAyaIndex(translation.suraIndex, translation.ayaIndex);
+
+    setState(() {
+      isPlaying = true;
+    });
+
+    try {
+      List<AudioSource> listOfAudioSource = [];
+      List<int> ayaList = translation.ayaNumberList
+          .split(',')
+          .map((str) => int.parse(str))
+          .toList();
+
+      for (var aya in ayaList) {
+        listOfAudioSource.add(AudioSource.uri(Uri.parse(
+          QuranHelper.getAudioURLByAya(translation.suraIndex, aya),
+        ),
+          tag: MediaItem(
+            // Specify a unique ID for each media item:
+            id: aya.toString(),
+            // Metadata to display in the notification:
+            album: quranProvider.selectedReciterDetails.name,
+            title: 'திருக்குர்ஆன் (${translation.suraIndex}:$aya)',
+            //  artUri: Uri.parse('file:///android_asset/flutter_assets/assets/icon/quran_icon.png'),
+          ),
+        ));
+      }
+
+      QuranAudioPlayerHelper.playAudioPlayList(listOfAudioSource, () {
+        setState(() {
+          isPlaying = false;
+        });
+      });
+    } catch (e){
+      debugPrint(e.toString());
+      setState(() {
+        isPlaying = false;
+      });
+      bool internetConnected = await CheckConnection.checkInternetConnection();
+      if(!mounted) return;
+      if(!internetConnected){
+        ShowToast.showToast(context, ReadQuranTexts.noInternet);
+      }
+    }
+  }
+
+
+  updateCurrentAyaIndex(int sura, int aya){
+    currentPlayingSuraIndex = sura;
+    currentPlayingAyaIndex = aya;
+  }
+
+
+  void stopAudio() {
+    setState(() {
+    isPlaying = false;
+    });
+    QuranAudioPlayerHelper.audioPlayer.stop();
+  }
+
+
+  @override
+  void dispose() {
+    QuranAudioPlayerHelper.audioPlayer.dispose();
+    super.dispose();
+  }
+
 }
