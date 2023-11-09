@@ -11,6 +11,7 @@ import '../read_quran/quran_helper.dart';
 import '../common_widgets/show_toast.dart';
 import '../read_quran/sura_details.dart';
 import '../home/home_popup_menu.dart';
+import 'audio_player_helper.dart';
 import 'reciter_selector_popup.dart';
 
 class QuranAudioPlayerScreen extends StatefulWidget {
@@ -24,8 +25,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
   int selectedSuraIndex = 0;
 
-  late AudioPlayer audioPlayer;
+  late AudioPlayer audioPlayer = QuranAudioPlayerHelper.audioPlayer;
   bool isLoading = false;
+  bool suraPlayed = false;
   Duration duration = const Duration();
   Duration position = const Duration();
   String currentUrl = '';
@@ -33,12 +35,13 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   @override
   void initState() {
     super.initState();
+    //QuranAudioPlayerHelper.audioPlayer.dispose();
     initAudioPlayer();
   }
 
   initAudioPlayer(){
    try {
-     audioPlayer = AudioPlayer();
+    // audioPlayer = QuranAudioPlayerHelper.audioPlayer;
      audioPlayer.durationStream.listen((updatedDuration) {
        if (!mounted) return;
        setState(() {
@@ -57,10 +60,13 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
    }
   }
 
+
+
   Future<void> playAudio() async {
     try {
       setState(() {
         isLoading = true;
+        suraPlayed = true;
       });
 
       String newUrl = QuranHelper.getAudioURLBySurah(
@@ -134,7 +140,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
 
   @override
   void dispose() {
-    audioPlayer.dispose();
+   // audioPlayer.dispose();
     super.dispose();
   }
 
@@ -259,9 +265,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   ),
                 ),
                 Slider(
-                  value: position.inSeconds.toDouble(),
+                  value: suraPlayed ? position.inSeconds.toDouble(): 0,
                   min: 0.0,
-                  max: duration.inSeconds.toDouble(),
+                  max: suraPlayed ? duration.inSeconds.toDouble(): 0,
                   onChanged: (double value) {
                     seekAudio(Duration(seconds: value.toInt()));
                   },
@@ -270,11 +276,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      formatDuration(position),
+                      suraPlayed ? formatDuration(position):formatDuration(Duration.zero),
                       style: const TextStyle(fontSize: 18),
                     ),
                     Text(
-                      isLoading
+                      isLoading || !suraPlayed
                           ? formatDuration(Duration.zero)
                           : formatDuration(duration),
                       style: const TextStyle(fontSize: 18),
@@ -299,7 +305,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                                   ? Colors.grey
                                   : ColorConfig.primaryColor,
                             )
-                          : audioPlayer.playing
+                          : audioPlayer.playing && suraPlayed
                               ? const Icon(
                                   Icons.pause,
                                   size: 40,

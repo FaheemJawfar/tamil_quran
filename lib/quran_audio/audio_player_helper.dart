@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:just_audio/just_audio.dart';
 
 class QuranAudioPlayerHelper {
+
   static AudioPlayer audioPlayer = AudioPlayer();
 
   Future<void> playFromUrl(

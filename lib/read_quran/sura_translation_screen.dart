@@ -112,11 +112,23 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
   }
 
   Future<void> playAudio(QuranAya translation) async {
-    updateCurrentAyaIndex(translation.suraIndex, translation.ayaIndex);
+
+    updateCurrentAyaIndex(translation);
 
     setState(() {
       isPlaying = true;
     });
+
+    bool internetConnected = await CheckConnection.checkInternetConnection();
+
+    if(!internetConnected){
+      if(!mounted) return;
+      ShowToast.showToast(context, ReadQuranTexts.noInternet);
+      setState(() {
+        isPlaying = false;
+      });
+      return;
+    }
 
     try {
       List<AudioSource> listOfAudioSource = [];
@@ -141,27 +153,27 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
       }
 
       QuranAudioPlayerHelper.playAudioPlayList(listOfAudioSource, () {
-        setState(() {
-          isPlaying = false;
-        });
+       if(!mounted) return;
+       setState(() {
+         isPlaying = false;
+       });
+
       });
     } catch (e){
       debugPrint(e.toString());
-      setState(() {
-        isPlaying = false;
-      });
-      bool internetConnected = await CheckConnection.checkInternetConnection();
-      if(!mounted) return;
-      if(!internetConnected){
-        ShowToast.showToast(context, ReadQuranTexts.noInternet);
-      }
     }
   }
 
 
-  updateCurrentAyaIndex(int sura, int aya){
-    currentPlayingSuraIndex = sura;
-    currentPlayingAyaIndex = aya;
+  updateCurrentAyaIndex(QuranAya translation){
+    if(translation.suraIndex == 1 || translation.suraIndex == 9){
+      currentPlayingSuraIndex = translation.suraIndex;
+      currentPlayingAyaIndex = translation.ayaIndex - 1;
+    }
+    else{
+      currentPlayingSuraIndex = translation.suraIndex;
+      currentPlayingAyaIndex = translation.ayaIndex;
+    }
   }
 
 
@@ -175,7 +187,6 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
 
   @override
   void dispose() {
-    QuranAudioPlayerHelper.audioPlayer.dispose();
     super.dispose();
   }
 

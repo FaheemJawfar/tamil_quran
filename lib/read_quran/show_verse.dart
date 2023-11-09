@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/app_config/color_config.dart';
 import 'package:tamil_quran/read_quran/pj_thafseer_content.dart';
 import 'package:tamil_quran/read_quran/thafseer.dart';
@@ -222,7 +223,7 @@ class _ShowVerseState extends State<ShowVerse> {
           onSelected: (String value) {
             switch (value) {
               case 'shareVerse':
-                VerseHelper.shareVerse(VerseHelper.getVerseCopy(
+                Share.share(VerseHelper.getVerseCopy(
                     widget.quranAyaTranslation, 'copy', context));
 
                 break;

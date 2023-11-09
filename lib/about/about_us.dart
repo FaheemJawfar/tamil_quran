@@ -76,23 +76,23 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               Divider(
                 color: quranProvider.isDarkMode ? null: ColorConfig.primaryColor,
               ),
-              const Text(
-                AboutTexts.aboutUsContent,
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              // const Text(
+              //   AboutTexts.aboutUsContent,
+              //   style: TextStyle(fontSize: 16),
+              //   textAlign: TextAlign.center,
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
 
               const Text(
                 AboutTexts.developedBy,
-                style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
               const Text(
                 AboutTexts.developerName,
-                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               Divider(
@@ -104,12 +104,28 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
+              Divider(),
+              const Text(
+                AboutTexts.toContact,
+                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                textAlign: TextAlign.center,
+              ),
               ElevatedButton.icon(
                 onPressed: () {
                   Launcher.launchEmail('');
                 },
                 icon: const Icon(Icons.mail),
                 label: const Text(AboutTexts.emailUs),
+
+                style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+              ),
+
+              ElevatedButton.icon(
+                onPressed: () {
+                  Launcher.launchWhatsApp();
+                },
+                icon: const ImageIcon(AssetImage('assets/images/whatsapp.png')),
+                label: const Text(AboutTexts.whatsAppUs),
 
                 style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
               ),

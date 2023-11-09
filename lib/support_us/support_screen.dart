@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../app_texts/about.dart';
 import '../app_texts/support_us_texts.dart';
 import '../app_config/color_config.dart';
 import '../app_config/app_config.dart';
@@ -64,9 +65,9 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                   width: 150,
                 ),
               ),
-              const Divider(),
+             // const Divider(),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               const Text(
                 SupportUsTexts.sendViaBankTransfer,
@@ -226,23 +227,23 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-              const Divider(),
+               const Divider(),
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
-                SupportUsTexts.sendViaPayPal,
+                AboutTexts.toContact,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               ElevatedButton.icon(
-                  style: quranProvider.isDarkMode
-                      ? ColorConfig.darkModeButtonStyle
-                      : null,
-                  onPressed: () {
-                    Launcher.launchWebpage(AppConfig.payPalProfileLink);
-                  },
-                  icon: const Icon(Icons.paypal),
-                  label: const Text(
-                    SupportUsTexts.payPalButtonLabel,
-                    style: TextStyle(fontSize: 16),
-                  )),
+                onPressed: () {
+                  Launcher.launchWhatsApp();
+                },
+                icon: const ImageIcon(AssetImage('assets/images/whatsapp.png')),
+                label: const Text(AboutTexts.whatsAppUs),
+
+                style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+              ),
             ],
           ),
         ),

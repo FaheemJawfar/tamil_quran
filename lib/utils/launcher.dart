@@ -54,7 +54,7 @@ class Launcher {
     }
   }
 
-  void openWhatsApp() async {
+  static void launchWhatsApp() async {
     const phoneNumber = AppConfig.whatsAppContactNumber;
 
     try {

@@ -17,7 +17,7 @@ class ReadQuranTexts {
 // Verse Helper
   static const String verseCopied = 'வசனம் பிரதி செய்யப்பட்டது!';
   static const String holyQuran = 'திருக்குர்ஆன்';
-  static const String quranAppForAndroid = 'Tamil Quran for Android';
+  static const String getTamilQuran = 'Get Tamil Quran App';
   static const String balancedVerseCount = 'மீதமுள்ள வசனங்கள்';
   static const String downloadQuranApp =
       'அத்தியாயத்தை முழுமையாக வாசிக்க Tamil Quran (திருக்குர்ஆன்) அப்ளிகேஷனை Download செய்யவும்.';

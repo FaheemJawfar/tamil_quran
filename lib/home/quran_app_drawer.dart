@@ -115,10 +115,7 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
               HomeTexts.shareThisAppTranslation, context, () {
             Share.share(HomeTexts.shareAppText);
           }),
-          _buildActionListTiles(const Icon(Icons.rate_review_outlined),
-              HomeTexts.rateAppTranslation, context, () {
-            _showRating(context);
-          }),
+
           _buildListTiles(
               const Icon(Icons.info),
               HomeTexts.aboutUsTranslation,
@@ -129,10 +126,10 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
               HomeTexts.donateUsTranslation,
               context,
               const SupportUsScreen()),
-          _buildActionListTiles(const Icon(Icons.update),
-              HomeTexts.checkForUpdates, context, () {
-            Launcher.findDeviceModelAndLaunchAppStore();
-          }),
+          // _buildActionListTiles(const Icon(Icons.update),
+          //     HomeTexts.checkForUpdates, context, () {
+          //   Launcher.findDeviceModelAndLaunchAppStore();
+          // }),
         ],
       ),
     );

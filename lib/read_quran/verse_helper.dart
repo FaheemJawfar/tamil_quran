@@ -33,7 +33,7 @@ class VerseHelper {
     switch (option) {
       case 'copy':
         String verseCopy =
-            '$arabicText\n\n$translationText\n\n- (${ReadQuranTexts.holyQuran} ${translationAya.suraIndex}:${translationAya.ayaNumberList})\n\n( ${ReadQuranTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )';
+            '$arabicText\n\n$translationText\n\n- (${ReadQuranTexts.holyQuran} ${translationAya.suraIndex}:${translationAya.ayaNumberList})\n\n( ${ReadQuranTexts.getTamilQuran}: ${AppConfig.appShortUrl} )';
 
         return verseCopy;
 
@@ -53,9 +53,9 @@ class VerseHelper {
     }
   }
 
-  static void shareVerse(String verse) {
-    Share.share(verse);
-  }
+  // static void shareVerse(String verse) {
+  //   Share.share(verse);
+  // }
 
   static Future<void> copySura(
     int suraNumber,
@@ -103,7 +103,7 @@ class VerseHelper {
       suraFullText.write(
           '\n${ReadQuranTexts.translatedBy}: ${quranProvider.translations[quranProvider.selectedTranslation]}');
       suraFullText.write(
-          '\n\n(${ReadQuranTexts.quranAppForAndroid}: ${AppConfig.appShortUrl} )');
+          '\n\n(${ReadQuranTexts.getTamilQuran}: ${AppConfig.appShortUrl} )');
 
       String suraText = suraFullText.toString();
 

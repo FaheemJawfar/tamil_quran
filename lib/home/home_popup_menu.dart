@@ -36,11 +36,11 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
               child: getPopupMenuItem(
                   const Icon(Icons.share), HomeTexts.shareThisApp),
             ),
-            PopupMenuItem<String>(
-              value: 'rate_app',
-              child: getPopupMenuItem(const Icon(Icons.rate_review_outlined),
-                  HomeTexts.rateThisApp),
-            ),
+            // PopupMenuItem<String>(
+            //   value: 'rate_app',
+            //   child: getPopupMenuItem(const Icon(Icons.rate_review_outlined),
+            //       HomeTexts.rateThisApp),
+            // ),
             PopupMenuItem<String>(
               value: 'about_us',
               child:
@@ -61,9 +61,9 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (_) => const SettingsScreen()));
                 break;
-              case 'rate_app':
-                _showRating(context);
-                break;
+              // case 'rate_app':
+              //   _showRating(context);
+              //   break;
               case 'share_app':
                 Share.share(HomeTexts.shareAppText);
                 break;

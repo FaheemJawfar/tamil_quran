@@ -1,8 +1,8 @@
 class SupportUsTexts {
 // Donation Screen
-  static const String donateUs = 'எமக்கு உதவுங்கள்';
+  static const String donateUs = 'ஆதரவு வழங்க!';
   static const String donationScreenContent =
-      'இந்த திருக்குர்ஆன் தமிழாக்கம் அப்ளிகேசனை நாம் இலவசமாக வழங்கி வருகிறோம்.\nஇப்பணியைத் தொடர்ந்தும் சிறப்பாக மேற்கொள்ள எங்களுக்கு நீங்களும் உதவ வேண்டும் என்று விரும்பினால் கீழே உள்ள முறைகளில் உங்களது நன்கொடைகளை வழங்கலாம்.';
+      'இந்த திருக்குர்ஆன் தமிழாக்கம் அப்ளிகேசனை நாம் இலவசமாக வழங்கி வருகிறோம்.\nஎங்களுக்கு ஆதரவளிக்க விரும்பினால் கீழே உள்ள முறைகளில் உங்களது நன்கொடைகளை வழங்கலாம்.';
   static const String sendUsingCreditDebitCards =
       'Credit / Debit Card மூலம் அனுப்ப...';
   static const String donateUsButtonLabel = 'Donate us!';

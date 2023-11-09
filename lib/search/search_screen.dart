@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../app_texts/search_texts.dart';
 import '../read_quran/sura_translation_screen.dart';
 import '../app_config/color_config.dart';
@@ -149,7 +150,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   )));
                                       break;
                                     case 'shareVerse':
-                                      VerseHelper.shareVerse(
+                                      Share.share(
                                           VerseHelper.getVerseCopy(
                                               quranProvider
                                                   .filterOneAyaTranslation(

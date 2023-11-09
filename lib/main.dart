@@ -14,7 +14,7 @@ Future<void> main() async {
   UpdateAppConfig.updatePreferencesFromV1();
 
   await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelId: 'com.faheemapps.tamil_quran.channel.audio',
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
