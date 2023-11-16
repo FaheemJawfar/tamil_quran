@@ -40,6 +40,49 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
   }
 
 
+  _buildListItem(String title){
+    return ListTile(
+      title: Text(title, style: const TextStyle(fontStyle: FontStyle.italic),),
+      // onTap: () {
+      //   Launcher.launchWebpage(website);
+      // },
+    );
+  }
+
+  void _showReferencesDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('References', style: TextStyle(fontWeight: FontWeight.bold),),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                _buildListItem('1. Tamil Quran and Dua App'),
+                _buildListItem('2. Tanzil.net'),
+                _buildListItem('3. QuranEnc.com'),
+                _buildListItem('4. The Tamil Quran App (PJ)'),
+                _buildListItem('5. Onlinetntj.com'),
+
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +91,13 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       appBar: AppBar(
         title: const Text(AboutTexts.aboutUs),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {
+            _showReferencesDialog(context);
+          }, icon: const ImageIcon(
+              size: 15,
+              AssetImage('assets/images/link.png')))
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
