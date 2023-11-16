@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tamil_quran/read_quran/quran_aya.dart';
 import 'package:tamil_quran/read_quran/quran_helper.dart';
+import 'package:tamil_quran/utils/image_uri.dart';
 import '../app_texts/read_quran_texts.dart';
 import '../common_widgets/show_toast.dart';
 import '../quran_audio/audio_player_helper.dart';
@@ -147,7 +148,7 @@ class _SuraTranslationScreenState extends State<SuraTranslationScreen> {
             // Metadata to display in the notification:
             album: quranProvider.selectedReciterDetails.name,
             title: 'திருக்குர்ஆன் (${translation.suraIndex}:$aya)',
-            //  artUri: Uri.parse('file:///android_asset/flutter_assets/assets/icon/quran_icon.png'),
+            artUri: await ImageUriParser.getImageFileFromAssets('assets/icon/quran_icon.png'),
           ),
         ));
       }

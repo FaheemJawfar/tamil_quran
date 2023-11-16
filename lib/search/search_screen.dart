@@ -4,7 +4,6 @@ import 'package:share_plus/share_plus.dart';
 import '../app_texts/search_texts.dart';
 import '../read_quran/sura_translation_screen.dart';
 import '../app_config/color_config.dart';
-import '../bookmarks/bookmark_helper.dart';
 import '../read_quran/verse_helper.dart';
 import '../bookmarks/bookmark.dart';
 import '../read_quran/quran_aya.dart';

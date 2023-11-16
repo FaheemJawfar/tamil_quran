@@ -11,6 +11,7 @@ import '../read_quran/quran_helper.dart';
 import '../common_widgets/show_toast.dart';
 import '../read_quran/sura_details.dart';
 import '../home/home_popup_menu.dart';
+import '../utils/image_uri.dart';
 import 'audio_player_helper.dart';
 import 'reciter_selector_popup.dart';
 
@@ -85,7 +86,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
             // Metadata to display in the notification:
             album: quranProvider.selectedReciterDetails.name,
             title: getSuraName(selectedSuraIndex),
-            artUri: Uri.parse('file:///android_asset/flutter_assets/assets/icon/quran_icon.png'),
+            artUri: await ImageUriParser.getImageFileFromAssets('assets/icon/quran_icon.png'),
           ),
         ),);
         currentUrl = newUrl;

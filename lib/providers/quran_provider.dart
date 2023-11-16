@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamil_quran/app_config/app_config.dart';
 import '../app_config/color_config.dart';
 import '../bookmarks/bookmark.dart';
 import '../bookmarks/bookmark_helper.dart';
@@ -23,7 +24,7 @@ class QuranProvider extends ChangeNotifier {
   ThemeData get quranTheme =>
       isDarkMode ? ColorConfig.quranDarkTheme : ColorConfig.quranLightTheme;
 
-  String _selectedTranslation = 'john_trust';
+  String _selectedTranslation = AppConfig.defaultTranslation;
 
   Map<String, String> translations = {
     'john_trust': 'ஜான் டிரஸ்ட் (John Trust)',
@@ -180,7 +181,7 @@ class QuranProvider extends ChangeNotifier {
     return TextSpan(children: spans);
   }
 
-  String _tamilFont = 'MUktaMalar';
+  String _tamilFont = AppConfig.appDefaultFont;
 
   String get tamilFont => AppPreferences.getString('tamilFont') ?? _tamilFont;
 
@@ -190,7 +191,7 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _arabicFont = 'AlQalam';
+  String _arabicFont = AppConfig.defaultArabicFont;
 
   String get arabicFont =>
       AppPreferences.getString('arabicFont') ?? _arabicFont;
@@ -201,7 +202,7 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  double _tamilFontSize = 19;
+  double _tamilFontSize = AppConfig.defaultTranslationFontSize;
 
   double get tamilFontSize =>
       AppPreferences.getDouble('tamilFontSize') ?? _tamilFontSize;
@@ -212,7 +213,7 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  double _arabicFontSize = 23;
+  double _arabicFontSize = AppConfig.defaultArabicFontSize;
 
   double get arabicFontSize =>
       AppPreferences.getDouble('arabicFontSize') ?? _arabicFontSize;
@@ -223,7 +224,7 @@ class QuranProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _selectedReciter = 'alafasy-pj';
+  String _selectedReciter = AppConfig.defaultReciter;
 
   String get selectedReciter =>
       AppPreferences.getString('selectedReciter') ?? _selectedReciter;
@@ -264,12 +265,12 @@ class QuranProvider extends ChangeNotifier {
   }
 
   void clearSettings() {
-    tamilFont = 'MUktaMalar';
-    arabicFont = 'AlQalam';
-    tamilFontSize = 19;
-    arabicFontSize = 23;
-    selectedTranslation = 'john_trust';
-    selectedReciter = 'alafasy-pj';
+    tamilFont = AppConfig.appDefaultFont;
+    arabicFont = AppConfig.defaultArabicFont;
+    tamilFontSize = AppConfig.defaultTranslationFontSize;
+    arabicFontSize = AppConfig.defaultArabicFontSize;
+    selectedTranslation = AppConfig.defaultTranslation;
+    selectedReciter = AppConfig.defaultReciter;
     isDarkMode = false;
   }
 }

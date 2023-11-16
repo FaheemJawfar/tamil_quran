@@ -58,7 +58,7 @@ class AboutQuranReferences {
     AboutQuranReferences(
       quote:
           "உயிருடன் உள்ளவரை எச்சரிப்பதற்காகவும், (நம்மை) மறுப்போருக்கு எதிரான கட்டளை உறுதியாவதற்காகவும் (இதை அருளினோம்).",
-      reference: "(திருக்குர்ஆன் 6:70)",
+      reference: "(திருக்குர்ஆன் 36:70)",
     ),
     AboutQuranReferences(
       quote:

@@ -6,7 +6,6 @@ import '../app_config/color_config.dart';
 import '../providers/quran_provider.dart';
 import '../about/about_us.dart';
 import '../support_us/support_screen.dart';
-import 'rate_app.dart';
 import '../settings/settings_screen.dart';
 
 class HomeScreenPopupMenu extends StatefulWidget {
@@ -91,12 +90,12 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
     );
   }
 
-  void _showRating(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const RateApp();
-      },
-    );
-  }
+  // void _showRating(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return const RateApp();
+  //     },
+  //   );
+  // }
 }

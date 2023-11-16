@@ -82,7 +82,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
       inlineSpans.add(TextSpan(
         text: verse.text,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: quranProvider.arabicFontSize,
           fontFamily: quranProvider.arabicFont,
           color: quranProvider.isDarkMode ? Colors.white : Colors.black,
         ),
@@ -91,7 +91,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
       inlineSpans.add(TextSpan(
         text: '${QuranHelper.getVerseEndSymbol(verse.ayaIndex)} ',
         style: TextStyle(
-          fontSize: 20,
+          fontSize: quranProvider.arabicFontSize,
           color: quranProvider.isDarkMode ? Colors.white : Colors.black,
         ),
       ));

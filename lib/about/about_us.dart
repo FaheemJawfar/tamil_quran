@@ -104,7 +104,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
-              Divider(),
+              const Divider(),
               const Text(
                 AboutTexts.toContact,
                 style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),

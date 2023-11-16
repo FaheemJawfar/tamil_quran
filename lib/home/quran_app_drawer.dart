@@ -5,14 +5,12 @@ import 'package:tamil_quran/read_quran/thafseer_screen.dart';
 import '../app_texts/home_texts.dart';
 import '../app_config/app_config.dart';
 import '../app_config/color_config.dart';
-import '../utils/launcher.dart';
 import '../providers/quran_provider.dart';
 import '../about/about_us.dart';
 import '../search/search_screen.dart';
 import '../settings/settings_screen.dart';
 import '../support_us/support_screen.dart';
 import '../quran_audio/quran_audio_screen.dart';
-import 'rate_app.dart';
 import 'sura_verse_picker.dart';
 
 class QuranAppDrawer extends StatefulWidget {
@@ -150,12 +148,12 @@ class _QuranAppDrawerState extends State<QuranAppDrawer> {
     );
   }
 
-  void _showRating(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const RateApp();
-      },
-    );
-  }
+  // void _showRating(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return const RateApp();
+  //     },
+  //   );
+  // }
 }

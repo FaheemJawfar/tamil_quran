@@ -7,7 +7,6 @@ import 'package:tamil_quran/read_quran/thafseer.dart';
 import 'package:tamil_quran/read_quran/thafseer_popup.dart';
 import 'package:tamil_quran/read_quran/tntj_thafseer_content.dart';
 import '../app_texts/read_quran_texts.dart';
-import '../quran_audio/audio_player_helper.dart';
 import 'quran_helper.dart';
 import 'verse_helper.dart';
 import '../bookmarks/bookmark.dart';

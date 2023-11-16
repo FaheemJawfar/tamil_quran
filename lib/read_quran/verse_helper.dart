@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:tamil_quran/app_texts/read_quran_texts.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
 import 'quran_helper.dart';
