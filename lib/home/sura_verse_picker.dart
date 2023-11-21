@@ -68,12 +68,12 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                     setState(() {
                       selectedSura = value + 1;
 
-                      if (selectedAyaNumber > SuraDetails.suraList[selectedSura - 1].verseCount) {
-                        selectedAyaNumber = SuraDetails.suraList[selectedSura - 1].verseCount;
+                      if (selectedAyaNumber > SuraDetails.suraListAll[selectedSura - 1].verseCount) {
+                        selectedAyaNumber = SuraDetails.suraListAll[selectedSura - 1].verseCount;
                       }
                     });
                   },
-                  children: SuraDetails.suraList
+                  children: SuraDetails.suraListAll
                       .map(
                         (sura) => Center(
                             child: FittedBox(
@@ -113,7 +113,7 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                     selectedAyaNumber = value + 1;
                   },
                   children: List.generate(
-                      SuraDetails.suraList[selectedSura - 1].verseCount,
+                      SuraDetails.suraListAll[selectedSura - 1].verseCount,
                       (index) => Center(child: Text('${index + 1}'))),
                 ),
               ),

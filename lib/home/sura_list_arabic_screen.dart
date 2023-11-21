@@ -26,14 +26,14 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
         children: [
           Expanded(
             child: ListView.separated(
-              itemCount: SuraDetails.suraList.length,
+              itemCount: SuraDetails.suraListAll.length,
               separatorBuilder: (context, index) => Divider(
                 thickness: 1,
                 color:
                     quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
               ),
               itemBuilder: (BuildContext context, int index) {
-                final sura = SuraDetails.suraList[index];
+                final sura = SuraDetails.suraListAll[index];
 
                 return ListTile(
                   leading: Text(

@@ -170,7 +170,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   String getSuraName(int index) {
-    SuraDetails selectedSura = SuraDetails.suraList[index];
+    SuraDetails selectedSura = SuraDetails.suraListAll[index];
 
     if (selectedSura.tamilMeaning != null) {
       return '${selectedSura.tamilName} - (${selectedSura.tamilMeaning!})';
@@ -212,11 +212,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         Expanded(
           child: ListView.separated(
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: SuraDetails.suraList.length,
+            itemCount: SuraDetails.suraListAll.length,
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(
-                  '${SuraDetails.suraList[index].suraNumber}. ${getSuraName(index)}',
+                  '${SuraDetails.suraListAll[index].suraNumber}. ${getSuraName(index)}',
                   style: TextStyle(
                       color: selectedSuraIndex == index
                           ? Colors.white

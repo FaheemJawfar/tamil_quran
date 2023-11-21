@@ -60,7 +60,7 @@ class VerseHelper {
     int suraNumber,
     BuildContext context,
   ) async {
-    SuraDetails suraDetails = SuraDetails.suraList[suraNumber - 1];
+    SuraDetails suraDetails = SuraDetails.suraListAll[suraNumber - 1];
     final quranProvider = Provider.of<QuranProvider>(context, listen: false);
 
     try {

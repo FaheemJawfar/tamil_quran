@@ -58,7 +58,7 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-          SuraDetails.suraList[quranProvider.selectedSuraNumber - 1].tamilName),
+          SuraDetails.suraListAll[quranProvider.selectedSuraNumber - 1].tamilName),
       automaticallyImplyLeading: true,
       actions: [
         IconButton(

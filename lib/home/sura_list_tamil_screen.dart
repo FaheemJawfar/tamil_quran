@@ -68,13 +68,13 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
   Widget _buildSuraListView() {
     return Expanded(
       child: ListView.separated(
-        itemCount: SuraDetails.suraList.length,
+        itemCount: SuraDetails.suraListAll.length,
         separatorBuilder: (context, index) => Divider(
           thickness: 1,
           color: quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
         ),
         itemBuilder: (BuildContext context, int index) {
-          final suraDetails = SuraDetails.suraList[index];
+          final suraDetails = SuraDetails.suraListAll[index];
 
           return ListTile(
             leading: Text(
