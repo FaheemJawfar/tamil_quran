@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tamil_quran/app_config/color_config.dart';
+import 'package:tamil_quran/read_quran/sura_details.dart';
+import '../app_config/color_config.dart';
 import 'package:tamil_quran/read_quran/pj_thafseer_content.dart';
 import 'package:tamil_quran/read_quran/thafseer.dart';
 import 'package:tamil_quran/read_quran/thafseer_popup.dart';
@@ -350,6 +351,14 @@ class _ShowVerseState extends State<ShowVerse> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if(quranProvider.selectedTranslation == 'pj')
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(SuraDetails.suraListPj[quranProvider.selectedSuraNumber-1].reasonForName!,
+              style: TextStyle(),
+              textAlign: TextAlign.center,
+            ),
+          ),
         Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: Column(
