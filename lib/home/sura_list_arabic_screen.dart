@@ -33,7 +33,7 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                     quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
               ),
               itemBuilder: (BuildContext context, int index) {
-                final sura = SuraDetails.suraListAll[index];
+                final sura = quranProvider.selectedTranslation == 'pj' ? SuraDetails.suraListPj[index] :SuraDetails.suraListAll[index];
 
                 return ListTile(
                   leading: Text(

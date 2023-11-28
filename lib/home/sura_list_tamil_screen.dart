@@ -74,7 +74,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
           color: quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
         ),
         itemBuilder: (BuildContext context, int index) {
-          final suraDetails = SuraDetails.suraListAll[index];
+          final suraDetails = quranProvider.selectedTranslation == 'pj' ? SuraDetails.suraListPj[index] : SuraDetails.suraListAll[index];
 
           return ListTile(
             leading: Text(
@@ -86,7 +86,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
               ),
             ),
             title: Text(
-              '${suraDetails.tamilName} ${suraDetails.tamilMeaning != null ? '\n(${suraDetails.tamilMeaning})' : ''}',
+              '${suraDetails.tamilName} ${suraDetails.tamilMeaning != null ? '(${suraDetails.tamilMeaning})' : ''}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
