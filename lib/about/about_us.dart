@@ -63,8 +63,9 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 _buildListItem('1. Tamil Quran and Dua App'),
                 _buildListItem('2. Tanzil.net'),
                 _buildListItem('3. QuranEnc.com'),
-                _buildListItem('4. The Tamil Quran App (PJ)'),
-                _buildListItem('5. Onlinetntj.com'),
+                _buildListItem('4. Alquran.cloud'),
+                _buildListItem('5. Archive.org'),
+                _buildListItem('6. Onlinetntj.com'),
 
               ],
             ),

@@ -9,7 +9,7 @@ class AppConfig {
   static const String huaweiAppGalleryUrl = 'https://appgallery.huawei.com/app/C106783933';
   static const String buyMeACoffee = 'https://www.buymeacoffee.com/faheemj';
   static const String payPalProfileLink = 'https://www.paypal.me/faheemjawfar';
-  static const String whatsAppContactNumber = '94774106399';
+  static const String whatsAppContactNumber = '94715593262';
 
   static const String appDefaultFont = 'MuktaMalar';
   static const String defaultArabicFont = 'AlQalam';

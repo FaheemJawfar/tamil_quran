@@ -25,7 +25,7 @@ class HomeTexts {
   static const String aboutUs = 'About us';
   static const String supportUs = 'Support us!';
   static const String shareAppText =
-      'திருக்குர்ஆன் தமிழாக்கம் Android App இனை இப்போதே Playstore இலிருந்து பதிவிறக்கம் செய்து பயன் படுத்துங்கள்: \n${AppConfig.playStoreUrl}';
+      'திருக்குர்ஆனைப் பொருளுணர்நது வாசிக்க Tamil Quran அப்ளிகேஷனை உங்கள் மொபைலில் இப்போதே பதிவிறக்கம் செய்யுங்கள்: \n${AppConfig.appShortUrl}';
 
 // Rate App
   static const String feedback = 'Feedback';
