@@ -45,14 +45,14 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
               child:
                   getPopupMenuItem(const Icon(Icons.info), HomeTexts.aboutUs),
             ),
-            PopupMenuItem<String>(
-              value: 'support_us',
-              child: getPopupMenuItem(
-                  const ImageIcon(
-                    AssetImage('assets/images/donation.png'),
-                  ),
-                  HomeTexts.supportUs),
-            ),
+            // PopupMenuItem<String>(
+            //   value: 'support_us',
+            //   child: getPopupMenuItem(
+            //       const ImageIcon(
+            //         AssetImage('assets/images/donation.png'),
+            //       ),
+            //       HomeTexts.supportUs),
+            // ),
           ],
           onSelected: (String value) {
             switch (value) {
@@ -71,10 +71,10 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
                     MaterialPageRoute(builder: (_) => const AboutUsScreen()));
                 break;
 
-              case 'support_us':
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const SupportUsScreen()));
-                break;
+              // case 'support_us':
+              //   Navigator.push(context,
+              //       MaterialPageRoute(builder: (_) => const SupportUsScreen()));
+              //   break;
             }
           },
           child: const Icon(Icons.more_vert),
