@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_config/update_config.dart';
+import 'package:tamil_quran/quran_test.dart';
 import 'app_config/app_config.dart';
 import 'utils/shared_preferences.dart';
 import '../providers/quran_provider.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
             title: AppConfig.appName,
             debugShowCheckedModeBanner: false,
             theme: context.watch<QuranProvider>().quranTheme,
-            home: const SplashScreen(),
+          //  home: const SplashScreen(),
+            home: QuranTest(),
           );
         }
       ),
