@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
             title: AppConfig.appName,
             debugShowCheckedModeBanner: false,
             theme: context.watch<QuranProvider>().quranTheme,
-          //  home: const SplashScreen(),
-            home: QuranTest(),
+            home: const SplashScreen(),
+
           );
         }
       ),
