@@ -40,28 +40,26 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     initAudioPlayer();
   }
 
-  initAudioPlayer(){
-   try {
-    // audioPlayer = QuranAudioPlayerHelper.audioPlayer;
-     audioPlayer.durationStream.listen((updatedDuration) {
-       if (!mounted) return;
-       setState(() {
-         duration = updatedDuration ?? Duration.zero;
-       });
-     });
+  initAudioPlayer() {
+    try {
+      // audioPlayer = QuranAudioPlayerHelper.audioPlayer;
+      audioPlayer.durationStream.listen((updatedDuration) {
+        if (!mounted) return;
+        setState(() {
+          duration = updatedDuration ?? Duration.zero;
+        });
+      });
 
-     audioPlayer.positionStream.listen((updatedPosition) {
-       if (!mounted) return;
-       setState(() {
-         position = updatedPosition;
-       });
-     });
-   } catch (e){
-     debugPrint(e.toString());
-   }
+      audioPlayer.positionStream.listen((updatedPosition) {
+        if (!mounted) return;
+        setState(() {
+          position = updatedPosition;
+        });
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
-
-
 
   Future<void> playAudio() async {
     try {
@@ -74,21 +72,25 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         quranProvider.selectedReciterDetails,
         selectedSuraIndex + 1,
       );
+      print(newUrl);
 
       if (currentUrl != newUrl) {
-      //  await audioPlayer.setUrl(newUrl);
-        
-        await audioPlayer.setAudioSource(AudioSource.uri(
-          Uri.parse(newUrl),
-          tag: MediaItem(
-            // Specify a unique ID for each media item:
-            id: selectedSuraIndex.toString(),
-            // Metadata to display in the notification:
-            album: quranProvider.selectedReciterDetails.name,
-            title: getSuraName(selectedSuraIndex),
-            artUri: await ImageUriParser.getImageFileFromAssets('assets/icon/quran_icon.png'),
+        //  await audioPlayer.setUrl(newUrl);
+
+        await audioPlayer.setAudioSource(
+          AudioSource.uri(
+            Uri.parse(newUrl),
+            tag: MediaItem(
+              // Specify a unique ID for each media item:
+              id: selectedSuraIndex.toString(),
+              // Metadata to display in the notification:
+              album: quranProvider.selectedReciterDetails.name,
+              title: getSuraName(selectedSuraIndex),
+              artUri: await ImageUriParser.getImageFileFromAssets(
+                  'assets/icon/quran_icon.png'),
+            ),
           ),
-        ),);
+        );
         currentUrl = newUrl;
         position = Duration.zero;
       }
@@ -141,7 +143,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
 
   @override
   void dispose() {
-   // audioPlayer.dispose();
+    // audioPlayer.dispose();
     super.dispose();
   }
 
@@ -266,9 +268,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   ),
                 ),
                 Slider(
-                  value: suraPlayed ? position.inSeconds.toDouble(): 0,
+                  value: suraPlayed ? position.inSeconds.toDouble() : 0,
                   min: 0.0,
-                  max: suraPlayed ? duration.inSeconds.toDouble(): 0,
+                  max: suraPlayed ? duration.inSeconds.toDouble() : 0,
                   onChanged: (double value) {
                     seekAudio(Duration(seconds: value.toInt()));
                   },
@@ -277,7 +279,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      suraPlayed ? formatDuration(position):formatDuration(Duration.zero),
+                      suraPlayed
+                          ? formatDuration(position)
+                          : formatDuration(Duration.zero),
                       style: const TextStyle(fontSize: 18),
                     ),
                     Text(

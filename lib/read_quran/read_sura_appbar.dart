@@ -25,7 +25,7 @@ class ReadSuraAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
-  late final quranProvider = Provider.of<QuranProvider>(context, listen: false);
+  late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
   void _navigateSura(int increment) {
     final newSura = quranProvider.selectedSuraNumber + increment;
