@@ -17,7 +17,7 @@ Future<void> main() async {
     androidNotificationChannelId: 'com.faheemapps.tamil_quran.channel.audio',
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
-    androidStopForegroundOnPause: false,
+    androidStopForegroundOnPause: true,
   );
   runApp(const MyApp());
 }
