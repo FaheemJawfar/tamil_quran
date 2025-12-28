@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_config/update_config.dart';
-import 'package:tamil_quran/quran_test.dart';
 import 'app_config/app_config.dart';
 import 'utils/shared_preferences.dart';
 import '../providers/quran_provider.dart';
@@ -18,6 +17,7 @@ Future<void> main() async {
     androidNotificationChannelId: 'com.faheemapps.tamil_quran.channel.audio',
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
+    androidStopForegroundOnPause: true,
   );
   runApp(const MyApp());
 }

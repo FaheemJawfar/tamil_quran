@@ -29,17 +29,19 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    namespace "com.faheemapps.tamil_quran"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
+
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -47,7 +49,7 @@ android {
 
     defaultConfig {
         applicationId "com.faheemapps.tamil_quran"
-        minSdkVersion 21
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

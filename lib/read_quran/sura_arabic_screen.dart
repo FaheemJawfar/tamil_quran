@@ -1,12 +1,15 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamil_quran/read_quran/quran_page_data.dart';
 import '../providers/quran_provider.dart';
 import '../utils/shared_preferences.dart';
 import 'read_sura_appbar.dart';
+import 'quran_page_data.dart';
 
 class SuraArabicScreen extends StatefulWidget {
-  const SuraArabicScreen({Key? key}) : super(key: key);
+  final int? initialPageNumber;
+
+  const SuraArabicScreen({Key? key, this.initialPageNumber}) : super(key: key);
 
   @override
   State<SuraArabicScreen> createState() => _SuraArabicScreenState();
@@ -15,31 +18,44 @@ class SuraArabicScreen extends StatefulWidget {
 class _SuraArabicScreenState extends State<SuraArabicScreen> {
   late final PageController pageController;
   late QuranProvider quranProvider;
+  Timer? debounceTimer;
+  int? lastPageNumber;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 603); // Open on page001 (reversed)
+    // Set initial page, default to page 603 if no initialPageNumber is provided
+    int initialPage = 604 - (widget.initialPageNumber ?? 0);
+    pageController = PageController(initialPage: initialPage);
 
-    // Listen to page changes
     pageController.addListener(() {
-      int pageNumber = (604 - pageController.page!.round()).toInt(); // Get current page number
-      updateCurrentSura(pageNumber); // Update selected Sura
+      int currentPageNumber = (604 - pageController.page!.round()).toInt();
+
+      // Debounce to avoid frequent updates during fast scrolling
+      debounceTimer?.cancel();
+      debounceTimer = Timer(const Duration(milliseconds: 200), () {
+        if (lastPageNumber != currentPageNumber) {
+          lastPageNumber = currentPageNumber;
+          updateCurrentSura(currentPageNumber);
+        }
+      });
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       quranProvider = Provider.of<QuranProvider>(context, listen: false);
-      int selectedSuraNumber = quranProvider.selectedSuraNumber;
-      int selectedSuraStartingPage =
-      MadaniDataSource().pageForSuraArray[selectedSuraNumber - 1];
+      if (widget.initialPageNumber == null) {
+        // Smooth scroll to the selected Sura's starting page if no initial page is provided
+        int selectedSuraNumber = quranProvider.selectedSuraNumber;
+        int selectedSuraStartingPage =
+            MadaniDataSource().pageForSuraArray[selectedSuraNumber - 1];
 
-      // Smooth scroll to the selected Sura's starting page
-      int targetPage = 604 - selectedSuraStartingPage; // Account for reversed navigation
-      pageController.animateToPage(
-        targetPage,
-        duration: const Duration(milliseconds: 10),
-        curve: Curves.easeInOut,
-      );
+        int targetPage = 604 - selectedSuraStartingPage; // Account for reversed navigation
+        pageController.animateToPage(
+          targetPage,
+          duration: const Duration(milliseconds: 10),
+          curve: Curves.easeInOut,
+        );
+      }
     });
   }
 
@@ -68,13 +84,12 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
 
   @override
   void dispose() {
+    debounceTimer?.cancel();
     pageController.dispose();
     super.dispose();
   }
 
-
   void updateCurrentSura(int pageNumber) {
-    print(pageNumber);
     int suraNumber = MadaniDataSource().suraForPageArray[pageNumber - 1];
     if (quranProvider.selectedSuraNumber != suraNumber) {
       quranProvider.selectedSuraNumber = suraNumber;
@@ -107,5 +122,4 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
       print("Updated Sura Number: $suraNumber");
     }
   }
-
 }
