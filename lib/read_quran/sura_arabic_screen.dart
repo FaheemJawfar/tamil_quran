@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/read_quran/quran_page_data.dart';
 import '../providers/quran_provider.dart';
+import '../utils/shared_preferences.dart';
 import 'read_sura_appbar.dart';
 
 class SuraArabicScreen extends StatefulWidget {
@@ -47,7 +48,8 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
     quranProvider = Provider.of<QuranProvider>(context);
 
     return Scaffold(
-      appBar: ReadSuraAppBar(
+      backgroundColor: Colors.white,
+      appBar: const ReadSuraAppBar(
         arabicOnly: true,
       ),
       body: PageView.builder(
@@ -78,6 +80,10 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
       quranProvider.selectedSuraNumber = suraNumber;
       print("Updated Sura Number: $suraNumber");
     }
+      AppPreferences.setInt('lastSeenPageArabic', pageNumber);
+      print(AppPreferences.getInt("lastSeenPageArabic"));
+
+
   }
 
 
