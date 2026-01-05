@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../app_texts/home_texts.dart';
@@ -22,17 +23,17 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
     return Padding(
         padding: const EdgeInsets.only(right: 12.0),
         child: PopupMenuButton<String>(
-          color: quranProvider.isDarkMode ? null : Colors.green.shade100,
+          color: quranProvider.isDarkMode ? null : ColorConfig.popupColor,
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
               child: getPopupMenuItem(
-                  const Icon(Icons.settings), HomeTexts.settings),
+                  const Icon(LucideIcons.settings), HomeTexts.settings),
             ),
             PopupMenuItem<String>(
               value: 'share_app',
               child: getPopupMenuItem(
-                  const Icon(Icons.share), HomeTexts.shareThisApp),
+                  const Icon(LucideIcons.share2), HomeTexts.shareThisApp),
             ),
             // PopupMenuItem<String>(
             //   value: 'rate_app',
@@ -41,8 +42,8 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
             // ),
             PopupMenuItem<String>(
               value: 'about_us',
-              child:
-                  getPopupMenuItem(const Icon(Icons.info), HomeTexts.aboutUs),
+              child: getPopupMenuItem(
+                  const Icon(LucideIcons.info), HomeTexts.aboutUs),
             ),
             // PopupMenuItem<String>(
             //   value: 'support_us',
@@ -76,7 +77,7 @@ class _HomeScreenPopupMenuState extends State<HomeScreenPopupMenu> {
               //   break;
             }
           },
-          child: const Icon(Icons.more_vert),
+          child: const Icon(LucideIcons.ellipsisVertical),
         ));
   }
 

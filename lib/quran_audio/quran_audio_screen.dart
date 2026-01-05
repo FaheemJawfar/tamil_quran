@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:provider/provider.dart';
@@ -182,8 +183,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
+      backgroundColor: quranProvider.isDarkMode
+          ? ColorConfig.cardDark.withAlpha(128)
+          : ColorConfig.popupColor,
       appBar: AppBar(
         title: FittedBox(
             fit: BoxFit.contain,
@@ -205,7 +207,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   },
                 );
               },
-              icon: const Icon(Icons.edit)),
+              icon: const Icon(LucideIcons.userPen)),
           const HomeScreenPopupMenu(),
         ],
       ),
@@ -220,10 +222,10 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   '${SuraDetails.suraListAll[index].suraNumber}. ${getSuraName(index)}',
                   style: TextStyle(
                       color: selectedSuraIndex == index
-                          ? Colors.white
+                          ? ColorConfig.textDark
                           : quranProvider.isDarkMode
-                              ? Colors.white70
-                              : Colors.black,
+                              ? ColorConfig.textSecondaryDark
+                              : ColorConfig.textLight,
                       fontSize: 18),
                 ),
                 onTap: () {
@@ -234,8 +236,8 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                 },
                 tileColor: selectedSuraIndex == index
                     ? quranProvider.isDarkMode
-                        ? Colors.black45
-                        : Colors.green[300]
+                        ? ColorConfig.cardDark.withAlpha(128)
+                        : ColorConfig.primaryColor.withAlpha(77)
                     : null,
               );
             },
@@ -248,8 +250,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color:
-                  quranProvider.isDarkMode ? Colors.black45 : Colors.green[100],
+              color: quranProvider.isDarkMode
+                  ? Colors.black45
+                  : ColorConfig.popupColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(15),
               ),
@@ -297,7 +300,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   children: <Widget>[
                     IconButton(
                       icon: const Icon(
-                        Icons.skip_previous,
+                        LucideIcons.skipBack,
                         size: 40,
                       ),
                       onPressed: playPrevious,
@@ -306,20 +309,20 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                       icon: isLoading
                           ? LoadingIndicator(
                               color: quranProvider.isDarkMode
-                                  ? Colors.grey
+                                  ? ColorConfig.textSecondaryDark
                                   : ColorConfig.primaryColor,
                             )
                           : audioPlayer.playing && suraPlayed
                               ? const Icon(
-                                  Icons.pause,
+                                  LucideIcons.circlePause,
                                   size: 40,
                                 )
-                              : const Icon(Icons.play_arrow, size: 40),
+                              : const Icon(LucideIcons.circlePlay, size: 40),
                       onPressed: audioPlayer.playing ? pauseAudio : playAudio,
                     ),
                     IconButton(
                       icon: const Icon(
-                        Icons.skip_next,
+                        LucideIcons.skipForward,
                         size: 40,
                       ),
                       onPressed: playNext,

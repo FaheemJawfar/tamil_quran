@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/common_widget_texts.dart';
 import '../app_texts/read_quran_texts.dart';
@@ -24,27 +25,27 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
     return Padding(
         padding: const EdgeInsets.only(right: 12.0),
         child: PopupMenuButton<String>(
-          color: quranProvider.isDarkMode ? null : Colors.green.shade100,
+          color: quranProvider.isDarkMode ? null : ColorConfig.popupColor,
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'settings',
               child: getPopupMenuItem(
-                  Icons.settings, CommonWidgetTexts.settingsTranslation),
+                  LucideIcons.settings, CommonWidgetTexts.settingsTranslation),
             ),
             PopupMenuItem<String>(
               value: 'go_to_verse',
               child: getPopupMenuItem(
-                  Icons.shuffle, ReadQuranTexts.goToVerseTranslation),
+                  LucideIcons.navigation, ReadQuranTexts.goToVerseTranslation),
             ),
             PopupMenuItem<String>(
               value: 'share_sura',
               child: getPopupMenuItem(
-                  Icons.mobile_screen_share, ReadQuranTexts.shareThisChapter),
+                  LucideIcons.share2, ReadQuranTexts.shareThisChapter),
             ),
             PopupMenuItem<String>(
               value: 'search',
               child: getPopupMenuItem(
-                  Icons.search, ReadQuranTexts.searchInQuranTranslation),
+                  LucideIcons.search, ReadQuranTexts.searchInQuranTranslation),
             ),
           ],
           onSelected: (String value) {
@@ -57,9 +58,7 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
                 _showVersePicker(context);
                 break;
               case 'share_sura':
-                VerseHelper.copySura(
-                    quranProvider.selectedSuraNumber,
-                    context);
+                VerseHelper.copySura(quranProvider.selectedSuraNumber, context);
                 break;
               case 'search':
                 Navigator.push(context,
@@ -67,7 +66,7 @@ class _ReadSuraPopupMenuState extends State<ReadSuraPopupMenu> {
                 break;
             }
           },
-          child: const Icon(Icons.more_vert),
+          child: const Icon(LucideIcons.ellipsisVertical),
         ));
   }
 

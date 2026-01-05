@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_texts/settings_texts.dart';
 import '../app_config/color_config.dart';
@@ -28,12 +29,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              leading: const Icon(Icons.dark_mode),
+              leading: const Icon(LucideIcons.moon),
               title: const Text(SettingsTexts.darkMode),
               trailing: Switch(
                   activeThumbColor: quranProvider.isDarkMode
-                      ? Colors.grey
-                      : ColorConfig.primaryColor,
+                      ? ColorConfig.textSecondaryDark
+                      : ColorConfig.textSecondaryLight,
                   value: quranProvider.isDarkMode,
                   onChanged: (value) {
                     quranProvider.isDarkMode = value;
@@ -41,7 +42,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _buildDivider(),
             _buildListTile(
-              leadingIcon: Icons.language,
+              leadingIcon: LucideIcons.languages,
               title: SettingsTexts.languageTranslation,
               subtitle: quranProvider.selectedTranslationName,
               onTap: () => _showPopup(
@@ -55,8 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _buildDivider(),
             _buildImageIconListTile(
-              leadingIcon: const ImageIcon(
-                  AssetImage(SettingsTexts.translationIconPath)),
+              leadingIcon: const Icon(LucideIcons.wholeWord),
               title: SettingsTexts.translationFont,
               subtitle: SettingsTexts.bismillahTranslation,
               selectedFont: quranProvider.tamilFont,
@@ -71,8 +71,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _buildDivider(),
             _buildImageIconListTile(
-              leadingIcon:
-                  const ImageIcon(AssetImage(SettingsTexts.arabicIconPath)),
+              leadingIcon: const Icon(LucideIcons.wholeWord),
               title: SettingsTexts.arabicFont,
               subtitle: SettingsTexts.bismillahInArabic,
               selectedFont: quranProvider.arabicFont,
@@ -87,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _buildDivider(),
             _buildListTile(
-              leadingIcon: Icons.text_fields,
+              leadingIcon: LucideIcons.type,
               title: SettingsTexts.translationFontSize,
               subtitle: quranProvider.tamilFontSize.floor().toString(),
               onTap: () => _showPopup(
@@ -102,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _buildDivider(),
             _buildListTile(
-              leadingIcon: Icons.text_fields,
+              leadingIcon: LucideIcons.type,
               title: SettingsTexts.arabicFontSize,
               subtitle: quranProvider.arabicFontSize.floor().toString(),
               onTap: () => _showPopup(
@@ -117,7 +116,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _buildDivider(),
             _buildListTile(
-              leadingIcon: Icons.record_voice_over,
+              leadingIcon: LucideIcons.headphones,
               title: SettingsTexts.quranReciter,
               subtitle: quranProvider.selectedReciterDetails.name,
               onTap: () => _showPopup(
@@ -133,7 +132,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _buildDivider(),
             _buildListTile(
-              leadingIcon: Icons.restore,
+              leadingIcon: LucideIcons.rotateCcw,
               title: SettingsTexts.resetSettings,
               subtitle: SettingsTexts.resetSettingsInfo,
               onTap: () => _showPopup(
@@ -195,7 +194,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildImageIconListTile(
-      {required ImageIcon leadingIcon,
+      {required Widget leadingIcon,
       required String title,
       required String subtitle,
       required String selectedFont,
@@ -217,7 +216,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildDivider() {
     return const Divider(
-      color: Colors.grey,
+      color: ColorConfig.textSecondaryLight,
       thickness: 1,
     );
   }

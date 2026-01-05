@@ -1,9 +1,9 @@
 import '../app_config/app_config.dart';
 
 class HomeTexts {
-    // Splash Screen
+  // Splash Screen
   static const String theHolyQuran = 'திருக்குர்ஆன்';
-  static const String arabicAndTranslation = 'அரபு மூலம் மற்றும் மொழிபெயர்ப்பு';
+  static const String arabicAndTranslation = 'அல்குர்ஆன் மற்றும் மொழிபெயர்ப்பு';
 
   // Sura List Arabic Screen
   static const String verseCount = 'வசனங்கள்:';
@@ -11,12 +11,10 @@ class HomeTexts {
   // Sura List Tamil Screen
   static const String continueReading = 'வாசிப்பைத் தொடர்க...';
 
-  
 // Home Screen
   static const String translation = 'மொழிபெயர்ப்பு';
-  static const String onlyArabic = 'அரபு மூலம்';
+  static const String onlyArabic = 'அல்குர்ஆன்';
   static const String bookmarks = 'புத்தகக்குறிகள்';
-
 
   // Home Screen PopUp
   static const String settings = 'Settings';
@@ -37,10 +35,8 @@ class HomeTexts {
   static const String rate5Starts = 'Rate us 5 stars on Play Store!';
   static const String pleaseGiveFeedback = 'Please give your feedback';
 
-
   // Sura Verse Picker
   static const String goToVerseHeader = 'வசனத்திற்குச் செல்க...';
-
 
   // Quran App Drawer
   static const String appNameSubtitle = '(திருக்குர்ஆன் தமிழாக்கம்)';

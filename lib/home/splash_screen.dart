@@ -47,7 +47,6 @@ class _SplashScreenState extends State<SplashScreen> {
         Random().nextInt(AboutQuranReferences.listOfVersesAndHadhiths.length);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,8 +69,8 @@ class _SplashScreenState extends State<SplashScreen> {
             quranProvider.isDarkMode
                 ? Colors.black45
                 : ColorConfig.primaryColor,
-            quranProvider.isDarkMode ? Colors.black54 : Colors.green.shade600,
-            quranProvider.isDarkMode ? Colors.black : Colors.green.shade900,
+            quranProvider.isDarkMode ? Colors.black54 : const Color(0xFF006B3C),
+            quranProvider.isDarkMode ? Colors.black : const Color(0xFF004D2C),
           ],
         ),
       ),
@@ -89,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
               HomeTexts.theHolyQuran,
               style: TextStyle(
                 fontSize: 24,
-                color: Colors.white,
+                color: ColorConfig.textDark,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -98,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen> {
               HomeTexts.arabicAndTranslation,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.white,
+                color: ColorConfig.textDark,
               ),
             ),
             const Divider(),
@@ -107,7 +106,7 @@ class _SplashScreenState extends State<SplashScreen> {
               AboutQuranReferences
                   .listOfVersesAndHadhiths[selectedQuoteNumber].quote,
               style: const TextStyle(
-                color: Colors.white,
+                color: ColorConfig.textDark,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
@@ -119,7 +118,7 @@ class _SplashScreenState extends State<SplashScreen> {
               AboutQuranReferences
                   .listOfVersesAndHadhiths[selectedQuoteNumber].reference,
               style: const TextStyle(
-                color: Colors.white,
+                color: ColorConfig.textDark,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,

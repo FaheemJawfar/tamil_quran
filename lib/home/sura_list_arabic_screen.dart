@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import '../app_config/color_config.dart';
 import '../app_texts/home_texts.dart';
@@ -39,9 +40,10 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
               );
             },
             label: const Text('Continue...'),
-            icon: const Icon(Icons.menu_book_sharp),
+            icon: const Icon(LucideIcons.bookOpen),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green, // Replace with your desired color
+              backgroundColor:
+                  ColorConfig.primaryColor, // Replace with your desired color
             ),
           ),
           Expanded(
@@ -65,7 +67,7 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                       fontSize: 22,
                       color: quranProvider.isDarkMode
                           ? Colors.white
-                          : Colors.black45,
+                          : ColorConfig.textSecondaryLight,
                     ),
                   ),
                   title: Text(
@@ -75,14 +77,15 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                       fontSize: 18,
                       color: quranProvider.isDarkMode
                           ? Colors.white
-                          : Colors.black,
+                          : ColorConfig.textLight,
                     ),
                   ),
                   subtitle: Text('${HomeTexts.verseCount} ${sura.verseCount}'),
                   trailing: Image.asset(
                     'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
-                    color:
-                        quranProvider.isDarkMode ? Colors.white : Colors.black,
+                    color: quranProvider.isDarkMode
+                        ? ColorConfig.textDark
+                        : ColorConfig.textLight,
                   ),
                   onTap: () {
                     quranProvider.selectedSuraNumber = sura.suraNumber;

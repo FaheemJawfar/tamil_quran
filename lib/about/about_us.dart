@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/about.dart';
 import '../app_config/app_config.dart';
@@ -25,7 +26,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     super.initState();
   }
 
-
   void getVersionNumber() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     List<String> versionParts = packageInfo.version.split('.');
@@ -39,10 +39,12 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     });
   }
 
-
-  _buildListItem(String title){
+  _buildListItem(String title) {
     return ListTile(
-      title: Text(title, style: const TextStyle(fontStyle: FontStyle.italic),),
+      title: Text(
+        title,
+        style: const TextStyle(fontStyle: FontStyle.italic),
+      ),
       // onTap: () {
       //   Launcher.launchWebpage(website);
       // },
@@ -54,19 +56,21 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('References', style: TextStyle(fontWeight: FontWeight.bold),),
+          title: const Text(
+            'References',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           content: SizedBox(
             width: double.maxFinite,
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
-                _buildListItem('1. Tamil Quran and Dua App'),
+                _buildListItem('1. Tamililquran.com'),
                 _buildListItem('2. Tanzil.net'),
                 _buildListItem('3. QuranEnc.com'),
                 _buildListItem('4. Alquran.cloud'),
                 _buildListItem('5. Archive.org'),
                 _buildListItem('6. Onlinetntj.com'),
-
               ],
             ),
           ),
@@ -83,21 +87,20 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: quranProvider.isDarkMode ? null: ColorConfig.backgroundColor,
+      backgroundColor:
+          quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       appBar: AppBar(
         title: const Text(AboutTexts.aboutUs),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {
-            _showReferencesDialog(context);
-          }, icon: const ImageIcon(
-              size: 15,
-              AssetImage('assets/images/link.png')))
+          IconButton(
+              onPressed: () {
+                _showReferencesDialog(context);
+              },
+              icon: const Icon(LucideIcons.link))
         ],
       ),
       body: SingleChildScrollView(
@@ -109,7 +112,9 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               const SizedBox(height: 20),
               CircleAvatar(
                 radius: 40,
-                backgroundColor: quranProvider.isDarkMode ? Colors.transparent: ColorConfig.backgroundColor,
+                backgroundColor: quranProvider.isDarkMode
+                    ? Colors.transparent
+                    : ColorConfig.backgroundColor,
                 backgroundImage: const AssetImage(AppConfig.appLogoPath),
               ),
               const SizedBox(height: 20),
@@ -121,11 +126,16 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               const SizedBox(height: 5),
               Text(
                 'Version $appVersion',
-                style: TextStyle(fontSize: 18, color: quranProvider.isDarkMode ? Colors.white70: Colors.grey.shade700),
+                style: TextStyle(
+                    fontSize: 18,
+                    color: quranProvider.isDarkMode
+                        ? Colors.white70
+                        : Colors.grey.shade700),
               ),
 
               Divider(
-                color: quranProvider.isDarkMode ? null: ColorConfig.primaryColor,
+                color:
+                    quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
               ),
               // const Text(
               //   AboutTexts.aboutUsContent,
@@ -141,13 +151,18 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
-              const Text(
+              Text(
                 AboutTexts.developerName,
-                style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 18,
+                    color: quranProvider.isDarkMode
+                        ? ColorConfig.textSecondaryDark
+                        : ColorConfig.textSecondaryLight),
                 textAlign: TextAlign.center,
               ),
               Divider(
-                color: quranProvider.isDarkMode ? null: ColorConfig.primaryColor,
+                color:
+                    quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
               ),
               const Text(
                 AboutTexts.sendFeedback,
@@ -165,20 +180,22 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 onPressed: () {
                   Launcher.launchEmail('');
                 },
-                icon: const Icon(Icons.mail),
+                icon: const Icon(LucideIcons.mail),
                 label: const Text(AboutTexts.emailUs),
-
-                style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+                style: quranProvider.isDarkMode
+                    ? ColorConfig.darkModeButtonStyle
+                    : null,
               ),
 
               ElevatedButton.icon(
                 onPressed: () {
                   Launcher.launchWhatsApp();
                 },
-                icon: const ImageIcon(AssetImage('assets/images/whatsapp.png')),
+                icon: const Icon(LucideIcons.messageCircle),
                 label: const Text(AboutTexts.whatsAppUs),
-
-                style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+                style: quranProvider.isDarkMode
+                    ? ColorConfig.darkModeButtonStyle
+                    : null,
               ),
             ],
           ),

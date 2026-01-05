@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/common_widgets/show_toast.dart';
 import 'package:tamil_quran/providers/quran_provider.dart';
@@ -51,28 +52,30 @@ class _ReadThafseerScreenState extends State<ReadThafseerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String header = '${widget.selectedThafseer.index}. ${widget.selectedThafseer.header}';
+    String header =
+        '${widget.selectedThafseer.index}. ${widget.selectedThafseer.header}';
     return Scaffold(
       appBar: AppBar(
         title: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           controller: _controller,
           child: Text(
-           header,
+            header,
             style: const TextStyle(fontSize: 16.0),
           ),
         ),
         centerTitle: true,
-
         actions: [
           IconButton(
-            visualDensity: VisualDensity.compact,
+              visualDensity: VisualDensity.compact,
               onPressed: () {
-              String textToShare = '$header\n${'-' * header.length}\n\n${widget.selectedThafseer.content}\n\n${'-' * header.length}\nதிருக்குர்ஆன் தமிழாக்கம்: ${widget.writtenBy},\nவிளக்கக் குறிப்பு: ${widget.selectedThafseer.index}';
-              VerseHelper.copyText(textToShare);
-              ShowToast.showToast(context, 'விளக்கக் குறிப்பு பிரதி செய்யப்பட்டது!');
-
-          }, icon: const Icon(Icons.copy_all)),
+                String textToShare =
+                    '$header\n${'-' * header.length}\n\n${widget.selectedThafseer.content}\n\n${'-' * header.length}\nதிருக்குர்ஆன் தமிழாக்கம்: ${widget.writtenBy},\nவிளக்கக் குறிப்பு: ${widget.selectedThafseer.index}';
+                VerseHelper.copyText(textToShare);
+                ShowToast.showToast(
+                    context, 'விளக்கக் குறிப்பு பிரதி செய்யப்பட்டது!');
+              },
+              icon: const Icon(LucideIcons.copy)),
         ],
       ),
       body: SingleChildScrollView(
@@ -80,7 +83,9 @@ class _ReadThafseerScreenState extends State<ReadThafseerScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             widget.selectedThafseer.content,
-            style: TextStyle(fontSize: Provider.of<QuranProvider>(context, listen: false).tamilFontSize),
+            style: TextStyle(
+                fontSize: Provider.of<QuranProvider>(context, listen: false)
+                    .tamilFontSize),
           ),
         ),
       ),

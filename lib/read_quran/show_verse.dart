@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../app_config/color_config.dart';
@@ -21,13 +22,11 @@ class ShowVerse extends StatefulWidget {
   final bool isPlaying;
 
   const ShowVerse(
-      {
-      required this.quranAyaArabic,
+      {required this.quranAyaArabic,
       required this.quranAyaTranslation,
       required this.playAudio,
       required this.stopAudio,
       required this.isPlaying,
-
       Key? key})
       : super(key: key);
 
@@ -37,7 +36,6 @@ class ShowVerse extends StatefulWidget {
 
 class _ShowVerseState extends State<ShowVerse> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
-
 
   // void seekTo(Duration position) {
   //   QuranAudioPlayerHelper.audioPlayer.seek(position);
@@ -61,7 +59,9 @@ class _ShowVerseState extends State<ShowVerse> {
             style: TextStyle(
               fontSize: quranProvider.arabicFontSize,
               fontFamily: quranProvider.arabicFont,
-              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+              color: quranProvider.isDarkMode
+                  ? ColorConfig.textDark
+                  : ColorConfig.textLight,
             ),
           ),
         );
@@ -70,7 +70,9 @@ class _ShowVerseState extends State<ShowVerse> {
             text: '${QuranHelper.getVerseEndSymbol(ayaNumber)} ',
             style: TextStyle(
               fontSize: 18,
-              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+              color: quranProvider.isDarkMode
+                  ? ColorConfig.textDark
+                  : ColorConfig.textLight,
             ),
           ),
         );
@@ -85,14 +87,18 @@ class _ShowVerseState extends State<ShowVerse> {
             style: TextStyle(
               fontSize: quranProvider.arabicFontSize,
               fontFamily: quranProvider.arabicFont,
-              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+              color: quranProvider.isDarkMode
+                  ? ColorConfig.textDark
+                  : ColorConfig.textLight,
             ),
           ),
           TextSpan(
             text: QuranHelper.getVerseEndSymbol(widget.quranAyaArabic.ayaIndex),
             style: TextStyle(
               fontSize: 18,
-              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+              color: quranProvider.isDarkMode
+                  ? ColorConfig.textDark
+                  : ColorConfig.textLight,
             ),
           ),
         ],
@@ -118,7 +124,9 @@ class _ShowVerseState extends State<ShowVerse> {
             style: TextStyle(
               fontSize: quranProvider.tamilFontSize,
               fontFamily: quranProvider.tamilFont,
-              color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+              color: quranProvider.isDarkMode
+                  ? ColorConfig.textDark
+                  : ColorConfig.textLight,
             ),
           ));
         }
@@ -134,7 +142,9 @@ class _ShowVerseState extends State<ShowVerse> {
                     fontSize: quranProvider.tamilFontSize * 0.8,
                     // Adjust the size as needed
                     fontFamily: 'NotoSansTamil',
-                    color: quranProvider.isDarkMode ? Colors.white70 : Colors.green.shade800,
+                    color: quranProvider.isDarkMode
+                        ? ColorConfig.textSecondaryDark
+                        : ColorConfig.buttonColor,
                     // fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -170,7 +180,9 @@ class _ShowVerseState extends State<ShowVerse> {
           style: TextStyle(
             fontSize: quranProvider.tamilFontSize,
             fontFamily: quranProvider.tamilFont,
-            color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+            color: quranProvider.isDarkMode
+                ? ColorConfig.textDark
+                : ColorConfig.textLight,
           ),
         ));
       }
@@ -183,7 +195,9 @@ class _ShowVerseState extends State<ShowVerse> {
         style: TextStyle(
           fontSize: quranProvider.tamilFontSize,
           fontFamily: quranProvider.tamilFont,
-          color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+          color: quranProvider.isDarkMode
+              ? ColorConfig.textDark
+              : ColorConfig.textLight,
         ),
       ));
     }
@@ -198,7 +212,7 @@ class _ShowVerseState extends State<ShowVerse> {
 
   Widget getPopupMenuItem(IconData icon, String title) {
     return ListTile(
-      iconColor: quranProvider.isDarkMode ? null : Colors.green.shade700,
+      iconColor: quranProvider.isDarkMode ? null : ColorConfig.buttonColor,
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon),
       title: Text(title),
@@ -214,11 +228,13 @@ class _ShowVerseState extends State<ShowVerse> {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
-            color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+            color: quranProvider.isDarkMode
+                ? ColorConfig.textDark
+                : ColorConfig.textLight,
           ),
         ),
         PopupMenuButton<String>(
-          color: quranProvider.isDarkMode ? null : Colors.green.shade100,
+          color: quranProvider.isDarkMode ? null : ColorConfig.popupColor,
           onSelected: (String value) {
             switch (value) {
               case 'shareVerse':
@@ -230,7 +246,9 @@ class _ShowVerseState extends State<ShowVerse> {
                 quranProvider.addBookmark(
                   Bookmark(
                     suraNumber: quranProvider.selectedSuraNumber.toString(),
-                    verseNumber:getFirstVerseInList( widget.quranAyaTranslation.ayaNumberList).toString(),
+                    verseNumber: getFirstVerseInList(
+                            widget.quranAyaTranslation.ayaNumberList)
+                        .toString(),
                   ),
                   context,
                 );
@@ -259,29 +277,30 @@ class _ShowVerseState extends State<ShowVerse> {
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'shareVerse',
-              child: getPopupMenuItem(Icons.share, ReadQuranTexts.share),
+              child: getPopupMenuItem(LucideIcons.share2, ReadQuranTexts.share),
             ),
             PopupMenuItem<String>(
               value: 'addBookmark',
               child: getPopupMenuItem(
-                  Icons.bookmark_add_outlined, ReadQuranTexts.addBookmark),
+                  LucideIcons.bookmarkPlus, ReadQuranTexts.addBookmark),
             ),
             PopupMenuItem<String>(
               value: 'copy',
               child: getPopupMenuItem(
-                  Icons.copy, ReadQuranTexts.copyArabicAndTranslation),
+                  LucideIcons.copy, ReadQuranTexts.copyArabicAndTranslation),
             ),
             PopupMenuItem<String>(
               value: 'copy_arabic',
-              child: getPopupMenuItem(Icons.copy, ReadQuranTexts.copyArabic),
+              child:
+                  getPopupMenuItem(LucideIcons.copy, ReadQuranTexts.copyArabic),
             ),
             PopupMenuItem<String>(
               value: 'copy_translation',
-              child:
-                  getPopupMenuItem(Icons.copy, ReadQuranTexts.copyTranslation),
+              child: getPopupMenuItem(
+                  LucideIcons.copy, ReadQuranTexts.copyTranslation),
             ),
           ],
-          child: const Icon(Icons.more_vert),
+          child: const Icon(LucideIcons.ellipsisVertical),
         )
       ],
     );
@@ -305,13 +324,13 @@ class _ShowVerseState extends State<ShowVerse> {
             child: InkWell(
                 onTap: widget.isPlaying ? widget.stopAudio : widget.playAudio,
                 child: widget.isPlaying
-                    ? Icon(
-                        Icons.stop_circle,
-                        color: quranProvider.isDarkMode ? Colors.white : Colors.red,
+                    ? const Icon(
+                        LucideIcons.circleStop,
+                        color: Colors.red,
                       )
-                    : Icon(
-                        Icons.play_circle,
-                        color: quranProvider.isDarkMode ? Colors.white70 : ColorConfig.primaryColor,
+                    : const Icon(
+                        LucideIcons.circlePlay,
+                        color: ColorConfig.primaryColor,
                       )),
           ),
         ),
@@ -340,9 +359,9 @@ class _ShowVerseState extends State<ShowVerse> {
 
   Widget buildBismi() {
     String bismiArabic = quranProvider.bismillahArabic.text;
-    String bismiTamil =  quranProvider.bismillahTranslation.text;
+    String bismiTamil = quranProvider.bismillahTranslation.text;
 
-    if(quranProvider.selectedTranslation == 'tntj'){
+    if (quranProvider.selectedTranslation == 'tntj') {
       RegExp numberPattern = RegExp(r'\d+');
       bismiTamil = bismiTamil.replaceAll(numberPattern, '');
     }
@@ -369,11 +388,13 @@ class _ShowVerseState extends State<ShowVerse> {
               ),
               const SizedBox(height: 8),
               Text(
-               bismiTamil,
+                bismiTamil,
                 style: TextStyle(
                   fontSize: quranProvider.tamilFontSize,
                   fontFamily: quranProvider.tamilFont,
-                  color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+                  color: quranProvider.isDarkMode
+                      ? ColorConfig.textDark
+                      : ColorConfig.textLight,
                 ),
               ),
             ],
@@ -387,24 +408,22 @@ class _ShowVerseState extends State<ShowVerse> {
     List thafseerList = quranProvider.selectedTranslation == 'pj'
         ? PJThafseerContent.thafseerList
         : quranProvider.selectedTranslation == 'tntj'
-        ? TNTJThafseerContent.thafseerList
-        : [];
-    Thafseer selectedItem = Thafseer.getSelectedExplanation(tappedNumber, thafseerList);
+            ? TNTJThafseerContent.thafseerList
+            : [];
+    Thafseer selectedItem =
+        Thafseer.getSelectedExplanation(tappedNumber, thafseerList);
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ThafseerPopup(
-        selectedThafseer: selectedItem);
+        return ThafseerPopup(selectedThafseer: selectedItem);
       },
     );
   }
-  
-  
-  int getFirstVerseInList(String ayaList){
-    List<int> allVerses = ayaList.split(',')
-        .map((str) => int.parse(str))
-        .toList();
-    
+
+  int getFirstVerseInList(String ayaList) {
+    List<int> allVerses =
+        ayaList.split(',').map((str) => int.parse(str)).toList();
+
     return allVerses.first;
   }
 }

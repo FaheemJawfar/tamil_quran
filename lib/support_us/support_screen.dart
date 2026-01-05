@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/about.dart';
 import '../app_texts/support_us_texts.dart';
@@ -65,7 +66,7 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                   width: 150,
                 ),
               ),
-             // const Divider(),
+              // const Divider(),
               const SizedBox(
                 height: 20,
               ),
@@ -96,16 +97,16 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                   TextSpan(
                                     text: 'J. Faheem',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                 ],
                               ),
@@ -119,16 +120,16 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                   TextSpan(
                                     text: '231020082879',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                 ],
                               ),
@@ -142,16 +143,16 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                   TextSpan(
                                     text: 'Hatton National Bank (HNB)',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                 ],
                               ),
@@ -165,16 +166,16 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                   TextSpan(
                                     text: 'Kekirawa',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                 ],
                               ),
@@ -188,16 +189,16 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                   TextSpan(
                                     text: 'HBLILKLX',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: quranProvider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                            ? ColorConfig.textDark
+                                            : ColorConfig.textLight),
                                   ),
                                 ],
                               ),
@@ -221,13 +222,13 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                     },
                   );
                 },
-                icon: const Icon(Icons.list),
+                icon: const Icon(LucideIcons.list),
                 label: const Text(
                   SupportUsTexts.bankAccountDetailsTranslation,
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-               const Divider(),
+              const Divider(),
               const SizedBox(
                 height: 20,
               ),
@@ -239,10 +240,11 @@ class _SupportUsScreenState extends State<SupportUsScreen> {
                 onPressed: () {
                   Launcher.launchWhatsApp();
                 },
-                icon: const ImageIcon(AssetImage('assets/images/whatsapp.png')),
+                icon: const Icon(LucideIcons.messageCircle),
                 label: const Text(AboutTexts.whatsAppUs),
-
-                style: quranProvider.isDarkMode ? ColorConfig.darkModeButtonStyle : null,
+                style: quranProvider.isDarkMode
+                    ? ColorConfig.darkModeButtonStyle
+                    : null,
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/bookmarks.dart';
 import '../read_quran/quran_aya.dart';
@@ -16,7 +17,6 @@ class BookmarksScreen extends StatefulWidget {
 
 class _BookmarksScreenState extends State<BookmarksScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +57,12 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                     ),
                   ),
                   title: RichText(
-                    text: quranProvider
-                        .getArabicAyaListFromTranslation(quranProvider.filterOneAyaTranslationFromSearch(
-                        int.parse(currentBookmark.suraNumber),
-                        int.parse(currentBookmark.verseNumber)), 16),
+                    text: quranProvider.getArabicAyaListFromTranslation(
+                        quranProvider.filterOneAyaTranslationFromSearch(
+                            int.parse(currentBookmark.suraNumber),
+                            int.parse(currentBookmark.verseNumber)),
+                        16),
                     textDirection: TextDirection.rtl,
-
                   ),
                   subtitle: Text(quranProvider
                       .filterOneAyaTranslationFromSearch(
@@ -70,7 +70,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                           int.parse(currentBookmark.verseNumber))
                       .text),
                   trailing: IconButton(
-                    icon: const Icon(Icons.delete),
+                    icon: const Icon(LucideIcons.trash2),
                     onPressed: () {
                       quranProvider.deleteBookmark(
                           Bookmark(
@@ -95,12 +95,12 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                 )));
   }
 
+  int findAyaIndex(int selectedSura, int selectedAyaNumber) {
+    List<QuranAya> allAyasInSura =
+        quranProvider.allSurasTamil[selectedSura - 1].listOfAyas;
 
-  int findAyaIndex(int selectedSura, int selectedAyaNumber){
-    List<QuranAya> allAyasInSura = quranProvider.allSurasTamil[selectedSura-1].listOfAyas;
-
-    int ayaIndex = allAyasInSura.indexWhere(
-            (element) => element.ayaNumberList.contains(selectedAyaNumber.toString()));
+    int ayaIndex = allAyasInSura.indexWhere((element) =>
+        element.ayaNumberList.contains(selectedAyaNumber.toString()));
 
     return ayaIndex + 1;
   }

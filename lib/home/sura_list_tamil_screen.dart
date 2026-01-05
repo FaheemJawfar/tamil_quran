@@ -17,8 +17,6 @@ class SuraListTamilScreen extends StatefulWidget {
 class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +48,7 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
         style: quranProvider.isDarkMode
             ? ColorConfig.darkModeButtonStyle
             : OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.green),
+                side: const BorderSide(color: ColorConfig.primaryColor),
               ),
         child: Text(
           HomeTexts.continueReading,
@@ -74,7 +72,9 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
           color: quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
         ),
         itemBuilder: (BuildContext context, int index) {
-          final suraDetails = quranProvider.selectedTranslation == 'pj' ? SuraDetails.suraListPj[index] : SuraDetails.suraListAll[index];
+          final suraDetails = quranProvider.selectedTranslation == 'pj'
+              ? SuraDetails.suraListPj[index]
+              : SuraDetails.suraListAll[index];
 
           return ListTile(
             leading: Text(
@@ -82,7 +82,9 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
-                color: quranProvider.isDarkMode ? Colors.white: Colors.black45,
+                color: quranProvider.isDarkMode
+                    ? ColorConfig.textDark
+                    : ColorConfig.textSecondaryLight,
               ),
             ),
             title: Text(
@@ -90,11 +92,12 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
-                color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+                color: quranProvider.isDarkMode
+                    ? ColorConfig.textDark
+                    : ColorConfig.textLight,
               ),
             ),
-            subtitle:
-                Text('${HomeTexts.verseCount} ${suraDetails.verseCount}'),
+            subtitle: Text('${HomeTexts.verseCount} ${suraDetails.verseCount}'),
             trailing: Image.asset(
               'assets/images/sura_headers/Surah_${suraDetails.suraNumber}.png',
               color: quranProvider.isDarkMode ? Colors.white : Colors.black,

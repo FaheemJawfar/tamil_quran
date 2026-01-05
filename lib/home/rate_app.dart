@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import '../app_texts/home_texts.dart';
 import '../app_config/color_config.dart';
@@ -95,7 +96,7 @@ class _RateAppState extends State<RateApp> {
                   });
                 },
                 icon: Icon(
-                  Icons.star,
+                  LucideIcons.star,
                   color: star <= selectedRating ? Colors.yellow : Colors.grey,
                 ),
               );

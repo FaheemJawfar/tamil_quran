@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import '../app_texts/home_texts.dart';
 import '../bookmarks/bookmarks_screen.dart';
 import '../quran_audio/quran_audio_screen.dart';
@@ -75,6 +76,16 @@ class _HomeScreenState extends State<HomeScreen>
               _appBarTitle,
               style: const TextStyle(fontSize: 16),
             )),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(LucideIcons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -83,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen>
                     MaterialPageRoute(
                         builder: (context) => const SearchScreen()));
               },
-              icon: const Icon(Icons.search_sharp)),
+              icon: const Icon(LucideIcons.search)),
           IconButton(
             onPressed: () {
               Navigator.push(
@@ -91,35 +102,16 @@ class _HomeScreenState extends State<HomeScreen>
                   MaterialPageRoute(
                       builder: (context) => const QuranAudioPlayerScreen()));
             },
-            icon: const ImageIcon(
-              AssetImage('assets/images/quran-audio.png'),
-            ),
+            icon: const Icon(LucideIcons.headphones),
           ),
           IconButton(
-              onPressed: () {
-                _showVersePicker(context);
-              },
-              icon: const ImageIcon(
-                AssetImage('assets/images/fast-forward.png'),
-              ),),
+            onPressed: () {
+              _showVersePicker(context);
+            },
+            icon: const Icon(LucideIcons.navigation),
+          ),
           const HomeScreenPopupMenu(),
         ],
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(
-              icon: ImageIcon(
-                AssetImage('assets/images/quran_book.png'),
-              ),
-            ),
-            Tab(
-              icon: ImageIcon(
-                AssetImage('assets/images/read_quran.png'),
-              ),
-            ),
-            Tab(icon: Icon(Icons.bookmarks)),
-          ],
-        ),
       ),
       drawer: const QuranAppDrawer(),
       body: TabBarView(
@@ -128,6 +120,28 @@ class _HomeScreenState extends State<HomeScreen>
           SuraListTamilScreen(),
           SuraListArabicScreen(),
           BookmarksScreen(),
+        ],
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _tabController.index,
+        onDestinationSelected: (int index) {
+          setState(() {
+            _tabController.index = index;
+          });
+        },
+        destinations: const [
+          NavigationDestination(
+            icon: ImageIcon(AssetImage('assets/images/read_quran.png')),
+            label: HomeTexts.translation,
+          ),
+          NavigationDestination(
+            icon: ImageIcon(AssetImage('assets/images/quran_book.png')),
+            label: HomeTexts.onlyArabic,
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.bookmark),
+            label: HomeTexts.bookmarks,
+          ),
         ],
       ),
     );

@@ -50,13 +50,13 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                       width: 2.0,
                       color: quranProvider.isDarkMode
                           ? Colors.white
-                          : Colors.green,
+                          : ColorConfig.primaryColor,
                     ),
                     bottom: BorderSide(
                       width: 2.0,
                       color: quranProvider.isDarkMode
                           ? Colors.white
-                          : Colors.green,
+                          : ColorConfig.primaryColor,
                     ),
                   ),
                   highlighterBorderWidth: 60,
@@ -68,8 +68,11 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                     setState(() {
                       selectedSura = value + 1;
 
-                      if (selectedAyaNumber > SuraDetails.suraListAll[selectedSura - 1].verseCount) {
-                        selectedAyaNumber = SuraDetails.suraListAll[selectedSura - 1].verseCount;
+                      if (selectedAyaNumber >
+                          SuraDetails
+                              .suraListAll[selectedSura - 1].verseCount) {
+                        selectedAyaNumber = SuraDetails
+                            .suraListAll[selectedSura - 1].verseCount;
                       }
                     });
                   },
@@ -95,13 +98,13 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
                       width: 1.0,
                       color: quranProvider.isDarkMode
                           ? Colors.white
-                          : Colors.green,
+                          : ColorConfig.primaryColor,
                     ),
                     bottom: BorderSide(
                       width: 1.0,
                       color: quranProvider.isDarkMode
                           ? Colors.white
-                          : Colors.green,
+                          : ColorConfig.primaryColor,
                     ),
                   ),
                   highlighterBorderWidth: 60,
@@ -129,7 +132,8 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
               context,
               MaterialPageRoute(
                   builder: (context) => SuraTranslationScreen(
-                        goToVerse: findAyaIndex(selectedSura, selectedAyaNumber),
+                        goToVerse:
+                            findAyaIndex(selectedSura, selectedAyaNumber),
                       )));
         })
       ],
@@ -154,12 +158,12 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
     );
   }
 
+  int findAyaIndex(int selectedSura, int selectedAyaNumber) {
+    List<QuranAya> allAyasInSura =
+        quranProvider.allSurasTamil[selectedSura - 1].listOfAyas;
 
-  int findAyaIndex(int selectedSura, int selectedAyaNumber){
-    List<QuranAya> allAyasInSura = quranProvider.allSurasTamil[selectedSura-1].listOfAyas;
-
-    int ayaIndex = allAyasInSura.indexWhere(
-            (element) => element.ayaNumberList.contains(selectedAyaNumber.toString()));
+    int ayaIndex = allAyasInSura.indexWhere((element) =>
+        element.ayaNumberList.contains(selectedAyaNumber.toString()));
 
     return ayaIndex + 1;
   }
