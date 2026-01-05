@@ -49,7 +49,8 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
         int selectedSuraStartingPage =
             MadaniDataSource().pageForSuraArray[selectedSuraNumber - 1];
 
-        int targetPage = 604 - selectedSuraStartingPage; // Account for reversed navigation
+        int targetPage =
+            604 - selectedSuraStartingPage; // Account for reversed navigation
         pageController.animateToPage(
           targetPage,
           duration: const Duration(milliseconds: 10),
@@ -72,7 +73,9 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
         controller: pageController,
         itemCount: 604, // Total Quran pages
         itemBuilder: (context, index) {
-          final pageNumber = (604 - index).toString().padLeft(3, '0'); // Format with leading zeros
+          final pageNumber = (604 - index)
+              .toString()
+              .padLeft(3, '0'); // Format with leading zeros
           return Image.asset(
             'assets/quran_pages/page$pageNumber.png',
             fit: BoxFit.contain,
@@ -93,19 +96,14 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
     int suraNumber = MadaniDataSource().suraForPageArray[pageNumber - 1];
     if (quranProvider.selectedSuraNumber != suraNumber) {
       quranProvider.selectedSuraNumber = suraNumber;
-      print("Updated Sura Number: $suraNumber");
     }
-      AppPreferences.setInt('lastSeenPageArabic', pageNumber);
-      print(AppPreferences.getInt("lastSeenPageArabic"));
-
-
+    AppPreferences.setInt('lastSeenPageArabic', pageNumber);
   }
-
-
 
   void updateCurrentSura2(int pageNumber) {
     // Find the sura corresponding to the page number using pageForSuraArray
-    int suraNumber = 1; // Default to first sura (assuming Sura 1 starts on page 1)
+    int suraNumber =
+        1; // Default to first sura (assuming Sura 1 starts on page 1)
 
     // Iterate through pageForSuraArray to find the sura number for the given page number
     for (int i = 0; i < MadaniDataSource().pageForSuraArray.length; i++) {
@@ -119,7 +117,6 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
     // Only update if the sura number has changed
     if (quranProvider.selectedSuraNumber != suraNumber) {
       quranProvider.selectedSuraNumber = suraNumber;
-      print("Updated Sura Number: $suraNumber");
     }
   }
 }

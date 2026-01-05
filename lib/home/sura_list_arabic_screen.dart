@@ -17,40 +17,33 @@ class SuraListArabicScreen extends StatefulWidget {
 class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
   late final quranProvider = Provider.of<QuranProvider>(context, listen: true);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
           quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       body: Column(
-
         children: [
-                  ElevatedButton.icon(
-  onPressed: () {
-    
-  int pageNumber = AppPreferences.getInt('lastPageNumber') ?? 1;
-  int suraNumber = AppPreferences.getInt('lastSuraNumber') ?? 1;
-  quranProvider.selectedSuraNumber = suraNumber;
+          ElevatedButton.icon(
+            onPressed: () {
+              int pageNumber = AppPreferences.getInt('lastPageNumber') ?? 1;
+              int suraNumber = AppPreferences.getInt('lastSuraNumber') ?? 1;
+              quranProvider.selectedSuraNumber = suraNumber;
 
-  print("Navigating to Sura Number: $suraNumber");
-  print("Navigating to Page Number: $pageNumber");
-
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => SuraArabicScreen(initialPageNumber: pageNumber),
-    ),
-  );
-
-  },
-  label: const Text('Continue...'),
-  icon: const Icon(Icons.menu_book_sharp),
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.green, // Replace with your desired color
-  ),
-),
-
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      SuraArabicScreen(initialPageNumber: pageNumber),
+                ),
+              );
+            },
+            label: const Text('Continue...'),
+            icon: const Icon(Icons.menu_book_sharp),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green, // Replace with your desired color
+            ),
+          ),
           Expanded(
             child: ListView.separated(
               itemCount: SuraDetails.suraListAll.length,
@@ -60,15 +53,19 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                     quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
               ),
               itemBuilder: (BuildContext context, int index) {
-                final sura = quranProvider.selectedTranslation == 'pj' ? SuraDetails.suraListPj[index] :SuraDetails.suraListAll[index];
+                final sura = quranProvider.selectedTranslation == 'pj'
+                    ? SuraDetails.suraListPj[index]
+                    : SuraDetails.suraListAll[index];
 
                 return ListTile(
                   leading: Text(
                     '${sura.suraNumber}. ',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      color: quranProvider.isDarkMode ? Colors.white: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      color: quranProvider.isDarkMode
+                          ? Colors.white
+                          : Colors.black45,
                     ),
                   ),
                   title: Text(
@@ -76,11 +73,12 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: quranProvider.isDarkMode ? Colors.white : Colors.black,
+                      color: quranProvider.isDarkMode
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   ),
-                  subtitle:
-                      Text('${HomeTexts.verseCount} ${sura.verseCount}'),
+                  subtitle: Text('${HomeTexts.verseCount} ${sura.verseCount}'),
                   trailing: Image.asset(
                     'assets/images/sura_headers/Surah_${sura.suraNumber}.png',
                     color:

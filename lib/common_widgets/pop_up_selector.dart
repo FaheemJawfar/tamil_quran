@@ -36,20 +36,22 @@ class _PopupSelectorState<T> extends State<PopupSelector<T>> {
       title: Text(widget.title),
       content: SizedBox(
         width: double.maxFinite,
-        child: ListView(
-          shrinkWrap: true,
-          children: widget.listOfItems.map((item) {
-            return RadioListTile<T>(
-              title: Text(widget.displayNameExtractor(item)),
-              value: item,
-              groupValue: selectedItem,
-              onChanged: (value) {
-                setState(() {
-                  selectedItem = value as T;
-                });
-              },
-            );
-          }).toList(),
+        child: RadioGroup<T>(
+          groupValue: selectedItem,
+          onChanged: (value) {
+            setState(() {
+              selectedItem = value as T;
+            });
+          },
+          child: ListView(
+            shrinkWrap: true,
+            children: widget.listOfItems.map((item) {
+              return RadioListTile<T>(
+                title: Text(widget.displayNameExtractor(item)),
+                value: item,
+              );
+            }).toList(),
+          ),
         ),
       ),
       actions: <Widget>[

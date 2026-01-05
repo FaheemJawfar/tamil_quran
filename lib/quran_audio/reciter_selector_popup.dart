@@ -38,20 +38,22 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
       title: const Text(QuranAudioTexts.chooseReciter),
       content: SizedBox(
         width: double.maxFinite,
-        child: ListView(
-          shrinkWrap: true,
-          children: widget.reciters.map((reciter) {
-            return RadioListTile(
-              title: Text(reciter.name),
-              value: reciter.identifier,
-              groupValue: selectedReciter,
-              onChanged: (value) {
-                setState(() {
-                  selectedReciter = value as String;
-                });
-              },
-            );
-          }).toList(),
+        child: RadioGroup<String>(
+          groupValue: selectedReciter,
+          onChanged: (value) {
+            setState(() {
+              selectedReciter = value as String;
+            });
+          },
+          child: ListView(
+            shrinkWrap: true,
+            children: widget.reciters.map((reciter) {
+              return RadioListTile<String>(
+                title: Text(reciter.name),
+                value: reciter.identifier,
+              );
+            }).toList(),
+          ),
         ),
       ),
       actions: <Widget>[

@@ -5,7 +5,6 @@ import '../app_texts/home_texts.dart';
 import '../app_config/color_config.dart';
 import '../providers/quran_provider.dart';
 import '../about/about_us.dart';
-import '../support_us/support_screen.dart';
 import '../settings/settings_screen.dart';
 
 class HomeScreenPopupMenu extends StatefulWidget {

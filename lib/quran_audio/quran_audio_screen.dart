@@ -72,7 +72,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         quranProvider.selectedReciterDetails,
         selectedSuraIndex + 1,
       );
-      print(newUrl);
 
       if (currentUrl != newUrl) {
         //  await audioPlayer.setUrl(newUrl);

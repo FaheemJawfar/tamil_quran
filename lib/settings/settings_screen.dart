@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamil_quran/app_texts/settings_texts.dart';
@@ -32,7 +31,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.dark_mode),
               title: const Text(SettingsTexts.darkMode),
               trailing: Switch(
-                activeColor: quranProvider.isDarkMode ? Colors.grey: ColorConfig.primaryColor,
+                  activeThumbColor: quranProvider.isDarkMode
+                      ? Colors.grey
+                      : ColorConfig.primaryColor,
                   value: quranProvider.isDarkMode,
                   onChanged: (value) {
                     quranProvider.isDarkMode = value;
@@ -257,20 +258,22 @@ class _ShowTranslationSelectorState extends State<ShowTranslationSelector> {
       title: const Text(SettingsTexts.selectTranslation),
       content: SizedBox(
         width: double.maxFinite,
-        child: ListView(
-          shrinkWrap: true,
-          children: widget.translations.keys.map((String key) {
-            return RadioListTile(
-              title: Text(widget.translations[key]!),
-              value: key,
-              groupValue: selectedTranslation,
-              onChanged: (value) {
-                setState(() {
-                  selectedTranslation = value as String;
-                });
-              },
-            );
-          }).toList(),
+        child: RadioGroup<String>(
+          groupValue: selectedTranslation,
+          onChanged: (value) {
+            setState(() {
+              selectedTranslation = value as String;
+            });
+          },
+          child: ListView(
+            shrinkWrap: true,
+            children: widget.translations.keys.map((String key) {
+              return RadioListTile<String>(
+                title: Text(widget.translations[key]!),
+                value: key,
+              );
+            }).toList(),
+          ),
         ),
       ),
       actions: <Widget>[
@@ -323,23 +326,25 @@ class _ShowFontSelectorState extends State<ShowFontSelector> {
       title: const Text(SettingsTexts.selectFont),
       content: SizedBox(
         width: double.maxFinite,
-        child: ListView(
-          shrinkWrap: true,
-          children: widget.translationFonts.map((String font) {
-            return RadioListTile(
-              title: Text(
-                widget.label,
-                style: TextStyle(fontFamily: font),
-              ),
-              value: font,
-              groupValue: selectedFont,
-              onChanged: (value) {
-                setState(() {
-                  selectedFont = value as String;
-                });
-              },
-            );
-          }).toList(),
+        child: RadioGroup<String>(
+          groupValue: selectedFont,
+          onChanged: (value) {
+            setState(() {
+              selectedFont = value as String;
+            });
+          },
+          child: ListView(
+            shrinkWrap: true,
+            children: widget.translationFonts.map((String font) {
+              return RadioListTile<String>(
+                title: Text(
+                  widget.label,
+                  style: TextStyle(fontFamily: font),
+                ),
+                value: font,
+              );
+            }).toList(),
+          ),
         ),
       ),
       actions: <Widget>[

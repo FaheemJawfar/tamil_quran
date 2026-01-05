@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:just_audio/just_audio.dart';
 
 class QuranAudioPlayerHelper {
-
   static AudioPlayer audioPlayer = AudioPlayer(
     audioPipeline: AudioPipeline(
       androidAudioEffects: [],
@@ -24,17 +23,8 @@ class QuranAudioPlayerHelper {
 
   static void playAudioPlayList(
       List<AudioSource> playList, void Function() onAudioFinished) async {
-
     // Define the playlist
-    final playlist = ConcatenatingAudioSource(
-      // Start loading next item just before reaching it
-      useLazyPreparation: true,
-      // Customise the shuffle algorithm
-      shuffleOrder: DefaultShuffleOrder(),
-      children: playList,
-    );
-
-    await audioPlayer.setAudioSource(playlist,
+    await audioPlayer.setAudioSources(playList,
         initialIndex: 0, initialPosition: Duration.zero);
     await audioPlayer.play();
 
