@@ -45,9 +45,9 @@ dependencies:
   custom_cupertino_picker: ^2.0.3
   package_info_plus: ^4.1.0
   http: ^1.1.0
-  just_audio: ^0.9.35
+  just_audio: ^0.10.5
   device_info_plus: ^9.0.3
-  just_audio_background: ^0.0.1-beta.10
+  just_audio_background: ^0.0.1-beta.17
   path_provider: ^2.1.1
 
 
