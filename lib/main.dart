@@ -35,12 +35,14 @@ class MyApp extends StatelessWidget {
 
       child: Builder(
         builder: (context) {
-          return MaterialApp(
-            title: AppConfig.appName,
-            debugShowCheckedModeBanner: false,
-            theme: context.watch<QuranProvider>().quranTheme,
-            home: const SplashScreen(),
-
+          return SafeArea(
+            child: MaterialApp(
+              title: AppConfig.appName,
+              debugShowCheckedModeBanner: false,
+              theme: context.watch<QuranProvider>().quranTheme,
+              home: const SplashScreen(),
+            
+            ),
           );
         }
       ),
