@@ -64,6 +64,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
     quranProvider = Provider.of<QuranProvider>(context);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const ReadSuraAppBar(
         arabicOnly: true,
       ),
@@ -90,11 +91,35 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
 
   void updateCurrentSura(int pageNumber) {
     int suraNumber = MadaniDataSource().suraForPageArray[pageNumber - 1];
-    AppPreferences.setInt('lastPageNumber', pageNumber);
-    AppPreferences.setInt('lastSuraNumber', suraNumber);
-    quranProvider.selectedSuraNumber = suraNumber;
+    if (quranProvider.selectedSuraNumber != suraNumber) {
+      quranProvider.selectedSuraNumber = suraNumber;
+      print("Updated Sura Number: $suraNumber");
+    }
+      AppPreferences.setInt('lastSeenPageArabic', pageNumber);
+      print(AppPreferences.getInt("lastSeenPageArabic"));
 
-    print("Updated Sura Number: $suraNumber");
-    print("Updated Page Number: $pageNumber");
+
+  }
+
+
+
+  void updateCurrentSura2(int pageNumber) {
+    // Find the sura corresponding to the page number using pageForSuraArray
+    int suraNumber = 1; // Default to first sura (assuming Sura 1 starts on page 1)
+
+    // Iterate through pageForSuraArray to find the sura number for the given page number
+    for (int i = 0; i < MadaniDataSource().pageForSuraArray.length; i++) {
+      if (pageNumber >= MadaniDataSource().pageForSuraArray[i]) {
+        suraNumber = i + 1; // Sura numbers are 1-based
+      } else {
+        break;
+      }
+    }
+
+    // Only update if the sura number has changed
+    if (quranProvider.selectedSuraNumber != suraNumber) {
+      quranProvider.selectedSuraNumber = suraNumber;
+      print("Updated Sura Number: $suraNumber");
+    }
   }
 }

@@ -33,7 +33,7 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
       quranProvider.selectedSuraNumber = newSura;
 
       if (widget.arabicOnly) {
-        scrollToStartArabic();
+       // scrollToStartArabic();
       } else {
         widget.tamilScrollController?.scrollTo(
           index: 0,
@@ -73,11 +73,11 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
           icon: const Icon(
               Icons.info_outlined),
         ),
-        IconButton(
+        if (!widget.arabicOnly) IconButton(
           onPressed: () => _navigateSura(-1),
           icon: const Icon(Icons.navigate_before),
         ),
-        IconButton(
+        if (!widget.arabicOnly) IconButton(
           onPressed: () => _navigateSura(1),
           icon: const Icon(Icons.navigate_next),
         ),
