@@ -9,7 +9,7 @@ class HomeTexts {
   static const String verseCount = 'வசனங்கள்:';
 
   // Sura List Tamil Screen
-  static const String continueReading = 'வாசிப்பைத் தொடர்க...';
+  static const String continueReading = 'தொடர்ந்து ஓதுக...';
 
 // Home Screen
   static const String translation = 'மொழிபெயர்ப்பு';

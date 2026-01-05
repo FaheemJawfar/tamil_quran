@@ -37,13 +37,11 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   @override
   void initState() {
     super.initState();
-    //QuranAudioPlayerHelper.audioPlayer.dispose();
     initAudioPlayer();
   }
 
-  initAudioPlayer() {
+  void initAudioPlayer() {
     try {
-      // audioPlayer = QuranAudioPlayerHelper.audioPlayer;
       audioPlayer.durationStream.listen((updatedDuration) {
         if (!mounted) return;
         setState(() {
@@ -75,17 +73,13 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       );
 
       if (currentUrl != newUrl) {
-        //  await audioPlayer.setUrl(newUrl);
-
         await audioPlayer.setAudioSource(
           AudioSource.uri(
             Uri.parse(newUrl),
             tag: MediaItem(
-              // Specify a unique ID for each media item:
               id: selectedSuraIndex.toString(),
-              // Metadata to display in the notification:
               album: quranProvider.selectedReciterDetails.name,
-              title: getSuraName(selectedSuraIndex),
+              title: SuraDetails.suraListAll[selectedSuraIndex].tamilName,
               artUri: await ImageUriParser.getImageFileFromAssets(
                   'assets/icon/quran_icon.png'),
             ),
@@ -95,10 +89,6 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
         position = Duration.zero;
       }
 
-      setState(() {
-        audioPlayer.playing;
-      });
-
       audioPlayer.play();
       setState(() {
         isLoading = false;
@@ -107,16 +97,16 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
       debugPrint(e.toString());
       bool hasInternet = await checkInternetConnection();
       if (!hasInternet) {
-        return;
+        setState(() {
+          isLoading = false;
+        });
       }
     }
   }
 
   void pauseAudio() {
     audioPlayer.pause();
-    setState(() {
-      audioPlayer.playing;
-    });
+    setState(() {});
   }
 
   void seekAudio(Duration duration) {
@@ -124,7 +114,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   void playNext() {
-    if (selectedSuraIndex != 113) {
+    if (selectedSuraIndex < SuraDetails.suraListAll.length - 1) {
       setState(() {
         selectedSuraIndex++;
       });
@@ -133,7 +123,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
   }
 
   void playPrevious() {
-    if (selectedSuraIndex != 0) {
+    if (selectedSuraIndex > 0) {
       setState(() {
         selectedSuraIndex--;
       });
@@ -141,18 +131,9 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    // audioPlayer.dispose();
-    super.dispose();
-  }
-
   Future<bool> checkInternetConnection() async {
     bool connected = await CheckConnection.checkInternetConnection();
     if (!connected) {
-      setState(() {
-        isLoading = false;
-      });
       if (mounted) {
         ShowToast.showToast(context, QuranAudioTexts.checkInternetConnection);
       }
@@ -163,33 +144,23 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
 
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
-    String hours =
-        (duration.inHours > 0) ? '${twoDigits(duration.inHours)}:' : '';
     String minutes = twoDigits(duration.inMinutes.remainder(60));
     String seconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return "$hours$minutes:$seconds";
-  }
-
-  String getSuraName(int index) {
-    SuraDetails selectedSura = SuraDetails.suraListAll[index];
-
-    if (selectedSura.tamilMeaning != null) {
-      return '${selectedSura.tamilName} - (${selectedSura.tamilMeaning!})';
-    }
-    return selectedSura.tamilName;
+    return "$minutes:$seconds";
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: quranProvider.isDarkMode
-          ? ColorConfig.cardDark.withAlpha(128)
-          : ColorConfig.popupColor,
+          ? const Color(0xFF121212)
+          : const Color(0xFFE8F5EE), // More distinct light green background
       appBar: AppBar(
-        title: FittedBox(
-            fit: BoxFit.contain,
-            child: Text(quranProvider.selectedReciterDetails.name)),
+        title: Text(
+          quranProvider.selectedReciterDetails.name,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        elevation: 0,
         actions: [
           IconButton(
               onPressed: () {
@@ -207,133 +178,293 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                   },
                 );
               },
-              icon: const Icon(LucideIcons.userPen)),
+              icon: const Icon(LucideIcons.userPlus)),
           const HomeScreenPopupMenu(),
         ],
       ),
-      body: Column(children: [
-        Expanded(
-          child: ListView.separated(
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: SuraDetails.suraListAll.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(
-                  '${SuraDetails.suraListAll[index].suraNumber}. ${getSuraName(index)}',
-                  style: TextStyle(
-                      color: selectedSuraIndex == index
-                          ? ColorConfig.textDark
-                          : quranProvider.isDarkMode
-                              ? ColorConfig.textSecondaryDark
-                              : ColorConfig.textLight,
-                      fontSize: 18),
-                ),
-                onTap: () {
-                  setState(() {
-                    selectedSuraIndex = index;
-                  });
-                  playAudio();
-                },
-                tileColor: selectedSuraIndex == index
-                    ? quranProvider.isDarkMode
-                        ? ColorConfig.cardDark.withAlpha(128)
-                        : ColorConfig.primaryColor.withAlpha(77)
-                    : null,
-              );
-            },
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: double.infinity,
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: quranProvider.isDarkMode
-                  ? Colors.black45
-                  : ColorConfig.popupColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(15),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Flexible(
-                  child: Text(
-                    getSuraName(selectedSuraIndex),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15),
-                    textAlign: TextAlign.center,
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              itemCount: SuraDetails.suraListAll.length,
+              itemBuilder: (context, index) {
+                final isSelected = selectedSuraIndex == index;
+                final sura = SuraDetails.suraListAll[index];
+
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? ColorConfig.primaryColor.withAlpha(25)
+                        : quranProvider.isDarkMode
+                            ? Colors.black26
+                            : ColorConfig.backgroundColor,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isSelected
+                          ? ColorConfig.primaryColor
+                          : Colors.transparent,
+                      width: 1,
+                    ),
+                    boxShadow: [
+                      if (!isSelected)
+                        BoxShadow(
+                          color: Colors.black.withAlpha(10),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                    ],
                   ),
+                  child: ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? ColorConfig.primaryColor
+                            : ColorConfig.primaryColor.withAlpha(30),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${index + 1}',
+                          style: TextStyle(
+                            color: isSelected
+                                ? Colors.white
+                                : ColorConfig.primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      sura.tamilName,
+                      style: TextStyle(
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.w600,
+                        fontSize: 16,
+                        color: isSelected
+                            ? ColorConfig.primaryColor
+                            : quranProvider.isDarkMode
+                                ? Colors.white
+                                : Colors.black87,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '${sura.tamilMeaning ?? ""} • ${sura.verseCount} Verses',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: isSelected
+                            ? ColorConfig.primaryColor
+                            : quranProvider.isDarkMode
+                                ? Colors.white70
+                                : Colors.black54,
+                      ),
+                    ),
+                    trailing: isSelected && audioPlayer.playing
+                        ? const Icon(LucideIcons.volume2,
+                            color: ColorConfig.primaryColor)
+                        : Icon(
+                            LucideIcons.circlePlay,
+                            color: isSelected
+                                ? ColorConfig.primaryColor
+                                : Colors.grey.withAlpha(100),
+                            size: 20,
+                          ),
+                    onTap: () {
+                      setState(() {
+                        selectedSuraIndex = index;
+                      });
+                      playAudio();
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+          _buildPlayerControlPanel(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPlayerControlPanel() {
+    final sura = SuraDetails.suraListAll[selectedSuraIndex];
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 15, 20, 25),
+      decoration: BoxDecoration(
+        color: quranProvider.isDarkMode
+            ? const Color(0xFF1E1E1E)
+            : ColorConfig.popupColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(50),
+            blurRadius: 15,
+            spreadRadius: 2,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Current Surah Info
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: ColorConfig.primaryColor.withAlpha(30),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                Slider(
-                  value: suraPlayed ? position.inSeconds.toDouble() : 0,
-                  min: 0.0,
-                  max: suraPlayed ? duration.inSeconds.toDouble() : 0,
-                  onChanged: (double value) {
-                    seekAudio(Duration(seconds: value.toInt()));
-                  },
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: const Icon(LucideIcons.music,
+                    color: ColorConfig.primaryColor, size: 24),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      suraPlayed
-                          ? formatDuration(position)
-                          : formatDuration(Duration.zero),
-                      style: const TextStyle(fontSize: 18),
+                      sura.tamilName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: ColorConfig.primaryColor,
+                      ),
                     ),
                     Text(
-                      isLoading || !suraPlayed
-                          ? formatDuration(Duration.zero)
-                          : formatDuration(duration),
-                      style: const TextStyle(fontSize: 18),
+                      quranProvider.selectedReciterDetails.name,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: quranProvider.isDarkMode
+                            ? Colors.white70
+                            : Colors.black87,
+                      ),
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(
-                        LucideIcons.skipBack,
-                        size: 40,
-                      ),
-                      onPressed: playPrevious,
-                    ),
-                    IconButton(
-                      icon: isLoading
-                          ? LoadingIndicator(
-                              color: quranProvider.isDarkMode
-                                  ? ColorConfig.textSecondaryDark
-                                  : ColorConfig.primaryColor,
-                            )
-                          : audioPlayer.playing && suraPlayed
-                              ? const Icon(
-                                  LucideIcons.circlePause,
-                                  size: 40,
-                                )
-                              : const Icon(LucideIcons.circlePlay, size: 40),
-                      onPressed: audioPlayer.playing ? pauseAudio : playAudio,
-                    ),
-                    IconButton(
-                      icon: const Icon(
-                        LucideIcons.skipForward,
-                        size: 40,
-                      ),
-                      onPressed: playNext,
-                    ),
-                  ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          // Progress Slider
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              trackHeight: 4,
+              activeTrackColor: ColorConfig.primaryColor,
+              inactiveTrackColor: ColorConfig.primaryColor.withAlpha(50),
+              thumbColor: ColorConfig.primaryColor,
+              overlayColor: ColorConfig.primaryColor.withAlpha(30),
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 7),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 16),
+            ),
+            child: Slider(
+              value: suraPlayed ? position.inSeconds.toDouble() : 0,
+              min: 0.0,
+              max: suraPlayed ? duration.inSeconds.toDouble() : 1.0,
+              onChanged: (double value) {
+                if (suraPlayed) {
+                  seekAudio(Duration(seconds: value.toInt()));
+                }
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  formatDuration(position),
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: quranProvider.isDarkMode
+                          ? Colors.white70
+                          : Colors.black87,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  formatDuration(duration),
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: quranProvider.isDarkMode
+                          ? Colors.white70
+                          : Colors.black87,
+                      fontWeight: FontWeight.w500),
                 ),
               ],
             ),
           ),
-        ),
-      ]),
+          const SizedBox(height: 12),
+          // Controls
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                icon: const Icon(LucideIcons.skipBack, size: 30),
+                onPressed: playPrevious,
+                color: ColorConfig.primaryColor,
+              ),
+              GestureDetector(
+                onTap: () {
+                  if (audioPlayer.playing) {
+                    pauseAudio();
+                  } else {
+                    playAudio();
+                  }
+                },
+                child: Container(
+                  width: 65,
+                  height: 65,
+                  decoration: BoxDecoration(
+                    color: ColorConfig.primaryColor,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorConfig.primaryColor.withAlpha(80),
+                        blurRadius: 15,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: isLoading
+                        ? const SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: LoadingIndicator(color: Colors.white),
+                          )
+                        : Icon(
+                            audioPlayer.playing
+                                ? LucideIcons.pause
+                                : LucideIcons.play,
+                            size: 32,
+                            color: Colors.white,
+                          ),
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(LucideIcons.skipForward, size: 30),
+                onPressed: playNext,
+                color: ColorConfig.primaryColor,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

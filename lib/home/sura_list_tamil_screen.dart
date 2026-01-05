@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_flutter/lucide_flutter.dart';
 import 'package:provider/provider.dart';
 import '../app_config/color_config.dart';
 import '../app_texts/home_texts.dart';
@@ -33,29 +34,29 @@ class _SuraListTamilScreenState extends State<SuraListTamilScreen> {
 
   Widget _buildContinueReadingButton() {
     if (AppPreferences.getInt('lastSeenVerse') != null) {
-      return OutlinedButton(
-        onPressed: () {
-          int? sura = AppPreferences.getInt('lastSeenSura');
-          int? verse = AppPreferences.getInt('lastSeenVerse');
-          quranProvider.selectedSuraNumber = sura!;
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => SuraTranslationScreen(
-                        goToVerse: verse!,
-                      )));
-        },
-        style: quranProvider.isDarkMode
-            ? ColorConfig.darkModeButtonStyle
-            : OutlinedButton.styleFrom(
-                side: const BorderSide(color: ColorConfig.primaryColor),
-              ),
-        child: Text(
-          HomeTexts.continueReading,
-          style: TextStyle(
-            color: quranProvider.isDarkMode
-                ? Colors.white
-                : ColorConfig.primaryColor,
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: OutlinedButton.icon(
+          onPressed: () {
+            int? sura = AppPreferences.getInt('lastSeenSura');
+            int? verse = AppPreferences.getInt('lastSeenVerse');
+            quranProvider.selectedSuraNumber = sura!;
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SuraTranslationScreen(
+                          goToVerse: verse!,
+                        )));
+          },
+          icon: const Icon(LucideIcons.bookOpen, size: 18),
+          label: const Text(
+            HomeTexts.continueReading,
+          ),
+          style: OutlinedButton.styleFrom(
+            side: const BorderSide(color: ColorConfig.primaryColor, width: 1.5),
+            shape: const StadiumBorder(),
+            foregroundColor: ColorConfig.primaryColor,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
           ),
         ),
       );

@@ -122,6 +122,8 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
               ),
             ],
           )),
+      actionsAlignment: MainAxisAlignment.spaceEvenly,
+      actionsPadding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
       actions: [
         showVersePickupButton('Cancel', () {
           Navigator.of(context).pop();
@@ -141,18 +143,22 @@ class _SuraVersePickerScreenState extends State<SuraVersePickerScreen> {
   }
 
   Widget showVersePickupButton(String label, void Function()? onPressed) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: quranProvider.isDarkMode
-          ? ColorConfig.darkModeButtonStyle
-          : ElevatedButton.styleFrom(
-              backgroundColor: ColorConfig.backgroundColor,
-            ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
-          fontWeight: FontWeight.bold,
+    return SizedBox(
+      width: 120, // More balanced width for the buttons
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: ColorConfig.backgroundColor,
+          foregroundColor: ColorConfig.primaryColor,
+          elevation: 0,
+          shape: const StadiumBorder(), // Pill shape
+          padding: const EdgeInsets.symmetric(vertical: 12),
+        ),
+        child: Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

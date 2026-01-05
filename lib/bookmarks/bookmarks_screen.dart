@@ -31,53 +31,111 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                 textAlign: TextAlign.center,
               ),
             )
-          : ListView.separated(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
+          : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               itemCount: quranProvider.bookmarkList.length,
-              separatorBuilder: (context, index) => Divider(
-                thickness: 1,
-                color:
-                    quranProvider.isDarkMode ? null : ColorConfig.primaryColor,
-              ),
               itemBuilder: (context, index) {
                 Bookmark currentBookmark = quranProvider.bookmarkList[index];
-                return ListTile(
-                  onTap: () => onBookmarkSelected(
-                    int.parse(currentBookmark.suraNumber),
-                    int.parse(currentBookmark.verseNumber),
-                  ),
-                  leading: CircleAvatar(
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(
-                            '${currentBookmark.suraNumber}:${currentBookmark.verseNumber}'),
+                final suraNumber = int.parse(currentBookmark.suraNumber);
+                final verseNumber = int.parse(currentBookmark.verseNumber);
+                final ayaTranslation = quranProvider
+                    .filterOneAyaTranslationFromSearch(suraNumber, verseNumber);
+
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: quranProvider.isDarkMode
+                        ? const Color(0xFF1E1E1E)
+                        : ColorConfig.popupColor,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black
+                            .withAlpha(quranProvider.isDarkMode ? 40 : 15),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
                       ),
+                    ],
+                    border: Border.all(
+                      color: quranProvider.isDarkMode
+                          ? Colors.white10
+                          : ColorConfig.primaryColor.withAlpha(20),
                     ),
                   ),
-                  title: RichText(
-                    text: quranProvider.getArabicAyaListFromTranslation(
-                        quranProvider.filterOneAyaTranslationFromSearch(
-                            int.parse(currentBookmark.suraNumber),
-                            int.parse(currentBookmark.verseNumber)),
-                        16),
-                    textDirection: TextDirection.rtl,
-                  ),
-                  subtitle: Text(quranProvider
-                      .filterOneAyaTranslationFromSearch(
-                          int.parse(currentBookmark.suraNumber),
-                          int.parse(currentBookmark.verseNumber))
-                      .text),
-                  trailing: IconButton(
-                    icon: const Icon(LucideIcons.trash2),
-                    onPressed: () {
-                      quranProvider.deleteBookmark(
-                          Bookmark(
-                              suraNumber: currentBookmark.suraNumber,
-                              verseNumber: currentBookmark.verseNumber),
-                          context);
-                    },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: InkWell(
+                      onTap: () => onBookmarkSelected(suraNumber, verseNumber),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 20,
+                                  backgroundColor:
+                                      ColorConfig.primaryColor.withAlpha(30),
+                                  child: Text(
+                                    '$suraNumber:$verseNumber',
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorConfig.primaryColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            RichText(
+                              text:
+                                  quranProvider.getArabicAyaListFromTranslation(
+                                      ayaTranslation, 20),
+                              textDirection: TextDirection.rtl,
+                              textAlign: TextAlign.right,
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              ayaTranslation.text,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: quranProvider.isDarkMode
+                                    ? Colors.white70
+                                    : Colors.black87,
+                                height: 1.5,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  icon:
+                                      const Icon(LucideIcons.trash2, size: 18),
+                                  color: quranProvider.isDarkMode
+                                      ? Colors.white38
+                                      : Colors.black38,
+                                  onPressed: () {
+                                    quranProvider.deleteBookmark(
+                                        Bookmark(
+                                            suraNumber:
+                                                currentBookmark.suraNumber,
+                                            verseNumber:
+                                                currentBookmark.verseNumber),
+                                        context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 );
               },

@@ -35,6 +35,7 @@ class _ReciterSelectorPopupState extends State<ReciterSelectorPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: quranProvider.isDarkMode ? null : ColorConfig.popupColor,
       title: const Text(QuranAudioTexts.chooseReciter),
       content: SizedBox(
         width: double.maxFinite,

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'read_sura_popup_menu.dart';
 import 'sura_details.dart';
-import '../app_config/color_config.dart';
 import '../providers/quran_provider.dart';
 
 class ReadSuraAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -75,7 +74,7 @@ class _ReadSuraAppBarState extends State<ReadSuraAppBar> {
             visualDensity: VisualDensity.compact,
             onPressed: () => showSuraInfo(context),
             iconSize: 20,
-            icon: const Icon(LucideIcons.info, color: ColorConfig.primaryColor),
+            icon: const Icon(LucideIcons.info, color: Colors.white),
           ),
         if (!widget.arabicOnly)
           IconButton(

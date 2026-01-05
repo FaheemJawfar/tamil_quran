@@ -25,25 +25,32 @@ class _SuraListArabicScreenState extends State<SuraListArabicScreen> {
           quranProvider.isDarkMode ? null : ColorConfig.backgroundColor,
       body: Column(
         children: [
-          ElevatedButton.icon(
-            onPressed: () {
-              int pageNumber = AppPreferences.getInt('lastPageNumber') ?? 1;
-              int suraNumber = AppPreferences.getInt('lastSuraNumber') ?? 1;
-              quranProvider.selectedSuraNumber = suraNumber;
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: OutlinedButton.icon(
+              onPressed: () {
+                int pageNumber = AppPreferences.getInt('lastPageNumber') ?? 1;
+                int suraNumber = AppPreferences.getInt('lastSuraNumber') ?? 1;
+                quranProvider.selectedSuraNumber = suraNumber;
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      SuraArabicScreen(initialPageNumber: pageNumber),
-                ),
-              );
-            },
-            label: const Text('Continue...'),
-            icon: const Icon(LucideIcons.bookOpen),
-            style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  ColorConfig.primaryColor, // Replace with your desired color
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        SuraArabicScreen(initialPageNumber: pageNumber),
+                  ),
+                );
+              },
+              label: const Text(HomeTexts.continueReading),
+              icon: const Icon(LucideIcons.bookOpen, size: 18),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(
+                    color: ColorConfig.primaryColor, width: 1.5),
+                shape: const StadiumBorder(),
+                foregroundColor: ColorConfig.primaryColor,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              ),
             ),
           ),
           Expanded(

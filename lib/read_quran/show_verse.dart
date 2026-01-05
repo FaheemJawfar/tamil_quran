@@ -131,41 +131,39 @@ class _ShowVerseState extends State<ShowVerse> {
           ));
         }
 
-        // Wrap the number and position it above the text using a Stack
+        // Wrap the number in a styled circular badge for better UX
         spans.add(
           WidgetSpan(
-            child: Stack(
-              children: [
-                Text(
+            alignment: PlaceholderAlignment.middle,
+            child: GestureDetector(
+              onTap: () {
+                int tappedNumber =
+                    int.parse(text.substring(match.start, match.end));
+                showExplanationPopup(context, tappedNumber);
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: ColorConfig.primaryColor.withAlpha(40),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: ColorConfig.primaryColor,
+                    width: 1,
+                  ),
+                ),
+                child: Text(
                   text.substring(match.start, match.end),
                   style: TextStyle(
-                    fontSize: quranProvider.tamilFontSize * 0.8,
-                    // Adjust the size as needed
+                    fontSize: quranProvider.tamilFontSize * 0.6,
                     fontFamily: 'NotoSansTamil',
                     color: quranProvider.isDarkMode
-                        ? ColorConfig.textSecondaryDark
-                        : ColorConfig.buttonColor,
-                    // fontWeight: FontWeight.bold,
+                        ? ColorConfig.textDark
+                        : ColorConfig.primaryColor,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Positioned(
-                  top: -quranProvider.tamilFontSize * 0.4,
-                  // Adjust the position as needed
-                  child: GestureDetector(
-                    child: Container(
-                      color: Colors.transparent,
-                      width: 150.0, // Adjust the width as needed
-                      height: 150.0, // Adjust the height as needed
-                    ),
-                    onTap: () {
-                      int tappedNumber =
-                          int.parse(text.substring(match.start, match.end));
-
-                      showExplanationPopup(context, tappedNumber);
-                    },
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         );
