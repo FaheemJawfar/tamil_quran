@@ -25,15 +25,23 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
   void initState() {
     super.initState();
     // Set initial page, default to page 603 if no initialPageNumber is provided
-    int initialPage = 604 - (widget.initialPageNumber ?? 0);
+    // Standardize initial page calculation (Index 603 = Page 1, Index 0 = Page 604)
+    int initialPage = 604 - (widget.initialPageNumber ?? 1);
+    if (initialPage > 603) initialPage = 603;
+    if (initialPage < 0) initialPage = 0;
+
     pageController = PageController(initialPage: initialPage);
 
     pageController.addListener(() {
+      if (!pageController.hasClients) return;
+
       int currentPageNumber = (604 - pageController.page!.round()).toInt();
+      if (currentPageNumber < 1) currentPageNumber = 1;
+      if (currentPageNumber > 604) currentPageNumber = 604;
 
       // Debounce to avoid frequent updates during fast scrolling
       debounceTimer?.cancel();
-      debounceTimer = Timer(const Duration(milliseconds: 200), () {
+      debounceTimer = Timer(const Duration(milliseconds: 300), () {
         if (lastPageNumber != currentPageNumber) {
           lastPageNumber = currentPageNumber;
           updateCurrentSura(currentPageNumber);
@@ -42,7 +50,9 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       quranProvider = Provider.of<QuranProvider>(context, listen: false);
+
       if (widget.initialPageNumber == null) {
         // Smooth scroll to the selected Sura's starting page if no initial page is provided
         int selectedSuraNumber = quranProvider.selectedSuraNumber;
@@ -53,7 +63,8 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
             604 - selectedSuraStartingPage; // Account for reversed navigation
         pageController.animateToPage(
           targetPage,
-          duration: const Duration(milliseconds: 10),
+          duration: const Duration(
+              milliseconds: 300), // Slightly slower for smoothness
           curve: Curves.easeInOut,
         );
       }
@@ -97,6 +108,7 @@ class _SuraArabicScreenState extends State<SuraArabicScreen> {
     if (quranProvider.selectedSuraNumber != suraNumber) {
       quranProvider.selectedSuraNumber = suraNumber;
     }
+    AppPreferences.setInt('lastSeenSuraArabic', suraNumber);
     AppPreferences.setInt('lastSeenPageArabic', pageNumber);
   }
 

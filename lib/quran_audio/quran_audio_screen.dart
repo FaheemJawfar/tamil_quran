@@ -144,9 +144,14 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
 
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
-    String minutes = twoDigits(duration.inMinutes.remainder(60));
-    String seconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$minutes:$seconds";
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes.remainder(60);
+    final seconds = duration.inSeconds.remainder(60);
+
+    if (hours > 0) {
+      return "$hours:${twoDigits(minutes)}:${twoDigits(seconds)}";
+    }
+    return "${twoDigits(minutes)}:${twoDigits(seconds)}";
   }
 
   @override
@@ -389,7 +394,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                 Text(
                   formatDuration(position),
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       color: quranProvider.isDarkMode
                           ? Colors.white70
                           : Colors.black87,
@@ -398,7 +403,7 @@ class _QuranAudioPlayerScreenState extends State<QuranAudioPlayerScreen> {
                 Text(
                   formatDuration(duration),
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       color: quranProvider.isDarkMode
                           ? Colors.white70
                           : Colors.black87,
