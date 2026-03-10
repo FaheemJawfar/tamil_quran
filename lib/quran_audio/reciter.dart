@@ -36,7 +36,7 @@ class Reciter {
 
   static final recitersJsonList = [
     {
-      "identifier": "alafasy-pj",
+      "identifier": "alafasy-pj-low",
       "language": "ta",
       "name": "மிஷாரி ராஷித் அல்-அபாஸி",
       "englishName": "Mishary Rashid Al-Afasy",

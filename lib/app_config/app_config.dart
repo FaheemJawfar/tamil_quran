@@ -16,6 +16,6 @@ class AppConfig {
   static const double defaultTranslationFontSize = 19;
   static const double defaultArabicFontSize = 25;
   static const String defaultTranslation = 'john_trust';
-  static const String defaultReciter = 'alafasy-pj';
+  static const String defaultReciter = 'alafasy-pj-low';
 
 }
